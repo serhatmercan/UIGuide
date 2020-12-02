@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TableSelectDialog multiSelect="true" search="onSearchTSD" confirm="onConfirmTSD" cancel="onCancelTSD" items="{ path : '/ListSet' }">
+		<ColumnListItem>
+			<cells>
+				<ObjectIdentifier title="{Value}" text="{ValueName} {ValueResult}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column>
+				<header>
+					<Text text="Value"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+</core:FragmentDefinition>

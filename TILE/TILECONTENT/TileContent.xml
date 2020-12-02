@@ -1,0 +1,20 @@
+<HeaderContainer id="idHeaderContainer">
+	<FlexBox id="idFlexBox" justifyContent="Center">
+		<TileContent unit="EUR" footer="Güncel Kur">
+			<content>
+				<NumericContent value="6.39" valueColor="Error" indicator="Down" scale="M" press="onPress"/>
+			</content>
+		</TileContent>
+		<TileContent />
+	</FlexBox>
+</HeaderContainer>
+
+<!-- NUMERIC CONTENT - ATTRIBUTES -->
+<!-- 
+
+icon="sap-icon://error"
+
+valueColor="Good"
+indicator="Up"
+
+-->

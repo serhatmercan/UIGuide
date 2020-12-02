@@ -1,0 +1,5 @@
+<Toolbar id="idToolbar">
+	<Title id="idTitle" text="Title"/>
+	<ToolbarSpacer/>
+	<Button id="idButton" text="Button" press="onPress"/>
+</Toolbar>

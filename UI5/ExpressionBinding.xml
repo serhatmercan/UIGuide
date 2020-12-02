@@ -1,0 +1,18 @@
+<!-- OPERATION -->
+<ObjectIdentifier text="{= parseInt(${model>Value1})} - {= parseInt(${model>Value2})}"/>
+<!-- IF - ELSE -->
+<Text visible="{= ${model>/checkData} || ${model>/checkValue} }"/>
+<!-- IF - ELSE -->
+<ObjectIdentifier title="{= ${model>Statu} === '' ? ${model>Value1} : ${model>Value2}}"
+	text="{= ${model>Statu} ? ${model>Value1} : ${model>Value2} }"/>
+<!-- IF - ELSE -->
+<Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }"/>
+<!-- IF - ELSE -->
+<Input enabled="{= !!${oModel>Value} }"/>
+<!-- Value ; Contains Data => Enabled = True -->
+<!-- IF : Two Conditions - ELSE -->
+<Input visible="{= ${objectView>/newMachConf} || ${objectView>/editMode} === true ? false : true }"/>
+<!-- IF : Not True -->
+<Input enabled="{=$ !{viewModel>/Busy}}"/>
+<!-- IF : AND Operator -->
+<Input enabled="{= ${colorCodeModel>/Detail/PantoneStatu} &amp;&amp; ${colorCodeModel>/Info/Statu} === 'Dış'}"/>

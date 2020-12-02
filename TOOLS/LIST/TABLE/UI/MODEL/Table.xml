@@ -1,0 +1,54 @@
+<table:Table id="idTable" rows="{tableModel>/}" width="auto" rowActionCount="1" selectionMode="None">
+	<table:extension>
+		<OverflowToolbar>
+			<Title text="{i18n>table}"/>
+			<ToolbarSpacer/>
+			<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddColumn"/>
+			<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddRow"/>
+			<Button type="Reject" icon="sap-icon://less" tooltip="{i18n>deleteRow}" press="onDeleteRow"/>
+			<Button type="Accept" icon="sap-icon://accept" tooltip="{i18n>save}" press="onSave"/>
+		</OverflowToolbar>
+	</table:extension>
+	<table:columns>
+		<table:Column hAlign="Center">
+			<Label text="{i18n>Value}"/>
+			<table:template>
+				<ObjectIdentifier title="{tableModel>Value}"/>
+			</table:template>
+		</table:Column>
+	</table:columns>
+	<table:rowActionTemplate>
+		<table:RowAction>
+			<table:items>
+				<table:RowActionItem type="Navigation" press="onShow"/>
+			</table:items>
+		</table:RowAction>
+	</table:rowActionTemplate>
+</table:Table>
+<!-- table TABLE - ATTRIBUTE -->
+<!-- 
+
+xmlns:table="sap.ui.table"
+
+class="sapUiResponsiveMargin"
+
+rowHeight="50px"
+
+title="Table Title"
+
+width="50%"
+selectionMode="MultiSelect" 
+	
+visibleRowCountMode="Auto" visibleRowCountMode="Fixed"
+visibleRowCount="10" minAutoRowCount="10" 
+
+growing="true" growingScrollToLoad="true" growingThreshold="10"
+
+enableSelectAll="false"
+
+rowSelectionChange="onRowSelectionChange"
+
+<!-- table TABLE - COLUMN - ATTRIBUTE -->
+<!--
+width="10rem"
+-->

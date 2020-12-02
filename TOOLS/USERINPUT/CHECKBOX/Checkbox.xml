@@ -1,0 +1,12 @@
+<CheckBox id="idCheckBox" selected="{model>/Value}"/>
+
+<!-- CHECKBOX ATTRIBUTES -->
+<!-- 
+
+width="auto"
+
+text="Check Box Text" 
+ 
+selected="true"
+
+-->

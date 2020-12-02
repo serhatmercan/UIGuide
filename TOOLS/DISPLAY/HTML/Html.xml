@@ -1,0 +1,3 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core">
+	<core:HTML content='&lt;iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://community.sap.com/&quot;&gt;&lt;/iframe&gt;'/>
+</mvc:View>

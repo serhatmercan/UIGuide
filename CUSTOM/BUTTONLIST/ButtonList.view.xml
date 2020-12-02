@@ -1,0 +1,10 @@
+<HBox>
+	<Input id="idInput" value="{model>/Value}" change="onChangeInput"/>
+	<ndc:BarcodeScannerButton scanSuccess="onScanSuccessButton"/>
+	<Button id="idButton" icon="sap-icon://list" press="onPressButton" text="{model>/Count}"/>
+</HBox>
+
+<!-- BUTTON LIST ATTRIBUTES -->
+<!--
+xmlns:ndc="sap.ndc"
+-->

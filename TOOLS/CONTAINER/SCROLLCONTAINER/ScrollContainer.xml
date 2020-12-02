@@ -1,0 +1,13 @@
+<ScrollContainer id="idScrollContainer">
+</ScrollContainer>
+
+<!-- SCROLL CONTAINER - ATTRIBUTES -->
+<!--
+
+height="100%" 
+width="100%" 
+
+horizontal="true" 
+focusable="true"
+
+-->

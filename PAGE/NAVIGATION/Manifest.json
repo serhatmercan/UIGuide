@@ -1,0 +1,45 @@
+{
+	"sap.ui5": {
+		"routing": {
+			"routes": [{
+				"pattern": "ViewName/",
+				"name": "viewName",
+				"target": [
+					"master",
+					"viewName"
+				]
+			}, {
+				"pattern": "ViewNameValue/{id}",
+				"name": "viewNameValue",
+				"target": [
+					"object",
+					"viewNameValue"
+				]
+			}, {
+				"pattern": "ViewNameValueNull/{id},:null:,{value}",
+				"name": "viewNameValueNull",
+				"target": [
+					"object",
+					"viewNameValueNull"
+				]
+			}],
+			"targets": {
+				"viewName": {
+					"viewName": "ViewName",
+					"viewId": "viewName",
+					"viewLevel": 1
+				},
+				"viewNameValue": {
+					"viewName": "ViewNameValue",
+					"viewId": "viewNameValue",
+					"viewLevel": 2
+				},
+				"viewNameValueNull": {
+					"viewName": "ViewNameValueNull",
+					"viewId": "viewNameValueNull",
+					"viewLevel": 3
+				}
+			}
+		}
+	}
+}

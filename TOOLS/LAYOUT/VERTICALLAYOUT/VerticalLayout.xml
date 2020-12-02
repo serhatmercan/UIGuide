@@ -1,0 +1,15 @@
+<l:VerticalLayout id="idVL">
+	<l:content>
+	</l:content>		
+</l:VerticalLayout>
+
+<!-- VERTICAL LAYOUT ATTRIBUTES -->
+<!--
+
+xmlns:l="sap.ui.layout"
+
+class="sapUiContentPadding" 
+
+width="100%"
+
+-->

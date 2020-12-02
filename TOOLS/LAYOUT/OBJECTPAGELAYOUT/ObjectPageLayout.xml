@@ -1,0 +1,41 @@
+<!--xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"-->
+<ObjectPageLayout id="idOPL">
+	<headerTitle>
+		<ObjectPageDynamicHeaderTitle>
+			<actions>
+				<m:OverflowToolbarButton press="onPress"/>
+			</actions>
+		</ObjectPageDynamicHeaderTitle>
+	</headerTitle>
+	<sections>
+		<ObjectPageSection>
+			<subSections>
+				<ObjectPageSubSection title="{i18n>oPSS1}">
+					<blocks>
+						<form:SmartForm>
+							<form:Group>
+								<form:GroupElement>
+									<smartField:SmartField value="{ID}"/>
+								</form:GroupElement>
+							</form:Group>
+							<form:Group>
+								<form:GroupElement>
+									<smartField:SmartField value="{Value}"/>
+								</form:GroupElement>
+							</form:Group>
+						</form:SmartForm>
+					</blocks>
+				</ObjectPageSubSection>
+			</subSections>
+		</ObjectPageSection>
+		<ObjectPageSection>
+			<subSections>
+				<ObjectPageSubSection title="{i18n>oPSS2}">
+					<blocks>
+						<core:Fragment type="XML" fragmentName="..."/>
+					</blocks>
+				</ObjectPageSubSection>
+			</subSections>
+		</ObjectPageSection>
+	</sections>
+</ObjectPageLayout>

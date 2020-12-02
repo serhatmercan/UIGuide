@@ -1,0 +1,4 @@
+/* Custom Data Button Display*/
+[data-btn="X"] > .sapMLIBSelectD {
+    display: none; 
+}

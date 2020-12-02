@@ -1,0 +1,8 @@
+<Wizard id="idWizard" complete="onCompleteWizard">
+	<WizardStep id="idWS1" title="{i18n>ws1}">
+		<core:Fragment fragmentName="..." type="XML"/>
+	</WizardStep>
+	<WizardStep id="idWS2" title="{i18n>ws2}">
+		<core:Fragment fragmentName="..." type="XML"/>
+	</WizardStep>
+</Wizard>

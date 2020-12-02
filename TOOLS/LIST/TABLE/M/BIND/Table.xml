@@ -1,0 +1,30 @@
+<Table id="idTable" items="{ path: '/TableSet', sorter: { path: 'Id', descending: false } }">
+	<headerToolbar>
+		<Toolbar>
+			<Title id="idToolbarTitle" text="Toolbar Title"/>
+		</Toolbar>
+	</headerToolbar>
+	<columns>
+		<Column>
+			<Text text="Name"/>
+		</Column>
+	</columns>
+	<items>
+		<ColumnListItem>
+			<cells>
+				<Label text="{Name}"/>
+			</cells>
+		</ColumnListItem>
+	</items>
+</Table>
+
+<!-- TABLE - ATTRIBUTES -->
+<!--
+
+class="sapUiResponsiveMargin"
+
+width="auto"  
+
+mode="MultiSelect"
+
+-->

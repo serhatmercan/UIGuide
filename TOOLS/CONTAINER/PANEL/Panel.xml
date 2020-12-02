@@ -1,0 +1,12 @@
+<Panel id="idPanel"></Panel>
+
+<!-- GENERAL - ATTRIBUTES -->
+<!-- 
+
+width="100%" 
+class="sapUiNoContentPadding"
+
+expanded="true" 
+expandable="false"
+
+--> 	

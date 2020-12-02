@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="idSD" title="Select Dialog - Title" items="{ path: '/SelectDialogSet' }" contentHeight="auto" confirm="onConfirmSD"
+		cancel="onCancelSD">
+		<StandardListItem title="{Title}" description="{Description}" info="{Info}" type="Active"/>
+	</SelectDialog>
+</core:FragmentDefinition>
+
+<!-- SELECT DIALOG - ATTRIBUTE --->
+<!--
+
+onSearch="onSearchSD"
+
+-->

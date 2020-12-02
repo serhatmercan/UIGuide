@@ -1,0 +1,1 @@
+<ObjectHeader number="{ path: 'model>/Value', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3, maxFractionDigits: 3 } }" />

@@ -1,0 +1,20 @@
+<!-- DATE TYPES -->
+<DateTimeInput value="{path: 'model>/Date', type: 'sap.ui.model.type.Date'}" type="Date" change="onChangeDTI"/>
+
+<DateRangeSelection dateValue="{mode>/Date1}" secondDateValue="{model>/Date2}"/>
+
+
+<!--
+
+DATE TIME INPUT - ATTRIBUTES
+
+id="idDTI" 
+name="nameDTI" 
+
+visible="true" 
+
+DATE RANGE SELECTION - ATTRIBUTES
+
+displayFormat="short" 
+
+-->

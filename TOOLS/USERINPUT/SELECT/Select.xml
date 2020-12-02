@@ -1,0 +1,22 @@
+<Select items="{listModel>/}" selectedKey="{listModel>/Key}" change="onChangeSelect">
+	<core:Item key="{listModel>Key}" text="{listModel>Text}"/>
+</Select>
+<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" required="true">
+	<core:ListItem key="{Key}" text="{Text}"/>
+</Select>
+<!-- SELECT ATTRIBUTES -->
+<!-- 
+
+xmlns:core="sap.ui.core"
+
+width="5rem"
+
+forceSelection="true" 
+
+valueState="Error"
+
+valueStateText="Error Occured"
+
+items="{path:'listModel>/' , templateShareable: 'true'}"
+
+-->

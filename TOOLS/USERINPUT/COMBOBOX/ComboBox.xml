@@ -1,0 +1,5 @@
+<ComboBox id="idComboBox" items="{/ComboBoxSet}" value="{model>/Value}" selectedKey="{model>/Value}" showButton="true" showSecondaryValues="true" change="onChangeCB" required="true">
+	<items>
+		<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}"/>
+	</items>
+</ComboBox>

@@ -1,0 +1,31 @@
+<fb:FilterBar search="onSearch">
+	<fb:filterItems>
+		<fb:FilterItem name="Value" label="{i18n>Value}">
+			<fb:control>
+				<Input value="{model>/Value}"/>
+			</fb:control>
+		</fb:FilterItem>
+	</fb:filterItems>
+</fb:FilterBar>
+
+<!-- 
+
+ADD 
+
+xmlns:fb="sap.ui.comp.filterbar"
+
+FILTER BAR - ATTRIBUTES
+
+reset="onReset" 
+clear="onClear" 
+cancel="onCancel" 
+
+filtersDialogClosed="onFiltersDialogClosed"
+						 
+showRestoreButton="false" 
+showClearButton="false" 
+showCancelButton="false" 
+
+filterBarExpanded="false"
+
+-->

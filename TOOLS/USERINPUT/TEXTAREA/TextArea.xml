@@ -1,0 +1,1 @@
+<TextArea value="{model>Value}" width="100%" valueLiveUpdate="true" rows="5" growing="true" maxLength="1000"/>

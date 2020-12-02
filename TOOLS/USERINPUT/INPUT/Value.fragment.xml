@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="idSDValue" items="{ path: '/VHValueSet', suspended: true }" title="{i18n>value}" search="onSearchSDValue"
+		confirm="onConfirmSDValue" contentHeight="auto" cancel="onCancelSDValue">
+		<StandardListItem title="{Value}" description="{ValueTxt}"/>
+	</SelectDialog>
+</core:FragmentDefinition>

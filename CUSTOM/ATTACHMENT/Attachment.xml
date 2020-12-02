@@ -1,0 +1,43 @@
+<mvc:View controllerName="com.serhatmercan.Attachment" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic">
+	<semantic:FullscreenPage id="idPage" title="Page Title" showNavButton="true" navButtonPress="onNavBack">
+		<semantic:content>
+			<Table id="idTable" class="sapUiResponsiveMargin" width="auto" mode="SingleSelectLeft"
+				items="{ path: '/AttachmentSet', sorter: { path: 'Firstname', descending: false } }">
+				<columns>
+					<Column id="idID">
+						<Text text="{i18n>ID}"/>
+					</Column>
+					<Column id="idFirstnameColumn" hAlign="Center">
+						<Text text="{i18n>Firstname}"/>
+					</Column>
+					<Column id="idLastnameColumn" hAlign="Center">
+						<Text text="{i18n>Lastname}"/>
+					</Column>
+					<Column id="idAgeColumn" hAlign="Right">
+						<Text text="{i18n>Age}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectIdentifier title="{Id}"/>
+							<Text text="{Firstname}"/>
+							<Text text="{Lastname}"/>
+							<Text text="{Age}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button text="{i18n>PDFDownload}" press="onPDFDownload" icon="sap-icon://pdf-attachment" iconFirst="true" tooltip="{i18n>PDFDownload}"/>
+			<Button text="{i18n>ExcelDownload}" press="onExcelDownload" icon="sap-icon://excel-attachment" iconFirst="true"
+				tooltip="{i18n>ExcelDownload}"/>
+			<Button text="{i18n>UploadAttachment}" press="onUploadAttachment" icon="sap-icon://upload" iconFirst="true"
+				tooltip="{i18n>UploadAttachment}"/>
+			<Button text="{i18n>DownloadAttachment}" press="onDownloadAttachment" icon="sap-icon://download" iconFirst="true"
+				tooltip="{i18n>DownloadAttachment}"/>
+			<Button text="{i18n>UploadDownload}" press="onUploadDownload" icon="sap-icon://repost" iconFirst="true" tooltip="{i18n>UploadDownload}"/>
+		</semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>

@@ -1,0 +1,3 @@
+<Text text="{ parts: [ { path: 'i18n>Value1' }, { path: 'i18n>Value2' }, { path: 'model>/Values' } ], formatter: '.formatter.concatValues' }"/>
+
+<Text text="{ path: 'Value', formatter: '.formatter.removeLeading'}" type="Active"/>

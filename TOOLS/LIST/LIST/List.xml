@@ -1,0 +1,21 @@
+<mvc:View controllerName="serhatmercan.controller.List" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<List id="idList" headerText="List Title" items="{model>/Values}">
+		<StandardListItem title="{model>Id}" description="{model>Value}"/>
+	</List>
+</mvc:View>
+
+<!-- LIST - ATTRIBUTES -->
+<!--
+
+growing="true"
+mode="SingleSelectMaster" mode="Delete"
+delete="onDeleteList"
+itemPress="onItemPress"
+-->
+
+<!-- STANDARD LIST ITEM - ATTRIBUTES -->
+<!--
+
+counter="{model>Counter}"
+
+-->

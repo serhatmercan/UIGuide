@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog>
+		<List items="{model>/Values}">
+			<StandardListItem title="{model>Value}">
+				<customData>
+					<core:CustomData key="btn" value="X" writeToDom="true"/>
+				</customData>
+			</StandardListItem>
+		</List>
+	</Dialog>
+</core:FragmentDefinition>

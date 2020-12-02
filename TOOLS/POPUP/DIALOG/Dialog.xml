@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="idDialog" title="Dialog Title" afterClose="onAfterCloseDialog" contentWidth="100rem" contentHeight="auto" stretch="true">
+		<content>
+			<Label text="{viewModel>Value/Value1}"/>
+		</content>
+		<!--	<buttons>
+			<Button text="{i18n>button1}" press="onPressButton1"/>
+			<Button text="{i18n>button2}" press="onPressButton2"/>
+			<Button text="{i18n>button3}" press="onPressButton3"/>
+		</buttons>-->
+		<!--		<Toolbar>
+			<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+				press="onShowMessages"/>
+			<ToolbarSpacer/>
+			<Button text="{i18n>button2}" press="onPressButton2"/>
+			<Button text="{i18n>button3}" press="onPressButton3"/>
+		</Toolbar>-->
+		<beginButton>
+			<Button text="{i18n>continue}" press="onPressContinue"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>cancel}" press="onPressCancel"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
+<!-- DIALOG ATTRIBUTES -->
+<!-- 
+
+class="sapUiContentPadding" 
+
+busy="false"
+busyIndicatorDelay="0"
+
+stretchOnPhone="true" 
+		
+horizontalScrolling="false" 
+verticalScrolling="false"  
+
+showHeader="true"
+
+afterClose="onAfterClose" 
+-->

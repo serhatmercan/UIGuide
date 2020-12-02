@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>DownloadAttachment}" stretch="true" showHeader="true" afterClose="onAfterCloseDownload">
+		<customHeader>
+			<OverflowToolbar class="toolbarBorder">
+				<ToolbarSpacer/>
+				<Title text="{i18n>DownloadAttachment}" class="sapUiTinyMarginBegin"/>
+				<ToolbarSpacer/>
+			</OverflowToolbar>
+		</customHeader>
+		<content>
+			<ScrollContainer horizontal="false" vertical="true" width="100%" height="100%">
+				<UploadCollection id="idDownloadCollection" multiple="false" items="{/AttachmentsSet}" uploadButtonInvisible="true" mode="SingleSelectLeft"
+					fileDeleted="onFileDeletedDownload">
+					<items>
+						<UploadCollectionItem documentId="{Guid}" fileName="{Filename}" mimeType="{Mimetype}" visibleEdit="false"/>
+					</items>
+				</UploadCollection>
+			</ScrollContainer>
+		</content>
+		<beginButton>
+			<Button text="{i18n>Download}" press="onDownload"/>
+		</beginButton>
+		<endButton>
+			<Button text="{i18n>Cancel}" press="onCancelDownload"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

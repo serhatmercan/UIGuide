@@ -1,0 +1,7 @@
+<OverflowToolbar>
+	<Title text=""/>
+	<ToolbarSpacer/>
+	<Label text="Text:"/>
+	<Input value="{model>/Value}"/>
+	<Button icon="sap-icon://add" tooltip="{i18n>add}" press="onAdd"/>
+</OverflowToolbar>

@@ -1,0 +1,30 @@
+<ui:Table id="idTable" rows="{ path: '/TableSet' }">
+	<ui:columns>
+		<ui:Column width="10rem">
+			<Label text="{i18n>value}"/>
+			<ui:template>
+				<Label text="{Value}"/>
+			</ui:template>
+		</ui:Column>
+	</ui:columns>
+</ui:Table>
+<!-- -->
+<!--
+
+class="sapUiResponsiveMargin"
+
+enableSelectAll="false"
+
+selectionMode="Single"
+selectionBehavior="RowSelector" 
+
+width="auto"
+visibleRowCountMode="Auto"
+	 
+fixedColumnCount="1"	 
+visibleRowCount="4" 
+minAutoRowCount="4"
+
+rowHeight="48px"
+
+-->

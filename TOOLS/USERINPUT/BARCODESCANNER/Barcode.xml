@@ -1,0 +1,8 @@
+<ndc:BarcodeScannerButton id="idBSB" scanSuccess="onScanSuccess"/>
+
+<!-- BARCODE SCANNER BUTTON - ATTRIBUTES -->
+<!--
+
+width="2rem"
+
+-->

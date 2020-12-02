@@ -1,0 +1,9 @@
+<Label text="Label Text" labelFor="Label ID"/>
+
+<!-- LABEL ATTRIBUTES -->
+<!--
+
+class="sapUiSmallMarginTop" class="sapUiSmallMarginBegin sapUiSmallMarginTop"
+design="Bold"
+
+-->

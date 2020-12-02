@@ -1,0 +1,1 @@
+<TimePicker displayFormat="HH:mm:ss" value="{ path: 'model>Value', type: 'sap.ui.model.odata.type.Time' }"></TimePicker>

@@ -1,0 +1,15 @@
+<mvc:View xmlns="sap.m">
+	<MultiInput editable="true" enableMultiLineMode="true" change="onChange" tokenChange="onTokenChange" valueHelpRequest="onValueHelpRequest"
+		tokens="{model>/List}">
+		<tokens>
+			<Token key="{model>Value}" text="{model>Value}"/>
+		</tokens>
+	</MultiInput>
+</mvc:View>
+
+<!-- MULTIINPUT ATTRIBUTES -->
+<!--
+
+width="calc(100% - 2rem)"
+
+-->

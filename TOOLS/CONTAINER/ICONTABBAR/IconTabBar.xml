@@ -1,0 +1,31 @@
+<IconTabBar id="idITB" select="onSelectITB" expandable="false">
+	<items>
+		<IconTabFilter text="{i18n>ITF1}" key="keyITF1" icon="sap-icon://activity-items">
+			<core:Fragment fragmentName="com.serhatmercan.fragment.fragmentName" type="XML"/>
+		</IconTabFilter>
+		<IconTabSeparator icon="sap-icon://open-command-field"/>
+		<IconTabFilter text="{i18n>ITF2}" key="keyITF2"></IconTabFilter>
+	</items>
+</IconTabBar>
+<!--
+
+ICON TAB BAR - ATTRIBUTES 
+
+selectedKey="Header" 
+class="sapUiNoContentPadding" class="sapUiResponsiveContentPadding"
+headerBackgroundDesign="Transparent" 
+expandable="false" 
+expanded="true" expanded="{device>/isNoPhone}" 
+stretchContentHeight="true" 
+
+ICON TAB FILTER - ATTRIBUTES
+
+icon="sap-icon://home" 
+iconColor="Positive" 
+design="Horizontal" 
+
+ICON TAB FILTER - CONTENT
+
+<core:Fragment fragmentName="com.serhatmercan.fragment.fragmentName" type="XML"/>
+
+-->

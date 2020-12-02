@@ -1,0 +1,74 @@
+<Table id="idTable" items="{tableModel>/}">
+	<headerToolbar>
+		<Toolbar>
+			<ToolbarSeparator/>
+		</Toolbar>
+	</headerToolbar>
+	<infoToolbar>
+		<Toolbar>
+			<ToolbarSeparator/>
+		</Toolbar>
+	</infoToolbar>
+	<columns>
+		<Column mergeDuplicates="true">
+			<Text text="{i18n>value1}"/>
+		</Column>
+		<Column mergeDuplicates="true">
+			<Text text="{i18n>value2}"/>
+		</Column>
+	</columns>
+	<items>
+		<ColumnListItem>
+			<cells>
+				<Text text="{tableModel>Value1}"/>
+				<Text text="{tableModel>Value2}"/>
+			</cells>
+		</ColumnListItem>
+	</items>
+</Table>
+<!-- 
+
+TABLE - ATTRIBUTES
+
+class="sapUiResponsiveMargin"
+
+width="auto" 
+mode="MultiSelect" mode="SingleSelectLeft"
+backgroundDesign="Transparent"
+
+noDataText="{model>/tableNoDataText}"
+busyIndicatorDelay="{model>/tableBusyDelay}"
+
+items="{ path: '/TableSet', suspended:true }"
+
+fixedLayout="true"
+
+growing="true" 
+growingScrollToLoad="true"
+growingThreshold="10"
+
+updateFinished="onUpdateFinished"
+
+COLUMN - ATTRIBUTES
+
+id="idColumn"
+
+width="10rem"
+
+hAlign="Begin" hAlign="Center" hAlign="Left"
+minScreenWidth="Tablet"
+popinDisplay="Inline" popinDisplay="Block" 
+
+demandPopin="true"
+fixedLayout="false"
+
+select="onSelectTable"
+
+COLUMN LIST ITEM - ATTRIBUTES
+
+vAlign="Middle"
+type="Navigation"
+
+press="onPress"
+
+-->

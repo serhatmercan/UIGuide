@@ -1,0 +1,14 @@
+<mvc:View controllerName="com.serhatmercan.controller.Menu" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage id="page" title="{i18n>masterTitle}" navButtonPress="onNavBack" showNavButton="true" showFooter="false"
+		enableScrolling="false">
+		<semantic:content>
+			<ScrollContainer width="100%" height="100%" horizontal="false" vertical="true">
+				<List id="idList" width="100%" items="{ path: 'menu>/', sorter: { path: 'group', group: true } }"
+					mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}" selectionChange="onMenuItemPress" updateFinished="onUpdateFinished">
+					<StandardListItem icon="{menu>icon}" title="{menu>text}" type="{= ${device>/system/phone} ? 'Active' : 'Inactive'}" press="onMenuItemPress"
+						iconDensityAware="false" iconInset="true" description=""/>
+				</List>
+			</ScrollContainer>
+		</semantic:content>
+	</semantic:MasterPage>
+</mvc:View>

@@ -1,0 +1,14 @@
+<!-- BUTTON - TYPES -->
+<Button text="Button" tooltip="Button Tooltip" type="Emphasized" icon="sap-icon://add" press="onPressButton"/>
+
+<!-- 
+
+BUTTON - ATTRIBUTES
+
+id="saveUsersButton" 
+class="sapUiSmallMarginTop sapUiSmallMarginBegin"
+type="Accept" type="Reject"
+
+visible=true
+iconFirst="true"
+-->

@@ -1,0 +1,9 @@
+<HBox id="idHBox" class="sapUiMediumMarginTop" justifyContent="SpaceBetween"></HBox>
+<!-- 
+Description: Setting One Or More Than Tools Horizontally in One Line 
+
+HBOX - ATTRIBUTES
+
+alignItems="Start"
+
+-->

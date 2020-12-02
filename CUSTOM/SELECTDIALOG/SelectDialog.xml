@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog id="idSelectDialog" title="Select Dialog" contentHeight="auto" items="{ path: '/SelectDialogSet' }" confirm="onConfirmSD"
+		cancel="onCancelSD">
+		<StandardListItem title="{ID}" description="{Description}" info="{Info}" type="Active"/>
+	</SelectDialog>
+</core:FragmentDefinition>
