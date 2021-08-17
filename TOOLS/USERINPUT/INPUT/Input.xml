@@ -1,13 +1,7 @@
 <!-- INPUT TYPES -->
-
 <Input value="{model>/Value}"/>
-
-<Input value="{ path: 'model>/Value', type: 'sap.ui.model.odata.type.String' }"/>
-
 <Input change="onChangeInput"/>
-
-<Input type="Number" value="{model>/Value}" textDirection= "RTL"/>
-
+<Input type="Number" value="{model>/Value}" textDirection="RTL"/>
 <!--
 
 INPUT - ATTRIBUTES 
@@ -15,6 +9,7 @@ INPUT - ATTRIBUTES
 id="idInput"
 name="nameInput"
 placeholder="pHInput" 
+textAlign="End"
 
 maxLength="10"
 width="25%"
@@ -26,11 +21,14 @@ required="true"
 valueLiveUpdate="true" 
 visible="true"
 
-value="{ , type: 'sap.ui.model.type.Integer' }"
+value="{ path: 'model>/Value' }"
+value="{ , type: 'sap.ui.model.type.Integer' }" 			->	'sap.ui.model.odata.type.String' || 'sap.ui.model.type.Float'
 value="{ , constraints: { minimum: '1', maximum: '99' } }"
+value="{ , type:'sap.ui.model.type.Float', formatOptions : { groupingEnabled: true, groupingSeparator: '.', decimalSeparator : ',', minFractionDigits: 3 } }"
+value="{ , type: 'sap.ui.model.type.Float', formatOptions: { precision:2, parseAsString: true} }"
 
 SEARCH HELP
 
-showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowVHValue
+showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowVHValue"
 
 -->

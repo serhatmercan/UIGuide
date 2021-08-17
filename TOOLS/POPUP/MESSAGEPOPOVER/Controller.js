@@ -6,6 +6,10 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		onInit: function () {
+			this.getRouter().getRoute("worklist").attachPatternMatched(this._onViewMatched, this);
+		},
+
 		_onObjectMatched: function (oEvent) {
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
@@ -16,7 +20,7 @@ sap.ui.define([
 
 		onShowMessages: function (oEvent) {
 			if (!this._oMessagePopover) {
-				this._oMessagePopover = sap.ui.xmlfragment("com.serhatmercan.fragment.MessagePopover", this);
+				this._oMessagePopover = sap.ui.xmlfragment("com.serhatmercan.fragment.base.MessagePopover", this);
 				oEvent.getSource().addDependent(this._oMessagePopover);
 			}
 			this._oMessagePopover.toggle(oEvent.getSource());

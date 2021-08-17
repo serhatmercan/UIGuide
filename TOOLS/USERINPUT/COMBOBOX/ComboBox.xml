@@ -1,4 +1,5 @@
-<ComboBox id="idComboBox" items="{/ComboBoxSet}" value="{model>/Value}" selectedKey="{model>/Value}" showButton="true" showSecondaryValues="true" change="onChangeCB" required="true">
+<ComboBox id="idComboBox" items="{ path:'/ComboBoxSet', suspended: true }" value="{model>/Value}" selectedKey="{model>/Value}"
+	showButton="true" showSecondaryValues="true" change="onChangeCB" required="true" loadItems="onLoadItemsCB">
 	<items>
 		<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}"/>
 	</items>

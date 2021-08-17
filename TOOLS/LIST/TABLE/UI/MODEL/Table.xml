@@ -25,7 +25,7 @@
 		</table:RowAction>
 	</table:rowActionTemplate>
 </table:Table>
-<!-- table TABLE - ATTRIBUTE -->
+<!-- TABLE - ATTRIBUTE -->
 <!-- 
 
 xmlns:table="sap.ui.table"
@@ -40,6 +40,7 @@ width="50%"
 selectionMode="MultiSelect" 
 	
 visibleRowCountMode="Auto" visibleRowCountMode="Fixed"
+enableColumnFreeze="true" visibleRowCountMode="Auto" visibleRowCount="{= ${tableModel>/Data}.length }"  
 visibleRowCount="10" minAutoRowCount="10" 
 
 growing="true" growingScrollToLoad="true" growingThreshold="10"

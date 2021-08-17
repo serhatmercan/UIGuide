@@ -51,6 +51,14 @@ sap.ui.define([
 			}
 		},
 
+		onLoadItemsCB: function () {
+			const aFilters = [
+				new Filter("Value", FilterOperator.EQ, "X")
+			];
+
+			oEvent.getSource().getBinding("items").filter(aFilters);
+		},
+
 		// Trigger to ComboBox
 		this.byId("idComboBox").fireSelectionChange({
 			selectedItem: sID
