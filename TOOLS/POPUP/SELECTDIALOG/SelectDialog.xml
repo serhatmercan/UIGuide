@@ -4,10 +4,11 @@
 		<StandardListItem title="{Title}" description="{Description}" info="{Info}" type="Active"/>
 	</SelectDialog>
 </core:FragmentDefinition>
-
 <!-- SELECT DIALOG - ATTRIBUTE --->
 <!--
+items="{ path: '/SelectDialogSet', suspended: true }"
 
 onSearch="onSearchSD"
 
+growing="true" growingScrollToLoad="true" growingThreshold="50"
 -->

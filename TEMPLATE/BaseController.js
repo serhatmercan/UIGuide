@@ -9,6 +9,7 @@ sap.ui.define([
 	/* 
 				CONTEXT
 	-> i18n: Resource Bundle							=> getResourceBundle
+	-> Show Messages									=> onShowMessages
 	-> JSON Model: Clear Model							=> _clearModel
 	-> JSON Model: Add Row To Table 					=> onAddRowToTable
 	-> JSON Model: Add Row Between Two Rows To Table	=> onAddRowBetweenTwoRowsToTable
@@ -47,6 +48,25 @@ sap.ui.define([
 
 		getResourceBundle: function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
+		},
+
+		onShowMessages: function (oEvent) {
+			const oMessagesButton = oEvent.getSource();
+
+			if (!this._oMessagePopover) {
+				this._oMessagePopover = new sap.m.MessagePopover({
+					items: {
+						path: "message>/",
+						template: new sap.m.MessagePopoverItem({
+							description: "{message>description}",
+							type: "{message>type}",
+							title: "{message>message}"
+						})
+					}
+				});
+				oMessagesButton.addDependent(this._oMessagePopover);
+			}
+			this._oMessagePopover.toggle(oMessagesButton);
 		},
 
 		_clearModel: function () {

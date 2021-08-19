@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument" busy="{viewModel>/Busy}">
+		<content>
+			<UploadCollection id="idDocumentUC" multiple="true" instantUpload="false" uploadUrl="{viewModel/DocumentUrl}"
+				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" items="{ path: '/DocumentSet',suspended: true }">
+				<items>
+					<UploadCollectionItem fileName="{Filename}" mimeType="{Mimetype}" documentId="{Guid}" url="{Url}" enableDelete="true"/>
+				</items>
+			</UploadCollection>
+		</content>
+		<Toolbar>
+			<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+				press="onShowMessages"/>
+			<ToolbarSpacer/>
+			<Button text="{i18n>ok}" type="Emphasized" press="onCUDocument"/>
+			<Button text="{i18n>close}" press="onCloseDocument"/>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>

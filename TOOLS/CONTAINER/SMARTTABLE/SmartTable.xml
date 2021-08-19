@@ -1,8 +1,8 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core" controllerName="com.serhatmercan.controller.SmartTable" height="100%">
 	<semantic:FullscreenPage showFooter="false">
-		<VBox fitContainer="true">
-			<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet">
+		<VBox fitContainer="true" busy="{viewModel>/Busy}">
+			<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP">
 				<smartFilterBar:layoutData>
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>

@@ -1,4 +1,4 @@
-<OverflowToolbar>
+<OverflowToolbar design="Transparent">
 	<Title text=""/>
 	<ToolbarSpacer/>
 	<Label text="Text:"/>

@@ -1,0 +1,11 @@
+<mvc:View controllerName="serhatmercan.controller.ControllerName" xmlns="sap.m" xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage id="idPage" title="{i18n>title}" busy="{viewModel>/Busy}" showFooter="{=${message>/}.length > 0}">
+		<semantic:titleHeading>
+			<Title text="{i18n>text}" level="H2"/>
+		</semantic:titleHeading>
+		<semantic:content></semantic:content>
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator press="onShowMessages"/>
+		</semantic:messagesIndicator>
+	</semantic:SemanticPage>
+</mvc:View>

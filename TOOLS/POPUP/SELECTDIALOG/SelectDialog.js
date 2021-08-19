@@ -23,7 +23,7 @@ sap.ui.define([
 				this.getView().addDependent(this._oSD);
 			}
 			// First Usage
-			
+
 			// Second Usage
 			let aFilters = [new Filter("Value", FilterOperator.Contains, "Value 1")];
 			if (!this._vhSD) {
@@ -34,7 +34,7 @@ sap.ui.define([
 			sap.ui.core.Fragment.byId("idVHSD", "idSD").getBinding("items").filter(aFilters);
 			jQuery.sap.syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), this._vhSD);
 			// Second Usage
-			
+
 			/*			
 			// BIND: Add Filter To Set
 			this._oSD._oDialog.attachBeforeOpen(function () {
@@ -83,7 +83,7 @@ sap.ui.define([
 
 			// Set Input Value
 			// oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
-			
+
 			// Set Value To Model Property
 			// this.getView().getModel("model").setProperty("/Value", oData.Value);
 
@@ -93,7 +93,7 @@ sap.ui.define([
 		onCancelSD: function () {
 			// w/ out ID
 			this._oSD.close();
-			
+
 			// w/ ID
 			this._oSD.destroy();
 			this._oSD = null;
@@ -106,7 +106,7 @@ sap.ui.define([
 				oBinding = oEvent.getSource().getBinding("items");
 
 			oBinding.filter([oFilter]);
-			
+
 			// Second Usage //
 			let aFilters = [new Filter("Value", FilterOperator.Contains, oEvent.getParameter("value"))];
 			oEvent.getParameter("itemsBinding").filter(aFilters);

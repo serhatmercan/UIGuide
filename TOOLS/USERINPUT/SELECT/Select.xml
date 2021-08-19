@@ -12,11 +12,9 @@ xmlns:core="sap.ui.core"
 width="5rem"
 
 forceSelection="true" 
-
 valueState="Error"
-
 valueStateText="Error Occured"
 
-items="{path:'listModel>/' , templateShareable: 'true'}"
+items="{path:'listModel>/' , templateShareable: 'true'}"	 items="{ path: '/VHSelectSet' }"
 
 -->

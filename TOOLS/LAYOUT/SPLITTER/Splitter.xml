@@ -1,0 +1,6 @@
+<!-- xmlns:l="sap.ui.layout" -->
+<l:Splitter>
+	<ui:Table></ui:Table>
+	<ui:Table></ui:Table>
+	<ui:Table></ui:Table>
+</l:Splitter>

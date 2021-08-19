@@ -1,7 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox"
+], function (BaseController, JSONModel, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -13,8 +14,8 @@ sap.ui.define([
 
 			this.setModel(oTableModel, "tableModel");
 		},
-		
-		_refreshTable: function() {
+
+		_refreshTable: function () {
 			this.byId("idTable").getBinding("items").refresh(true);
 		},
 
@@ -154,21 +155,22 @@ sap.ui.define([
 				return;
 			}
 
-			function fnConfirmDialog() {
-				let oTableModel = oTable.getModel(sModel),
-					oTableData = oTableModel.getProperty(sProperty),
-					aReverse = [].concat(oTable.getSelectedIndices()).reverse();
+			MessageBox.confirm(this.getResourceBundle().getText("infoDeleteRow"), {
+				onClose: (sAction) => {
+					if (sAction === MessageBox.Action.OK) {
+						const oTableModel = oTable.getModel(sModel);
+						const oTableData = oTableModel.getProperty(sProperty);
+						const aReverse = [].concat(oTable.getSelectedIndices()).reverse();
 
-				aReverse.forEach(function (index) {
-					oTableData.splice(index, 1);
-				});
+						aReverse.forEach(function (index) {
+							oTableData.splice(index, 1);
+						});
 
-				oTableModel.refresh();
-				oTable.setSelectedIndex(-1);
-			}
-
-			this._getConfirmDialog(this, "Message", "Warning", this.getResourceBundle().getText("warning"), this.getResourceBundle().getText(
-				"infoDeleteRow"), fnConfirmDialog);
+						oTableModel.refresh();
+						oTable.setSelectedIndex(-1);
+					}
+				}
+			});
 		}
 
 	});

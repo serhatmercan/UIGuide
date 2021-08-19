@@ -1,5 +1,4 @@
 <VBox id="idVBOX"></VBox>
-
 <!-- VBOX - ATTRIBUTES -->
 <!--
 
@@ -8,5 +7,7 @@ Description: Setting One Or More Than Tools Vertically in One Column
 class="sapUiSmallMarginBegin" 
 justifyContent="Start" 
 alignContent="Start"
+
+busy="true"
 
 -->
