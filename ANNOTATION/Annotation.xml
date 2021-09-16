@@ -37,6 +37,10 @@
 									<PropertyValue Property="ValueListProperty" String="Field"/>
 									<PropertyValue Property="LocalDataProperty" PropertyPath="Field"/>
 								</Record>
+								<Record Type="Common.ValueListParameterOut">
+									<PropertyValue Property="ValueListProperty" String="Title"/>
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Title"/>
+								</Record>
 								<Record Type="Common.ValueListParameterDisplayOnly">
 									<PropertyValue Property="ValueListProperty" String="Description"/>
 								</Record>

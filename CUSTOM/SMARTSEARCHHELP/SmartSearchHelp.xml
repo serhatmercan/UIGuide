@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<Dialog id="idDialogSSH" title="{i18n>title}" busy="{model>/Busy}">
+		<content>
+			<VBox fitContainer="true">
+				<smartFilterBar:SmartFilterBar id="idSFB" entitySet="VHSet" persistencyKey="SFPKey"/>
+				<smartTable:SmartTable id="idST" entitySet="VHSet" smartFilterId="idSFB" tableType="ResponsiveTable" initiallyVisibleFields="ID,Value"
+					enableAutoBinding="true" beforeRebindTable="onBRT" initialized="onInitST">
+					<Table id="idTable" growing="true" growingScrollToLoad="true" growingThreshold="100">
+						<items>
+							<ColumnListItem type="Navigation" press="onSelectSSH"/>
+						</items>
+					</Table>
+				</smartTable:SmartTable>
+			</VBox>
+		</content>
+		<endButton>
+			<Button text="{i18n>close}" type="Emphasized" press="onCloseSSH"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

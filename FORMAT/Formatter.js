@@ -49,6 +49,18 @@ sap.ui.define([], function () {
 			} else {
 				return false;
 			}
+		},
+
+		setRowHighlight: function (sValue) {
+			if (sValue === "R") {
+				return "Error";
+			} else if (sValue === "Y") {
+				return "Warning";
+			} else if (sValue === "G") {
+				return "Success";
+			} else {
+				return "None";
+			}
 		}
 
 	}

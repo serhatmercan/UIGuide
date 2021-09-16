@@ -46,6 +46,19 @@ sap.ui.define([
 				sIndex = aSelectedIndices.indexOf(sCurrentIndex);
 		},
 
+		_getSelectedDataFromTable: function () {
+			const oViewModel = this.getModel("viewModel");
+			const oTable = this.byId("idTable");
+			const aIndices = oTable.getSelectedIndices();
+			const aData = [];
+
+			aIndices.forEach((Index) => {
+				aData.push(oViewModel.getProperty(oTable.getContextByIndex(Index).getPath()));
+			});
+
+			return aData;
+		},
+
 		addDataSelectedTable: function () {
 			var oTable = this.getView().byId("idTable"),
 				aContexts = oTable.getBinding("rows").getContexts(),

@@ -1,8 +1,8 @@
 <Select items="{listModel>/}" selectedKey="{listModel>/Key}" change="onChangeSelect">
 	<core:Item key="{listModel>Key}" text="{listModel>Text}"/>
 </Select>
-<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" required="true">
-	<core:ListItem key="{Key}" text="{Text}"/>
+<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" required="true" showSecondaryValues="true">
+	<core:ListItem key="{Key}" text="{Text}" additionalText="{AdditionalText}"/>
 </Select>
 <!-- SELECT ATTRIBUTES -->
 <!-- 

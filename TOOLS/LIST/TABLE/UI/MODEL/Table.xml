@@ -1,4 +1,7 @@
 <table:Table id="idTable" rows="{tableModel>/}" width="auto" rowActionCount="1" selectionMode="None">
+	<table:rowSettingsTemplate>
+		<table:RowSettings highlight="{tableModel>Value}"/>
+	</table:rowSettingsTemplate>
 	<table:extension>
 		<OverflowToolbar>
 			<Title text="{i18n>table}"/>
@@ -38,7 +41,8 @@ title="Table Title"
 
 width="50%"
 selectionMode="MultiSelect" 
-	
+
+alternateRowColors="true"	
 visibleRowCountMode="Auto" visibleRowCountMode="Fixed"
 enableColumnFreeze="true" visibleRowCountMode="Auto" visibleRowCount="{= ${tableModel>/Data}.length }"  
 visibleRowCount="10" minAutoRowCount="10" 

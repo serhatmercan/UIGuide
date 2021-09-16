@@ -8,23 +8,51 @@ sap.ui.define([
 
 		onInit: function () {},
 
-		onShow: function (oEvent) {
-			let aContexts = this.byId("idTableST").getTable().getSelectedContexts();
+		onBRT: function (oEvent) {
+			const oBindingParams = oEvent.getParameter("bindingParams");
+			const oFilterPeriod = new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, "X");
 
-			for (let i = 0; i < aContexts.length; i++) {
-				this_sID = this.getModel().getProperty(aContexts[i].getPath() + "/ID");
+			oBindingParams.filters.push(oFilterPeriod);
+		},
+
+		onInitST: function () {
+			const oSmartFilter = this.byId("idSFB");
+			const oJSONData = {};
+			const oID = {};
+
+			this._sID = "X";
+
+			if (oSmartFilter && this._sID) {
+				oID = {
+					items: [{
+						key: this._sID
+					}]
+				};
+				oJSONData.ID = oID;
 			}
+
+			oSmartFilter.setFilterData(oJSONData);
+		},
+
+		onShow: function (oEvent) {
+			const aSmartTableContexts = this.byId("idST").getTable().getSelectedContexts();
+			const aTableContexts = this.byId("idTableST").getSelectedContexts();
+			const aIDs = [];
+
+			aTableContexts.forEach((Context) => {
+				aIDs.push(this.getModel().getProperty(Context.getPath() + "/ID"));
+			});
 		},
 
 		onDetail: function (oEvent) {
-			let sPath = oEvent.getSource().getBindingContextPath(),
-				oContext = this.getModel().getProperty(sPath);
+			const sPath = oEvent.getSource().getBindingContextPath();
+			const oContext = this.getModel().getProperty(sPath);
 
 			this._sID = oContext.ID;
 		},
 
 		_getSelectedData: function () {
-			const aContexts = this.byId("idTableST").getTable().getSelectedContexts();
+			const aContexts = this.byId("idTableST").getSelectedContexts();
 
 			if (aContexts.length > 0) {
 				this._oSelectedData = this.getModel().getProperty(aContexts[0].getPath());

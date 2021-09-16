@@ -1,7 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/PDFViewer"
+], function (BaseController, JSONModel, PDFViewer) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -23,6 +24,10 @@ sap.ui.define([
 			}
 
 			this._oDocument.open();
+		},
+
+		onCloseDocument: function () {
+			this._oDocument.close();
 		},
 
 		onBUSDocument: function (oEvent) {
@@ -63,11 +68,11 @@ sap.ui.define([
 				};
 			});
 
-			for (let i = 0; i < aOriginGuid.length; i++) {
-				if (aNewGuid.findIndex(x => x.Guid === aOriginGuid[i].Guid) === -1) {
-					aGuid.push(aOriginGuid[i].Guid);
+			aOriginGuid.forEach((OriginGuid) => {
+				if (aNewGuid.findIndex(x => x.Guid === OriginGuid.Guid) === -1) {
+					aGuid.push(OriginGuid.Guid);
 				}
-			}
+			});
 
 			this._deleteDocuments(aGuid);
 		},
@@ -78,6 +83,10 @@ sap.ui.define([
 			}
 
 			this.onCloseDocument();
+		},
+
+		onPrintout: function () {
+			this._getPrintout();
 		},
 
 		_addParameter: function (oCollection, sName, sValue) {
@@ -136,28 +145,63 @@ sap.ui.define([
 			oData.ID = "Documents";
 			oData.Documents = [];
 
-			for (let i = 0; i < aData.length; i++) {
+			aData.forEach((Data) => {
 				oData.Documents.push({
-					Guid: aData[i]
+					Guid: Data
 				});
-			}
+			});
 
 			oViewModel.setProperty("/Busy", true);
 
-			let fnSuccess = function () {
-				this._uploadDocument();
-			}.bind(this);
-
-			let fnReject = function () {};
-
-			let fnFinally = function () {
-				oViewModel.setProperty("/Busy", false);
-			};
-
 			this._sendMultiData("/DeepIDSet", oData, this.getModel())
-				.then(fnSuccess)
-				.catch(fnReject)
-				.finally(fnFinally);
+				.then((oData) => {
+					this._uploadDocument();
+				})
+				.catch((err) => {})
+				.finally(() => {
+					oViewModel.setProperty("/Busy", false);
+				});
+		},
+
+		_getPrintout: function () {
+			const aContexts = this.byId("idTable").getTable().getSelectedContexts();
+			let sID = "";
+
+			if (aContexts.length === 0) {
+				MessageToast.show(this.getResourceBundle().getText("infoChooseRow"));
+				return;
+			}
+
+			sID = aContexts.map(oContext => this.getModel().getProperty(oContext.getPath() + "/ID")).join("-");
+
+			this._openPdfViewer(sID);
+		},
+
+		_openPdfViewer: function (sID) {
+			const sServiceURL = this.getModel().sServiceUrl;
+			const oPDFViewer = new PDFViewer();
+			let sPath = "",
+				sDocumentPath = "";
+
+			sPath = this.getModel().createKey("/PrintoutSet", {
+				ID: sID
+			});
+
+			sDocumentPath = sServiceURL + sPath + "/$value";
+
+			oPDFViewer.setSource(sDocumentPath);
+			oPDFViewer.setTitle(this.getResourceBundle().getText("preview"));
+			oPDFViewer.open();
+		},
+
+		_sendMultiData: function (sSet, oData, oModel) {
+			return new Promise(function (fnSuccess, fnReject) {
+				let oParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.create(sSet, oData, oParameters);
+			});
 		},
 
 	});

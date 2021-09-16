@@ -65,7 +65,7 @@ sap.ui.define([
 
 		onShowVHValue: function () {
 			let aFilters = [new Filter("Value", FilterOperator.Contains, this._sValue)];
-			
+
 			if (!this._oVHValue) {
 				this._oVHValue = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.valueHelp.Value", this);
 				this._oVHValue.setModel(this.getModel("i18n"), "i18n");
@@ -73,12 +73,12 @@ sap.ui.define([
 				this.getView().addDependent(this._oVHValue);
 				sap.ui.core.Fragment.byId(this.getView().getId(), "idSDValue").getBinding("items").filter(aFilters);
 			}
-			
+
 			this._oVHValue.open();
 		},
 
 		onSearchSDValue: function (oEvent) {
-			let aFilters = [new Filter("Value", FilterOperator.Contains, oEvent.getParameter("value"))];
+			const aFilters = [new Filter("Title", FilterOperator.Contains, oEvent.getParameter("value"))];
 			oEvent.getParameter("itemsBinding").filter(aFilters);
 		},
 
@@ -87,12 +87,12 @@ sap.ui.define([
 				sTitle = oSelectedItem.getTitle(),
 				sDescription = oSelectedItem.getDescription(),
 				sInfo = oSelectedItem.getInfo();
-			
+
 			let oData = oEvent.getParameter("selectedItem").getBindingContext().getProperty(),
 				oModel = this.getView().getModel("model");
 
 			oModel.setProperty("/Value", oData.Value);
-			
+
 			this.onCancelSDValue();
 		},
 
@@ -100,6 +100,10 @@ sap.ui.define([
 			this._oVHValue.close();
 			this._oVHValue.destroy();
 			this._oVHValue = null;
+		},
+
+		onLiveChange: function (oEvent) {
+
 		}
 
 	});

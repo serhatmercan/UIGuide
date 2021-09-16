@@ -1,1 +1,2 @@
-<Button visible="true" icon="sap-icon://attachment" tooltip="{i18n>uploadFile}" press="onShowDocument"/>
+<Button icon="sap-icon://attachment" tooltip="{i18n>uploadFile}" press="onShowDocument"/>
+<Button icon="sap-icon://image-viewer" text="{i18n>preview}" tooltip="{i18n>preview}" press="onPrintout"/>
