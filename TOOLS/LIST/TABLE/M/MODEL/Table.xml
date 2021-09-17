@@ -26,14 +26,14 @@
 		</ColumnListItem>
 	</items>
 </Table>
-<!-- 
+<!--
 
 TABLE - ATTRIBUTES
 
 class="sapUiResponsiveMargin"
 
 width="auto" 
-mode="MultiSelect" mode="SingleSelectLeft"
+mode="MultiSelect" mode="SingleSelectLeft" mode="Delete"
 backgroundDesign="Transparent"
 sticky="ColumnHeaders"
 
@@ -48,6 +48,7 @@ growing="true"
 growingScrollToLoad="true"
 growingThreshold="10"
 
+delete="onDelete"
 updateFinished="onUpdateFinished"
 
 COLUMN - ATTRIBUTES
@@ -68,7 +69,7 @@ select="onSelectTable"
 COLUMN LIST ITEM - ATTRIBUTES
 
 vAlign="Middle"
-type="Navigation"
+type="Navigation" || "Inactive"
 
 press="onPress"
 

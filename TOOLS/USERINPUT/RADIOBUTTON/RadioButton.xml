@@ -1,0 +1,4 @@
+<RadioButtonGroup id="idRBG" columns="3">
+	<RadioButton id="idRBInternal" groupName="GroupA" text="{i18n>internalRepair}" selected="true"/>
+	<RadioButton id="idRBExternal" groupName="GroupA" text="{i18n>externalRepair}"/>
+</RadioButtonGroup>

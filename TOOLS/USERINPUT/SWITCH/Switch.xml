@@ -1,0 +1,1 @@
+<Switch type="AcceptReject" enabled="{= ${model>Value} === 'X' }" state="{= ${model>Value} === 'X' }" change="onChange"/>

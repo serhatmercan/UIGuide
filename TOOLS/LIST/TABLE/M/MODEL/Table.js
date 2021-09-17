@@ -27,6 +27,16 @@ sap.ui.define([
 			this._setTableColumn();
 		},
 
+		onDelete: function (oEvent) {
+			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
+			const oViewModel = this.getModel("tableModel");
+			const aData = oViewModel.getProperty("/Data");
+
+			aData.splice(iIndex, 1);
+
+			oViewModel.setProperty("/Data", aData);
+		},
+
 		getDataValue: function () {
 
 			var oTable = this.getView().byId("idTable"),

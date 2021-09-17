@@ -9,9 +9,9 @@
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
-			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" smartFilterId="idSFB" smartVariant="idSVM" tableType="ResponsiveTable"
-				enableAutoBinding="true" initiallyVisibleFields="ID,Key" ignoredFields="Value" useTablePersonalisation="true" beforeRebindTable="onBRT"
-				initialized="onInitST">
+			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" header="{i18n>smartTable}" smartFilterId="idSFB" smartVariant="idSVM"
+				tableType="ResponsiveTable" initiallyVisibleFields="ID,Key" ignoredFields="Value" requestAtLeastFields="ID" demandPopin="true"
+				enableAutoBinding="true" useTablePersonalisation="true" useExportToExcel="false" beforeRebindTable="onBRT" initialized="onInitST">
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>

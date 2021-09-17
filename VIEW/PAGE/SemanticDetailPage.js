@@ -31,7 +31,44 @@ sap.ui.define([
 
 		},
 
-		_onObjectMatched: function () {},
+		_onObjectMatched: function () {
+			this._clearView();
+
+			this.getModel().metadataLoaded().then(function () {
+				const oNewEntry = this.getModel().createEntry("/...Set");
+				this.byId("idSF").bindElement(oNewEntry.sPath);
+			}.bind(this));
+		},
+
+		_bindView: function () {
+			const oView = this.getView();
+			const oViewModel = this.getModel("viewModel");
+			const oTable = this.byId("idTable");
+			const oExpand = {
+				"$expand": "to_Header,to_Items"
+			};
+
+			this._sPath = oEvent.getSource().getParent().getBindingContext("viewModel").getPath();
+
+			oViewModel.setProperty(this._sPath + "/Data", sMaterial);
+
+			oView.bindElement({
+				path: sPath,
+				parameters: oExpand
+			});
+
+			oTable.rebindTable();
+		},
+
+		_clearView: function () {
+			const oBindingContext = this.getView().getBindingContext();
+
+			if (oBindingContext) {
+				this.getModel().deleteCreatedEntry(oBindingContext);
+			}
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+		}
 
 	});
 

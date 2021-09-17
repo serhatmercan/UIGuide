@@ -19,10 +19,34 @@ sap.ui.define([
 
 		onChangeID: function (oEvent) {
 			const sID = oEvent.getParameter("value");
+			oEvent.getSource().setValue(sID);
+		},
+
+		onFilterDDL: function () {
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+
+			this.byId("idID").getInnerControls()[0].getBinding("items").filter(aFilters);
+		},
+
+		onVLC: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContext().getPath();
+			const oData = this.getModel().getProperty(sPath);
+		},
+
+		onICC: function (oEvent) {
+			this._setSmartFieldValueHelpOnly(oEvent);
 		},
 
 		_setData: function () {
 			this.getModel().setProperty(this.byId("idSimpleForm").getBindingContext().getPath() + "/ID", "XYZ");
+		},
+
+		_setSmartFieldValueHelpOnly: function (oEvent) {
+			if (oEvent.getParameters()[0].getMetadata().getElementName() === "sap.m.Input") {
+				oEvent.getParameters()[0].setValueHelpOnly(true);
+			}
 		},
 
 		_onViewMatched: function (oEvent) {

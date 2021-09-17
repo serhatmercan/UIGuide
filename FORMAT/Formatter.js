@@ -3,6 +3,31 @@ sap.ui.define([], function () {
 
 	return {
 
+		convertToEnglishLocalizedUpperCase: function (sSentence) {
+			const oLetterRuleSet = {
+				"ç": "c",
+				"ı": "i",
+				"ğ": "g",
+				"ö": "o",
+				"ş": "s",
+				"ü": "u",
+				"Ç": "c",
+				"İ": "I",
+				"Ğ": "G",
+				"Ö": "O",
+				"Ş": "S",
+				"Ü": "U",
+			};
+
+			return sSentence
+				.replace(/\//g, "-")
+				.replace(/\\/g, "-")
+				.replace(/ç|ı|ğ|ö|ş|ü|Ç|İ|Ğ|Ö|Ş|Ü/g, sLetter => oLetterRuleSet[sLetter])
+				.replace(/[.,#!$%\^&\*;:{}=\\/_`~@\+\?><\[\]\+]/g, "")
+				.replace(/\s{2,}/g, " ")
+				.toLocaleUpperCase("en");
+		},
+
 		getLocalDate: function (sValue) {
 			if (!sValue) {
 				return null;

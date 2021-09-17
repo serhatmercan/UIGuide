@@ -16,6 +16,19 @@ sap.ui.define([
 			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
 		},
 
+		bindDialog: function () {
+			const oCreateEntry = this.getModel().createEntry("/...Set");
+
+			sap.ui.core.Fragment.byId(this.getView().getId(), "idSmartForm").bindElement(oCreateEntry.getPath());
+			this.getModel().setProperty(oCreateEntry.getPath() + "/Value", "X");
+		},
+
+		check: function () {
+			if (this.byId("idSmartField").check().length) {
+				return;
+			}
+		},
+
 		_onViewMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const sPath = this.getModel().createEntry("/ValueSet").getPath();

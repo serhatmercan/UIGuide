@@ -2,6 +2,9 @@
 <ObjectPageLayout id="idOPL">
 	<headerTitle>
 		<ObjectPageDynamicHeaderTitle>
+			<heading>
+				<m:Title text="Text"/>
+			</heading>
 			<actions>
 				<m:OverflowToolbarButton press="onPress"/>
 			</actions>
