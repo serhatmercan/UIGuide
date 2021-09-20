@@ -2,6 +2,11 @@
 	<table:rowSettingsTemplate>
 		<table:RowSettings highlight="{tableModel>Value}"/>
 	</table:rowSettingsTemplate>
+	<table:rowActionTemplate>
+		<table:RowAction>
+			<table:RowActionItem type="Custom" icon="sap-icon://search" press="onPressRAI" visible="true"/>
+		</table:RowAction>
+	</table:rowActionTemplate>
 	<table:extension>
 		<OverflowToolbar>
 			<Title text="{i18n>table}"/>
@@ -40,7 +45,7 @@ rowHeight="50px"
 title="Table Title"
 
 width="50%"
-selectionMode="MultiSelect" 
+selectionMode="MultiSelect" selectionMode="MultiToggle"
 
 alternateRowColors="true"	
 visibleRowCountMode="Auto" visibleRowCountMode="Fixed"

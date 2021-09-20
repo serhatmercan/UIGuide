@@ -26,6 +26,7 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.List/Field">
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;field}"/>
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
@@ -43,6 +44,9 @@
 								</Record>
 								<Record Type="Common.ValueListParameterDisplayOnly">
 									<PropertyValue Property="ValueListProperty" String="Description"/>
+								</Record>
+								<Record Type="Common.ValueListParameterFilterOnly">
+									<PropertyValue Property="ValueListProperty" String="Data"/>
 								</Record>
 							</Collection>
 						</PropertyValue>

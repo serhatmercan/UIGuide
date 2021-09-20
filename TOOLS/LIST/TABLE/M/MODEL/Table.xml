@@ -1,7 +1,7 @@
 <Table id="idTable" items="{tableModel>/}">
 	<headerToolbar>
 		<Toolbar>
-			<ToolbarSeparator/>
+			<ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
 		</Toolbar>
 	</headerToolbar>
 	<infoToolbar>

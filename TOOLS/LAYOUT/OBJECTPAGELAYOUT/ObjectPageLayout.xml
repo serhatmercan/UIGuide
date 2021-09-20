@@ -1,5 +1,6 @@
-<!--xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"-->
-<ObjectPageLayout id="idOPL">
+<!--xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:f="sap.f"-->
+<ObjectPageLayout id="idOPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" showFooter="true" showHeaderContent="true"
+	toggleHeaderOnTitleClick="true">
 	<headerTitle>
 		<ObjectPageDynamicHeaderTitle>
 			<heading>
@@ -10,6 +11,9 @@
 			</actions>
 		</ObjectPageDynamicHeaderTitle>
 	</headerTitle>
+	<headerContent>
+		<f:GridList></f:GridList>
+	</headerContent>
 	<sections>
 		<ObjectPageSection>
 			<subSections>
@@ -41,4 +45,12 @@
 			</subSections>
 		</ObjectPageSection>
 	</sections>
+	<footer>
+		<m:OverflowToolbar>
+			<m:Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Emphasized"
+				press="onMessagePopoverPress"/>
+			<m:ToolbarSpacer/>
+			<m:Button type="Emphasized" text="X" press="onPress"/>
+		</m:OverflowToolbar>
+	</footer>
 </ObjectPageLayout>

@@ -60,6 +60,7 @@ sap.ui.define([
 			// Bind Model w/ Path to Dialog
 			var sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 			this._oDialog.bindElement({
+				model: "viewModel",
 				path: "model>" + sPath
 			});
 			

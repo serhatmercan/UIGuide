@@ -1,0 +1,8 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SegmentedButton id="idSB" selectedKey="{model>/Value}" selectionChange="onSelectionChange">
+		<items>
+			<SegmentedButtonItem text="{i18n>sbi1}" key="SBI1"/>
+			<SegmentedButtonItem text="{i18n>sbi2}" key="SBI2"/>
+		</items>
+	</SegmentedButton>
+</core:FragmentDefinition>

@@ -1,4 +1,4 @@
-<IconTabBar id="idITB" select="onSelectITB" expandable="false">
+<IconTabBar id="idITB" select="onSelectITB" expandable="false" stretchContentHeight="true">
 	<items>
 		<IconTabFilter text="{i18n>ITF1}" key="keyITF1" icon="sap-icon://activity-items">
 			<core:Fragment fragmentName="com.serhatmercan.fragment.fragmentName" type="XML"/>

@@ -184,6 +184,11 @@ sap.ui.define([
 					}
 				}
 			});
+		},
+
+		onPressRAI: function (oEvent) {
+			const oSelectedRow = oEvent.getSource().getBindingContext();
+			const sID = oSelectedRow.getProperty("ID");
 		}
 
 	});

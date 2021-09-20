@@ -6,13 +6,21 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {},
+		onInit: function () {
+			this.getView().setModel(
+				new JSONModel({
+					Busy: false,
+					Data: []
+				}), "viewModel");
+		},
 
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilterPeriod = new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, "X");
 
 			oBindingParams.filters.push(oFilterPeriod);
+
+			this.onBeforeRebindTableWithResizing(oEvent);
 		},
 
 		onInitST: function () {
@@ -34,6 +42,42 @@ sap.ui.define([
 			oSmartFilter.setFilterData(oJSONData);
 		},
 
+		getData: function () {
+			const oModel = this.getModel();
+			const oContext = this.getView().getBindingContext();
+			const sBindingPath = oContext.getPath();
+			const oData = oContext.getObject();
+			const sID = oModel.getProperty(sBindingPath + "/ID");
+			const aData = [];
+
+			oData.to_Item.__list.forEach((Item) => {
+				aData.push(oContext.getProperty("/" + Item));
+			});
+		},
+
+		setData: function () {
+			const oViewModel = this.getModel("viewModel");
+			const sPath = oModel.createKey("/AnnotationListSet", {
+				ID: "X"
+			});
+			const oExpand = {
+				"$expand": "to_Item"
+			};
+			const oView = this.getView();
+			const oSmartTable = this.byId("idST");
+
+			oViewModel.setProperty(this._sPath + "/Data", []);
+
+			if (!oView.getBindingContext().getProperty("to_Item")) {
+				oView.bindElement({
+					path: sPath,
+					parameters: oExpand
+				});
+
+				oSmartTable.rebindTable();
+			}
+		},
+
 		onShow: function (oEvent) {
 			const aSmartTableContexts = this.byId("idST").getTable().getSelectedContexts();
 			const aTableContexts = this.byId("idTableST").getSelectedContexts();
@@ -51,6 +95,17 @@ sap.ui.define([
 			this._sID = oContext.ID;
 		},
 
+		onBeforeRebindTableWithResizing: function (oEvent) {
+			const oBindingParams = oEvent.getParameter("bindingParams");
+			const oTable = oEvent.getSource();
+
+			oBindingParams.events = {
+				"dataReceived": () => {
+					setTimeout(() => this._setTableWithResizing(oTable));
+				}
+			};
+		},
+
 		_getSelectedData: function () {
 			const aContexts = this.byId("idTableST").getSelectedContexts();
 
@@ -61,6 +116,14 @@ sap.ui.define([
 
 		_refreshTable: function () {
 			this.byId("idTableST").getBinding("items").refresh(true);
+		},
+
+		_setTableWithResizing: function (oTable) {
+			const aColumns = oTable.getTable().getColumns();
+
+			for (let i = aColumns.length - 1; i > -1; i--) {
+				aColumns[i].getParent().autoResizeColumn(i);
+			}
 		}
 
 	});

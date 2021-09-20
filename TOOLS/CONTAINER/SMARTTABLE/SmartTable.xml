@@ -10,8 +10,9 @@
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
 			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" header="{i18n>smartTable}" smartFilterId="idSFB" smartVariant="idSVM"
-				tableType="ResponsiveTable" initiallyVisibleFields="ID,Key" ignoredFields="Value" requestAtLeastFields="ID" demandPopin="true"
-				enableAutoBinding="true" useTablePersonalisation="true" useExportToExcel="false" beforeRebindTable="onBRT" initialized="onInitST">
+				tableBindingPath="to_Item" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key" ignoredFields="Value" requestAtLeastFields="ID"
+				width="25%" demandPopin="true" enableAutoBinding="true" showTablePersonalisation="false" useTablePersonalisation="true"
+				useExportToExcel="false" beforeRebindTable="onBRT" initialized="onInitST">
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
@@ -32,6 +33,7 @@
 						<ColumnListItem type="Navigation" press="onDetail">
 							<cells>
 								<Text text="{Key}" wrapping="false"/>
+								<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }"/>
 							</cells>
 						</ColumnListItem>
 					</items>

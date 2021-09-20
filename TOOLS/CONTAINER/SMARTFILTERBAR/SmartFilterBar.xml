@@ -1,11 +1,19 @@
-<smartFilterBar:controlConfiguration>
-	<smartFilterBar:ControlConfiguration key="paintArchive" index="1" label="{i18n>paintArchive}">
-		<smartFilterBar:customControl>
-			<RadioButtonGroup id="rbg" columns="3">
-				<RadioButton id="rbAll" text="{i18n>all}"/>
-				<RadioButton id="rbThereIs" text="{i18n>thereIs}"/>
-				<RadioButton id="rbNo" text="{i18n>no}"/>	
-			</RadioButtonGroup>
-		</smartFilterBar:customControl>
-	</smartFilterBar:ControlConfiguration>
-</smartFilterBar:controlConfiguration>
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+	<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP" considerSelectionVariants="true"
+		smartVariant="idSVM" initialized="onInitSFB">
+		<smartFilterBar:layoutData>
+			<FlexItemData shrinkFactor="0"/>
+		</smartFilterBar:layoutData>
+	</smartFilterBar:SmartFilterBar>
+	<smartFilterBar:controlConfiguration>
+		<smartFilterBar:ControlConfiguration key="paintArchive" index="1" label="{i18n>paintArchive}">
+			<smartFilterBar:customControl>
+				<RadioButtonGroup id="rbg" columns="3">
+					<RadioButton id="rbAll" text="{i18n>all}"/>
+					<RadioButton id="rbThereIs" text="{i18n>thereIs}"/>
+					<RadioButton id="rbNo" text="{i18n>no}"/>
+				</RadioButtonGroup>
+			</smartFilterBar:customControl>
+		</smartFilterBar:ControlConfiguration>
+	</smartFilterBar:controlConfiguration>
+</mvc:View>
