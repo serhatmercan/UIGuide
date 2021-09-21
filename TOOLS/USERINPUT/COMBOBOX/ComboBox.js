@@ -22,12 +22,12 @@ sap.ui.define([
 				sText = oItem.getProperty("text"),
 				sAdditionalText = oItem.getProperty("additionalText"),
 				sPath = oEvent.getSource().getParent().getBindingContext("model").getPath(),
-				oModel = this.getView().getModel("model");
+				oModel = this.getView().getModel("model"),
+				oComboBox = oEvent.getSource();
 
 			oModel.setProperty(sPath + "/Value", sText);
 
-			var oComboBox = this.byId("idComboBox"),
-				sValue = this.getModel("model").getProperty("/Value"),
+			var sValue = this.getModel("model").getProperty("/Value"),
 				aFilters = [];
 
 			if (sValue) {
@@ -35,6 +35,8 @@ sap.ui.define([
 			}
 
 			oComboBox.getBinding("items").filter(aFilters);
+
+			oItem ? oComboBox.setValueState("None") : oComboBox.setValueState("Error");
 		},
 
 		onCheckValue: function (oEvent) {
@@ -57,6 +59,13 @@ sap.ui.define([
 			];
 
 			oEvent.getSource().getBinding("items").filter(aFilters);
+		},
+
+		onSelectionChangeCB: function (oEvent) {
+			const oSelectedItem = oEvent.getParameter("selectedItem");
+			const oItem = oEvent.getSource();
+			const sKey = oItem.getKey();
+			const sValue = oItem.getValue();
 		},
 
 		// Trigger to ComboBox

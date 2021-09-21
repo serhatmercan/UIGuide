@@ -1,6 +1,6 @@
 <!--xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield" xmlns:f="sap.f"-->
-<ObjectPageLayout id="idOPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" showFooter="true" showHeaderContent="true"
-	toggleHeaderOnTitleClick="true">
+<ObjectPageLayout id="idOPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" alwaysShowContentHeader="true"
+	preserveHeaderStateOnScroll="true" showFooter="true" showHeaderContent="true" toggleHeaderOnTitleClick="true">
 	<headerTitle>
 		<ObjectPageDynamicHeaderTitle>
 			<heading>

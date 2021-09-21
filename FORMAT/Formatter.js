@@ -3,6 +3,14 @@ sap.ui.define([], function () {
 
 	return {
 
+		_createUuidX16: function () {
+			return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+				let r = Math.random() * 16 | 0,
+					v = c === "x" ? r : (r & 0x3 | 0x8);
+				return v.toString(16);
+			});
+		},
+
 		convertToEnglishLocalizedUpperCase: function (sSentence) {
 			const oLetterRuleSet = {
 				"ç": "c",
@@ -66,6 +74,13 @@ sap.ui.define([], function () {
 			} else {
 				return parseInt(sValue);
 			}
+		},
+
+		removeLeadingZeros: function (sValue) {
+			if (!sValue) {
+				return "";
+			}
+			return +sValue;
 		},
 
 		setDefaultFilter: function (sValue) {

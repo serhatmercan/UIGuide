@@ -1,5 +1,9 @@
 <!-- INPUT TYPES -->
-<Input value="{model>/Value}"/>
+<Input value="{model>/Value}">
+	<layoutData>
+		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
+	</layoutData>
+</Input>
 <Input change="onChangeInput"/>
 <Input type="Number" value="{model>/Value}" textDirection="RTL"/>
 <!--
@@ -10,6 +14,8 @@ id="idInput"
 name="nameInput"
 placeholder="pHInput" 
 textAlign="End"
+
+class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
 
 maxLength="10"
 width="25%"

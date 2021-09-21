@@ -9,6 +9,7 @@ sap.ui.define([
 		onInit: function () {
 
 			var oModel = new JSONModel({
+				Items: [],
 				Value: ""
 			});
 

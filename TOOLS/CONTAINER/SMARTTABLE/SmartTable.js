@@ -23,6 +23,15 @@ sap.ui.define([
 			this.onBeforeRebindTableWithResizing(oEvent);
 		},
 
+		onDT: function (oEvent) {
+			const oData = oEvent.getParameters().getParameter("data");
+			let sID = "";
+
+			if (oData !== undefined) {
+				sID = oData.results[0].ID;
+			}
+		},
+
 		onInitST: function () {
 			const oSmartFilter = this.byId("idSFB");
 			const oJSONData = {};

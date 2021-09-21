@@ -34,6 +34,8 @@ sap.ui.define([
 		_onObjectMatched: function () {
 			this._clearView();
 
+			this.getModel().setSizeLimit(1000);
+
 			this.getModel().metadataLoaded().then(function () {
 				const oNewEntry = this.getModel().createEntry("/...Set");
 				this.byId("idSF").bindElement(oNewEntry.sPath);

@@ -1,4 +1,4 @@
-<Table id="idTable" items="{tableModel>/}">
+<Table id="idTable" items="{tableModel>/}" selectionChange="onSelectionChange">
 	<headerToolbar>
 		<Toolbar>
 			<ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
@@ -18,7 +18,7 @@
 		</Column>
 	</columns>
 	<items>
-		<ColumnListItem id="idCLI">
+		<ColumnListItem id="idCLI" type="Active" vAlign="Middle" press="onPress">
 			<cells>
 				<Text text="{tableModel>Value1}"/>
 				<Text text="{tableModel>Value2}"/>
@@ -41,6 +41,7 @@ noDataText="{model>/tableNoDataText}"
 busyIndicatorDelay="{model>/tableBusyDelay}"
 
 items="{ path: '/TableSet', suspended:true }"
+items="{ path: 'model>/Items', sorter: { path: 'ID', descending: false } }"
 
 fixedLayout="true"
 
@@ -68,8 +69,7 @@ select="onSelectTable"
 
 COLUMN LIST ITEM - ATTRIBUTES
 
-vAlign="Middle"
-type="Navigation" || "Inactive"
+type="Navigation" || "Inactive" || "Active"
 
 press="onPress"
 

@@ -38,22 +38,28 @@
 
 xmlns:table="sap.ui.table"
 
-class="sapUiResponsiveMargin"
+class="sapUiResponsiveMargin" class="sapUiTinyMargin"
+
+columns="{ path:'tableModel>Columns', factory:'_factory' }"
 
 rowHeight="50px"
 
 title="Table Title"
 
 width="50%"
-selectionMode="MultiSelect" selectionMode="MultiToggle"
+selectionMode="MultiSelect" selectionMode="MultiToggle" selectionMode="Single"
 
-alternateRowColors="true"	
+alternateRowColors="true"
+ariaLabelledBy="title"
+selectionBehavior="RowOnly"
 visibleRowCountMode="Auto" visibleRowCountMode="Fixed"
-enableColumnFreeze="true" visibleRowCountMode="Auto" visibleRowCount="{= ${tableModel>/Data}.length }"  
-visibleRowCount="10" minAutoRowCount="10" 
+enableColumnFreeze="true" 
+minAutoRowCount="10" 
+visibleRowCount="{= ${tableModel>/Data}.length }" visibleRowCount="10" 
 
 growing="true" growingScrollToLoad="true" growingThreshold="10"
 
+enableColumnReordering="false"
 enableSelectAll="false"
 
 rowSelectionChange="onRowSelectionChange"

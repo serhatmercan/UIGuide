@@ -4,9 +4,9 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
-		
-		onInit: function() {
-			this.byId("idITB").setSelectedKey("keyITF1");	
+
+		onInit: function () {
+			this.byId("idITB").setSelectedKey("keyITF1");
 		},
 
 		onSelectITB: function (oEvent) {
@@ -18,6 +18,12 @@ sap.ui.define([
 			default:
 				break;
 			}
+		},
+
+		getSelectedDataITB: function (oEvent) {
+			const oITB = this.byId("idITB");
+			const oSelectedFilterItem = oITB.getAggregation("items").find(oItem => oItem.getKey() === oITB.getSelectedKey());
+			const oSelectedTable = oSelectedFilterItem.getContent()[0];
 		}
 
 	});

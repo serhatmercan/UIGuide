@@ -1,3 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<core:Icon src="{= ${model>Value} ? 'sap-icon://accept' : 'sap-icon://sys-minus' }" color="{= ${model>Value} ? 'green' : 'red' }"/>
+	<core:Icon src="{= ${model>Value} ? 'sap-icon://accept' : 'sap-icon://sys-minus' }" color="{= ${model>Value} ? 'green' : 'red' }"
+		tooltip="{i18n>text}" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"/>
 </core:FragmentDefinition>
+<!-- ICON -->
+<!--
+class="sapUiTinyMargin"
+-->

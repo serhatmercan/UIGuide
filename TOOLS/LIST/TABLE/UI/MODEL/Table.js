@@ -9,14 +9,112 @@ sap.ui.define([
 
 		onInit: function () {
 			var oTableModel = new JSONModel({
+				Columns: [],
+				Items: [],
 				Value: ""
 			});
 
 			this.setModel(oTableModel, "tableModel");
 		},
 
+		_generateColumns: function (aData) {
+			const oBundle = this.getResourceBundle();
+			const oModel = oTable.getModel("tableModel");
+			const aColumns = [];
+
+			aColumns.push({
+				uiobject: "label",
+				label: oBundle.getText("text"),
+				width: 300,
+				valuePath: "Text",
+				additionalValuePath: "Description"
+			});
+
+			aColumns.push({
+				uiobject: "label",
+				label: oBundle.getText("unit"),
+				valuePath: "Meins"
+			});
+
+			aColumns.push({
+				uiobject: "label",
+				label: oBundle.getText("number"),
+				valuePath: "Number",
+				type: "sap.ui.model.type.Float",
+				formatOptions: {
+					decimals: 2
+				}
+			});
+
+			oModel.setProperty("/Columns", aColumns);
+		},
+
+		_factory: function (sId, oContext, oParam) {
+			let oBindingValue,
+				oAdditionalBindingValue,
+				oTemplate;
+
+			oBindingValue = {
+				model: "tableModel",
+				path: oContext.getProperty("valuePath"),
+				type: oContext.getProperty("type"),
+				formatOptions: oContext.getProperty("formatOptions")
+			};
+
+			oBindingValue = {
+				parts: [{
+					model: "tableModel",
+					path: oContext.getProperty("valuePath")
+				}, {
+					model: "tableModel",
+					path: oContext.getProperty("additionalValuePath")
+				}],
+				formatter: formatter.dynamicCellValueWithKey
+			};
+
+			if (oContext.getProperty("additionalValuePath")) {
+				oAdditionalBindingValue = {
+					model: "tableModel",
+					path: oContext.getProperty("additionalValuePath"),
+					type: oContext.getProperty("type"),
+					formatOptions: oContext.getProperty("formatOptions")
+				};
+
+				oTemplate = new sap.m.ObjectIdentifier({
+					title: oBindingValue,
+					text: oAdditionalBindingValue,
+					textAlign: sap.ui.core.TextAlign.Center
+				});
+			} else {
+				oTemplate = new sap.m.Label({
+					text: oBindingValue,
+					textAlign: sap.ui.core.TextAlign.Center,
+					wrapping: true
+				});
+			}
+
+			return new sap.ui.table.Column({
+				label: new sap.m.Label({
+					text: oContext.getProperty("label"),
+					design: sap.m.LabelDesign.Bold,
+					textAlign: sap.ui.core.TextAlign.Center,
+					wrapping: true
+				}),
+				template: oTemplate,
+				autoResizable: true,
+				minWidth: oContext.getProperty("width") || 96,
+				hAlign: sap.ui.core.TextAlign.Center
+			});
+		},
+
 		_refreshTable: function () {
 			this.byId("idTable").getBinding("items").refresh(true);
+		},
+
+		filterTable: function () {
+			const oTable = this.getView().byId("idTable");
+
+			oTable.getBinding("rows").filter([new Filter("Value", FilterOperator.Contains, "X")]);
 		},
 
 		getDataValue: function () {
@@ -120,8 +218,7 @@ sap.ui.define([
 		},
 
 		_addColumnUITable: function (sId, iColumnNumber) {
-			let oTable = this.getView().byId(sId),
-				that = this;
+			const oTable = this.getView().byId(sId);
 
 			for (let i = 0; i < iColumnNumber; i++) {
 				oTable.addColumn(new sap.ui.table.Column({

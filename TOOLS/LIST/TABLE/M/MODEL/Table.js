@@ -21,6 +21,10 @@ sap.ui.define([
 
 		},
 
+		onSelectionChange: function () {
+			const sSelectedPath = oEvent.getSource().getSelectedItem().getBindingContext("tableModel").getPath();
+		},
+
 		onAddColumn: function () {
 			this._initTable("idTable", "idCLI", 2);
 			this._initModel();
@@ -76,6 +80,7 @@ sap.ui.define([
 		},
 
 		onPress: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContextPath();
 			this.getRouter().navTo("viewName", {
 				value: oEvent.getSource().getBindingContext("tableModel").getProperty("Value1")
 			});

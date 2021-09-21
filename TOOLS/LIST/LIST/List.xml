@@ -1,18 +1,27 @@
 <mvc:View controllerName="serhatmercan.controller.List" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<List id="idList" headerText="List Title" items="{model>/Values}">
-		<StandardListItem title="{model>Id}" description="{model>Value}"/>
+	<headerToolbar>
+		<OverflowToolbar>
+			<content>
+				<SearchField liveChange="onLiveChange" width="100%"/>
+				<ToolbarSpacer/>
+			</content>
+		</OverflowToolbar>
+	</headerToolbar>
+	<List id="idList" headerText="List Title" items="{model>/Values}" includeItemInSelection="true">
+		<StandardListItem type="Active" title="{model>Id}" description="{model>Value}" info="{model>Info}"
+			blocked="{= ${model>Value} ? false : true}" infoState="{= ${model>Value} ? 'Error' : 'None' }"
+			highlight="{= ${model>Value} ? 'Error' : 'None' }" press="onPress"/>
 	</List>
 </mvc:View>
-
 <!-- LIST - ATTRIBUTES -->
 <!--
 
 growing="true"
-mode="SingleSelectMaster" mode="Delete"
+mode="SingleSelectMaster" mode="Delete" mode="MultiSelect"
 delete="onDeleteList"
 itemPress="onItemPress"
+items="{path: 'mode>/Values', parameters: {operationMode: 'Client'} }"
 -->
-
 <!-- STANDARD LIST ITEM - ATTRIBUTES -->
 <!--
 

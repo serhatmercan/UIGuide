@@ -16,6 +16,13 @@ sap.ui.define([
 
 		},
 
+		onLiveChange: function () {
+			const sValue = oEvent.getParameter("newValue");
+			const aItems = this.getView().byId("idList").getBinding("items");
+
+			aItems.filter([new Filter("ID", FilterOperator.Contains, sValue)]);
+		},
+
 		onDeleteList: function (oEvent) {
 			var sPath = oEvent.getParameter("listItem").getBindingContextPath(),
 				aIndex = sPath.split("/"),
@@ -32,7 +39,11 @@ sap.ui.define([
 		},
 
 		onItemPress: function (oEvent) {
-			
+
+		},
+
+		onPress: function (oEvent) {
+			const oData = oEvent.getSource().getBindingContext("model").getObject();
 		},
 
 		removeSelection: function () {

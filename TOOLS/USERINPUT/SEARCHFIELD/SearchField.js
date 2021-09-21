@@ -9,11 +9,14 @@ sap.ui.define([
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
-				Items: [],
 				Value: ""
 			});
 
 			this.setModel(oModel, "model");
+		},
+
+		onLiveChange: function (oEvent) {
+			const sValue = oEvent.getParameter("newValue");
 		}
 
 	});

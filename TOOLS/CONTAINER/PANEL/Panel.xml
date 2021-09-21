@@ -1,12 +1,14 @@
-<Panel id="idPanel"></Panel>
-
+<Panel id="idPanel" headerText="{i18n>text}">
+	<content></content>
+</Panel>
 <!-- GENERAL - ATTRIBUTES -->
 <!-- 
 
 width="100%" 
-class="sapUiNoContentPadding"
+class="sapUiNoContentPadding" class="sapUiTinyMarginBegin panelBorderLine"
 
 expanded="true" 
 expandable="false"
+expandAnimation="true"
 
---> 	
+-->

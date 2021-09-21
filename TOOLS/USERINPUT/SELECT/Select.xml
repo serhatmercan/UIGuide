@@ -1,7 +1,8 @@
 <Select items="{listModel>/}" selectedKey="{listModel>/Key}" change="onChangeSelect">
 	<core:Item key="{listModel>Key}" text="{listModel>Text}"/>
 </Select>
-<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" required="true" showSecondaryValues="true">
+<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" autoAdjustWidth="false" required="true" showSecondaryValues="true"
+	visible="false">
 	<core:ListItem key="{Key}" text="{Text}" additionalText="{AdditionalText}"/>
 </Select>
 <!-- SELECT ATTRIBUTES -->
@@ -9,6 +10,7 @@
 
 xmlns:core="sap.ui.core"
 
+maxWidth="15rem"
 width="5rem"
 
 forceSelection="true" 

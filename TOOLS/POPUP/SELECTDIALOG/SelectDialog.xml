@@ -1,14 +1,15 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog id="idSD" title="Select Dialog - Title" items="{ path: '/SelectDialogSet' }" contentHeight="auto" confirm="onConfirmSD"
-		cancel="onCancelSD">
+	<SelectDialog id="idSD" title="Select Dialog - Title" items="{ path: '/SelectDialogSet' }" contentHeight="auto"
+		confirmButtonText="{i18n>confirm}" confirm="onConfirmSD" cancel="onCancelSD" search="onSearchSD" multiSelect="true">
 		<StandardListItem title="{Title}" description="{Description}" info="{Info}" type="Active"/>
 	</SelectDialog>
 </core:FragmentDefinition>
 <!-- SELECT DIALOG - ATTRIBUTE --->
 <!--
 items="{ path: '/SelectDialogSet', suspended: true }"
-
-onSearch="onSearchSD"
+items="{ path: 'model>/Items' }"
 
 growing="true" growingScrollToLoad="true" growingThreshold="50"
+
+noDataText="{i18n>noDataFound}"
 -->

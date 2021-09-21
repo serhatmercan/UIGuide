@@ -16,6 +16,8 @@ sap.ui.define([
 		},
 
 		onSSH: function () {
+			this._sPath = oEvent.getSource().getBindingContext("model").getPath();
+
 			if (!this._oSSH) {
 				this._oSSH = sap.ui.xmlfragment("idSSH", "com.serhatmercan.SmartSearchHelp", this);
 
@@ -63,6 +65,9 @@ sap.ui.define([
 			const oModel = this.getModel("model");
 
 			oModel.setProperty("/Value", sID);
+			oModel.setProperty(this._sPath + "/Value", sID);
+
+			this.onCloseSSH();
 		},
 
 		onCloseSSH: function () {

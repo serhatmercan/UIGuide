@@ -1,6 +1,16 @@
 <!-- xmlns:l="sap.ui.layout" -->
-<l:Splitter>
+<l:Splitter height="auto" orientation="Vertical">
+	<l:layoutData>
+		<l:SplitterLayoutData size="24rem"/>
+	</l:layoutData>
+	<l:contentAreas>
+		<VBox></VBox>
+	</l:contentAreas>
 	<ui:Table></ui:Table>
 	<ui:Table></ui:Table>
 	<ui:Table></ui:Table>
 </l:Splitter>
+<!-- SPLITTER LAYOUT DATA -->
+<!--
+size="auto" size="100%"
+-->

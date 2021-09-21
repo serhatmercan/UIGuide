@@ -4,7 +4,7 @@
 
 Description: Setting One Or More Than Tools Vertically in One Column 
 
-class="sapUiSmallMarginBegin" 
+class="sapUiSmallMarginBegin" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
 justifyContent="Start" 
 alignContent="Start"
 

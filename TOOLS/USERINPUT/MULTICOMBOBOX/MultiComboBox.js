@@ -10,7 +10,8 @@ sap.ui.define([
 			const oModel = new JSONModel({
 				Busy: false,
 				Items: [],
-				Value: ""
+				Value: "",
+				Values: []
 			});
 
 			this.setModel(oModel, "model");

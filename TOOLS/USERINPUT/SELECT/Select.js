@@ -24,6 +24,7 @@ sap.ui.define([
 		},
 
 		onChangeSelect: function (oEvent) {
+			const oData = oEvent.getParameter("selectedItem").getBindingContext().getObject();
 			const sKey = oEvent.getParameter("selectedItem").getBindingContext().getProperty("Key");
 			let sType;
 

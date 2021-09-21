@@ -1,8 +1,11 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageBox"
-], function (BaseController, JSONModel) {
+	"sap/m/MessageBox",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType"
+], function (BaseController, JSONModel, Filter, FilterOperator, FilterType) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -15,6 +18,9 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "viewModel");
+
+			// Clear Metadata
+			jQuery.extend(true, {}, oData);
 		},
 
 		runMultiPromise: function () {
@@ -25,6 +31,8 @@ sap.ui.define([
 			const oExpand = {
 				"$expand": "to_main,to_list"
 			};
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
 
 			Promise.all([
 					this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
@@ -60,6 +68,8 @@ sap.ui.define([
 
 			oViewModel.setProperty("/Busy", true);
 
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
 			this._deleteSingleData("/" + oKey, this.getModel())
 				.then(() => {
 					sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
@@ -76,6 +86,8 @@ sap.ui.define([
 				ID: "X"
 			});
 
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
 			oViewModel.setProperty("/Busy", true);
 
 			this._readSingleData("/" + oKey, this.getModel())
@@ -89,8 +101,17 @@ sap.ui.define([
 		getMultiData: function () {
 			const oViewModel = this.getModel("viewModel");
 			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X")
+				new Filter("ID", FilterOperator.EQ, "X"),
 			];
+			const aXFilters = new Filter({
+				filters: [
+					new Filter("ID", FilterOperator.Contains, "X"),
+					new Filter("Value", FilterOperator.Contains, "ABC")
+				],
+				and: false
+			});
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
 
 			oViewModel.setProperty("/Busy", true);
 
@@ -112,6 +133,10 @@ sap.ui.define([
 			const oExpand = {
 				"$expand": "to_main,to_list"
 			};
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
+			oViewModel.setProperty("/Busy", true);
 
 			this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 				.then((oData) => {
@@ -144,6 +169,7 @@ sap.ui.define([
 				styleClass: this.getOwnerComponent().getContentDensityClass(),
 				onClose: (sAction) => {
 					if (sAction === MessageBox.Action.OK) {
+						sap.ui.getCore().getMessageManager().removeAllMessages();
 						oViewModel.setProperty("/Busy", true);
 
 						this._sendCreateData("/...Set", oData, this.getModel())

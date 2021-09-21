@@ -1,6 +1,9 @@
 <Title id="idTitle" text="Title"/>
 <!-- TITLE - ATTRIBUTES -->s
 <!--
+
+text="{ path : 'model>Value', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence : true, maxLength : 3 }} {i18n>text}"/>
+
 level="H4" 
 titleStyle="H4"
 -->

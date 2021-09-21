@@ -10,7 +10,6 @@ sap.ui.define([
 		formatter: formatter,
 
 		onDateFormat: function (oEvent) {
-
 			var sDate = new Date(),
 				sTime = new Date(),
 				sNo = "1";
@@ -19,8 +18,8 @@ sap.ui.define([
 				sLocalTime = formatter.getLocalTime(sTime),
 				sFormattedNo = formatter.padLeftAlphaNum(sNo, 10),
 				sRemovedZeroNo = formatter.removeLeading(sNo),
-				sEnglishWords = formatter.convertToEnglishLocalizedUpperCase(sNo);
-
+				sEnglishWords = formatter.convertToEnglishLocalizedUpperCase(sNo),
+				sUID = formatter._createUuidX16();
 		}
 
 	});
