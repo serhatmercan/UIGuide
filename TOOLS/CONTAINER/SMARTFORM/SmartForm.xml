@@ -5,7 +5,7 @@
 			<smartForm:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
 		</smartForm:layout>
 		<smartForm:Group>
-			<smartForm:GroupElement>
+			<smartForm:GroupElement label="{/#SFEntity/Value/@sap:label}">
 				<smartField:SmartField id="idSmartField" value="{Value}"/>
 			</smartForm:GroupElement>
 			<smartform:GroupElement>

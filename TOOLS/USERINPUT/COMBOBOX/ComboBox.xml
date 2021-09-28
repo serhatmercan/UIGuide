@@ -1,6 +1,6 @@
-<ComboBox id="idComboBox" class="sapUiTinyMarginBegin" items="{ path:'/ComboBoxSet', suspended: true }" value="{model>/Value}"
-	selectedKey="{model>/Value}" showButton="true" showSecondaryValues="true" change="onChangeCB" loadItems="onLoadItemsCB"
-	selectionChange="onSelectionChangeCB" required="true">
+<ComboBox id="idComboBox" class="sapUiTinyMarginBegin" items="{ path:'/ComboBoxSet', suspended: true, templateShareable: true }"
+	value="{model>/Value}" selectedKey="{model>/Value}" showButton="true" showSecondaryValues="true" change="onChangeCB"
+	loadItems="onLoadItemsCB" selectionChange="onSelectionChangeCB" required="true">
 	<items>
 		<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}"/>
 		<core:Item key="{model>ID}" text="{model>ID}"/>

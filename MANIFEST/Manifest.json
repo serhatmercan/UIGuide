@@ -3,6 +3,34 @@
 		"fullWidth": true
 	},
 	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.71.11",
+			"libs": {
+				"sap.f": {},
+				"sap.gantt": {},
+				"sap.m": {},
+				"sap.collaboration": {
+					"lazy": true
+				},
+				"sap.ui.comp": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.table": {},
+				"sap.ui.unified": {},
+				"sap.ushell": {},
+				"sap.uxap": {}
+			}
+		},
+		"flexEnabled": false,
+		"handleValidation": true,
+		"models": {
+			"viewModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "./model/viewModel.json",
+				"preload": true
+			}
+		},
 		"resources": {
 			"css": [{
 				"uri": "css/style.css"

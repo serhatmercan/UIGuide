@@ -1,7 +1,7 @@
 <Table id="idTable" items="{tableModel>/}" selectionChange="onSelectionChange">
 	<headerToolbar>
 		<Toolbar>
-			<ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd"/>
+			<ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
 		</Toolbar>
 	</headerToolbar>
 	<infoToolbar>

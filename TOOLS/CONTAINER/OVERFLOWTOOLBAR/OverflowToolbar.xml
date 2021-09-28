@@ -1,5 +1,5 @@
-<OverflowToolbar design="Transparent">
-	<Title text=""/>
+<OverflowToolbar class="sapUiSmallMargin" design="Transparent">
+	<Title text="{i18n>title}"/>
 	<ToolbarSpacer/>
 	<Label text="Text:"/>
 	<Input value="{model>/Value}"/>

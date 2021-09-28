@@ -19,7 +19,12 @@ sap.ui.define([
 
 		onChangeID: function (oEvent) {
 			const sID = oEvent.getParameter("value");
+			const sPath = this.getView().getBindingContext().getPath();
+			const oModel = this.getModel();
+			const sBindingValuePath = oEvent.getSource().getBinding("value").getPath(); // Value
+
 			oEvent.getSource().setValue(sID);
+			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));
 		},
 
 		onFilterDDL: function () {
@@ -53,6 +58,17 @@ sap.ui.define([
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				this.byId("idSimpleForm").bindElement(this.getModel().createEntry("/IDSet").getPath());
 			}.bind(this));
+
+			const sPath = this.getModel().createKey("/SFSet", {
+				ID: "X"
+			});
+
+			this.getView().bindElement({
+				path: sPath,
+				parameters: {
+					expand: "to_Header,to_Items"
+				}
+			});
 		}
 
 	});

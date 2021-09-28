@@ -6,6 +6,12 @@
 			<heading>
 				<m:Title text="Text"/>
 			</heading>
+			<expandedContent>
+				<m:Label text="{Label}"/>
+			</expandedContent>
+			<snappedContent>
+				<m:Label text="{Label}"/>
+			</snappedContent>
 			<actions>
 				<m:OverflowToolbarButton press="onPress"/>
 			</actions>
@@ -17,7 +23,7 @@
 	<sections>
 		<ObjectPageSection>
 			<subSections>
-				<ObjectPageSubSection title="{i18n>oPSS1}">
+				<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer" title="{i18n>oPSS1}">
 					<blocks>
 						<form:SmartForm>
 							<form:Group>

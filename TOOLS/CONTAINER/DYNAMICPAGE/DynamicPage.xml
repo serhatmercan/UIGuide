@@ -1,0 +1,25 @@
+<mvc:View controllerName="serhatmercan.Controller" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.f">
+	<f:DynamicPage stickySubheaderProvider="iconTabBar" showFooter="{= ${message>/}.length > 0 }">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<!-- Variant -->
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+		<f:header>
+			<f:DynamicPageHeader pinnable="false">
+				<!-- Filter Bar -->
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<IconTabBar >
+				<items>
+					<!-- Content -->
+				</items>
+			</IconTabBar>
+		</f:content>
+		<f:footer></f:footer>
+	</f:DynamicPage>
+</mvc:View>

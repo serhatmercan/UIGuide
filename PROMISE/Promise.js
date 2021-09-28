@@ -163,6 +163,19 @@ sap.ui.define([
 				oData.to_Items.push(Data);
 			});
 
+			// Match Binding Data
+			oData = jQuery.extend(true, {}, aData.to_Items);
+
+			// Clear Metadata
+			delete oData.__metadata;
+
+			// Convert Integer Value to String
+			Object.keys(oData).map(function (sFieldName) {
+				if ((typeof oData[sFieldName]) === "number") {
+					oData[sFieldName] = oData[sFieldName].toString();
+				}
+			});
+
 			MessageBox.confirm(oResourceBundle.getText("Info"), {
 				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
 				emphasizedAction: MessageBox.Action.OK,
@@ -181,6 +194,35 @@ sap.ui.define([
 					}
 				}
 			});
+		},
+
+		onSubmitChange: function () {
+			const oResourceBundle = this.getResourceBundle();
+			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel();
+
+			if (oModel.hasPendingChanges()) {
+				MessageBox.confirm(oResourceBundle.getText("Info"), {
+					actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
+					emphasizedAction: MessageBox.Action.OK,
+					styleClass: this.getOwnerComponent().getContentDensityClass(),
+					onClose: (sAction) => {
+						if (sAction === MessageBox.Action.OK) {
+							sap.ui.getCore().getMessageManager().removeAllMessages();
+							oViewModel.setProperty("/Busy", true);
+
+							this._submitChange()
+								.then(() => {
+									oModel.resetChanges();
+								})
+								.catch((err) => {})
+								.finally(() => {
+									oViewModel.setProperty("/Busy", false);
+								});
+						}
+					}
+				});
+			}
 		},
 
 		_deleteSingleData: function (sSet, oModel) {
@@ -234,7 +276,17 @@ sap.ui.define([
 				};
 				oModel.create(sSet, oData, oParameters);
 			});
-		}
+		},
+
+		_submitChange: function (oModel) {
+			return new Promise(function (fnSuccess, fnReject) {
+				const oParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.submitChanges(oParameters);
+			});
+		},
 
 	});
 

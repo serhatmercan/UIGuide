@@ -1,8 +1,9 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:smartField="sap.ui.comp.smartfield"
 	xmlns:l="sap.ui.layout">
 	<f:SimpleForm id="idSimpleForm">
-		<smartField:SmartField id="idID" value="{ID}" change="onChangeID" busy="{model>/Busy}" enabled="false" showLabel="false" visible="false"
-			placeholder="{i18n>ID}" width="18rem" textInEditModeSource="ValueList" valueListChanged="onVLC" innerControlsCreated="onICC">
+		<smartField:SmartField id="idID" value="{ID}" entitySet="SFSet" change="onChangeID" busy="{model>/Busy}" editable="false" enabled="false"
+			mandatory="true" showLabel="false" visible="false" placeholder="{i18n>ID}" width="18rem" textInEditModeSource="ValueList"
+			valueListChanged="onVLC" innerControlsCreated="onICC">
 			<smartField:layoutData>
 				<l:GridData spanL="3" spanM="3" spanS="3"/>
 			</smartField:layoutData>

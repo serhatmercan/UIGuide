@@ -1,0 +1,2 @@
+<Text text="{ path: 'model>Value', mode: 'TwoWay' }"/>
+<SelectDialog items="{ path: '/VHValueSet', suspended: true, templateShareable: true }"/>

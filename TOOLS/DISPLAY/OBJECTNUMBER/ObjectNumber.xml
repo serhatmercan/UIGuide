@@ -1,1 +1,6 @@
-<ObjectNumber number="{ path : 'Menge', type : 'sap.ui.model.type.Float' }" unit="{Meins}" state="{= ${model>ID} ? 'None' : 'Error' }"/>
+<ObjectNumber emphasized="true" number="{ path : 'Menge', type : 'sap.ui.model.type.Float' }" unit="{Meins}"
+	state="{= ${model>ID} ? 'None' : 'Error' }"/>
+<!-- OBJECT NUMBER -->
+<!--
+state="Information" state="Success" state="Warning" 
+-->

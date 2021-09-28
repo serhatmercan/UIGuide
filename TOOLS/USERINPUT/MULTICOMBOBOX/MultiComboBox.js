@@ -15,6 +15,17 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "model");
+		},
+
+		onSelectionFinishMCB: function () {
+			const aValues = this.getModel("model").getProperty("/Values");
+			let aFilters = [];
+
+			aValues.forEach((Value) => {
+				aFilters.push(new Filter("ID", FilterOperator.EQ, Value));
+			});
+
+			this.byId("idCB").getBinding("items").filter(aFilters);
 		}
 
 	});

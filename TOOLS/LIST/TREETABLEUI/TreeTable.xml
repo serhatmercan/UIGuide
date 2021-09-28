@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
+	<t:TreeTable id="idTreeTable" selectionMode="MultiToggle" rows="{ path:'model>/Items', parameters:{ arrayNames:['results'] } }">
+		<t:extension>
+			<OverflowToolbar>
+				<Title text="{i18n>treeTable}"/>
+				<ToolbarSpacer/>
+				<Button press="onAddDataToTreeTable"/>
+			</OverflowToolbar>
+		</t:extension>
+		<t:columns>
+			<t:Column label="{i18n>id}">
+				<t:template>
+					<Text text="{model>ID}"/>
+				</t:template>
+			</t:Column>
+			<t:Column label="{i18n>value}">
+				<t:template>
+					<Text text="{model>Value}"/>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:TreeTable>
+</core:FragmentDefinition>

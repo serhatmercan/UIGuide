@@ -27,7 +27,6 @@
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
-
 <!-- DIALOG - ATTRIBUTES -->
 <!--
 contentWidth="450px" 
@@ -52,5 +51,3 @@ expandFirstLevel="false"
 <!--
 height=40px
 -->
-
-

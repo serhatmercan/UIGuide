@@ -1,0 +1,7 @@
+<GenericTag class="sapUiTinyMarginBottom" design="StatusIconHidden" status="Warning" text="{i18n>text}">
+	<ObjectNumber emphasized="true" number="{model>/Value}" unit="Kg" state="Warning"/>
+</GenericTag>
+<!-- GENERIC TAG -->
+<!--
+status="Information" 
+-->

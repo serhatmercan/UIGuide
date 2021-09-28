@@ -1,4 +1,11 @@
 <Panel id="idPanel" headerText="{i18n>text}">
+	<headerToolbar>
+		<OverflowToolbar>
+			<Title/>
+			<ToolbarSpacer/>
+			<Button/>
+		</OverflowToolbar>
+	</headerToolbar>
 	<content></content>
 </Panel>
 <!-- GENERAL - ATTRIBUTES -->

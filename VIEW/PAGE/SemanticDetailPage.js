@@ -14,8 +14,11 @@ sap.ui.define([
 
 		onInit: function () {},
 
-		onNavBack: function () {
+		onExit: function () {
+			this.getModel().resetChanges();
+		},
 
+		onNavBack: function () {
 			var sPreviousHash = History.getInstance().getPreviousHash(),
 				oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
@@ -28,7 +31,6 @@ sap.ui.define([
 					}
 				});
 			}
-
 		},
 
 		_onObjectMatched: function () {
@@ -56,7 +58,10 @@ sap.ui.define([
 
 			oView.bindElement({
 				path: sPath,
-				parameters: oExpand
+				parameters: oExpand,
+				events: {
+					dataReceived: this._onDataReceived.bind(this)
+				}
 			});
 
 			oTable.rebindTable();
@@ -70,6 +75,10 @@ sap.ui.define([
 			}
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},
+
+		_onDataReceived: function () {
+			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Header.__list;
 		}
 
 	});

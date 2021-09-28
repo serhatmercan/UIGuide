@@ -1,5 +1,4 @@
-<CheckBox id="idCheckBox" selected="{model>/Value}"/>
-
+<CheckBox id="idCheckBox" selected="{model>/Value}" valueState="Information" visible="false"/>
 <!-- CHECKBOX ATTRIBUTES -->
 <!-- 
 

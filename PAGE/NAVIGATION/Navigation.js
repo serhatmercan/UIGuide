@@ -1,3 +1,7 @@
+// Convert Parameters
+encodeURIComponent("ID");
+decodeURIComponent("ID");
+
 // Go To The ... Page
 this.getRouter().navTo("viewName"); // manifest/sap.ui5/routing/targets/viewName
 

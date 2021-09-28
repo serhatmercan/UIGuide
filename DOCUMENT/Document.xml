@@ -1,10 +1,11 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument" busy="{viewModel>/Busy}">
 		<content>
-			<UploadCollection id="idDocumentUC" multiple="true" instantUpload="false" uploadUrl="{viewModel/DocumentUrl}"
-				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" items="{ path: '/DocumentSet',suspended: true }">
+			<UploadCollection id="idDocumentUC" instantUpload="false" multiple="true" sameFilenameAllowed="true" uploadUrl="{viewModel/DocumentUrl}"
+				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" items="{ path: '/DocumentSet',suspended: true }"
+				maximumFilenameLength="55" maximumFileSize="10" noDataDescription="{i18n>noAttach}">
 				<items>
-					<UploadCollectionItem fileName="{Filename}" mimeType="{Mimetype}" documentId="{Guid}" url="{Url}" enableDelete="true"/>
+					<UploadCollectionItem fileName="{Filename}" mimeType="{Mimetype}" documentId="{Guid}" url="{Url}" enableDelete="true" enableEdit="false"/>
 				</items>
 			</UploadCollection>
 		</content>

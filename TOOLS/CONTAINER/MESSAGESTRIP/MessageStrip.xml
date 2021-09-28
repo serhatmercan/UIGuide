@@ -1,0 +1,1 @@
+<MessageStrip text="{i18n>message}" type="Warning" showCloseButton="true" showIcon="true" visible="{model>/Visibility}"/>

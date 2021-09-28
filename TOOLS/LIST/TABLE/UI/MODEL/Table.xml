@@ -59,6 +59,7 @@ visibleRowCount="{= ${tableModel>/Data}.length }" visibleRowCount="10"
 
 growing="true" growingScrollToLoad="true" growingThreshold="10"
 
+columnHeaderVisible="false"
 enableColumnReordering="false"
 enableSelectAll="false"
 

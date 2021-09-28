@@ -11,6 +11,24 @@ sap.ui.define([], function () {
 			});
 		},
 
+		_convertToEnglishLocalizedData: function (sData) {
+			sData = sData.replace(/ö/g, 'o');
+			sData = sData.replace(/ç/g, 'c');
+			sData = sData.replace(/ş/g, 's');
+			sData = sData.replace(/ı/g, 'i');
+			sData = sData.replace(/ğ/g, 'g');
+			sData = sData.replace(/ü/g, 'u');
+			sData = sData.replace(/Ö/g, 'O');
+			sData = sData.replace(/Ç/g, 'C');
+			sData = sData.replace(/Ş/g, 'S');
+			sData = sData.replace(/I/g, 'I');
+			sData = sData.replace(/Ğ/g, 'G');
+			sData = sData.replace(/Ü/g, 'U');
+			sData = sData.replace(/[^a-z0-9-.çöşüğı]/gi, "");
+
+			return sData;
+		},
+
 		convertToEnglishLocalizedUpperCase: function (sSentence) {
 			const oLetterRuleSet = {
 				"ç": "c",

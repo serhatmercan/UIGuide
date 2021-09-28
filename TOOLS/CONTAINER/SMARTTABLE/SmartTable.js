@@ -80,7 +80,10 @@ sap.ui.define([
 			if (!oView.getBindingContext().getProperty("to_Item")) {
 				oView.bindElement({
 					path: sPath,
-					parameters: oExpand
+					parameters: oExpand,
+					events: {
+						dataReceived: this._onDataReceived.bind(this)
+					}
 				});
 
 				oSmartTable.rebindTable();
@@ -133,6 +136,10 @@ sap.ui.define([
 			for (let i = aColumns.length - 1; i > -1; i--) {
 				aColumns[i].getParent().autoResizeColumn(i);
 			}
+		},
+
+		_onDataReceived: function () {
+			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Item.__list;
 		}
 
 	});

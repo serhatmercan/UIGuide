@@ -1,4 +1,89 @@
 /* Custom Data Button Display*/
-[data-btn="X"] > .sapMLIBSelectD {
-    display: none; 
+[data-btn="X"]>.sapMLIBSelectD {
+    display: none;
+}
+
+.customLeftPosition {
+    position: fixed !important;
+}
+
+.fullWidth {
+    width: 100% !important;
+}
+
+.panelBorderLine {
+    border-style: solid !important;
+    border-color: #b0bec5 !important;
+    border-width: 2px !important;
+}
+
+.sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+}
+
+.sapMDialog {
+    max-width: 98% !important;
+}
+
+.sapMTB {
+    overflow: visible !important;
+}
+
+.sapMPanelContent {
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+}
+
+.sapUiFormCLContainer {
+    padding: 0rem !important;
+}
+
+.sapUiFormCLSmallColumns .sapUiFormCLElement>.sapUiFormCLCellsS4 {
+    width: auto !important;
+}
+
+.sapUiFormEdit .sapUiFormCLSmallColumns .sapUiFormCLElement {
+    padding-top: 0rem !important;
+}
+
+.sapUiFormResGrid>div {
+    padding: 0rem !important;
+}
+
+.sapUiRespGrid.sapUiRespGridHSpace1 {
+    padding: 0rem !important;
+}
+
+.sapUiRespGrid.sapUiRespGridHSpace1>div {
+    margin: 0rem !important;
+}
+
+.sapUiSizeCompact .sapFDynamicPageTitleMain>.sapFDynamicPageTitleMainInner .sapFDynamicPageTitleMainHeading .sapFDynamicPageTitleMainHeadingInner {
+    margin-top: 0rem !important;
+}
+
+.sapUiSizeCompact .sapUxAPObjectPageLayout-Std-Desktop .sapUxAPBlockContainer {
+    padding: 0rem !important;
+}
+
+.sapUiTableCell .sapMObjStatus {
+    white-space: pre-wrap !important;
+}
+
+.sapUxAPBlockContainer .sapMMessagePageInner {
+    position: absolute;
+}
+
+.sapUxAPObjectPageContainerNoBar>.sapUxAPObjectPageSection:first-child:not(.sapUxAPObjectPageSectionNoTitle) {
+    margin-top: 0rem !important;
+}
+
+.sapUxAPObjectPageSectionHeader {
+    height: 0rem !important;
+}
+
+.sapUxAPObjectPageSubSection {
+    padding-bottom: 0;
+    box-sizing: border-box;
 }

@@ -6,23 +6,23 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		getTableData: function () {
-
-			var aContext = this.getView().byId("idTable").getSelectedContexts();
-
-		},
-
-		getData: function () {
-			const oContext = this.getView().getBindingContext();
-			const oData = oContext.getObject();
-			const aItems = [];
-
-			oData.to_Items.__list.forEach((Item) => {
-				aItems.push(oContext.getProperty("/" + Item));
+		onInit: function () {
+			const oModel = new JSONModel({
+				Busy: false,
+				Items: [],
+				Value: ""
 			});
+
+			this.setModel(oModel, "model");
+
+			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
 		},
 
-		_bindView: function () {
+		onExit: function () {
+			this.getModel().resetChanges();
+		},
+
+		_onViewMatched: function (oEvent) {
 			const oView = this.getView();
 			const oViewModel = this.getModel("viewModel");
 			const oTable = this.byId("idTable");
@@ -30,13 +30,21 @@ sap.ui.define([
 				"$expand": "to_Header,to_Items"
 			};
 
-			this._sPath = oEvent.getSource().getParent().getBindingContext("viewModel").getPath();
+			this._clearView();
 
-			oViewModel.setProperty(this._sPath + "/Data", sMaterial);
+			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
+				this.byId("idSimpleForm").bindElement(this.getModel().createEntry("/IDSet").getPath());
+			}.bind(this));
+
+			const sPath = this.getModel().createKey("/SFSet", {
+				ID: "X"
+			});
 
 			oView.bindElement({
 				path: sPath,
-				parameters: oExpand,
+				parameters: {
+					expand: oExpand
+				},
 				events: {
 					dataReceived: this._onDataReceived.bind(this)
 				}

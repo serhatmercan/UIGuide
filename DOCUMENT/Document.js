@@ -23,6 +23,9 @@ sap.ui.define([
 				this._getFiles();
 			}
 
+			// Upload Button Visibility
+			this.byId('idDocumentUC').setUploadButtonInvisible(false);
+
 			this._oDocument.open();
 		},
 

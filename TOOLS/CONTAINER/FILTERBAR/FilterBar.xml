@@ -1,13 +1,12 @@
 <fb:FilterBar search="onSearch">
-	<fb:filterItems>
-		<fb:FilterItem name="Value" label="{i18n>Value}">
+	<fb:filterGroupItems>
+		<fb:FilterGroupItem visibleInFilterBar="true" name="Value" label="{i18n>Value}">
 			<fb:control>
 				<Input value="{model>/Value}"/>
 			</fb:control>
-		</fb:FilterItem>
-	</fb:filterItems>
+		</fb:FilterGroupItem>
+	</fb:filterGroupItems>
 </fb:FilterBar>
-
 <!-- 
 
 ADD 

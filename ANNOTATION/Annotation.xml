@@ -16,6 +16,12 @@
 						<PropertyPath>Field</PropertyPath>
 					</Collection>
 				</Annotation>
+				<Annotation Term="UI.HeaderInfo">
+					<Record Type="UI.HeaderInfoType">
+						<PropertyValue Property="TypeName" String="{@i18n&gt;information}"/>
+						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;informations}"/>
+					</Record>
+				</Annotation>
 				<Annotation Term="UI.LineItem">
 					<Collection>
 						<Record Type="UI.DataField">
@@ -53,9 +59,12 @@
 					</Record>
 				</Annotation>
 			</Annotations>
-			<Annotations Target="Metadata.List/Description">
+			<Annotations Target="Metadata.List/Title">
 				<Annotation Term="Common.Text" Path="Description"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;description}"/>
+				<Annotation Term="UI.Hidden" Bool="true"/>
+				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>
