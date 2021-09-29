@@ -190,6 +190,7 @@ sap.ui.define([
 
 		onRowSelectionChange: function (oEvent) {
 			var sCurrentIndex = oEvent.getParameters().rowIndices[0];
+			var bSelectedRow = !!oEvent.getSource().getSelectedIndices().length;
 		},
 
 		removeSelectedRow: function () {

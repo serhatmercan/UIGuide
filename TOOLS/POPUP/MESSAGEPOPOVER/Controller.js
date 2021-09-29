@@ -7,28 +7,50 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit: function () {
-			this.getRouter().getRoute("worklist").attachPatternMatched(this._onViewMatched, this);
-		},
-
-		_onObjectMatched: function (oEvent) {
-			sap.ui.getCore().getMessageManager().removeAllMessages();
+			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
 		},
 
 		addDialog: function () {
-			this._oDialog.setModel(this.getModel("messageModel"), "messageModel");
+			this._oDialog.setModel(this.getModel("message"), "message");
 		},
 
-		onShowMessages: function (oEvent) {
+		onCheckMessages: function () {
+			const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+			aMessages.forEach(oMessage => oMessage.setPersistent(true));
+
+			if (aMessages.some(oMessage => oMessage.type === "Error")) {
+				MessageToast.show(oResourceBundle.getText("errorOccured"));
+			} else {}
+		},
+
+		onClearMessages: function () {
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},
+
+		onShowMessages: function () {
+			const oMessagesButton = oEvent.getSource();
+
 			if (!this._oMessagePopover) {
-				this._oMessagePopover = sap.ui.xmlfragment("com.serhatmercan.fragment.base.MessagePopover", this);
-				oEvent.getSource().addDependent(this._oMessagePopover);
+				this._oMessagePopover = new sap.m.MessagePopover({
+					items: {
+						path: "message>/",
+						template: new sap.m.MessagePopoverItem({
+							description: "{message>description}",
+							type: "{message>type}",
+							title: "{message>message}"
+						})
+					}
+				});
+
+				oMessagesButton.addDependent(this._oMessagePopover);
 			}
-			this._oMessagePopover.toggle(oEvent.getSource());
+
+			this._oMessagePopover.toggle(oMessagesButton);
 		},
 
-		onACMessagePopover: function () {
-			this._oMessagePopover.destroy();
-			this._oMessagePopover = null;
+		_onViewMatched: function () {
+			this.onClearMessages();
 		}
 
 	});

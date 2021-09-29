@@ -1,0 +1,3 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Avatar backgroundColor="Transparent" displaySize="L" src="sap-icon://activity-individual"/>
+</mvc:View>

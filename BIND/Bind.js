@@ -22,6 +22,25 @@ sap.ui.define([
 			this.getModel().resetChanges();
 		},
 
+		onGetSetBindingData: function () {
+			const oModel = this.getModel();
+			const sBindingPath = this.getView().getBindingContext().getPath();
+			const sID = oModel.getProperty(sBindingPath + "/ID");
+
+			oModel.setProperty(sBindingPath + "/ID", "X");
+		},
+
+		onCheckBindingData: function () {
+			const oModel = this.getModel();
+			const oSmartForm = this.byId("idSmartForm");
+
+			if (oSmartForm.check().length) {
+				return;
+			}
+
+			if (oModel.hasPendingChanges()) {}
+		},
+
 		_onViewMatched: function (oEvent) {
 			const oView = this.getView();
 			const oViewModel = this.getModel("viewModel");

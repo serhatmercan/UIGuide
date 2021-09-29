@@ -23,6 +23,29 @@ sap.ui.define([
 			jQuery.extend(true, {}, oData);
 		},
 
+		callFunction: function () {
+			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel();
+
+			oViewModel.setProperty("/Busy", true);
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
+			oModel.callFunction("/GetData", {
+				method: "GET",
+				urlParameters: {
+					ID: "X"
+				},
+				success: (oData) => {
+					const sID = oData.GetData.ID;
+					oViewModel.setProperty("/Busy", false);
+				},
+				error: () => {
+					oViewModel.setProperty("/Busy", false);
+				}
+			});
+		},
+
 		runMultiPromise: function () {
 			const oViewModel = this.getModel("viewModel");
 			const aFilters = [

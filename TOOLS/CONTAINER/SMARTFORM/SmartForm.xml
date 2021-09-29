@@ -3,6 +3,7 @@
 	<smartForm:SmartForm id="idSmartForm" entityType="SFEntity" editable="true">
 		<smartForm:layout>
 			<smartForm:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
+			<smartForm:Layout labelSpanL="3"/>
 		</smartForm:layout>
 		<smartForm:Group>
 			<smartForm:GroupElement label="{/#SFEntity/Value/@sap:label}">

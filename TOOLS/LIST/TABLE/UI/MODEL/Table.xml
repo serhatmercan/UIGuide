@@ -1,4 +1,4 @@
-<table:Table id="idTable" rows="{tableModel>/}" width="auto" rowActionCount="1" selectionMode="None">
+<table:Table id="idTable" rows="{tableModel>/}" width="auto" fixedColumnCount="1" rowActionCount="1" selectionMode="None">
 	<table:rowSettingsTemplate>
 		<table:RowSettings highlight="{tableModel>Value}"/>
 	</table:rowSettingsTemplate>

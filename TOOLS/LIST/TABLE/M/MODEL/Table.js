@@ -11,14 +11,13 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit: function () {
-
 			var oTableModel = new JSONModel({
+				Data: [],
 				Value1: "",
 				Value2: ""
 			});
 
 			this.setModel(oTableModel, "tableModel");
-
 		},
 
 		onSelectionChange: function () {
@@ -94,6 +93,20 @@ sap.ui.define([
 		onCellClick: function (oEvent) {
 			const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 			const oRow = this.getModel("model").getProperty(sPath);
+		},
+
+		onChangeCB: function (oEvent) {
+			const oViewModel = this.getModel("viewModel");
+			const sPath = oEvent.getSource().getSelectedItem().getBindingContext("viewModel").getPath();
+			const sID = oViewModel.getProperty(sPath + "/ID");
+			const aRows = this.byId("idTable").getItems();
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, sID)
+			];
+
+			aRows.forEach((item) => {
+				item.getCells()[1].getBinding("items").filter(aFilters);
+			});
 		},
 
 		_initTable: function (sId, sCLIID, iStaticColumn) {

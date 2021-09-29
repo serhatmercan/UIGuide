@@ -18,6 +18,17 @@ sap.ui.define([
 
 		onChangeInput: function (oEvent) {
 			var sValue = oEvent.getParameter("newValue");
+
+			this.onValidateField(oEvent);
+		},
+
+		onValidateField: function (oEvent) {
+			const iValue = +oEvent.getParameters().value;
+			const oSource = oEvent.getSource();
+			const sProperty = oSource.getBinding("value").getPath();
+			const sPath = oSource.getParent().getBindingContext("model").getPath();
+
+			this.getModel("model").setProperty(sPath + "/" + sProperty, iValue > 0 ? iValue : 0);
 		},
 
 		clearInput: function (oEvent) {

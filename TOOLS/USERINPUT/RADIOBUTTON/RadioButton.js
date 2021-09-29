@@ -17,6 +17,10 @@ sap.ui.define([
 
 		getSelectedValue: function () {
 			const iIndex = this.byId("idRBG").getSelectedIndex();
+		},
+
+		onSelectRBG: function (oEvent) {
+			const iIndex = oEvent.getSource().getSelectedIndex();
 		}
 
 	});

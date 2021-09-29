@@ -10,6 +10,7 @@ sap.ui.define([
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
+				Data: [],
 				Value: ""
 			});
 
@@ -33,6 +34,10 @@ sap.ui.define([
 			this._oPopover.then(function (oPopover) {
 				oPopover.openBy(oButton);
 			});
+		},
+
+		onClose: function () {
+			oEvent.getSource().getParent().getParent().close();
 		}
 
 	});

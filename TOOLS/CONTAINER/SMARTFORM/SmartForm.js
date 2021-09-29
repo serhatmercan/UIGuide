@@ -21,6 +21,15 @@ sap.ui.define([
 
 			sap.ui.core.Fragment.byId(this.getView().getId(), "idSmartForm").bindElement(oCreateEntry.getPath());
 			this.getModel().setProperty(oCreateEntry.getPath() + "/Value", "X");
+
+			// From Smart Table To Smart Form
+			const oTable = this.byId("idSmartTable").getTable();
+			const iSelectedIndex = oTable.getSelectedIndex();
+			const oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
+
+			this.onOpenDialog("idDialog", "serhatmercan.SmartForm").then((oDialog) => {
+				oDialog.bindElement(oBindElement);
+			});
 		},
 
 		check: function () {

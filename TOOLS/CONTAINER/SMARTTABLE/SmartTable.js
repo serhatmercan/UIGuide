@@ -91,6 +91,7 @@ sap.ui.define([
 		},
 
 		onShow: function (oEvent) {
+			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
 			const aSmartTableContexts = this.byId("idST").getTable().getSelectedContexts();
 			const aTableContexts = this.byId("idTableST").getSelectedContexts();
 			const aIDs = [];
@@ -105,6 +106,10 @@ sap.ui.define([
 			const oContext = this.getModel().getProperty(sPath);
 
 			this._sID = oContext.ID;
+		},
+
+		onPressKey: function (oEvent) {
+			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
 		},
 
 		onBeforeRebindTableWithResizing: function (oEvent) {
@@ -124,6 +129,11 @@ sap.ui.define([
 			if (aContexts.length > 0) {
 				this._oSelectedData = this.getModel().getProperty(aContexts[0].getPath());
 			}
+		},
+
+		_getSelectedMultiData: function () {
+			const oTable = this.byId("idTableST").getTable();
+			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
 		},
 
 		_refreshTable: function () {

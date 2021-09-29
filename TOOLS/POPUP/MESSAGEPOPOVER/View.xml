@@ -1,11 +1,11 @@
 <!-- Button -->
-<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
 	press="onShowMessages"/>
 <!-- Semantic Page Header-->
-<semantic:SemanticPage showFooter="{=${messageModel>/}.length > 0}"/>
+<semantic:SemanticPage showFooter="{=${message>/}.length > 0}"/>
 <!-- Semantic Page Footer -->
 <semantic:footerCustomActions>
-	<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+	<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
 		press="onShowMessages"/>
 </semantic:footerCustomActions>
 <!-- Semantic Page Message Indicator -->
@@ -18,13 +18,13 @@
 		<ToolbarSpacer/>
 		<Title text="{i18n>title}" class="sapUiTinyMarginBegin"/>
 		<ToolbarSpacer/>
-		<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+		<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
 			press="onShowMessages"/>
 	</OverflowToolbar>
 </customHeader>
 <!-- Dialog - Footer -->
 <Toolbar>
-	<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
+	<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
 		press="onShowMessages"/>
 	<ToolbarSpacer/>
 	<Button text="{i18n>text}"/>

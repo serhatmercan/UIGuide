@@ -10,11 +10,12 @@
 					<FlexItemData shrinkFactor="0"/>
 				</smartFilterBar:layoutData>
 			</smartFilterBar:SmartFilterBar>
-			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" header="{i18n>smartTable}" smartFilterId="idSFB" smartVariant="idSVM"
-				tableBindingPath="to_Item" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key" ignoredFields="Value" requestAtLeastFields="ID"
-				width="25%" cd:useSmartField="true" demandPopin="true" editable="true" enableAutoBinding="true" showRowCount="true"
-				showTablePersonalisation="false" useTablePersonalisation="true" useExportToExcel="false" useVariantManagement="false"
-				beforeRebindTable="onBRT" dataReceived="onDT" fieldChange="onChangeField" initialized="onInitST">
+			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" class="sapUiResponsiveContentPadding" header="{i18n>smartTable}"
+				smartFilterId="idSFB" smartVariant="idSVM" tableBindingPath="to_Item" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key"
+				ignoredFields="Value" requestAtLeastFields="ID" width="25%" cd:useSmartField="true" demandPopin="true" editable="true"
+				enableAutoBinding="true" showFullScreenButton="true" showRowCount="true" showTablePersonalisation="false" useTablePersonalisation="true"
+				useExportToExcel="false" useVariantManagement="false" beforeRebindTable="onBRT" dataReceived="onDT" fieldChange="onChangeField"
+				initialized="onInitST">
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
 						<ToolbarSpacer/>
@@ -26,7 +27,8 @@
 					<columns>
 						<Column id="idColumnKey">
 							<customData>
-								<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"7"}'/>
+								<core:CustomData key="p13nData"
+									value='\{"columnIndex": "7", "columnKey": "Key", "filterProperty": "Key", "leadingProperty": "Key", "sortProperty": "Key"}'/>
 							</customData>
 							<Text text="{i18n>key}"/>
 						</Column>
@@ -59,6 +61,9 @@
 						</ui:customData>
 						<ui:template>
 							<Input value="{Key}" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHR"/>
+						</ui:template>
+						<ui:template>
+							<Link text="{Key}" press="onPressKey"/>
 						</ui:template>
 					</ui:Column>
 				</ui:Table>

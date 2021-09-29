@@ -16,12 +16,18 @@
 		<Column mergeDuplicates="true">
 			<Text text="{i18n>value2}"/>
 		</Column>
+		<Column>
+			<Text text="{i18n>value3}"/>
+		</Column>
 	</columns>
 	<items>
 		<ColumnListItem id="idCLI" type="Active" vAlign="Middle" press="onPress">
 			<cells>
 				<Text text="{tableModel>Value1}"/>
 				<Text text="{tableModel>Value2}"/>
+				<ComboBox items="{tableModel>Data}" showSecondaryValues="true" change="onChangeCB">
+					<core:ListItem key="{tableModel>ID}" text="{tableModel>ID}" additionalText="{tableModel>Text}"/>
+				</ComboBox>
 			</cells>
 		</ColumnListItem>
 	</items>

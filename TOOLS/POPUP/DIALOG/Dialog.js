@@ -1,7 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-], function (BaseController, JSONModel) {
+	"sap/ui/core/Fragment"
+], function (BaseController, JSONModel, Fragment) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -154,6 +155,62 @@ sap.ui.define([
 
 			oTextAreaDialog.open();
 
+		},
+
+		onShowDialog: function () {
+			// Default
+			this.onOpenDialog("idDialog", "serhatmercan.Dialog");
+
+			// Default w/ Then
+			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {});
+
+			// w/ Binding Path
+			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {
+				oDialog.bindElement({
+					path: "viewModel>" + sPath
+				});
+			});
+
+			const oTable = this.byId("idTable").getTable();
+			const iSelectedIndex = oTable.getSelectedIndex();
+			let oBindElement = {};
+
+			oBindElement = this.getModel().createEntry("/...Set").getPath();
+			oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
+
+			// w/ Binding Element
+			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {
+				oDialog.bindElement(oBindElement);
+			});
+		},
+
+		onOpenDialog: function (sDialogId, sFragmentName) {
+			return new Promise((fnResolve, fnReject) => {
+				var oView = this.getView(),
+					oDialog = this.byId(sDialogId),
+					sContentDensityClass = this.getOwnerComponent().getContentDensityClass();
+
+				if (!oDialog) {
+					Fragment.load({
+						id: oView.getId(),
+						name: sFragmentName,
+						controller: this
+					}).then((oFragment) => {
+						jQuery.sap.syncStyleClass(sContentDensityClass, oView, oFragment);
+						oView.addDependent(oFragment);
+						oFragment.open();
+						fnResolve(oFragment);
+					});
+				} else {
+					oDialog.open();
+					fnResolve(oDialog);
+				}
+			});
+		},
+
+		onCloseDialog: function (oEvent) {
+			this.onClearMessages();
+			oEvent.getSource().getParent().close();
 		}
 
 	});
