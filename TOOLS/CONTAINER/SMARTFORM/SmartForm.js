@@ -17,10 +17,11 @@ sap.ui.define([
 		},
 
 		bindDialog: function () {
-			const oCreateEntry = this.getModel().createEntry("/...Set");
+			const oModel = this.getModel();
+			const oCreateEntry = oModel.createEntry("/...Set");
 
 			sap.ui.core.Fragment.byId(this.getView().getId(), "idSmartForm").bindElement(oCreateEntry.getPath());
-			this.getModel().setProperty(oCreateEntry.getPath() + "/Value", "X");
+			oModel.setProperty(oCreateEntry.getPath() + "/Value", "X");
 
 			// From Smart Table To Smart Form
 			const oTable = this.byId("idSmartTable").getTable();
@@ -52,7 +53,9 @@ sap.ui.define([
 		},
 
 		_setData: function () {
+			const sPath = this.byId("idSmartForm").getBindingContext().getPath();
 
+			this.getModel().setProperty(sPath + "/ID", "X");
 		},
 
 	});

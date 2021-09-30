@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<OverflowToolbar design="Transparent">
+		<ToolbarSpacer/>
+		<MenuButton text="{i18n>menuButton}" enabled="{model>/menuStatu}">
+			<menu>
+				<Menu>
+					<MenuItem text="{i18n>MI1}" icon="sap-icon://edit" press="onShowMI1"/>
+					<MenuItem text="{i18n>MI2}" icon="sap-icon://enter-more" press="onShowMI2"/>
+				</Menu>
+			</menu>
+		</MenuButton>
+	</OverflowToolbar>
+</core:FragmentDefinition>

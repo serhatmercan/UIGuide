@@ -192,6 +192,11 @@ sap.ui.define([
 			// Clear Metadata
 			delete oData.__metadata;
 
+			// Clear Items Metadata
+			oData.to_Items.forEach(oItem => {
+				delete oItem.__metadata;
+			});
+
 			// Convert Integer Value to String
 			Object.keys(oData).map(function (sFieldName) {
 				if ((typeof oData[sFieldName]) === "number") {

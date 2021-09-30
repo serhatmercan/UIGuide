@@ -2,8 +2,8 @@
 	xmlns:l="sap.ui.layout">
 	<f:SimpleForm id="idSimpleForm">
 		<smartField:SmartField id="idID" value="{ID}" entitySet="SFSet" change="onChangeID" busy="{model>/Busy}" editable="false" enabled="false"
-			mandatory="true" showLabel="false" visible="false" placeholder="{i18n>ID}" width="18rem" textInEditModeSource="ValueList"
-			valueListChanged="onVLC" innerControlsCreated="onICC">
+			mandatory="true" showLabel="false" textLabel="{i18n>ID}" visible="false" placeholder="{i18n>ID}" width="18rem"
+			textInEditModeSource="ValueList" valueListChanged="onVLC" innerControlsCreated="onICC">
 			<smartField:layoutData>
 				<l:GridData spanL="3" spanM="3" spanS="3"/>
 			</smartField:layoutData>
@@ -17,4 +17,8 @@
 <!--
 value="{ path: 'Value', type: 'sap.ui.model.type.Integer' }
 value="{ path: 'Date', type:'sap.ui.model.type.Date', formatOptions: { UTC: true } }"
+
+Smart Field - Configuration
+
+displayBehaviour="idAndDescription"
 -->

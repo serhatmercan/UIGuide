@@ -46,7 +46,7 @@
 				<!-- Grid Table -->
 				<ui:Table id="idUITable" visibleRowCount="15" enableColumnFreeze="true" selectionMode="Single">
 					<ui:Column id="idColumn" width="10rem">
-						<Label text="{i18n>column}"/>
+						<Label text="{/#SFEntity/Key/@sap:label}"/>
 						<ui:customData>
 							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"1"}'/>
 						</ui:customData>

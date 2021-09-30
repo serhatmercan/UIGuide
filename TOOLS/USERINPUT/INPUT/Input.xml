@@ -24,7 +24,6 @@ description={model>/Unit}"
 
 editable="false"
 required="true"
-valueLiveUpdate="true" 
 visible="true"
 
 value="{ path: 'model>/Value' }"
@@ -32,6 +31,8 @@ value="{ , type: 'sap.ui.model.type.Integer' }" 			->	'sap.ui.model.odata.type.S
 value="{ , constraints: { minimum: '1', maximum: '99' } }"
 value="{ , type:'sap.ui.model.type.Float', formatOptions : { groupingEnabled: true, groupingSeparator: '.', decimalSeparator : ',', minFractionDigits: 3 } }"
 value="{ , type: 'sap.ui.model.type.Float', formatOptions: { precision:2, parseAsString: true} }"
+
+valueLiveUpdate="true" valueState="{= +${model>Value} > 0 ? 'Success' : 'Error' }"
 
 liveChange="onLiveChange"
 

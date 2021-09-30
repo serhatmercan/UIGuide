@@ -43,6 +43,7 @@ sap.ui.define([
 
 		_onViewMatched: function (oEvent) {
 			const oView = this.getView();
+			const oModel = this.getModel();
 			const oViewModel = this.getModel("viewModel");
 			const oTable = this.byId("idTable");
 			const oExpand = {
@@ -52,10 +53,19 @@ sap.ui.define([
 			this._clearView();
 
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-				this.byId("idSimpleForm").bindElement(this.getModel().createEntry("/IDSet").getPath());
+				const oCreateEntry = this.getModel().createEntry("/IDSet");
+
+				this.byId("idSimpleForm").bindElement(oCreateEntry.getPath());
+
+				oModel.setProperty(oCreateEntry.getPath() + "/ID", "X");
+				oModel.setProperty(oCreateEntry.getPath() + "/Date", new Date());
+				oModel.setProperty(oCreateEntry.getPath() + "/Time", {
+					__edmType: "Edm.Time",
+					ms: new Date().getTime()
+				});
 			}.bind(this));
 
-			const sPath = this.getModel().createKey("/SFSet", {
+			const sPath = oModel.createKey("/SFSet", {
 				ID: "X"
 			});
 

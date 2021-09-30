@@ -34,9 +34,9 @@
 			<f:GridList></f:GridList>
 		</headerContent>
 		<sections>
-			<ObjectPageSection title="{i18n>ops}" titleUppercase="false" visible="false">
+			<ObjectPageSection title="{i18n>ops}" titleUppercase="false" showTitle="false" visible="false">
 				<subSections>
-					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer" title="{i18n>oPSS1}">
+					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer sapUxAPObjectPageSubSection sapUxAPBlockContainer" title="{i18n>oPSS1}">
 						<blocks>
 							<form:SmartForm>
 								<form:Group>
