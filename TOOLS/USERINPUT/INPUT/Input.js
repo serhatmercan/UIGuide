@@ -115,6 +115,10 @@ sap.ui.define([
 
 		onLiveChange: function (oEvent) {
 
+		},
+
+		onSubmit: function (oEvent) {
+			const sValue = oEvent.getParameter("value");
 		}
 
 	});

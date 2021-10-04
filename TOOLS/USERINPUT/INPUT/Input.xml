@@ -35,6 +35,7 @@ value="{ , type: 'sap.ui.model.type.Float', formatOptions: { precision:2, parseA
 valueLiveUpdate="true" valueState="{= +${model>Value} > 0 ? 'Success' : 'Error' }"
 
 liveChange="onLiveChange"
+submit="onSubmit"
 
 SEARCH HELP
 

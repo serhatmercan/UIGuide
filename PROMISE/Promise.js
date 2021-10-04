@@ -175,16 +175,20 @@ sap.ui.define([
 
 		sendMultiData: function (oEvent) {
 			const oResourceBundle = this.getResourceBundle();
+			const oModel = this.getModel();
 			const oViewModel = this.getModel("viewModel");
 			const aData = oViewModel.getProperty("/Data");
 			const oData = {
 				ID: "X",
 				to_Items: []
 			};
+			const aPaths = this.getView().getBindingContext().getProperty("to_Items");
 
 			aData.forEach((Data) => {
 				oData.to_Items.push(Data);
 			});
+
+			oData.to_Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
 
 			// Match Binding Data
 			oData = jQuery.extend(true, {}, aData.to_Items);

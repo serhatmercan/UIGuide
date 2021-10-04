@@ -35,6 +35,13 @@ sap.ui.define([
 			default:
 				break;
 			}
+
+			// Get Smart Table Binding Value
+			const sValue = oEvent.getParameter("selectedItem").getKey();
+			const sRowPath = oEvent.getSource().getBindingContext().getPath();
+			const oModel = this.getModel();
+			const oRowData = oModel.getProperty(sRowPath);
+			const aData = this.getView().getBindingContext().getProperty("to_Item").map(sPath => oModel.getProperty("/" + sPath));
 		}
 
 	});

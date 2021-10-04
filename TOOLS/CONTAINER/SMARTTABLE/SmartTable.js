@@ -123,6 +123,14 @@ sap.ui.define([
 			};
 		},
 
+		onChangeKey: function (oEvent) {
+			const sValue = oEvent.getParameter("selectedItem").getKey();
+			const sRowPath = oEvent.getSource().getBindingContext().getPath();
+			const oModel = this.getModel();
+			const oRowData = oModel.getProperty(sRowPath);
+			const aData = this.getView().getBindingContext().getProperty("to_Item").map(sPath => oModel.getProperty("/" + sPath));
+		},
+
 		_getSelectedData: function () {
 			const aContexts = this.byId("idTableST").getSelectedContexts();
 
@@ -134,6 +142,12 @@ sap.ui.define([
 		_getSelectedMultiData: function () {
 			const oTable = this.byId("idTableST").getTable();
 			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
+		},
+
+		_getTotalCount: function () {
+			const oTable = this.byId("idTableST").getTable();
+			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
+			const iTotal = aSelectedData.reduce((sum, current) => sum + +current.Amount, 0)
 		},
 
 		_refreshTable: function () {

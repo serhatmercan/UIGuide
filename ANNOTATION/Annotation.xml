@@ -10,17 +10,67 @@
 	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="APP_PATH.ANNOTATION_NAME.SERVICE_NAME_SRV">
+			<Annotations Target="SERVICE_NAME_SRV.SERVICE_NAME_SRV_Entities/ListSet">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record Type="Capabilities.FilterRestrictionsType">
+						<PropertyValue Property="RequiredProperties">
+							<Collection/>
+						</PropertyValue>
+						<PropertyValue Property="NonFilterableProperties">
+							<Collection>
+								<PropertyPath>Field</PropertyPath>
+								<PropertyPath>Key</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
 			<Annotations Target="Metadata.List">
-				<Annotation Term="UI.SelectionFields">
+				<Annotation Term="UI.Criticality" Path="Condition"/>
+				<Annotation Term="UI.Facets">
 					<Collection>
-						<PropertyPath>Field</PropertyPath>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;general}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#general"/>
+										<PropertyValue Property="Label" String="{@i18n&gt;generalData}"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Annotation Term="UI.FieldGroup" Qualifier="header">
+							<Record Type="UI.FieldGroupType">
+								<PropertyValue Property="Data">
+									<Collection>
+										<Record Type="UI.DataField">
+											<PropertyValue Property="Value" Path="Eqtyp"/>
+										</Record>
+									</Collection>
+								</PropertyValue>
+							</Record>
+						</Annotation>
+						<Annotation Term="UI.HeaderFacets">
+							<Collection>
+								<Record Type="UI.ReferenceFacet">
+									<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header"/>
+								</Record>
+							</Collection>
+						</Annotation>
 					</Collection>
 				</Annotation>
 				<Annotation Term="UI.HeaderInfo">
 					<Record Type="UI.HeaderInfoType">
+						<PropertyValue Property="Title" Path="@UI.LineItem"/>
 						<PropertyValue Property="TypeName" String="{@i18n&gt;information}"/>
 						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;informations}"/>
 					</Record>
+				</Annotation>
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Field</PropertyPath>
+					</Collection>
 				</Annotation>
 				<Annotation Term="UI.LineItem">
 					<Collection>
@@ -32,6 +82,16 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.List/Field">
+				<Annotation Term="Common.SemanticObject" String="SemanticObjectName"/>
+				<Annotation Term="Common.SemanticObjectMapping">
+					<Collection>
+						<Record Type="Common.SemanticObjectMappingType">
+							<PropertyValue Property="LocalProperty" PropertyPath="Field"/>
+							<PropertyValue Property="SemanticObjectProperty" String="Data"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="Common.Text" Path="Field"/>
 				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;field}"/>
 				<Annotation Term="Common.ValueList">
@@ -62,6 +122,7 @@
 			<Annotations Target="Metadata.List/Title">
 				<Annotation Term="Common.Text" Path="Description"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;description}"/>
+				<Annotation Term="Measures.Unit" Path="Unit"/>
 				<Annotation Term="UI.Hidden" Bool="true"/>
 				<Annotation Term="UI.HiddenFilter" Bool="true"/>
 				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>

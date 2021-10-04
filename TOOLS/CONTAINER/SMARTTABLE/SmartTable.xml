@@ -44,7 +44,10 @@
 					</items>
 				</Table>
 				<!-- Grid Table -->
-				<ui:Table id="idUITable" visibleRowCount="15" enableColumnFreeze="true" selectionMode="Single">
+				<ui:Table id="idUITable" selectionMode="Single" visibleRowCount="15" alternateRowColors="true" enableColumnFreeze="true">
+					<ui:rowSettingsTemplate>
+						<ui:RowSettings highlight="{= ${Statu} === 'X' ? 'Error' : undefined}"/>
+					</ui:rowSettingsTemplate>
 					<ui:Column id="idColumn" width="10rem">
 						<Label text="{/#SFEntity/Key/@sap:label}"/>
 						<ui:customData>
@@ -64,6 +67,11 @@
 						</ui:template>
 						<ui:template>
 							<Link text="{Key}" press="onPressKey"/>
+						</ui:template>
+						<ui:template>
+							<Select items="{model>/Keys}" selectedKey="{Key}" change="onChangeKey">
+								<core:Item key="{model>}" text="{model>}"/>
+							</Select>
 						</ui:template>
 					</ui:Column>
 				</ui:Table>

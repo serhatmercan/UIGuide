@@ -1,8 +1,14 @@
 <mvc:View controllerName="serhatmercan.controller.ControllerName" xmlns="sap.m" xmlns:semantic="sap.f.semantic">
-	<semantic:SemanticPage id="idPage" title="{i18n>title}" busy="{viewModel>/Busy}" showFooter="{=${message>/}.length > 0}">
+	<semantic:SemanticPage id="idPage" busy="{model>/Busy}" title="{i18n>title}" showFooter="{=${message>/}.length > 0}">
 		<semantic:titleHeading>
 			<Title text="{i18n>text}" level="H2"/>
 		</semantic:titleHeading>
+		<semantic:titleExpandedContent>
+			<ObjectStatus title="{i18n>status}" text="{i18n>text}"/>
+		</semantic:titleExpandedContent>
+		<semantic:titleMainAction>
+			<semantic:TitleMainAction id="idEditAction" text="{i18n>edit}" enabled="{= ${model>/Value}" press="onEdit"/>
+		</semantic:titleMainAction>
 		<semantic:content></semantic:content>
 		<semantic:messagesIndicator>
 			<semantic:MessagesIndicator press="onShowMessages"/>

@@ -1,0 +1,12 @@
+{
+	"sap.ui5": {
+		"models": {
+			"viewModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "./model/viewModel.json",
+				"preload": true
+			}
+		}
+	}
+}

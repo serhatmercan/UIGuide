@@ -14,6 +14,7 @@
 <Input visible="{= ${objectView>/newMachConf} || ${objectView>/editMode} === true ? false : true }"/>
 <!-- IF : Not True -->
 <Input enabled="{=$ !{viewModel>/Busy}}"/>
+<Input visible="{= !${viewModel>/MaterialSelected}}"/>
 <!-- IF : AND Operator -->
 <Input enabled="{= ${colorCodeModel>/Detail/PantoneStatu} &amp;&amp; ${colorCodeModel>/Info/Statu} === 'Dış'}"/>
 <!-- LESS THAN -->
