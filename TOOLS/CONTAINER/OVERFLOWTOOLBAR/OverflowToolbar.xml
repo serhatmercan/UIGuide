@@ -1,7 +1,12 @@
-<OverflowToolbar class="sapUiSmallMargin" design="Transparent">
+<OverflowToolbar class="sapUiSmallMargin" design="Transparent" style="Clear">
 	<Title text="{i18n>title}"/>
 	<ToolbarSpacer/>
 	<Label text="Text:"/>
 	<Input value="{model>/Value}"/>
 	<Button icon="sap-icon://add" tooltip="{i18n>add}" press="onAdd"/>
 </OverflowToolbar>
+<!-- Overflow Toolbar -->
+<!--
+class="sapUiSmallMarginTop"
+style="Standard"
+-->

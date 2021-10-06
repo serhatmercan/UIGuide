@@ -30,6 +30,39 @@ sap.ui.define([
 			oModel.setProperty(sBindingPath + "/ID", "X");
 		},
 
+		onClearBindingData: function () {
+			this.getView().bindElement(this.getModel().createEntry("/IDSet").getPath());
+		},
+
+		onClearBindingProperties: function () {
+			const oModel = this.getModel();
+			const aProperties = oModel.getMetaModel().getODataEntityType("ZXX_SRV.Material").property;
+
+			aProperties.forEach((oProperty) => {
+				let value;
+
+				switch (oProperty.type) {
+				case "Edm.Boolean":
+					value = false;
+					break;
+				case "Edm.DateTime":
+					value = null;
+					break;
+				case "Edm.String":
+					value = "";
+					break;
+				case "Edm.Time":
+					value = {
+						ms: 0,
+						__edmType: "Edm.Time"
+					};
+					break;
+				}
+
+				oModel.setProperty(this.getView().getBindingContext().getPath() + "/" + oProperty.name, value);
+			});
+		},
+
 		onCheckBindingData: function () {
 			const oModel = this.getModel();
 			const oSmartForm = this.byId("idSmartForm");
@@ -75,6 +108,7 @@ sap.ui.define([
 					expand: oExpand
 				},
 				events: {
+					change: this._onChange.bind(this),
 					dataReceived: this._onDataReceived.bind(this)
 				}
 			});
@@ -87,9 +121,15 @@ sap.ui.define([
 
 			if (oBindingContext) {
 				this.getModel().deleteCreatedEntry(oBindingContext);
+				this.getView().unbindElement();
+				this.getModel().refresh(true, true);
 			}
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},
+
+		_onChange: function () {
+
 		},
 
 		_onDataReceived: function () {

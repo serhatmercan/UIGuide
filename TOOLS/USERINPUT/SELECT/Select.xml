@@ -5,6 +5,10 @@
 	visible="false">
 	<core:ListItem key="{Key}" text="{Text}" additionalText="{AdditionalText}"/>
 </Select>
+<Select id="idSelect" selectedKey="{listModel>/Key}" showSecondaryValues="true">
+	<core:ListItem key="X" additionalText="X" text="X Data"/>
+	<core:ListItem key="Y" additionalText="Y" text="Y Data"/>
+</Select>
 <!-- SELECT ATTRIBUTES -->
 <!-- 
 

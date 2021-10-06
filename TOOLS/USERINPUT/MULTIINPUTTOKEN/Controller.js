@@ -56,6 +56,13 @@ sap.ui.define([
 
 		},
 
+		onTokenUpdate: function (oEvent) {
+			const oSource = oEvent.getSource();
+			const iDeletedTokenRow = oSource.getParent().getIndex();
+			const aTokens = oSource.getTokens();
+			const aRemovedTokens = oEvent.getParameters("removedTokens").removedTokens;
+		},
+
 		onValueHelpRequest: function (oEvent) {
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("serhatmercan.Fragment", this);

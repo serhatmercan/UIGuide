@@ -10,6 +10,12 @@
 			<semantic:TitleMainAction id="idEditAction" text="{i18n>edit}" enabled="{= ${model>/Value}" press="onEdit"/>
 		</semantic:titleMainAction>
 		<semantic:content></semantic:content>
+		<semantic:footerMainAction>
+			<semantic:FooterMainAction press="onSave"/>
+		</semantic:footerMainAction>
+		<semantic:footerCustomActions>
+			<Button press="onCancel"/>
+		</semantic:footerCustomActions>
 		<semantic:messagesIndicator>
 			<semantic:MessagesIndicator press="onShowMessages"/>
 		</semantic:messagesIndicator>

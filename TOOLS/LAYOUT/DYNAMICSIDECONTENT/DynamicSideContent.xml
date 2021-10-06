@@ -1,0 +1,57 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:table="sap.ui.table">
+	<VBox class="sapUiSmallMargin">
+		<l:DynamicSideContent id="idDynamicSideContent" class="sapUiDSCExplored sapUiContentPadding" containerQuery="true" equalSplit="true"
+			breakpointChanged="onBreakpointChanged">
+			<f:Form id="idForm" editable="false">
+				<f:layout>
+					<f:ResponsiveGridLayout columnsXL="2" columnsL="2" columnsM="2" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" labelSpanXL="4"
+						labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" singleContainerFullSize="false"/>
+				</f:layout>
+				<f:formContainers>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>FE1}">
+								<f:fields>
+									<ComboBox items="{model>/Data}">
+										<core:ListItem key="{model>}" text="{model>}"/>
+									</ComboBox>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>FE2}">
+								<f:fields>
+									<Input value="{model>/Value}"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+					<f:FormContainer>
+						<f:formElements>
+							<f:FormElement label="{i18n>FE3}">
+								<f:fields>
+									<Input value="{model>/Value2}"/>
+								</f:fields>
+							</f:FormElement>
+						</f:formElements>
+					</f:FormContainer>
+				</f:formContainers>
+			</f:Form>
+			<l:sideContent>
+				<table:Table rows="{model>/Data}">
+					<table:columns>
+						<table:Column >
+							<Label text="{i18n>text}"/>
+							<table:template>
+								<Input value="{model>Value}"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+				</table:Table>
+			</l:sideContent>
+		</l:DynamicSideContent>
+	</VBox>
+	<OverflowToolbar>
+		<ToolbarSpacer/>
+		<Button press="onPress"/>
+	</OverflowToolbar>
+</core:FragmentDefinition>

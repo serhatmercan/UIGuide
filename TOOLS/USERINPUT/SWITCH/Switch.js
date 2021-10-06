@@ -18,6 +18,9 @@ sap.ui.define([
 		onChange: function (oEvent) {
 			const bState = oEvent.getParameter("state");
 			const oSelectedObject = oEvent.getSource().getBindingContext().getObject();
+			const sPath = oEvent.getSource().getBindingContext().getPath();
+
+			this.getModel("model").setProperty(sPath + "/Value", bState);
 		},
 
 	});

@@ -13,6 +13,7 @@
 			<Annotations Target="SERVICE_NAME_SRV.SERVICE_NAME_SRV_Entities/ListSet">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record Type="Capabilities.FilterRestrictionsType">
+						<PropertyValue Property="RequiresFilter" Bool="true"/>
 						<PropertyValue Property="RequiredProperties">
 							<Collection/>
 						</PropertyValue>
@@ -78,7 +79,21 @@
 							<PropertyValue Property="Value" Path="Field"/>
 							<PropertyValue Property="Label" String="{i18n&gt;field}"/>
 						</Record>
+						<Record Type="UI.DataFieldWithIntentBasedNavigation">
+							<PropertyValue Property="SemanticObject" String="SemanticObjectName"/>
+							<PropertyValue Property="Action" String="Data"/>
+							<PropertyValue Property="Value" Path="Field"/>
+						</Record>
 					</Collection>
+				</Annotation>
+				<Annotation Term="UI.PresentationVariant">
+					<Record Type="UI.PresentationVariantType">
+						<PropertyValue Property="RequestAtLeast">
+							<Collection>
+								<PropertyPath>Field</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.List/Field">
@@ -125,6 +140,7 @@
 				<Annotation Term="Measures.Unit" Path="Unit"/>
 				<Annotation Term="UI.Hidden" Bool="true"/>
 				<Annotation Term="UI.HiddenFilter" Bool="true"/>
+				<Annotation Term="UI.MultiLineText" Bool="true"/>
 				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
 			</Annotations>
 		</Schema>

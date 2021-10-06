@@ -9,8 +9,25 @@
 			<smartForm:GroupElement label="{/#SFEntity/Value/@sap:label}">
 				<smartField:SmartField id="idSmartField" value="{Value}"/>
 			</smartForm:GroupElement>
+			<smartform:GroupElement label="Key">
+				<Select id="idKey" selectedKey="{Key}" showSecondaryValues="true">
+					<core:ListItem key="X" additionalText="X" text="X Data"/>
+					<core:ListItem key="Y" additionalText="Y" text="Y Data"/>
+				</Select>
+			</smartform:GroupElement>
 			<smartform:GroupElement>
 				<smartField:SmartField value="{Key}" textLabel="{i18n>key}"/>
+				<HBox justifyContent="SpaceBetween">
+					<Button press="onPress"/>
+					<smartfield:SmartField value="{Data}"/>
+				</HBox>
+			</smartform:GroupElement>
+			<smartform:GroupElement >
+				<smartfield:SmartField value="{Data}"/>
+				<HBox justifyContent="SpaceBetween">
+					<Button icon="sap-icon://bar-code" text="{i18n>scanBarcode}" press="onScanBarcode"/>
+					<smartfield:SmartField value="{Key}"/>
+				</HBox>
 			</smartform:GroupElement>
 		</smartForm:Group>
 	</smartForm:SmartForm>

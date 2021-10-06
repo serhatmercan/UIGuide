@@ -39,6 +39,16 @@ sap.ui.define([
 			}
 		},
 
+		onScanBarcode: function () {
+			const fnSuccess = function (oScan) {
+				if (!oScan.cancelled) {
+					this.getModel().setProperty(this.getView().getBindingContext().getPath() + "/Key", oScan.text);
+				}
+			}.bind(this);
+
+			BarcodeScanner.scan(fnSuccess);
+		},
+
 		_onViewMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const sPath = this.getModel().createEntry("/ValueSet").getPath();

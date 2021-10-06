@@ -76,7 +76,8 @@ sap.ui.define([
 		},
 
 		onConfirmSD: function (oEvent) {
-			var oSelectedItem = oEvent.getParameter("selectedItem"),
+			var aSelectedItems = oEvent.getParameter("selectedItems"),
+				oSelectedItem = oEvent.getParameter("selectedItem"),
 				oData = oSelectedItem.getBindingContext().getProperty(),
 				sTitle = oSelectedItem.getTitle(),
 				sDescription = oSelectedItem.getDescription(),

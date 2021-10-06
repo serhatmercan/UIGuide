@@ -1,0 +1,3 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+	<ObjectStatus icon="sap-icon://attachment" text="{AttachCount}" visible="{= +${AttachCount} > 0 }"/>
+</core:FragmentDefinition>

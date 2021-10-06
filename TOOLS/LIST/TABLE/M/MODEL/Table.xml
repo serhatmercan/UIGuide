@@ -48,6 +48,7 @@ busyIndicatorDelay="{model>/tableBusyDelay}"
 
 items="{ path: '/TableSet', suspended:true }"
 items="{ path: 'model>/Items', sorter: { path: 'ID', descending: false } }"
+items="{ path: 'model>/Items', sorter: [{ path: 'ID', descending: false }, { path: 'Key', descending: false }] }"
 
 fixedLayout="true"
 
