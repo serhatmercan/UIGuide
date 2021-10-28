@@ -85,7 +85,9 @@ sap.ui.define([
 			// oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
 		},
 
-		onAfterCloseDialog: function () {
+		onAfterCloseDialog: function (oEvent) {
+			oEvent.getSource().destroy();
+
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;

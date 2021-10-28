@@ -37,7 +37,7 @@
 			<smartForm:SmartForm></smartForm:SmartForm>
 		</headerContent>
 		<sections>
-			<ObjectPageSection showTitle="false" visible="{= !${model>/Value} }">
+			<ObjectPageSection id="idOPS" showTitle="false" visible="{= !${model>/Value} }">
 				<subSections>
 					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer">
 						<m:MessagePage id="idMessagePage" icon="sap-icon://inspection" description="" text="{i18n>initialMessagePageTitle}" showHeader="false"/>

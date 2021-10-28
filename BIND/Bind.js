@@ -20,6 +20,7 @@ sap.ui.define([
 
 		onExit: function () {
 			this.getModel().resetChanges();
+			this.byId("idSmartTable").rebindTable();
 		},
 
 		onGetSetBindingData: function () {
@@ -108,6 +109,16 @@ sap.ui.define([
 					expand: oExpand
 				},
 				events: {
+					change: (oEvent) => {
+						const aItemPaths = oEvent.getSource().getBoundContext().getObject().to_Items.__list;
+						const aItems = [];
+
+						aItemPaths.forEach(oItemPath => {
+							let oItem = oModel.getProperty("/" + oItemPath);
+							delete oItem.__metadata;
+							aItems.push(oItem);
+						});
+					},
 					change: this._onChange.bind(this),
 					dataReceived: this._onDataReceived.bind(this)
 				}

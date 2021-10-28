@@ -41,9 +41,9 @@ sap.ui.define([
 		},
 
 		onInitST: function () {
-			const oSmartFilter = this.byId("idSFB");
-			const oJSONData = {};
-			const oID = {};
+			let oSmartFilter = this.byId("idSFB");
+			let oJSONData = {};
+			let oID = {};
 
 			this._sID = "X";
 

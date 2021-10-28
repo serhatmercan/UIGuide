@@ -108,6 +108,7 @@
 				</Annotation>
 				<Annotation Term="Common.Text" Path="Field"/>
 				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
+				<Annotation Term="Common.FilterDefaultValue" String="ABC"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;field}"/>
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
@@ -134,7 +135,7 @@
 					</Record>
 				</Annotation>
 			</Annotations>
-			<Annotations Target="Metadata.List/Title">
+			<Annotations Target="Metadata.FieldVH/Title">
 				<Annotation Term="Common.Text" Path="Description"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;description}"/>
 				<Annotation Term="Measures.Unit" Path="Unit"/>

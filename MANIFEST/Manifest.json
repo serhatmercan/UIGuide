@@ -1,4 +1,19 @@
 {
+	"sap.app": {
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/ZQM_063_PPM_SUM_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml",
+					"annotations": [
+						"annotation"
+					]
+				}
+			}
+		}
+	},
 	"sap.ui": {
 		"fullWidth": true
 	},

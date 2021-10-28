@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+	<table:Column id="ExtensionWizard::ColumnBreakout" width="10rem">
+		<Text text="{i18n>id}"/>
+		<table:customData >
+			<core:CustomData key="p13nData" value='\{"columnKey": "ID", "columnIndex" : "0"}'/>
+		</table:customData>
+		<table:template >
+			<CheckBox selected="{ID}"/>
+		</table:template>
+	</table:Column>
+</core:FragmentDefinition>
