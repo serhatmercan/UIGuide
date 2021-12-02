@@ -3,9 +3,9 @@
 	<Dialog id="idDialogSSH" title="{i18n>title}" busy="{model>/Busy}">
 		<content>
 			<VBox fitContainer="true">
-				<smartFilterBar:SmartFilterBar id="idSFB" entitySet="VHSet" persistencyKey="SFPKey"/>
+				<smartFilterBar:SmartFilterBar id="idSFB" entitySet="VHSet" persistencyKey="SFPKey" initialized="onInitST"/>
 				<smartTable:SmartTable id="idST" entitySet="VHSet" smartFilterId="idSFB" tableType="ResponsiveTable" initiallyVisibleFields="ID,Value"
-					enableAutoBinding="true" beforeRebindTable="onBRT" initialized="onInitST">
+					enableAutoBinding="true" beforeRebindTable="onBRT">
 					<Table id="idTable" growing="true" growingScrollToLoad="true" growingThreshold="100">
 						<items>
 							<ColumnListItem type="Navigation" press="onSelectSSH"/>

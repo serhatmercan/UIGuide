@@ -151,7 +151,11 @@ sap.ui.define([
 		},
 
 		_refreshTable: function () {
+			this.byId("idTableST").clearSelection();
+			this.byId("idTableST").removeSelections();
 			this.byId("idTableST").getBinding("items").refresh(true);
+			this.byId("idTableST").getBinding("rows").refresh(true);
+			this.byId("idST").rebindTable();
 		},
 
 		_setTableWithResizing: function (oTable) {

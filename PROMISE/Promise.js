@@ -218,7 +218,15 @@ sap.ui.define([
 						oViewModel.setProperty("/Busy", true);
 
 						this._sendCreateData("/...Set", oData, this.getModel())
-							.then(() => {})
+							.then(() => {
+								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+								aMessages.forEach(oMessage => oMessage.setPersistent(true));
+
+								if (aMessages.some(oMessage => oMessage.type === "Error")) {
+									MessageToast.show(this.getResourceBundle().getText("errorOccured"));
+								} else {}
+							})
 							.catch((err) => {})
 							.finally(() => {
 								oViewModel.setProperty("/Busy", false);

@@ -8,4 +8,13 @@
 			<CheckBox selected="{ID}"/>
 		</table:template>
 	</table:Column>
+	<table:Column id="ExtensionWizard::ColumnBreakoutX" width="100px">
+		<Text visible="{=${Items}.length > 0 }" text="X"/>
+		<table:customData>
+			<core:CustomData key="p13nData" value='\{"columnKey": "Value", "columnIndex" : "1"}'/>
+		</table:customData>
+		<table:template>
+			<Button press="onPressButtonX"/>
+		</table:template>
+	</table:Column>
 </core:FragmentDefinition>

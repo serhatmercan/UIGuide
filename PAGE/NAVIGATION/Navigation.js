@@ -2,6 +2,9 @@
 encodeURIComponent("ID");
 decodeURIComponent("ID");
 
+// Go To Previous Page
+history.go(-1);
+
 // Go To The ... Page
 this.getRouter().navTo("viewName"); // manifest/sap.ui5/routing/targets/viewName
 

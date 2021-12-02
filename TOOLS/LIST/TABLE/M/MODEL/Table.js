@@ -20,6 +20,16 @@ sap.ui.define([
 			this.setModel(oTableModel, "tableModel");
 		},
 
+		onAttachUpdateFinished: function () {
+			const oTable = this.getView().byId("idTable");
+
+			const fnChange = function (oEvent) {
+				oTable.getAggregation("items").forEach((oItem) => oItem.setType("Navigation"));
+			}.bind(this);
+
+			oTable.attachUpdateFinished(fnChange);
+		},
+
 		onSelectionChange: function () {
 			const sSelectedPath = oEvent.getSource().getSelectedItem().getBindingContext("tableModel").getPath();
 		},

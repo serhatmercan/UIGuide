@@ -53,6 +53,23 @@ sap.ui.define([
 			}
 		},
 
+		onFilterTableRow: function (oEvent) {
+			const oSource = oEvent.getSource();
+			const oItem = oSource.getSelectedItem();
+			const iIndex = oSource.getParent().getBindingContext("model").getPath().slice(-1);
+			const aRows = this.byId("idTable").getItems();
+
+			if (oSource) {
+				const aFilters = [
+					new Filter("ID", FilterOperator.EQ, oSource.getAdditionalText())
+				];
+
+				aRows.forEach((item) => {
+					item.getCells()[3].getBinding("items").filter(aFilters);
+				});
+			}
+		},
+
 		onLoadItemsCB: function () {
 			const aFilters = [
 				new Filter("Value", FilterOperator.EQ, "X")
