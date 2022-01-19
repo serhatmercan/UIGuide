@@ -11,6 +11,10 @@
     width: 100% !important;
 }
 
+.maintxt {
+    font-size: 3rem !important;
+}
+
 .panelBorderLine {
     border-style: solid !important;
     border-color: #b0bec5 !important;

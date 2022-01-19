@@ -12,13 +12,14 @@ sap.ui.define([
 
 		attachBusy: function () {
 			const oModel = this.getOwnerComponent().getModel();
-			const oViewModel = this.getOwnerComponent().getModel("viewModel");
 			const fnRequestSent = function () {
-				oViewModel.setProperty("/Busy", true);
+				sap.ui.getCore().getMessageManager().removeAllMessages();
+				sap.ui.core.BusyIndicator.show();
 			};
 			const fnRequestReceived = function () {
+				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				this._removeDuplicateMessages();
-				oViewModel.setProperty("/Busy", false);
+				sap.ui.core.BusyIndicator.hide();
 			}.bind(this);
 
 			oModel.attachMetadataFailed(fnRequestReceived);

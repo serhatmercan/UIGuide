@@ -121,6 +121,5 @@ sap.ui.define([], function () {
 			}
 		}
 
-	}
-
-})
+	};
+});

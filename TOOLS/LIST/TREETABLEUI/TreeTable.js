@@ -29,6 +29,16 @@ sap.ui.define([
 			oTreeTable.removeSelectionInterval(0, aRows.getRootContexts().length);
 		},
 
+		onTOS: function (oEvent) {
+			const oTreeTable = oEvent.getSource();
+			const iRowCount = oTreeTable.getVisibleRowCount();
+			const iSelectedRowCount = this.getView().getModel("model").getProperty(oEvent.getParameter("rowContext").getPath() + "/results").length;
+
+			oEvent.getParameter("expanded") ?
+				oTreeTable.setVisibleRowCount(iRowCount + iSelectedRowCount) :
+				oTreeTable.setVisibleRowCount(iRowCount - iSelectedRowCount);
+		}
+
 	});
 
 });

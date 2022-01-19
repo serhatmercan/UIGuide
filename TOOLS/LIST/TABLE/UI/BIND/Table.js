@@ -32,8 +32,11 @@ sap.ui.define([
 			}
 		},
 
-		onSearch: function () {
+		onChange: function (oEvent) {
+			const sPath = oEvent.getParameter("rowContent").getPath();
+		},
 
+		onSearch: function () {
 			var oModel = this.getModel("model"),
 				oTable = this.byId("idTable"),
 				aFilters = [];

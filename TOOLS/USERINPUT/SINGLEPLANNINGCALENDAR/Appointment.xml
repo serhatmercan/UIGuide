@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog title="Appointment" afterClose="onCloseAppointmentDialog">
+		<l:VerticalLayout class="sapUiContentPadding" width="100%">
+			<f:SimpleForm editable="true" layout="ResponsiveGridLayout">
+				<Label text="Title"/>
+				<Input value="{viewModel>/Appointment/Title}"/>
+				<Label text="Additional Information"/>
+				<Input value="{viewModel>/Appointment/Text}"/>
+				<Label text="From"/>
+				<DateTimePicker dateValue="{viewModel>/Appointment/StartDate}"/>
+				<Label text="To"/>
+				<DateTimePicker dateValue="{viewModel>/Appointment/EndDate}"/>
+			</f:SimpleForm>
+		</l:VerticalLayout>
+		<buttons>
+			<Button icon="sap-icon://save" text="Save" type="Emphasized" press="onSaveAppointment"/>
+			<Button icon="sap-icon://delete" text="Delete" type="Emphasized" visible="{= ${viewModel>/Mode} === 'UA' }" press="onDeleteAppointment"/>
+			<Button text="Cancel" press="onCloseAppointmentDialog"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

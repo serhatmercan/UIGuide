@@ -37,6 +37,7 @@
 
 						for (let i = 0; k < oTable.getColumns().length; k++) {
 							aColumns[i].setProperty("width", "13rem");
+							aColumns[i].getLabel().setWrapping(true);
 						}
 					});
 				});

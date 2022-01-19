@@ -1,0 +1,3 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Text class="maintxt" text="{i18n>text}"/>
+</mvc:View>

@@ -1,0 +1,19 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:unified="sap.ui.unified">
+	<SinglePlanningCalendar appointments="{viewModel>/Appointments}" enableAppointmentsCreate="true" enableAppointmentsDragAndDrop="true"
+		enableAppointmentsResize="true" title="My Calendar" appointmentCreate="onAppointmentCreate" appointmentDrop="onAppointmentDrop"
+		appointmentResize="onAppointmentResize" appointmentSelect="onAppointmentSelect">
+		<actions>
+			<Button text="Create Appointment" press="onCreateAppointment"/>
+		</actions>
+		<views>
+			<SinglePlanningCalendarDayView key="Day" title="Day"/>
+			<SinglePlanningCalendarWorkWeekView key="WorkWeek" title="Work Week"/>
+			<SinglePlanningCalendarWeekView key="Week" title="Week"/>
+			<SinglePlanningCalendarMonthView key="Month" title="Month"/>
+		</views>
+		<appointments>
+			<unified:CalendarAppointment title="{viewModel>Title}" text="{viewModel>Text}" type="{viewModel>Type}" icon="{viewModel>Icon}"
+				startDate="{viewModel>StartDate}" endDate="{viewModel>EndDate}"/>
+		</appointments>
+	</SinglePlanningCalendar>
+</mvc:View>

@@ -42,7 +42,6 @@ sap.ui.define([
 			}
 
 			window.open(sUrl + sUrlParameters + sFields, "_blank");
-
 		},
 
 		getPaths: function (oTemplate) {

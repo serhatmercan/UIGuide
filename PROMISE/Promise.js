@@ -23,27 +23,34 @@ sap.ui.define([
 			jQuery.extend(true, {}, oData);
 		},
 
+		asyncFunction: async function () {
+			const oViewModel = this.getModel("viewModel");
+			const sMethod = "GET";
+			const oURLParameters = {
+				ID: "X"
+			};
+
+			await this._callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
+				.then((oData) => {
+					const sID = oData.GetData.ID;
+				})
+				.catch(() => {})
+				.finally(() => {});
+		},
+
 		callFunction: function () {
 			const oViewModel = this.getModel("viewModel");
-			const oModel = this.getModel();
+			const sMethod = "GET";
+			const oURLParameters = {
+				ID: "X"
+			};
 
-			oViewModel.setProperty("/Busy", true);
-
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
-			oModel.callFunction("/GetData", {
-				method: "GET",
-				urlParameters: {
-					ID: "X"
-				},
-				success: (oData) => {
+			this._callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
+				.then((oData) => {
 					const sID = oData.GetData.ID;
-					oViewModel.setProperty("/Busy", false);
-				},
-				error: () => {
-					oViewModel.setProperty("/Busy", false);
-				}
-			});
+				})
+				.catch(() => {})
+				.finally(() => {});
 		},
 
 		runMultiPromise: function () {
@@ -85,7 +92,7 @@ sap.ui.define([
 
 		deleteSingleData: function () {
 			const oViewModel = this.getModel("viewModel");
-			const oKey = this.getModel().createKey("...Set", {
+			const oKey = this.getModel().createKey("/...Set", {
 				ID: "X"
 			});
 
@@ -93,7 +100,7 @@ sap.ui.define([
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
-			this._deleteSingleData("/" + oKey, this.getModel())
+			this._deleteSingleData(oKey, this.getModel())
 				.then(() => {
 					sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				})
@@ -104,21 +111,15 @@ sap.ui.define([
 		},
 
 		getSingleData: function () {
-			const oViewModel = this.getModel("viewModel");
-			const oKey = this.getModel().createKey("...Set", {
+			const oModel = this.getModel();
+			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
 			});
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
-			oViewModel.setProperty("/Busy", true);
-
-			this._readSingleData("/" + oKey, this.getModel())
+			this._readSingleData(oKey, oModel)
 				.then((oData) => {})
-				.catch((err) => {})
-				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
-				});
+				.catch(() => {})
+				.finally(() => {});
 		},
 
 		getMultiData: function () {
@@ -173,6 +174,19 @@ sap.ui.define([
 				});
 		},
 
+		updateData: function () {
+			const oData = {};
+			const oModel = this.getModel();
+			const oKey = oModel.createKey("/...Set", {
+				ID: "X"
+			});
+
+			this._updateData(oKey, oData, oModel)
+				.then((oData) => {})
+				.catch(() => {})
+				.finally(() => {});
+		},
+
 		sendMultiData: function (oEvent) {
 			const oResourceBundle = this.getResourceBundle();
 			const oModel = this.getModel();
@@ -217,7 +231,7 @@ sap.ui.define([
 						sap.ui.getCore().getMessageManager().removeAllMessages();
 						oViewModel.setProperty("/Busy", true);
 
-						this._sendCreateData("/...Set", oData, this.getModel())
+						this._sendMultiData("/...Set", oData, this.getModel())
 							.then(() => {
 								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
@@ -225,6 +239,7 @@ sap.ui.define([
 
 								if (aMessages.some(oMessage => oMessage.type === "Error")) {
 									MessageToast.show(this.getResourceBundle().getText("errorOccured"));
+									return;
 								} else {}
 							})
 							.catch((err) => {})
@@ -265,66 +280,89 @@ sap.ui.define([
 			}
 		},
 
+		_callFunction: function (sEntity, sMethod, oModel, oURLParameters) {
+			return new Promise((fnResolve, fnReject) => {
+				const mParameters = {
+					method: sMethod,
+					urlParameters: oURLParameters,
+					success: fnResolve,
+					error: fnReject
+				};
+
+				oModel.callFunction(sEntity, mParameters);
+			});
+		},
+
 		_deleteSingleData: function (sSet, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.remove(sSet, oParameters);
+				oModel.remove(sSet, mParameters);
+			});
+		},
+
+		_updateData: function (sSet, oData, oModel) {
+			return new Promise(function (fnSuccess, fnReject) {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.update(sSet, oData, mParameters);
 			});
 		},
 
 		_readMultiData: function (sSet, aFilters, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					filters: aFilters,
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.read(sSet, oParameters);
+				oModel.read(sSet, mParameters);
 			});
 		},
 
 		_readSingleData: function (sSet, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.read(sSet, oParameters);
+				oModel.read(sSet, mParameters);
 			});
 		},
 
 		_readMultiTable: function (sSet, aFilters, oExpand, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					filters: aFilters,
 					urlParameters: oExpand,
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.read(sSet, oParameters);
+				oModel.read(sSet, mParameters);
 			});
 		},
 
 		_sendMultiData: function (sSet, oData, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.create(sSet, oData, oParameters);
+				oModel.create(sSet, oData, mParameters);
 			});
 		},
 
 		_submitChange: function (oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.submitChanges(oParameters);
+				oModel.submitChanges(mParameters);
 			});
 		},
 

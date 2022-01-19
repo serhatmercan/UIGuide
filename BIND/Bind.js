@@ -23,6 +23,16 @@ sap.ui.define([
 			this.byId("idSmartTable").rebindTable();
 		},
 
+		onReadBindingData: function () {
+			const sPath = this.getModel().createKey("/IDSet", {
+				ID: "X"
+			});
+
+			this.getView().bindElement({
+				path: sPath
+			});
+		},
+
 		onGetSetBindingData: function () {
 			const oModel = this.getModel();
 			const sBindingPath = this.getView().getBindingContext().getPath();
@@ -73,6 +83,10 @@ sap.ui.define([
 			}
 
 			if (oModel.hasPendingChanges()) {}
+		},
+
+		onRefreshView: function () {
+			this.getView().unbindElement();
 		},
 
 		_onViewMatched: function (oEvent) {
@@ -133,6 +147,7 @@ sap.ui.define([
 			if (oBindingContext) {
 				this.getModel().deleteCreatedEntry(oBindingContext);
 				this.getView().unbindElement();
+				this.getModel().resetChanges();
 				this.getModel().refresh(true, true);
 			}
 

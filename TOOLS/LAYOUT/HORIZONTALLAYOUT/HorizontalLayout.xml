@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:HorizontalLayout content="{model>/Items}" allowWrapping="true" class="sapUiTinyMarginTopBottom">
+		<GenericTile header="{model>Header}" subheader="{model>SubHeader}" press="onPressGT">
+			<TileContent >
+				<ImageContent src="{model>Logo}"/>
+			</TileContent>
+		</GenericTile>
+	</l:HorizontalLayout>
+</core:FragmentDefinition>

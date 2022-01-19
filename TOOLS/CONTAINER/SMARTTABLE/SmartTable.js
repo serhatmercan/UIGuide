@@ -1,7 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -16,7 +18,7 @@ sap.ui.define([
 
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
-			const oFilterPeriod = new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, "X");
+			const oFilterPeriod = new Filter("ID", FilterOperator.EQ, "X");
 
 			oBindingParams.filters.push(oFilterPeriod);
 

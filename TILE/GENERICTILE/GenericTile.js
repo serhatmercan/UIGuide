@@ -7,16 +7,15 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Busy: false,
-					Items: [],
-					Value: ""
-				}), "model"
-			);
+		onGoToObject: function (oEvent) {
+			const sID = oEvent.getSource().getId();
+			const oRouter = this.getRouter();
 
-			const sID = Util.getID();
+			if (sID.includes("idGT1")) {
+				oRouter.navTo("object", {
+					Mode: "Obj"
+				});
+			}
 		}
 
 	});

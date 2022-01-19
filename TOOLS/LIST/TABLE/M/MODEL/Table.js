@@ -20,6 +20,12 @@ sap.ui.define([
 			this.setModel(oTableModel, "tableModel");
 		},
 
+		onAddColumn: function () {
+			this._initTable("idTable", "idCLI", 2);
+			this._initModel();
+			this._setTableColumn();
+		},
+
 		onAttachUpdateFinished: function () {
 			const oTable = this.getView().byId("idTable");
 
@@ -28,76 +34,6 @@ sap.ui.define([
 			}.bind(this);
 
 			oTable.attachUpdateFinished(fnChange);
-		},
-
-		onSelectionChange: function () {
-			const sSelectedPath = oEvent.getSource().getSelectedItem().getBindingContext("tableModel").getPath();
-		},
-
-		onAddColumn: function () {
-			this._initTable("idTable", "idCLI", 2);
-			this._initModel();
-			this._setTableColumn();
-		},
-
-		onDelete: function (oEvent) {
-			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
-			const oViewModel = this.getModel("tableModel");
-			const aData = oViewModel.getProperty("/Data");
-
-			aData.splice(iIndex, 1);
-
-			oViewModel.setProperty("/Data", aData);
-		},
-
-		getDataValue: function () {
-
-			var oTable = this.getView().byId("idTable"),
-				oModel = oTable.getModel("tableModel"),
-				aData = oModel.getData();
-
-		},
-
-		getSelectedPath: function () {
-
-			var oTable = this.getView().byId("idTable"),
-				aPaths = oTable.getSelectedContextPaths(),
-				oContext;
-
-			for (var i = 0; i < aPaths.length; i++) {
-				oContext = this.getModel("tableModel").getProperty(aPaths[i]);
-			}
-
-		},
-
-		getColumnData: function () {
-
-			var aItems = this.getView().byId("idTable").getItems();
-
-			for (var i = 0; i < aItems.length; i++) {
-				if (aItems[i].getCells()[1].getTitle() === "X") {
-					aItems[i].setSelected(true);
-				}
-			}
-
-		},
-
-		getTableID: function (oEvent) {
-			const sID = oEvent.getSource().getParent().getParent().getId();
-			const iIndex = sID.indexOf("idTable");
-			const sTableID = sID.substr(iIndex);
-		},
-
-		onPress: function (oEvent) {
-			const sPath = oEvent.getSource().getBindingContextPath();
-			this.getRouter().navTo("viewName", {
-				value: oEvent.getSource().getBindingContext("tableModel").getProperty("Value1")
-			});
-		},
-
-		removeSelectedRow: function () {
-			this.byId("idTable").clearSelection();
-			this.byId("idTable").removeSelections();
 		},
 
 		onCellClick: function (oEvent) {
@@ -117,6 +53,74 @@ sap.ui.define([
 			aRows.forEach((item) => {
 				item.getCells()[1].getBinding("items").filter(aFilters);
 			});
+		},
+
+		onCheckCellValue: function () {
+			this.byId("idTable").getRows().forEach(oRow => {
+				oRow.getCells().forEach(oCell => {
+					oCell.setValueState(oCell.getValue() === "" ? sap.ui.core.ValueState.Error : sap.ui.core.ValueState.None);
+				});
+			});
+		},
+
+		onDelete: function (oEvent) {
+			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
+			const oViewModel = this.getModel("tableModel");
+			const aData = oViewModel.getProperty("/Data");
+
+			aData.splice(iIndex, 1);
+
+			oViewModel.setProperty("/Data", aData);
+		},
+
+		onPress: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContextPath();
+			this.getRouter().navTo("viewName", {
+				value: oEvent.getSource().getBindingContext("tableModel").getProperty("Value1")
+			});
+		},
+
+		onSelectionChange: function (oEvent) {
+			const sSelectedPath = oEvent.getSource().getSelectedItem().getBindingContext("tableModel").getPath();
+		},
+
+		getColumnData: function () {
+			var aItems = this.getView().byId("idTable").getItems();
+
+			for (var i = 0; i < aItems.length; i++) {
+				if (aItems[i].getCells()[1].getTitle() === "X") {
+					aItems[i].setSelected(true);
+				}
+			}
+		},
+
+		getDataValue: function () {
+			var oTable = this.getView().byId("idTable"),
+				oModel = oTable.getModel("tableModel"),
+				aData = oModel.getData();
+		},
+
+		getSelectedPath: function () {
+
+			var oTable = this.getView().byId("idTable"),
+				aPaths = oTable.getSelectedContextPaths(),
+				oContext;
+
+			for (var i = 0; i < aPaths.length; i++) {
+				oContext = this.getModel("tableModel").getProperty(aPaths[i]);
+			}
+
+		},
+
+		getTableID: function (oEvent) {
+			const sID = oEvent.getSource().getParent().getParent().getId();
+			const iIndex = sID.indexOf("idTable");
+			const sTableID = sID.substr(iIndex);
+		},
+
+		removeSelectedRow: function () {
+			this.byId("idTable").clearSelection();
+			this.byId("idTable").removeSelections();
 		},
 
 		_initTable: function (sId, sCLIID, iStaticColumn) {

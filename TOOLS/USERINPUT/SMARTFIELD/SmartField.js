@@ -1,7 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -27,12 +29,86 @@ sap.ui.define([
 			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));
 		},
 
+		onControlExplanationValueState: function () {
+			let oContainer = oEvent.getSource();
+			let sExplanationID = oContainer.getId();
+			let aSmartFields = [];
+			let bCheckSmartForm = "";
+			// const aSmartFields = this.byId("idSFData").getSmartFields();
+			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
+
+			do {
+				bCheckSmartForm = oContainer.getId().split("--")[oContainer.getId().split("--").length - 1].startsWith("idSF");
+
+				if (bCheckSmartForm) {
+					aSmartFields = oContainer.getSmartFields();
+				} else {
+					oContainer = oContainer.getParent();
+				}
+			}
+			while (aSmartFields.length === 0);
+
+			const iIndex = aSmartFields.findIndex(oSF => oSF.getId() === sExplanationID);
+			const oKeyField = aSmartFields[iIndex - 1];
+			const oExplanationField = oEvent.getSource();
+			const xValue = oKeyField.getValue();
+
+			if (xValue) {
+				if (xValue === "H" || xValue === "Hayır" || xValue === "Yok" || xValue === "Y" || +xValue <= 0 ||
+					oExplanationField.getValue() !== "") {
+					oExplanationField.setValueState("None");
+				} else {
+					oExplanationField.setValueState("Error");
+				}
+			} else {
+				oExplanationField.setValueState("None");
+			}
+		},
+
+		onControlKeyValueState: function () {
+			let oContainer = oEvent.getSource();
+			let sKeyID = oContainer.getId();
+			let aSmartFields = [];
+			let bCheckSmartForm = "";
+			// const aSmartFields = this.byId("idSFData").getSmartFields();
+			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
+
+			do {
+				bCheckSmartForm = oContainer.getId().split("--")[oContainer.getId().split("--").length - 1].startsWith("idSF");
+
+				if (bCheckSmartForm) {
+					aSmartFields = oContainer.getSmartFields();
+				} else {
+					oContainer = oContainer.getParent();
+				}
+			}
+			while (aSmartFields.length === 0);
+
+			const iIndex = aSmartFields.findIndex(oSF => oSF.getId() === sKeyID);
+			const oExplanationField = aSmartFields[iIndex + 1];
+			const xValue = oEvent.getSource().getValue();
+
+			if (xValue) {
+				if (xValue === "H" || xValue === "Hayır" || xValue === "Yok" || xValue === "Y" || +xValue <= 0 ||
+					oExplanationField.getValue() !== "") {
+					oExplanationField.setValueState("None");
+				} else {
+					oExplanationField.setValueState("Error");
+				}
+			} else {
+				oExplanationField.setValueState("None");
+			}
+		},
+
 		onFilterDDL: function () {
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
 
 			this.byId("idID").getInnerControls()[0].getBinding("items").filter(aFilters);
+			this.byId("idID").getInnerControls()[0].getBinding("items")
+				.filter(
+					[new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/Value"))]);
 		},
 
 		onVLC: function (oEvent) {

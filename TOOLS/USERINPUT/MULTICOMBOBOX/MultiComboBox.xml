@@ -4,6 +4,11 @@
 		<core:ListItem key="{model>ID}" text="{model>Text}" additionalText="{FasonAdi}"/>
 	</MultiComboBox>
 </core:FragmentDefinition>
+<!-- 
+<MultiComboBox items="{path:'/VhIDSet', templateShareable:true}" selectedKeys="{viewModel>Values}"showSecondaryValues="true">
+	<core:ListItem key="{ID}" text="{Text}" additionalText="{ID}"/>
+</MultiComboBox>
+-->
 <!-- MULTI COMBO BOX  -->
 <!-- 
 items="{path:'/VHSet'}"

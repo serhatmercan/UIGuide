@@ -1,0 +1,37 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Page>
+		<content>
+			<Panel>
+				<FlexBox height="100px" alignItems="Center" justifyContent="Center">
+					<Text class="maintxt" text="{i18n>title}"/>
+				</FlexBox>
+			</Panel>
+			<Panel>
+				<FlexBox height="100%" width="100%" alignContent="Center" alignItems="Center" justifyContent="Center">
+					<items>
+						<GenericTile id="idGT1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt1}" press="onGoToObject">
+							<TileContent>
+								<ImageContent src="sap-icon://add-activity"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile id="idGT2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt2}" press="onGoToObject">
+							<TileContent>
+								<ImageContent src="sap-icon://add-activity"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile id="idGT3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt3}" press="onGoToObject">
+							<TileContent>
+								<ImageContent src="sap-icon://show-edit"/>
+							</TileContent>
+						</GenericTile>
+						<GenericTile id="idGT4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt4}">
+							<TileContent>
+								<NumericContent value="{model>/Value}" valueColor="Good"/>
+							</TileContent>
+						</GenericTile>
+					</items>
+				</FlexBox>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

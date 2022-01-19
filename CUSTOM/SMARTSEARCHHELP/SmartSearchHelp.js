@@ -1,7 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -15,27 +17,24 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		onSSH: function () {
+		onVHR: function () {
 			this._sPath = oEvent.getSource().getBindingContext("model").getPath();
 
-			if (!this._oSSH) {
-				this._oSSH = sap.ui.xmlfragment("idSSH", "com.serhatmercan.SmartSearchHelp", this);
+			if (!this._oVHRDialog) {
+				this._oVHRDialog = sap.ui.xmlfragment("idVHR", "com.serhatmercan.SmartSearchHelp", this);
 
-				const oSmartFilter = sap.ui.core.Fragment.byId("idSSH", "idSFB");
-				const oSmartTable = sap.ui.core.Fragment.byId("idSSH", "idST");
+				sap.ui.core.Fragment.byId("idVHR", "idST").setSmartFilterId(sap.ui.core.Fragment.byId("idVHR", "idSFB").getId());
 
-				oSmartTable.setSmartFilterId(oSmartFilter.getId());
-
-				this._oSSH.setModel(this.getModel("i18n"), "i18n");
-				this._oSSH.setModel(this.getModel());
-				this.getView().addDependent(this._oSSH);
+				this._oVHRDialog.setModel(this.getModel("i18n"), "i18n");
+				this._oVHRDialog.setModel(this.getModel());
+				this.getView().addDependent(this._oVHRDialog);
 			}
-			this._oSSH.open();
+			this._oVHRDialog.open();
 		},
 
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
-			const oFilterPeriod = new sap.ui.model.Filter("Key", sap.ui.model.FilterOperator.EQ, "X");
+			const oFilterPeriod = new Filter("Key", FilterOperator.EQ, "X");
 
 			oBindingParams.filters.push(oFilterPeriod);
 		},
@@ -59,7 +58,7 @@ sap.ui.define([
 			oSmartFilter.setFilterData(oJSONData);
 		},
 
-		onSelectSSH: function (oEvent) {
+		onSelectVHR: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContextPath();
 			const sID = this.getModel().getProperty(sPath + "/ID");
 			const oModel = this.getModel("model");
@@ -67,13 +66,14 @@ sap.ui.define([
 			oModel.setProperty("/Value", sID);
 			oModel.setProperty(this._sPath + "/Value", sID);
 
-			this.onCloseSSH();
+			this.onCloseVHR();
 		},
 
-		onCloseSSH: function () {
-			this._oSSH.close();
-			this._oSSH.destroy();
-			this._oSSH = null;
+		onCloseVHR: function () {
+			this._oVHRDialog.close();
+			this._oVHRDialog.destroy();
+			this._oVHRDialog = null;
+			this._sPath = "";
 		},
 
 	});

@@ -1,5 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
-	<t:TreeTable id="idTreeTable" selectionMode="MultiToggle" rows="{ path:'model>/Items', parameters:{ arrayNames:['results'] } }">
+	<t:TreeTable id="idTreeTable" ariaLabelledBy="title" enableSelectAll="false" selectionMode="MultiToggle"
+		rows="{ path:'model>/Items', parameters:{ arrayNames:['results'] } }" visibleRowCount="5" toggleOpenState="onTOS">
 		<t:extension>
 			<OverflowToolbar>
 				<Title text="{i18n>treeTable}"/>

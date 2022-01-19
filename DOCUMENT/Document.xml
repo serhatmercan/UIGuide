@@ -1,11 +1,20 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument" busy="{viewModel>/Busy}">
+	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument">
 		<content>
-			<UploadCollection id="idDocumentUC" instantUpload="false" multiple="true" sameFilenameAllowed="true" uploadUrl="{viewModel/DocumentUrl}"
-				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" items="{ path: '/DocumentSet',suspended: true }"
-				maximumFilenameLength="55" maximumFileSize="10" noDataDescription="{i18n>noAttach}">
+			<UploadCollection id="idDocumentUC" items="{ path: '/DocumentSet', suspended: true }" uploadUrl="{viewModel/DocumentUrl}"
+				instantUpload="false" multiple="true" maximumFilenameLength="55" maximumFileSize="10" noDataDescription="{i18n>noAttach}"
+				sameFilenameAllowed="true" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument">
 				<items>
-					<UploadCollectionItem fileName="{Filename}" mimeType="{Mimetype}" documentId="{Guid}" url="{Url}" enableDelete="true" enableEdit="false"/>
+					<UploadCollectionItem documentId="{DocumentID}" fileName="{Filename}" mimeType="{Mimetype}" url="{Url}" enableDelete="true"
+						enableEdit="false" visibleEdit="false" press="onPressUCI"/>
+				</items>
+			</UploadCollection>
+			<UploadCollection id="idDocumentUC" instantUpload="true" multiple="false" uploadUrl="/sap/opu/odata/sap/ZMM_SM_SRV/DocumentSet"
+				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDSingleDocument" uploadComplete="onUpdCmpDocument"
+				items="{viewModel>/Documents}">
+				<items>
+					<UploadCollectionItem documentId="{viewModel>DocumentID}" fileName="{viewModel>FileName}" mimeType="{viewModel>Mimetype}"
+						url="{viewModel>Url}" enableEdit="false" visibleEdit="false"/>
 				</items>
 			</UploadCollection>
 		</content>
