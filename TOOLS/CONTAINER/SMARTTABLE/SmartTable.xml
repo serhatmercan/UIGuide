@@ -5,11 +5,7 @@
 	<semantic:FullscreenPage showFooter="false">
 		<VBox fitContainer="true" busy="{viewModel>/Busy}">
 			<smartvariants:SmartVariantManagement id="idSVM" persistencyKey="pkVariant"/>
-			<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP">
-				<smartFilterBar:layoutData>
-					<FlexItemData shrinkFactor="0"/>
-				</smartFilterBar:layoutData>
-			</smartFilterBar:SmartFilterBar>
+			<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP"></smartFilterBar:SmartFilterBar>
 			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" class="sapUiResponsiveContentPadding" header="{i18n>smartTable}"
 				smartFilterId="idSFB" smartVariant="idSVM" tableBindingPath="to_Item" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key"
 				ignoredFields="Value" requestAtLeastFields="ID" width="25%" cd:useSmartField="true" demandPopin="true" editable="true"
@@ -28,7 +24,7 @@
 						<Column id="idColumnKey">
 							<customData>
 								<core:CustomData key="p13nData"
-									value='\{"columnIndex": "7", "columnKey": "Key", "filterProperty": "Key", "leadingProperty": "Key", "sortProperty": "Key"}'/>
+									value='\{"columnIndex": "7", "columnKey": "Key", "additionalProperty":"Key", "filterProperty": "Key", "leadingProperty": "Key", "sortProperty": "Key", "type": "numeric"}'/>
 							</customData>
 							<Text text="{i18n>key}"/>
 						</Column>
@@ -72,6 +68,15 @@
 							<Select items="{model>/Keys}" selectedKey="{Key}" change="onChangeKey">
 								<core:Item key="{model>}" text="{model>}"/>
 							</Select>
+						</ui:template>
+					</ui:Column>
+					<ui:Column>
+						<Label text=""/>
+						<ui:customData>
+							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "columnIndex" : "0"}'/>
+						</ui:customData>
+						<ui:template>
+							<Button icon="sap-icon://display" press="onShowDetail"/>
 						</ui:template>
 					</ui:Column>
 				</ui:Table>

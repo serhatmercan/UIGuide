@@ -24,6 +24,7 @@ sap.ui.define([
 			const sPath = this.getView().getBindingContext().getPath();
 			const oModel = this.getModel();
 			const sBindingValuePath = oEvent.getSource().getBinding("value").getPath(); // Value
+			const sValue = oModel.getProperty("/VHIDSet('" + sID + "')/Value"); // Get SH Data	
 
 			oEvent.getSource().setValue(sID);
 			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));

@@ -11,11 +11,13 @@
 
 ICON TAB BAR - ATTRIBUTES 
 
-selectedKey="Header" 
+backgroundDesign="Translucent"
 class="sapUiNoContentPadding" class="sapUiResponsiveContentPadding"
-headerBackgroundDesign="Transparent" 
+headerBackgroundDesign="Transparent" headerBackgroundDesign="Translucent"
+headerMode="Inline"
 expandable="false" 
 expanded="true" expanded="{device>/isNoPhone}" 
+selectedKey="Header" 
 stretchContentHeight="true" 
 
 ICON TAB FILTER - ATTRIBUTES

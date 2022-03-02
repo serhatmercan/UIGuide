@@ -284,6 +284,13 @@ sap.ui.define([
 			});
 		},
 
+		onDrop: function (oEvent) {
+			const oDragSession = oEvent.getParameter("dragSession");
+			const oDroppedRow = oEvent.getParameter("droppedControl");
+			const iDragedIndex = oDragSession.getDragControl("getDragControl").getIndex();
+			const iDroppedRowIndex = oDroppedRow.getIndex();
+		},
+
 		onPressRAI: function (oEvent) {
 			const oSelectedRow = oEvent.getSource().getBindingContext();
 			const sID = oSelectedRow.getProperty("ID");

@@ -1,5 +1,13 @@
 {
 	"sap.ui5": {
+		"models": {
+			"viewModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": true,
+				"uri": "model/viewModel.json"
+			}
+		},
 		"extends": {
 			"extensions": {
 				"sap.ui.controllerExtensions": {
@@ -26,6 +34,13 @@
 							"className": "sap.ui.core.Fragment",
 							"fragmentName": "com.sun.serhatmercan.ext.view.ListReport"
 						}
+					},
+					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
+						"GridTableColumnsExtension|DetailSet|Items::com.sap.vocabularies.UI.v1.LineItem": {
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.sun.serhatmercan.ext.view.DetailExt",
+							"type": "XML"
+						}
 					}
 				}
 			}
@@ -45,6 +60,23 @@
 							"multiSelect": true,
 							"selectAll": true,
 							"smartVariantManagement": true
+						}
+					}
+				},
+				"pages": {
+					"ObjectPage|MainSet": {
+						"entitySet": "MainSet",
+						"component": {
+							"name": "sap.suite.ui.generic.template.ObjectPage",
+							"settings": {
+								"sections": {
+									"Items::com.sap.vocabularies.UI.v1.LineItem": {
+										"navigationProperty": "Items",
+										"entitySet": "Detail",
+										"tableSettings": {}
+									}
+								}
+							}
 						}
 					}
 				}

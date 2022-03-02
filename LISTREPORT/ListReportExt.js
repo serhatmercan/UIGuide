@@ -2,6 +2,10 @@
 		"use strict";
 		return sap.ui.controller("com.sun.serhatmercan.ext.controller.ListReportExt", {
 
+			adaptTransientMessageExtension: function () {
+				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
+			},
+
 			getFilterBarData: function () {
 				const sID = this.byId("listReportFilter").getFilterData().ID;
 			},
@@ -74,6 +78,18 @@
 			},
 
 			onGoToDetail: function () {},
+
+			onInit: function () {
+				// HeaderSet: Main Entity
+				// Items: Association Name
+				const oItemTable = sap.ui.getCore().byId(
+					"com.sun.serhatmercan.listreport::sap.suite.ui.generic.template.ObjectPage.view.Details::HeaderSet--Items::com.sap.vocabularies.UI.v1.LineItem::responsiveTable"
+				);
+
+				if (oItemTable.getMode() !== "MultiSelect") {
+					oItemTable.setMode("MultiSelect");
+				}
+			},
 
 			onPressButtonX: function (oEvent) {
 				const oContext = oEvent.getSource().getBindingContext().getObject();

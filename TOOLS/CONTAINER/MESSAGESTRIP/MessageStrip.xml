@@ -1,1 +1,2 @@
-<MessageStrip text="{i18n>message}" type="Warning" showCloseButton="true" showIcon="true" visible="{model>/Visibility}"/>
+<MessageStrip text="{i18n>message}" class="sapUiMediumMarginBottom" enableFormattedText="true" showCloseButton="true" showIcon="true"
+	type="Warning" visible="{model>/Visibility}"/>

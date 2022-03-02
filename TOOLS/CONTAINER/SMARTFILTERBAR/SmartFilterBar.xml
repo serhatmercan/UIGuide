@@ -1,4 +1,5 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
 	<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP" considerSelectionVariants="true"
 		showFilterConfiguration="false" smartVariant="idSVM" initialized="onInitSFB">
 		<smartFilterBar:layoutData>
@@ -7,7 +8,7 @@
 	</smartFilterBar:SmartFilterBar>
 	<smartFilterBar:controlConfiguration>
 		<smartFilterBar:ControlConfiguration id="idCC" key="paintArchive" index="1" label="{i18n>paintArchive}" filterType="single"
-			mandatory="mandatory" visibleInAdvancedArea="true">
+			mandatory="mandatory" preventInitialDataFetchInValueHelpDialog="false" visibleInAdvancedArea="true">
 			<smartFilterBar:customControl>
 				<RadioButtonGroup id="rbg" columns="3">
 					<RadioButton id="rbAll" text="{i18n>all}"/>
@@ -16,5 +17,11 @@
 				</RadioButtonGroup>
 			</smartFilterBar:customControl>
 		</smartFilterBar:ControlConfiguration>
+		<smartFilterBar:ControlConfiguration key="CheckValue">
+			<smartFilterBar:customControl>
+				<CheckBox id="idCB" selected="true"/>
+			</smartFilterBar:customControl>
+		</smartFilterBar:ControlConfiguration>
 	</smartFilterBar:controlConfiguration>
+	<smartTable:SmartTable id="idST" beforeRebindTable="onBRT"/>
 </mvc:View>

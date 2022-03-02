@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<MultiComboBox id="idCB" items="{model>Items}" selectedKeys="{viewModel>Values}" selectionFinish="onSelectionFinishMCB"
+	<MultiComboBox id="idMCB" items="{model>Items}" selectedKeys="{viewModel>Values}" selectionFinish="onSelectionFinishMCB"
 		showSecondaryValues="true">
 		<core:ListItem key="{model>ID}" text="{model>Text}" additionalText="{FasonAdi}"/>
 	</MultiComboBox>
@@ -11,5 +11,6 @@
 -->
 <!-- MULTI COMBO BOX  -->
 <!-- 
-items="{path:'/VHSet'}"
+items="{ path: '/VHSet' }"
+items="{ path: 'model>/Items', sorter: { path: 'model>ID', group: true, ascending:false } }"
 -->

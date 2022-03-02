@@ -6,3 +6,6 @@
 		<core:Item key="{model>ID}" text="{model>ID}"/>
 	</items>
 </ComboBox>
+<ComboBox items="{ path: 'model>/Items', templateShareable: true }" selectedKey="{model>/Item}" showSecondaryValues="true">
+	<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Value}"/>
+</ComboBox>

@@ -1,0 +1,56 @@
+<Annotations Target="Metadata.VHCostElement">
+				<Annotation Term="UI.SelectionFields">
+					<Collection>
+						<PropertyPath>Matnr</PropertyPath>
+						<PropertyPath>Maktg</PropertyPath>
+					</Collection>
+				</Annotation>	
+			</Annotations>
+
+showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHRCostElement"
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<Dialog id="idCostElementVHDialog" title="{i18n>CostElementVH}" afterClose="onACCostElementVH">
+		<content>
+			<smartFilterBar:SmartFilterBar id="idSFBCostElementVH" entitySet="VHCostElementSet"/>
+			<smartTable:SmartTable id="idSTCostElementVH" entitySet="VHCostElementSet" enableAutoBinding="true" initiallyVisibleFields="Matnr,Maktg"
+				smartFilterId="idSFBCostElementVH" useTablePersonalisation="false">
+				<Table growing="true" growingScrollToLoad="true" growingThreshold="100">
+					<items>
+						<ColumnListItem type="Navigation" press="onSelectCostElement"/>
+					</items>
+				</Table>
+			</smartTable:SmartTable>
+		</content>
+		<endButton>
+			<Button text="{i18n>close}" type="Emphasized" press="onACCostElementVH"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
+
+#XTIT: Storage Location VH
+CostElementVH=Depo Arama Yardımı
+
+onACCostElementVH: function () {
+			this._oCostElementVHDialog.close();
+			this._oCostElementVHDialog.destroy();
+			this._oCostElementVHDialog = null;
+			this._sPath = "";
+		},
+
+onSelectCostElement: function (oEvent) {
+			this.getModel("viewModel").setProperty(this._sPath + "/CostElement",
+				this.getModel().getProperty(oEvent.getSource().getBindingContextPath() + "/Matnr"));
+
+			this.onACCostElementVH();
+		},
+
+onVHRCostElement: function (oEvent) {
+			this._sPath = oEvent.getSource().getBindingContext("viewModel").getPath();
+			this._oCostElementVHDialog = sap.ui.xmlfragment("idCostElementVHDialog", "com.ittr.pmm.ordercreate.fragment.valuehelp.CostElementVH", this);
+			sap.ui.core.Fragment.byId("idCostElementVHDialog", "idSTCostElementVH")
+				.setSmartFilterId(sap.ui.core.Fragment.byId("idCostElementVHDialog", "idSFBCostElementVH").getId());
+			this.getView().addDependent(this._oCostElementVHDialog);
+			this._oCostElementVHDialog.open();
+},

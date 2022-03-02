@@ -1,2 +1,4 @@
 <DatePicker displayFormat="dd.MM.yyyy" valueFormat="dd.MM.yyyy" editable="false"
-	value="{ path:'model>Value', type:'sap.ui.model.type.Date', formatOptions: { pattern : 'dd.MM.yyyy', UTC:true} }"></DatePicker>
+	value="{ path: 'model>Value', type:'sap.ui.model.type.Date', formatOptions: { pattern : 'dd.MM.yyyy', UTC:true} }"></DatePicker>
+<DatePicker value="{path: 'model>Value', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true} }"
+	class="sapUiSmallMarginBottom" enabled="{model>Enable}" placeholder="{i18n>date}"/>

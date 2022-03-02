@@ -19,3 +19,5 @@
 <Input enabled="{= ${colorCodeModel>/Detail/PantoneStatu} &amp;&amp; ${colorCodeModel>/Info/Statu} === 'Dış'}"/>
 <!-- LESS THAN -->
 <Input valueState="{= parseInt(${viewModel>BantCalisanSayi}) &lt; 0 ? 'Error' : 'Success' }"/>
+<!-- LESS EQUAL THAN -->
+<Input valueState="{= ${viewModel>Zzbukumfire} === '' || +${viewModel>Zzbukumfire} &lt;= 0 ? 'Error' : 'Success' }"/>

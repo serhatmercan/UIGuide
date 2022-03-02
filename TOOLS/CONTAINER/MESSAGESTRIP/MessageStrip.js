@@ -8,6 +8,7 @@ sap.ui.define([
 
 		onInit: function () {
 			const oModel = new JSONModel({
+				Text: "This Is A <strong>Bold</strong> Text",
 				Visibility: false
 			});
 

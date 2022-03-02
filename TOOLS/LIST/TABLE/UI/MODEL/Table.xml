@@ -1,38 +1,51 @@
-<table:Table id="idTable" rows="{tableModel>/}" width="auto" fixedColumnCount="1" rowActionCount="1" selectionMode="None">
-	<table:rowSettingsTemplate>
-		<table:RowSettings highlight="{tableModel>Value}"/>
-	</table:rowSettingsTemplate>
-	<table:rowActionTemplate>
-		<table:RowAction>
-			<table:RowActionItem type="Custom" icon="sap-icon://search" press="onPressRAI" visible="true"/>
-		</table:RowAction>
-	</table:rowActionTemplate>
-	<table:extension>
-		<OverflowToolbar>
-			<Title text="{i18n>table}"/>
-			<ToolbarSpacer/>
-			<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddColumn"/>
-			<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddRow"/>
-			<Button type="Reject" icon="sap-icon://less" tooltip="{i18n>deleteRow}" press="onDeleteRow"/>
-			<Button type="Accept" icon="sap-icon://accept" tooltip="{i18n>save}" press="onSave"/>
-		</OverflowToolbar>
-	</table:extension>
-	<table:columns>
-		<table:Column hAlign="Center">
-			<Label text="{i18n>Value}"/>
-			<table:template>
-				<ObjectIdentifier title="{tableModel>Value}"/>
-			</table:template>
-		</table:Column>
-	</table:columns>
-	<table:rowActionTemplate>
-		<table:RowAction>
-			<table:items>
-				<table:RowActionItem type="Navigation" press="onShow"/>
-			</table:items>
-		</table:RowAction>
-	</table:rowActionTemplate>
-</table:Table>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:table="sap.ui.table">
+	<table:Table id="idTable" rows="{tableModel>/}" width="auto" fixedColumnCount="1" rowActionCount="1" selectionMode="None">
+		<table:rowSettingsTemplate>
+			<table:RowSettings highlight="{tableModel>Value}"/>
+		</table:rowSettingsTemplate>
+		<table:rowActionTemplate>
+			<table:RowAction>
+				<table:RowActionItem type="Custom" icon="sap-icon://search" press="onPressRAI" visible="true"/>
+			</table:RowAction>
+		</table:rowActionTemplate>
+		<table:extension>
+			<OverflowToolbar>
+				<Title text="{i18n>table}"/>
+				<ToolbarSpacer/>
+				<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddColumn"/>
+				<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddRow"/>
+				<Button type="Reject" icon="sap-icon://less" tooltip="{i18n>deleteRow}" press="onDeleteRow"/>
+				<Button type="Accept" icon="sap-icon://accept" tooltip="{i18n>save}" press="onSave"/>
+			</OverflowToolbar>
+		</table:extension>
+		<table:columns>
+			<table:Column hAlign="Center">
+				<Label text="{i18n>Value}"/>
+				<table:template>
+					<ObjectIdentifier title="{tableModel>Value}"/>
+				</table:template>
+			</table:Column>
+		</table:columns>
+		<table:rowActionTemplate>
+			<table:RowAction>
+				<table:items>
+					<table:RowActionItem type="Navigation" press="onShow"/>
+				</table:items>
+			</table:RowAction>
+		</table:rowActionTemplate>
+		<table:footer>
+			<Toolbar>
+				<Label text="{i18n>Value}"/>
+				<Text text="{model>/Value}"/>
+			</Toolbar>
+		</table:footer>
+		<dragDropConfig>
+			<dnd:DragInfo groupName="DGN1" sourceAggregation="rows" dragStart="onDragStart"/>
+			<dnd:DropInfo dropPosition="Between" groupName="DGN2" targetAggregation="rows" drop="onDrop"/>
+			<dnd:DragDropInfo dropPosition="Between" sourceAggregation="rows" targetAggregation="rows" drop="onDrop" dragStart="onDragStart"/>
+		</dragDropConfig>
+	</table:Table>
+</core:FragmentDefinition>
 <!-- TABLE - ATTRIBUTE -->
 <!-- 
 
@@ -43,6 +56,7 @@ class="sapUiResponsiveMargin" class="sapUiTinyMargin"
 columns="{ path:'tableModel>Columns', factory:'_factory' }"
 
 rowHeight="50px"
+rows="{ path:'viewModel>/Items', sorter: {path: 'ID', descending: true} }"
 
 title="Table Title"
 
@@ -69,3 +83,6 @@ rowSelectionChange="onRowSelectionChange"
 <!--
 width="10rem"
 -->
+<!-- Table Row Settings -->
+<!-- Highlight -->
+<!-- Error / Success / Warning -->

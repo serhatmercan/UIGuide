@@ -17,6 +17,12 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
+		onACFrame: function () {
+			this._oFrame.close();
+			this._oFrame.destroy();
+			this._oFrame = null;
+		},
+
 		onBUSDocument: function (oEvent) {
 			const oUploadParameter = new UploadCollectionParameter({
 				name: "slug",
@@ -112,28 +118,26 @@ sap.ui.define([
 				jQuery.sap.encodeHTML(oLoadEvent) +
 				"' height='100%' width='100%'/>";
 
-			if (!this._oFrame) {
-				this._oFrame = new Dialog({
-					title: sFileName,
-					afterClose: this.onCloseFrame.bind(this),
-					content: [
-						new sap.ui.core.HTML({
-							content: sSource
-						})
-					],
-					contentHeight: "250rem",
-					contentWidth: "250rem",
-					horizontalScrolling: false,
-					stretch: true,
-					verticalScrolling: false,
-					endButton: new Button({
-						text: oResourceBundle.getText("close"),
-						press: function () {
-							this.onCloseFrame();
-						}.bind(this)
+			this._oFrame = new Dialog({
+				title: sFileName,
+				afterClose: this.onACFrame.bind(this),
+				content: [
+					new sap.ui.core.HTML({
+						content: sSource
 					})
-				});
-			}
+				],
+				contentHeight: "250rem",
+				contentWidth: "250rem",
+				horizontalScrolling: false,
+				stretch: true,
+				verticalScrolling: false,
+				endButton: new Button({
+					text: oResourceBundle.getText("close"),
+					press: function () {
+						this.onACFrame();
+					}.bind(this)
+				})
+			});
 
 			this._oFrame.open();
 		},

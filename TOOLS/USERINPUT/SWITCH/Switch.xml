@@ -1,1 +1,2 @@
-<Switch type="AcceptReject" enabled="{= ${model>Value} === 'X' }" state="{= ${model>Value} === 'X' }" change="onChange"/>
+<Switch customTextOn="{i18n>on}" customTextOff="{i18n>off}" enabled="{= ${model>Value} === 'X' }" state="{= ${model>Value} === 'X' }"
+	type="AcceptReject" change="onChange"/>

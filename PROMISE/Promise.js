@@ -168,7 +168,7 @@ sap.ui.define([
 					// oData.results[0].to_main.results
 					// oData.results[0].to_list.results,
 				})
-				.catch((err) => {})
+				.catch(() => {})
 				.finally(() => {
 					oViewModel.setProperty("/Busy", false);
 				});
@@ -232,7 +232,7 @@ sap.ui.define([
 						oViewModel.setProperty("/Busy", true);
 
 						this._sendMultiData("/...Set", oData, this.getModel())
-							.then(() => {
+							.then((oResponse) => {
 								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
 								aMessages.forEach(oMessage => oMessage.setPersistent(true));
@@ -241,8 +241,18 @@ sap.ui.define([
 									MessageToast.show(this.getResourceBundle().getText("errorOccured"));
 									return;
 								} else {}
+
+								oResponse.results.forEach(oResult => {
+									sap.ui.getCore().getMessageManager().addMessages(
+										new sap.ui.core.message.Message({
+											message: oResult.Message,
+											type: oResult.Type,
+											persistent: false
+										})
+									);
+								});
 							})
-							.catch((err) => {})
+							.catch(() => {})
 							.finally(() => {
 								oViewModel.setProperty("/Busy", false);
 							});

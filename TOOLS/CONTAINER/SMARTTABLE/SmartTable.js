@@ -98,8 +98,8 @@ sap.ui.define([
 			const aTableContexts = this.byId("idTableST").getSelectedContexts();
 			const aIDs = [];
 
-			aTableContexts.forEach((Context) => {
-				aIDs.push(this.getModel().getProperty(Context.getPath() + "/ID"));
+			aTableContexts.forEach((oContext) => {
+				aIDs.push(this.getModel().getProperty(oContext.getPath() + "/ID"));
 			});
 		},
 
@@ -131,6 +131,18 @@ sap.ui.define([
 			const oModel = this.getModel();
 			const oRowData = oModel.getProperty(sRowPath);
 			const aData = this.getView().getBindingContext().getProperty("to_Item").map(sPath => oModel.getProperty("/" + sPath));
+		},
+
+		onShowDetail: function (oEvent) {
+			const oContext = oEvent.getSource().getBindingContext();
+
+			if (!oContext) {
+				return;
+			}
+
+			this.getRouter().navTo("Detail", {
+				ID: oContext.getProperty("ID")
+			});
 		},
 
 		_getSelectedData: function () {
