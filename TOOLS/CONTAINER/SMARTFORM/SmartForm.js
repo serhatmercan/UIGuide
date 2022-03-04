@@ -49,6 +49,12 @@ sap.ui.define([
 			BarcodeScanner.scan(fnSuccess);
 		},
 
+		onSSID: function (oEvent) {
+			if (!oEvent.getParameter("cancelled")) {
+				this.getModel().setProperty(this.getView().getBindingContext().getPath() + "/ID", oEvent.getParameter("text"));
+			}
+		},
+
 		_onViewMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const sPath = this.getModel().createEntry("/ValueSet").getPath();

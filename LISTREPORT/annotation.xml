@@ -11,11 +11,75 @@
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="serhatmercan.annotation.ZXX_SRV">
 			<Annotations Target="Metadata.Main">
+				<Annotation Term="UI.Facets">
+					<Collection>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;general}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#general"/>
+										<PropertyValue Property="Label" String="{@i18n&gt;generalData}"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#reference"/>
+										<PropertyValue Property="Label" String="{@i18n&gt;referenceData}"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#location"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;location}"/>
+						</Record>
+						<Record Type="UI.CollectionFacet">
+							<PropertyValue Property="Label" String="{@i18n&gt;organization}"/>
+							<PropertyValue Property="Facets">
+								<Collection>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#account"/>
+										<PropertyValue Property="Label" String="{@i18n&gt;accountAssignment}"/>
+									</Record>
+									<Record Type="UI.ReferenceFacet">
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#responsibility"/>
+										<PropertyValue Property="Label" String="{@i18n&gt;responsibilities}"/>
+									</Record>
+								</Collection>
+							</PropertyValue>
+						</Record>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#structure"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;structure}"/>
+						</Record>
+					</Collection>
+				</Annotation>
+				<Annotation Term="UI.FieldGroup" Qualifier="general">
+					<Record Type="UI.FieldGroupType">
+						<PropertyValue Property="Data">
+							<Collection>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="ID"/>
+								</Record>
+								<Record Type="UI.DataField">
+									<PropertyValue Property="Value" Path="Value"/>
+								</Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.HeaderFacets">
+					<Collection>
+						<Record Type="UI.ReferenceFacet">
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header"/>
+						</Record>
+					</Collection>
+				</Annotation>
 				<Annotation Term="UI.HeaderInfo">
 					<Record Type="UI.HeaderInfoType">
 						<PropertyValue Property="TypeName" String="{@i18n&gt;type}"/>
 						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;types}"/>
 						<PropertyValue Property="Title" Path="ID"/>
+						<PropertyValue Property="Description" Path="IDText"/>
 					</Record>
 				</Annotation>
 				<Annotation Term="UI.SelectionFields">
@@ -50,6 +114,15 @@
 						</PropertyValue>
 					</Record>
 				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.Summary/Count">
+				<Annotation Term="Measures.Unit" Path="CountUnit"/>
+			</Annotations>
+			<Annotations Target="Metadata.Summary/ID">
+				<Annotation Term="Common.Text" Path="IDText"/>
+			</Annotations>
+			<Annotations Target="Metadata.Summary/Count">
+				<Annotation Term="Measures.ISOCurrency" Path="CountUnit"/>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>

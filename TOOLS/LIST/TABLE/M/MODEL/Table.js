@@ -73,6 +73,15 @@ sap.ui.define([
 			oViewModel.setProperty("/Data", aData);
 		},
 
+		onDeleteRow: function () {
+			const iIndex = oEvent.getSource().getBindingContext("viewModel").getPath().slice(-1);
+			const oViewModel = this.getModel("viewModel");
+			const aList = oViewModel.getProperty("/List");
+
+			aList.splice(iIndex, 1);
+			oViewModel.setProperty("/List", aList);
+		},
+
 		onPress: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContextPath();
 			this.getRouter().navTo("viewName", {

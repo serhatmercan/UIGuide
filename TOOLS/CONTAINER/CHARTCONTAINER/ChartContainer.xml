@@ -5,7 +5,7 @@
 			<common:ChartContainerContent>
 				<common:content>
 					<viz:Popover id="idPopOver"/>
-					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" vizType="column">
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: { text: 'Viz Frame' } }" vizType="column">
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{model>/Chart}">
 								<viz.data:dimensions>

@@ -1,8 +1,8 @@
 <mvc:View xmlns="sap.m">
-	<MultiInput editable="true" enableMultiLineMode="true" maxTokens="5" change="onChange" tokenChange="onTokenChange"
+	<MultiInput id="idMI" editable="true" enableMultiLineMode="true" maxTokens="5" change="onChange" tokenChange="onTokenChange"
 		tokenUpdate="onTokenUpdate" valueHelpRequest="onValueHelpRequest" tokens="{ path:'model>/List', templateShareable:true }">
 		<tokens>
-			<Token key="{model>Value}" text="{model>Value}"/>
+			<Token key="{model>ID}" text="{model>Value}"/>
 		</tokens>
 	</MultiInput>
 </mvc:View>

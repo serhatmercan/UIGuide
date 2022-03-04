@@ -1,6 +1,9 @@
-	sap.ui.define([], function () {
+	sap.ui.define([
+		"sap/m/MessageBox",
+		"sap/m/MessageToast",
+	], function (MessageBox, MessageToast) {
 		"use strict";
-		return sap.ui.controller("com.sun.serhatmercan.ext.controller.ListReportExt", {
+		return sap.ui.controller("com.serhatmercan.ext.controller.ListReportExt", {
 
 			adaptTransientMessageExtension: function () {
 				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
@@ -15,6 +18,9 @@
 				const aSelectedData = this.extensionAPI.getSelectedContexts().map(oItem => {
 					return oItem.getObject();
 				});
+				const oView = this.getView();
+				const oModel = oView.getModel();
+				const oResourceBundle = oView.getModel("@i18n").getResourceBundle();
 			},
 
 			modifyStartupExtension: function (oStartupObject) {
@@ -26,13 +32,14 @@
 			},
 
 			onAfterRendering: function () {
+				// Component ID: com.serhatmercan.listreport
 				const oTableModel = this.getView().byId(
-					"com.sun.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable").getModel();
+					"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable").getModel();
 
 				oTableModel.attachRequestCompleted((oEvent) => {
 					setTimeout(() => {
 						const oTable = this.getView().byId(
-							"com.sun.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
+							"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
 						const aColumns = oTable.getTable().getColumns();
 
 						for (let i = aColumns.length - 1; i > -1; i--) {
@@ -60,7 +67,7 @@
 						high: oFormattedToday
 					}
 				};
-				const sAppIdentifier = "com.sun.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
+				const sAppIdentifier = "com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
 				const oSmartFilter = this.byId(sAppIdentifier + "::MainSet--listReportFilter");
 
 				oSmartFilter.attachInitialise(function () {
@@ -79,11 +86,32 @@
 
 			onGoToDetail: function () {},
 
+			onGoToExternalPage: function () {
+				const aContexts = this.extensionAPI.getSelectedContexts();
+				const oView = this.getView();
+				const oModel = oView.getModel();
+				const oResourceBundle = oView.getModel("@i18n").getResourceBundle();
+
+				if (aContexts.length === 0) {
+					return;
+				}
+
+				sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
+					target: {
+						semanticObject: "SM_FIORI_APP",
+						action: "display"
+					},
+					params: {
+						ID: oModel.getProperty(aContexts[0].getPath() + "/ID")
+					}
+				});
+			},
+
 			onInit: function () {
 				// HeaderSet: Main Entity
 				// Items: Association Name
 				const oItemTable = sap.ui.getCore().byId(
-					"com.sun.serhatmercan.listreport::sap.suite.ui.generic.template.ObjectPage.view.Details::HeaderSet--Items::com.sap.vocabularies.UI.v1.LineItem::responsiveTable"
+					"com.serhatmercan.listreport::sap.suite.ui.generic.template.ObjectPage.view.Details::HeaderSet--Items::com.sap.vocabularies.UI.v1.LineItem::responsiveTable"
 				);
 
 				if (oItemTable.getMode() !== "MultiSelect") {
@@ -100,6 +128,44 @@
 				oContext.Items.__list.forEach(sPath => {
 					aItems.push(oModel.getProperty("/" + sPath));
 				});
+			},
+
+			onRebindTable: function () {
+				// Component ID: com.serhatmercan.listreport
+				this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport")
+					.rebindTable(true);
+			},
+
+			onShowErrorMessages: function (oError) {
+				const oResponseText = JSON.parse(oError.responseText);
+				const oMessage = oResponseText.error.message;
+				const sMessage = oMessage ? oMessage.value : oError.message;
+
+				MessageBox.error(sMessage, {
+					details: oResponseText,
+					actions: [MessageBox.Action.CLOSE],
+					onClose: function () {}.bind(this)
+				});
+			},
+
+			onSSBarcode: function (sType, oEvent) {
+				// Component ID: com.serhatmercan.listreport
+				if (!oEvent.getParameter("cancelled")) {
+					const oSmartFilter = this.getView().byId(
+						"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReportFilter");
+					let oFilter = {};
+
+					switch (sType) {
+					case "E":
+						oFilter.Equnr = oEvent.getParameter("text");
+						break;
+					case "F":
+						oFilter.Tplnr = oEvent.getParameter("text");
+						break;
+					}
+
+					oSmartFilter.setFilterData(oFilter);
+				}
 			}
 
 		});

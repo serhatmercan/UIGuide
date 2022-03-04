@@ -1,8 +1,10 @@
 /*global location */
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"com/serhatmercan/formatter"
-], function (BaseController, formatter) {
+	"com/serhatmercan/formatter",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, formatter, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -20,6 +22,11 @@ sap.ui.define([
 
 		},
 
+		onCancelSD: function () {
+			this._oDialog.destroy();
+			this._oDialog = null;
+		},
+
 		onChange: function (oEvent) {
 			var sValue = oEvent.getParameter("newValue"),
 				sPath = oEvent.getSource().getBindingInfo("tokens").path,
@@ -32,6 +39,21 @@ sap.ui.define([
 			aList.push(oObj);
 			this.getModel(sModel).setProperty(sPath, aList);
 			oEvent.getSource().setValue("");
+		},
+
+		onChangeValueState: function () {
+			this.byId("idMI").setValueState("Error");
+		},
+
+		onConfirmSD: function () {
+			this.getModel("model").setProperty("/List", oEvent.getParameter("selectedItems").map(oItem => {
+				return {
+					ID: oItem.getTitle(),
+					Value: oItem.getDescription()
+				};
+			}));
+
+			this.onCancelSD();
 		},
 
 		onTokenChange: function (oEvent) {
@@ -61,14 +83,19 @@ sap.ui.define([
 			const iDeletedTokenRow = oSource.getParent().getIndex();
 			const aTokens = oSource.getTokens();
 			const aRemovedTokens = oEvent.getParameters("removedTokens").removedTokens;
+			const oModel = this.getModel("model");
+
+			oModel.setProperty("/List", oModel.getProperty("/List").filter(oToken => oToken.ID !== oEvent.getParameter("removedTokens")[0].getKey()));
 		},
 
 		onValueHelpRequest: function (oEvent) {
-			if (!this._oDialog) {
-				this._oDialog = sap.ui.xmlfragment("serhatmercan.Fragment", this);
-				this.getView().addDependent(this._oDialog);
-			}
+			this._oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
+			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
+		},
+
+		onSearchSD: function (oEvent) {
+			oEvent.getSource().getBinding("items").filter([new Filter("ID", FilterOperator.Contains, oEvent.getParameter("value"))]);
 		},
 
 		onSearchTSD: function (oEvent) {

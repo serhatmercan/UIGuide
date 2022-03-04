@@ -12,7 +12,7 @@
 			"extensions": {
 				"sap.ui.controllerExtensions": {
 					"sap.suite.ui.generic.template.ListReport.view.ListReport": {
-						"controllerName": "com.sun.serhatmercan.ext.controller.ListReportExt",
+						"controllerName": "com.serhatmercan.ext.controller.ListReportExt",
 						"sap.ui.generic.app": {
 							"SummarySet": {
 								"EntitySet": "MainSet",
@@ -32,13 +32,33 @@
 						"GridTableColumnsExtension|MainSet": {
 							"type": "XML",
 							"className": "sap.ui.core.Fragment",
-							"fragmentName": "com.sun.serhatmercan.ext.view.ListReport"
+							"fragmentName": "com.serhatmercan.ext.view.ListReport"
+						},
+						"SmartFilterBarControlConfigurationExtension|ConfirmationSet": {
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.fragment.CustomFilter",
+							"type": "XML"
 						}
 					},
 					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
+						"controllerName": "com.serhatmercan.ext.controller.ObjectPageExt",
+						"sap.ui.generic.app": {
+							"MainSet": {
+								"EntitySet": "MainSet",
+								"Header": {
+									"Actions": {
+										"GoToExternalPage": {
+											"id": "idExternalPage",
+											"text": "{@i18n>externalPage}",
+											"press": "onGoToExternalPage"
+										}
+									}
+								}
+							}
+						},
 						"GridTableColumnsExtension|DetailSet|Items::com.sap.vocabularies.UI.v1.LineItem": {
 							"className": "sap.ui.core.Fragment",
-							"fragmentName": "com.sun.serhatmercan.ext.view.DetailExt",
+							"fragmentName": "com.serhatmercan.ext.view.DetailExt",
 							"type": "XML"
 						}
 					}
@@ -56,10 +76,10 @@
 					"list": true,
 					"settings": {
 						"tableSettings": {
-							"type": "GridTable",
 							"multiSelect": true,
 							"selectAll": true,
-							"smartVariantManagement": true
+							"smartVariantManagement": true,
+							"type": "GridTable"
 						}
 					}
 				},

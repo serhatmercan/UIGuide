@@ -1,0 +1,31 @@
+<mvc:View xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc">
+	<l:BlockLayout id="BlockLayout" background="Dashboard">
+		<l:BlockLayoutRow scrollable="true">
+			<l:BlockLayoutCell title="BLC1" width="2">
+				<Text text="A"/>
+			</l:BlockLayoutCell>
+			<l:BlockLayoutCell title="BLC2">
+				<Text text="B"/>
+			</l:BlockLayoutCell>
+			<l:BlockLayoutCell title="BLC3" titleAlignment="End">
+				<Text text="C"/>
+			</l:BlockLayoutCell>
+		</l:BlockLayoutRow>
+		<l:BlockLayoutRow>
+			<l:BlockLayoutCell title="BLCX">
+				<Text text="X"/>
+			</l:BlockLayoutCell>
+			<l:BlockLayoutCell title="BLCY">
+				<Text text="Y"/>
+			</l:BlockLayoutCell>
+		</l:BlockLayoutRow>
+	</l:BlockLayout>
+</mvc:View>
+<!-- Block Layout Attributes -->
+<!--
+background="Accent" background="Default" background="Light" 
+-->
+<!-- Block Layout Cell -->
+<!--
+titleAlignment="Center"
+-->

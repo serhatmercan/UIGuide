@@ -26,9 +26,9 @@ sap.ui.define([
 			const iValue = +oEvent.getParameters().value;
 			const oSource = oEvent.getSource();
 			const sProperty = oSource.getBinding("value").getPath();
-			const sPath = oSource.getParent().getBindingContext("model").getPath();
+			const sPath = oSource.getParent().getBindingContext("viewModel").getPath();
 
-			this.getModel("model").setProperty(sPath + "/" + sProperty, iValue > 0 ? iValue : 0);
+			this.getModel("viewModel").setProperty(sPath + "/" + sProperty, iValue > 0 ? iValue : 0);
 		},
 
 		clearInput: function (oEvent) {

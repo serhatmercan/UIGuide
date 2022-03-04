@@ -12,8 +12,13 @@ sap.ui.define([
 			this.getView().setModel(
 				new JSONModel({
 					Busy: false,
-					Data: []
+					Data: [],
+					Statu: false
 				}), "viewModel");
+
+			this.byId("idST").getTable().attachRowSelectionChange((oEvent) => {
+				this.getModel("viewModel").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
+			});
 		},
 
 		onBRT: function (oEvent) {
@@ -151,6 +156,17 @@ sap.ui.define([
 			if (aContexts.length > 0) {
 				this._oSelectedData = this.getModel().getProperty(aContexts[0].getPath());
 			}
+		},
+
+		_getSelectedDataFromUISmartTable: function () {
+			const oTable = this.byId("idST").getTable();
+			const aContexts = oTable.getBinding("rows").getContexts();
+			const aIndices = oTable.getSelectedIndices();
+			const aData = [];
+
+			aIndices.forEach(iIndex => aData.push(aContexts[iIndex].getObject()));
+
+			return aData;
 		},
 
 		_getSelectedMultiData: function () {

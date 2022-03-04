@@ -110,6 +110,24 @@ sap.ui.define([
 				});
 		},
 
+		getAssociationData: function () {
+			const oModel = this.getModel();
+			const sPath = oModel.createKey("/...Set", {
+				ID: sID
+			});
+			const oExpand = {
+				"$expand": "Items,Values"
+			};
+
+			this._getAssociationData(sPath, oExpand, oModel)
+				.then((oData) => {
+					const aItems = oData.Items.results;
+					const aValues = oData.Values.results;
+				})
+				.catch(() => {})
+				.finally(() => {});
+		},
+
 		getSingleData: function () {
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {
@@ -310,6 +328,17 @@ sap.ui.define([
 					error: fnReject
 				};
 				oModel.remove(sSet, mParameters);
+			});
+		},
+
+		_getAssociationData: function (sSet, oExpand, oModel) {
+			return new Promise(function (fnSuccess, fnReject) {
+				const oParameters = {
+					urlParameters: oExpand,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, oParameters);
 			});
 		},
 

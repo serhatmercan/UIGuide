@@ -19,6 +19,9 @@
 		<Column>
 			<Text text="{i18n>value3}"/>
 		</Column>
+		<Column hAlign="Center">
+			<Text text=""/>
+		</Column>
 	</columns>
 	<items>
 		<ColumnListItem id="idCLI" type="Active" vAlign="Middle" press="onPress">
@@ -28,6 +31,7 @@
 				<ComboBox items="{tableModel>Data}" showSecondaryValues="true" change="onChangeCB">
 					<core:ListItem key="{tableModel>ID}" text="{tableModel>ID}" additionalText="{tableModel>Text}"/>
 				</ComboBox>
+				<Button icon="sap-icon://decline" tooltip="{i18n>delete}" type="Transparent" press="onDeleteRow"/>
 			</cells>
 		</ColumnListItem>
 	</items>

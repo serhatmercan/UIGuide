@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ndc="sap.ndc" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar">
+	<smartfilterbar:ControlConfiguration key="idCFID" index="10" label="{/#Main/ID/@sap:label}" visibleInAdvancedArea="true">
+		<smartfilterbar:customControl>
+			<ndc:BarcodeScannerButton scanSuccess="onSSBarcode('I', $event)"/>
+		</smartfilterbar:customControl>
+	</smartfilterbar:ControlConfiguration>
+	<smartfilterbar:ControlConfiguration key="idCFValue" index="20" label="{/#Main/Value/@sap:label}" visibleInAdvancedArea="true">
+		<smartfilterbar:customControl>
+			<ndc:BarcodeScannerButton scanSuccess="onSSBarcode('V', $event)"/>
+		</smartfilterbar:customControl>
+	</smartfilterbar:ControlConfiguration>
+</core:FragmentDefinition>

@@ -13,4 +13,7 @@
 			</Column>
 		</columns>
 	</TableSelectDialog>
+	<SelectDialog items="{/ListSet}" title="{i18n>listVH}" multiSelect="true" cancel="onCancelSD" confirm="onConfirmSD" search="onSearchSD">
+		<StandardListItem title="{Pernr}" description="{Stext}"/>
+	</SelectDialog>
 </core:FragmentDefinition>

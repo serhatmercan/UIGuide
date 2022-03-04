@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="{i18n>DMS}" afterClose="onACDocumentDialog">
+		<content>
+			<core:ComponentContainer id="attachmentComponentContainer" propagateModel="true"></core:ComponentContainer>
+		</content>
+		<Toolbar>
+			<ToolbarSpacer/>
+			<Button text="{i18n>save}" type="Accept" press="onSaveDocument"/>
+			<Button text="{i18n>close}" type="Reject" press="onACDocumentDialog"/>
+		</Toolbar>
+	</Dialog>
+</core:FragmentDefinition>

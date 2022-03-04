@@ -18,6 +18,47 @@ sap.ui.define([
 			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
 		},
 
+		onACDialog: function () {
+			const oModel = this.getView().getModel();
+
+			if (oModel.hasPendingChanges()) {
+				oModel.resetChanges();
+			}
+
+			if (this._oDialog) {
+				oModel.deleteCreatedEntry(this._oDialog.getBindingContext());
+
+				this._oDialog.unbindElement();
+				this._oDialog.close();
+				this._oDialog.destroy();
+				this._oDialog = null;
+			}
+		},
+
+		onConfirmDialog: function () {
+			const oSmartForm = sap.ui.core.Fragment.byId("idDialog", "idSmartForm");
+			const oData = oSmartForm.getBindingContext().getProperty();
+
+			if (oSmartForm.check().length > 0) {
+				return;
+			}
+		},
+
+		onShowDialog: function () {
+			const sPath = this.getView().getModel().createEntry("/DialogSet").getPath();
+
+			this._oDialog = sap.ui.xmlfragment("idDialog", "com.serhatmercan.view.fragment.Dialog", this);
+
+			this.getView().addDependent(this._oDialog);
+
+			this._oDialog.bindElement(sPath);
+			sap.ui.core.Fragment.byId("idDialog", "idSmartForm").bindElement(sPath);
+
+			this.getModel().setProperty(sPath + "/ID", "X");
+
+			this._oDialog.open();
+		},
+
 		onExit: function () {
 			this.getModel().resetChanges();
 			this.byId("idSmartTable").rebindTable();
@@ -100,6 +141,10 @@ sap.ui.define([
 
 			this._clearView();
 
+			this.oStartupParameters = this._getMyComponent().getComponentData().startupParameters;
+
+			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") {}
+
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const oCreateEntry = this.getModel().createEntry("/IDSet");
 
@@ -152,6 +197,11 @@ sap.ui.define([
 			}
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},
+
+		_getMyComponent: function () {
+			const sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
+			return sap.ui.component(sComponentId);
 		},
 
 		_onChange: function () {

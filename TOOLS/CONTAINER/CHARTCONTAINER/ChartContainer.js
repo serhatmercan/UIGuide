@@ -22,6 +22,9 @@ sap.ui.define([
 			const oVizFrame = this.byId("idVizFrame");
 			const oPopOver = this.getView().byId("idPopOver");
 
+			oVizFrame.setAutoAdjustHeight(true);
+			oVizFrame.setShowFullScreen(true);
+
 			oVizFrame.setVizProperties({
 				title: {
 					visible: false

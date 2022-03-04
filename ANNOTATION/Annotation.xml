@@ -138,6 +138,7 @@
 			<Annotations Target="Metadata.FieldVH/Title">
 				<Annotation Term="Common.Text" Path="Description"/>
 				<Annotation Term="Common.Label" String="{@i18n&gt;description}"/>
+				<Annotation Term="Measures.ISOCurrency" Path="Unit"/>
 				<Annotation Term="Measures.Unit" Path="Unit"/>
 				<Annotation Term="UI.Hidden" Bool="true"/>
 				<Annotation Term="UI.HiddenFilter" Bool="true"/>
