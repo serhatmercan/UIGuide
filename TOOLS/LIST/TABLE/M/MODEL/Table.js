@@ -18,6 +18,17 @@ sap.ui.define([
 			});
 
 			this.setModel(oTableModel, "tableModel");
+
+			this.byId("idTable")._getSelectAllCheckbox().setVisible(false);
+
+			this.byId("idTable").onRowsUpdated = function () {
+				this.byId("idTable").getRows().forEach(oRow => {
+					if (oRow.getBindingContext("model") &&
+						this.getModel("model").getProperty(oRow.getBindingContext("model").getPath() + "/ID") === "X") {
+						$("#" + oRow.getId()).css("background-color", "red");
+					}
+				});
+			}.bind(this);
 		},
 
 		onAddColumn: function () {

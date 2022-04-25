@@ -19,15 +19,19 @@ sap.ui.define([
 			this.byId("idST").getTable().attachRowSelectionChange((oEvent) => {
 				this.getModel("viewModel").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
 			});
+
+			this.byId("idST").getTable()._getSelectAllCheckbox().setVisible(false);
 		},
 
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilterPeriod = new Filter("ID", FilterOperator.EQ, "X");
+			const oTable = oEvent.getSource().getTable();
 
 			oBindingParams.filters.push(oFilterPeriod);
 
 			this.onBeforeRebindTableWithResizing(oEvent);
+			this.onSetTableContent(oTable);
 		},
 
 		onDT: function (oEvent) {
@@ -37,6 +41,14 @@ sap.ui.define([
 			if (oData !== undefined) {
 				sID = oData.results[0].ID;
 			}
+		},
+
+		onSetTableContent: function (oTable) {
+			oEvent.getParameter("bindingParams").events = {
+				"dataReceived": () => {
+					setTimeout(() => this._setTableContent(oTable));
+				}
+			};
 		},
 
 		onInitST: function () {
@@ -186,6 +198,16 @@ sap.ui.define([
 			this.byId("idTableST").getBinding("items").refresh(true);
 			this.byId("idTableST").getBinding("rows").refresh(true);
 			this.byId("idST").rebindTable();
+		},
+
+		_setTableContent: function (oTable) {
+			oTable.getItems().forEach(oItem => {
+				let bFlag = this.getModel().getProperty(oItem.getBindingContextPath() + "/Flag") === "X" ? true : false;
+				let oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
+
+				oRow.setEnabled(!bFlag);
+				oRow.setSelected(bFlag);
+			});
 		},
 
 		_setTableWithResizing: function (oTable) {

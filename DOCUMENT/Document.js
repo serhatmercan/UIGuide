@@ -92,7 +92,7 @@ sap.ui.define([
 		onPressUCI: function () {
 			const oContext = this.getView().getBindingContext();
 			const oModel = this.getModel();
-			const sServiceURL = this.getModel().sServiceUrl;
+			const sServiceURL = oModel.sServiceUrl;
 			const sBindingPath = oEvent.getSource().getBindingContext().getPath();
 			const sPath = oModel.createKey("/DocumentSet", {
 				DocumentID: oModel.getProperty(sBindingPath + "/DocumentID")

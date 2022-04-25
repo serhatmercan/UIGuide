@@ -1,56 +1,90 @@
-<Annotations Target="Metadata.VHCostElement">
-				<Annotation Term="UI.SelectionFields">
-					<Collection>
-						<PropertyPath>Matnr</PropertyPath>
-						<PropertyPath>Maktg</PropertyPath>
-					</Collection>
-				</Annotation>	
-			</Annotations>
-
-showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHRCostElement"
-
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-	xmlns:smartTable="sap.ui.comp.smarttable">
-	<Dialog id="idCostElementVHDialog" title="{i18n>CostElementVH}" afterClose="onACCostElementVH">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartTable="sap.ui.comp.smarttable">
+	<Dialog title="{i18n>InOut}" afterClose="onACInOut">
 		<content>
-			<smartFilterBar:SmartFilterBar id="idSFBCostElementVH" entitySet="VHCostElementSet"/>
-			<smartTable:SmartTable id="idSTCostElementVH" entitySet="VHCostElementSet" enableAutoBinding="true" initiallyVisibleFields="Matnr,Maktg"
-				smartFilterId="idSFBCostElementVH" useTablePersonalisation="false">
-				<Table growing="true" growingScrollToLoad="true" growingThreshold="100">
-					<items>
-						<ColumnListItem type="Navigation" press="onSelectCostElement"/>
-					</items>
-				</Table>
-			</smartTable:SmartTable>
+			<smartTable:SmartTable id="InOutTable" entitySet="InOutSet" tableBindingPath="InOuts"
+				enableAutoBinding="true" header="{i18n>InOut}"
+				initiallyVisibleFields="MinAdet,MinAgirlik,MinEn,MinBoy,MinYuks" requestAtLeastFields="MinAdet" showRowCount="true"
+				showTablePersonalisation="false" tableType="ResponsiveTable" useExportToExcel="false"/>
 		</content>
 		<endButton>
-			<Button text="{i18n>close}" type="Emphasized" press="onACCostElementVH"/>
+			<Button text="{i18n>close}" type="Emphasized" press="onACInOut"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
 
-#XTIT: Storage Location VH
-CostElementVH=Depo Arama Yardımı
-
-onACCostElementVH: function () {
-			this._oCostElementVHDialog.close();
-			this._oCostElementVHDialog.destroy();
-			this._oCostElementVHDialog = null;
-			this._sPath = "";
+onACInOut: function () {
+			this._oInOutDialog.close();
+			this._oInOutDialog.destroy();
+			this._oInOutDialog = null;
 		},
-
-onSelectCostElement: function (oEvent) {
-			this.getModel("viewModel").setProperty(this._sPath + "/CostElement",
-				this.getModel().getProperty(oEvent.getSource().getBindingContextPath() + "/Matnr"));
-
-			this.onACCostElementVH();
+		
+		onShowInOut: function () {
+			this._oInOutDialog = sap.ui.xmlfragment("InOutDialog",
+				"com.tofas.mm.partquerycockpit.fragment.InOut",
+				this);
+			sap.ui.core.Fragment.byId("InOutDialog", "InOutTable").rebindTable();
+			this.getView().addDependent(this._oInOutDialog);
+			this._oInOutDialog.open();
 		},
+		
+<Annotations Target="Metadata.InOut">
+				<Annotation Term="UI.HeaderInfo">
+					<Record Type="UI.HeaderInfoType">
+						<PropertyValue Property="TypeName" String="{@i18n&gt;InOut}"/>
+						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;InOuts}"/>
+					</Record>
+				</Annotation>
+				<Annotation Term="UI.LineItem">
+					<Collection>
+						<Record Type="UI.DataField">
+							<PropertyValue Property="Value" Path="MinAdet"/>
+						</Record>
+					</Collection>
+				</Annotation>
+			</Annotations>
 
-onVHRCostElement: function (oEvent) {
-			this._sPath = oEvent.getSource().getBindingContext("viewModel").getPath();
-			this._oCostElementVHDialog = sap.ui.xmlfragment("idCostElementVHDialog", "com.ittr.pmm.ordercreate.fragment.valuehelp.CostElementVH", this);
-			sap.ui.core.Fragment.byId("idCostElementVHDialog", "idSTCostElementVH")
-				.setSmartFilterId(sap.ui.core.Fragment.byId("idCostElementVHDialog", "idSFBCostElementVH").getId());
-			this.getView().addDependent(this._oCostElementVHDialog);
-			this._oCostElementVHDialog.open();
-},
+
+<Annotations Target="Metadata.LastYear/Cikis">
+				<Annotation Term="Common.Label" String="{@i18n&gt;out}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYear/Giris">
+				<Annotation Term="Common.Label" String="{@i18n&gt;in}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYear/Kampadt">
+				<Annotation Term="Common.Label" String="{@i18n&gt;campaigCount}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYear/Ltx">
+				<Annotation Term="Common.Label" String="{@i18n&gt;month}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYear/Maint">
+				<Annotation Term="Common.Label" String="{@i18n&gt;maint}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Monat">
+				<Annotation Term="Common.Label" String="{@i18n&gt;month}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Normal">
+				<Annotation Term="Common.Label" String="{@i18n&gt;normal}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Acil">
+				<Annotation Term="Common.Label" String="{@i18n&gt;immediate}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Toplam1">
+				<Annotation Term="Common.Label" String="{@i18n&gt;totalI}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Fabrika">
+				<Annotation Term="Common.Label" String="{@i18n&gt;fabric}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Personel">
+				<Annotation Term="Common.Label" String="{@i18n&gt;personnel}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Imalat">
+				<Annotation Term="Common.Label" String="{@i18n&gt;manufacture}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Ihrac">
+				<Annotation Term="Common.Label" String="{@i18n&gt;export}"/>
+			</Annotations>
+			<Annotations Target="Metadata.LastYearMonths/Toplam2">
+				<Annotation Term="Common.Label" String="{@i18n&gt;totalII}"/>
+			</Annotations>
+
+

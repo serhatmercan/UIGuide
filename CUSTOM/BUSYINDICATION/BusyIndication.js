@@ -20,6 +20,7 @@ sap.ui.define([
 				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				this._removeDuplicateMessages();
 				sap.ui.core.BusyIndicator.hide();
+				sap.ui.getCore().byId("MessageButton").firePress();
 			}.bind(this);
 
 			oModel.attachMetadataFailed(fnRequestReceived);
@@ -31,7 +32,7 @@ sap.ui.define([
 				oModel.attachBatchRequestSent(fnRequestSent);
 				oModel.attachBatchRequestCompleted(fnRequestReceived);
 				oModel.attachBatchRequestFailed(fnRequestReceived);
-			}.bind(this));
+			});
 		},
 
 		_removeDuplicateMessages: function () {

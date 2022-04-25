@@ -52,6 +52,8 @@
 						}
 					});
 				});
+
+				this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
 			},
 
 			onBeforeRendering: function () {
@@ -134,6 +136,27 @@
 				// Component ID: com.serhatmercan.listreport
 				this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport")
 					.rebindTable(true);
+			},
+
+			onShowMessages: function (oEvent) {
+				let oMessagesButton = oEvent.getSource();
+
+				if (!this._oMessagePopover) {
+					this._oMessagePopover = new sap.m.MessagePopover({
+						items: {
+							path: "message>/",
+							template: new sap.m.MessagePopoverItem({
+								description: "{message>description}",
+								type: "{message>type}",
+								title: "{message>message}"
+							})
+						}
+					});
+
+					oMessagesButton.addDependent(this._oMessagePopover);
+				}
+
+				this._oMessagePopover.toggle(oMessagesButton);
 			},
 
 			onShowErrorMessages: function (oError) {

@@ -15,7 +15,9 @@
 					<Record Type="Capabilities.FilterRestrictionsType">
 						<PropertyValue Property="RequiresFilter" Bool="true"/>
 						<PropertyValue Property="RequiredProperties">
-							<Collection/>
+							<Collection>
+								<PropertyPath>ID</PropertyPath>
+							</Collection>
 						</PropertyValue>
 						<PropertyValue Property="NonFilterableProperties">
 							<Collection>

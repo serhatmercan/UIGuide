@@ -22,6 +22,10 @@ sap.ui.define([
 			this.onValidateField(oEvent);
 		},
 
+		onFocusInput: function () {
+			this.byId("idInput").focus();
+		},
+
 		onValidateField: function (oEvent) {
 			const iValue = +oEvent.getParameters().value;
 			const oSource = oEvent.getSource();
