@@ -2,11 +2,11 @@
 	<edmx:Reference Uri="/sap/opu/odata/sap/SERVICE_NAME_SRV/$metadata">
 		<edmx:Include Alias="Metadata" Namespace="SERVICE_NAME_SRV"/>
 	</edmx:Reference>
-	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
-		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
-	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
 		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
 	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="APP_PATH.ANNOTATION_NAME.SERVICE_NAME_SRV">

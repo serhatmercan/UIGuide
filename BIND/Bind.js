@@ -8,7 +8,6 @@ sap.ui.define([
 
 		onInit: function () {
 			const oModel = new JSONModel({
-				Busy: false,
 				Items: [],
 				Value: ""
 			});
@@ -19,7 +18,7 @@ sap.ui.define([
 		},
 
 		onACDialog: function () {
-			const oModel = this.getView().getModel();
+			const oModel = this.getModel();
 
 			if (oModel.hasPendingChanges()) {
 				oModel.resetChanges();
@@ -36,7 +35,7 @@ sap.ui.define([
 		},
 
 		onConfirmDialog: function () {
-			const oSmartForm = sap.ui.core.Fragment.byId("idDialog", "idSmartForm");
+			const oSmartForm = sap.ui.core.Fragment.byId("idDialog", "SmartForm");
 			const oData = oSmartForm.getBindingContext().getProperty();
 
 			if (oSmartForm.check().length > 0) {
@@ -52,7 +51,7 @@ sap.ui.define([
 			this.getView().addDependent(this._oDialog);
 
 			this._oDialog.bindElement(sPath);
-			sap.ui.core.Fragment.byId("idDialog", "idSmartForm").bindElement(sPath);
+			sap.ui.core.Fragment.byId("idDialog", "SmartForm").bindElement(sPath);
 
 			this.getModel().setProperty(sPath + "/ID", "X");
 
@@ -117,7 +116,7 @@ sap.ui.define([
 
 		onCheckBindingData: function () {
 			const oModel = this.getModel();
-			const oSmartForm = this.byId("idSmartForm");
+			const oSmartForm = this.byId("SmartForm");
 
 			if (oSmartForm.check().length) {
 				return;
