@@ -21,6 +21,7 @@ sap.ui.define([
 
 		getContentDensityClass: function () {
 			if (this._sContentDensityClass === undefined) {
+				// eslint-disable-next-line sap-no-proprietary-browser-api
 				if (document.body.classList.contains("sapUiSizeCozy") || document.body.classList.contains("sapUiSizeCompact")) {
 					this._sContentDensityClass = "";
 				} else if (!Device.support.touch) {

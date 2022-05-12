@@ -1,4 +1,6 @@
-sap.ui.define([], function () {
+sap.ui.define([
+	"sap/ui/core/format/NumberFormat"
+], function (NumberFormat) {
 	"use strict";
 
 	return {
@@ -107,6 +109,17 @@ sap.ui.define([], function () {
 			} else {
 				return false;
 			}
+		},
+
+		setIDValue: function (sNumber1, sNumber2) {
+			const oFloatNumberFormat = NumberFormat.getFloatInstance({
+				decimals: 3,
+				decimalSeparator: ",",
+				groupingSeparator: ".",
+				maxFractionDigits: "3"
+			}, sap.ui.getCore().getConfiguration().getLocale());
+
+			return oFloatNumberFormat.format(sNumber1) + " - " + oFloatNumberFormat.format(sNumber2);
 		},
 
 		setRowHighlight: function (sValue) {

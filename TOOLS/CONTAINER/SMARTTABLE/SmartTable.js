@@ -31,6 +31,7 @@ sap.ui.define([
 			oBindingParams.filters.push(oFilterPeriod);
 
 			this.onBeforeRebindTableWithResizing(oEvent);
+			this.onSetFilter();
 			this.onSetTableContent(oTable);
 		},
 
@@ -41,6 +42,12 @@ sap.ui.define([
 			if (oData !== undefined) {
 				sID = oData.results[0].ID;
 			}
+		},
+
+		onSetFilter: function () {
+			this.byId("idSFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
+				oItem.getControl().setValueHelpOnly(true);
+			});
 		},
 
 		onSetTableContent: function (oTable) {
