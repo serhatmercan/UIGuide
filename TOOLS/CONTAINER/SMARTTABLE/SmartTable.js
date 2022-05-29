@@ -149,6 +149,8 @@ sap.ui.define([
 			};
 		},
 
+		onChangeField: function(oEvent){},
+
 		onChangeKey: function (oEvent) {
 			const sValue = oEvent.getParameter("selectedItem").getKey();
 			const sRowPath = oEvent.getSource().getBindingContext().getPath();

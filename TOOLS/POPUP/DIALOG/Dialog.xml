@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog id="idDialog" title="Dialog Title" afterClose="onAfterCloseDialog" contentWidth="100rem" contentHeight="auto" stretch="true">
+	<Dialog id="idDialog" title="Dialog Title" afterClose="onACDialog">
 		<customHeader>
 			<Toolbar>
 				<ToolbarSpacer/>
@@ -31,24 +31,22 @@
 			<Button text="{i18n>continue}" press="onPressContinue"/>
 		</beginButton>
 		<endButton>
-			<Button text="{i18n>cancel}" press="onPressCancel"/>
+			<Button text="{i18n>cancel}" press="onACDialog"/>
 		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
 <!-- DIALOG ATTRIBUTES -->
 <!-- 
-
-class="sapUiContentPadding" 
+class="sapUiContentPadding" 	
+contentHeight="auto"
+contentWidth="100rem"
 
 busy="false"
 busyIndicatorDelay="0"
 
+horizontalScrolling="false"
+showHeader="true" 
+stretch="true" stretch="{= ${device>/system/phone} }"
 stretchOnPhone="true" 
-		
-horizontalScrolling="false" 
-verticalScrolling="false"  
-
-showHeader="true"
-
-afterClose="onAfterClose" 
+verticalScrolling="false"
 -->

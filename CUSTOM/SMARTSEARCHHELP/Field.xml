@@ -1,2 +1,0 @@
-<Input showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueLiveUpdate="true"
-	valueState="{= ${viewModel>ID} === '' ? 'Error' : 'Success' }" valueHelpRequest="onVHR"/>

@@ -2,16 +2,16 @@
 	"sap.ui5": {
 		"routing": {
 			"routes": [{
-				"pattern": "MainSet/{objectId}",
-				"name": "object",
+				"pattern": "MainSet/{ID}",
+				"name": "Object",
 				"target": [
-					"object"
+					"Object"
 				]
 			}],
 			"targets": {
-				"object": {
+				"Object": {
 					"viewName": "Object",
-					"viewId": "object",
+					"viewId": "Object",
 					"viewLevel": 2
 				}
 			}

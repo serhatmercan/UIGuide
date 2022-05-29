@@ -1,7 +1,8 @@
 	sap.ui.define([
 		"sap/m/MessageBox",
 		"sap/m/MessageToast",
-	], function (MessageBox, MessageToast) {
+		'sap/ui/export/Spreadsheet'
+	], function (MessageBox, MessageToast, Spreadsheet) {
 		"use strict";
 		return sap.ui.controller("com.serhatmercan.ext.controller.ListReportExt", {
 
@@ -56,6 +57,15 @@
 				this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
 			},
 
+			onBeforeRebindTableExtension: function (oEvent) {
+				const oBindingParams = oEvent.getParameter("bindingParams");
+				const aIDs = location.href.split("ID=").slice(1);
+
+				if (oBindingParams) {
+					aIDs.forEach(sID => oBindingParams.filters.push(new Filter("ID", FilterOperator.EQ, parseInt(sID))));
+				}
+			},
+
 			onBeforeRendering: function () {
 				const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
 					pattern: "yyyy-MM-dd"
@@ -75,15 +85,31 @@
 				oSmartFilter.attachInitialise(function () {
 					oSmartFilter.setFilterData(oDefaultFilter);
 				});
-			},
+			},			
 
-			onBeforeRebindTableExtension: function (oEvent) {
-				const oBindingParams = oEvent.getParameter("bindingParams");
-				const aIDs = location.href.split("ID=").slice(1);
-
-				if (oBindingParams) {
-					aIDs.forEach(sID => oBindingParams.filters.push(new Filter("ID", FilterOperator.EQ, parseInt(sID))));
-				}
+			onExportToExcel: function (oEvent) { 
+				const oModel = this.getView().getModel(); 
+				const oTable = this.getView().byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
+				const aTableData = 	oTable.getBinding().aKeys.map(sPath => {
+					return oModel.getProperty("/" + sPath);
+				});
+				const aColumns = oTable.getColumns().map(oColumn => {					
+					return {
+						"label": oColumn.getAggregation("label").getText(),
+						"property": oColumn.getAggregation("customData")[0].getProperty("value").columnKey
+					};
+				});
+				const oSettings = {					
+					dataSource: aTableData,
+					fileName: 'Test.xlsx',
+					workbook: {
+						columns: aColumns
+					}
+				};
+								
+				new Spreadsheet(oSettings).build().finally(() => {
+					oSheet.destroy();
+				});
 			},
 
 			onGoToDetail: function () {},
@@ -134,15 +160,26 @@
 
 			onRebindTable: function () {
 				// Component ID: com.serhatmercan.listreport
-				this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport")
-					.rebindTable(true);
+				this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").rebindTable(true);
+			},
+
+			onShowErrorMessages: function (oError) {
+				const oResponseText = JSON.parse(oError.responseText);
+				const oMessage = oResponseText.error.message;
+				const sMessage = oMessage ? oMessage.value : oError.message;
+
+				MessageBox.error(sMessage, {
+					actions: [MessageBox.Action.CLOSE],
+					details: oResponseText,					
+					onClose: function () {}.bind(this)
+				});
 			},
 
 			onShowMessages: function (oEvent) {
 				let oMessagesButton = oEvent.getSource();
 
-				if (!this._oMessagePopover) {
-					this._oMessagePopover = new sap.m.MessagePopover({
+				if (!this.oMessagePopover) {
+					this.oMessagePopover = new sap.m.MessagePopover({
 						items: {
 							path: "message>/",
 							template: new sap.m.MessagePopoverItem({
@@ -153,23 +190,11 @@
 						}
 					});
 
-					oMessagesButton.addDependent(this._oMessagePopover);
+					oMessagesButton.addDependent(this.oMessagePopover);
 				}
 
-				this._oMessagePopover.toggle(oMessagesButton);
-			},
-
-			onShowErrorMessages: function (oError) {
-				const oResponseText = JSON.parse(oError.responseText);
-				const oMessage = oResponseText.error.message;
-				const sMessage = oMessage ? oMessage.value : oError.message;
-
-				MessageBox.error(sMessage, {
-					details: oResponseText,
-					actions: [MessageBox.Action.CLOSE],
-					onClose: function () {}.bind(this)
-				});
-			},
+				this.oMessagePopover.toggle(oMessagesButton);
+			},			
 
 			onSSBarcode: function (sType, oEvent) {
 				// Component ID: com.serhatmercan.listreport

@@ -6,6 +6,15 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
+		onExit: function () {
+			this.getModel().resetChanges();
+			this.byId("SmartTable").rebindTable();
+		},
+
 		onInit: function () {
 			const oModel = new JSONModel({
 				Items: [],
@@ -14,8 +23,12 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onACDialog: function () {
 			const oModel = this.getModel();
@@ -24,61 +37,27 @@ sap.ui.define([
 				oModel.resetChanges();
 			}
 
-			if (this._oDialog) {
-				oModel.deleteCreatedEntry(this._oDialog.getBindingContext());
+			if (this.oDialog) {
+				oModel.deleteCreatedEntry(this.oDialog.getBindingContext());
 
-				this._oDialog.unbindElement();
-				this._oDialog.close();
-				this._oDialog.destroy();
-				this._oDialog = null;
+				this.oDialog.unbindElement();
+				this.oDialog.close();
+				this.oDialog.destroy();
+				this.oDialog = null;
 			}
 		},
 
-		onConfirmDialog: function () {
-			const oSmartForm = sap.ui.core.Fragment.byId("idDialog", "SmartForm");
-			const oData = oSmartForm.getBindingContext().getProperty();
+		onCheckBindingData: function () {
+			const oModel = this.getModel();
+			const oSmartForm = this.byId("SmartForm");
 
-			if (oSmartForm.check().length > 0) {
+			if (oSmartForm.check().length) {
 				return;
 			}
-		},
 
-		onShowDialog: function () {
-			const sPath = this.getView().getModel().createEntry("/DialogSet").getPath();
+			if (oModel.hasPendingChanges()) {
 
-			this._oDialog = sap.ui.xmlfragment("idDialog", "com.serhatmercan.view.fragment.Dialog", this);
-
-			this.getView().addDependent(this._oDialog);
-
-			this._oDialog.bindElement(sPath);
-			sap.ui.core.Fragment.byId("idDialog", "SmartForm").bindElement(sPath);
-
-			this.getModel().setProperty(sPath + "/ID", "X");
-
-			this._oDialog.open();
-		},
-
-		onExit: function () {
-			this.getModel().resetChanges();
-			this.byId("idSmartTable").rebindTable();
-		},
-
-		onReadBindingData: function () {
-			const sPath = this.getModel().createKey("/IDSet", {
-				ID: "X"
-			});
-
-			this.getView().bindElement({
-				path: sPath
-			});
-		},
-
-		onGetSetBindingData: function () {
-			const oModel = this.getModel();
-			const sBindingPath = this.getView().getBindingContext().getPath();
-			const sID = oModel.getProperty(sBindingPath + "/ID");
-
-			oModel.setProperty(sBindingPath + "/ID", "X");
+			}
 		},
 
 		onClearBindingData: function () {
@@ -114,40 +93,120 @@ sap.ui.define([
 			});
 		},
 
-		onCheckBindingData: function () {
-			const oModel = this.getModel();
-			const oSmartForm = this.byId("SmartForm");
+		onConfirmDialog: function () {
+			const oSmartForm = sap.ui.core.Fragment.byId("Dialog", "SmartForm");
+			const oData = oSmartForm.getBindingContext().getProperty();
 
-			if (oSmartForm.check().length) {
+			if (oSmartForm.check().length > 0) {
 				return;
 			}
-
-			if (oModel.hasPendingChanges()) {}
 		},
+
+		onGetSetBindingData: function () {
+			const oModel = this.getModel();
+			const sBindingPath = this.getView().getBindingContext().getPath();
+			const sID = oModel.getProperty(sBindingPath + "/ID");
+
+			oModel.setProperty(sBindingPath + "/ID", "X");
+		},
+
+		onReadBindingData: function () {
+			const sPath = this.getModel().createKey("/IDSet", {
+				ID: "X"
+			});
+
+			this.getView().bindElement({
+				path: sPath
+			});
+		},
+
+		onShowDialog: function () {
+			const sPath = this.getModel().createEntry("/DialogSet").getPath();
+
+			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.view.fragment.Dialog", this);
+
+			this.getView().addDependent(this.oDialog);
+
+			this.oDialog.bindElement(sPath);
+			
+			sap.ui.core.Fragment.byId("Dialog", "SmartForm").bindElement(sPath);
+
+			this.getModel().setProperty(sPath + "/ID", "X");
+
+			this.oDialog.open();
+		},						
 
 		onRefreshView: function () {
 			this.getView().unbindElement();
 		},
 
-		_onViewMatched: function (oEvent) {
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */			
+
+		change: function () {
+
+		},
+
+		clearView: function () {
+			const oView = this.getView();
+			const oBindingContext = oView.getBindingContext();
+			const oModel = this.getModel();
+
+			if (oBindingContext) {
+				oView.unbindElement();
+				oModel.deleteCreatedEntry(oBindingContext);				
+				oModel.resetChanges();
+				oModel.refresh(true, true);
+			}
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},	
+
+		dataReceived: function () {
+			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Header.__list;
+		},
+
+		getMyComponent: function () {
+			const sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
+			return sap.ui.component(sComponentId);
+		},	
+
+		getPath: function(){
+			// From Model
+			let sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
+
+			// From Input Model
+			let sValuePath = oEvent.getSource().getBindingInfo("value").binding.getPath();
+			
+			// From View I
+			let oView = this.getView(),
+				sBindingPath = oView.getBindingContext().getPath(),
+				sData = oView.getModel().getProperty(sPath + "/Data");
+			
+			//  From View II
+			let oObject = this.getView().getBindingContext().getObject();
+		},
+
+		patternMatched: function (oEvent) {
 			const oView = this.getView();
 			const oModel = this.getModel();
-			const oViewModel = this.getModel("viewModel");
-			const oTable = this.byId("idTable");
+			const oViewModel = this.getModel("model");
+			const oTable = this.byId("Table");
 			const oExpand = {
-				"$expand": "to_Header,to_Items"
+				"$expand": "Header,Items"
 			};
 
-			this._clearView();
+			this.clearView();
 
-			this.oStartupParameters = this._getMyComponent().getComponentData().startupParameters;
+			this.oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
 
 			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") {}
 
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const oCreateEntry = this.getModel().createEntry("/IDSet");
 
-				this.byId("idSimpleForm").bindElement(oCreateEntry.getPath());
+				this.byId("SimpleForm").bindElement(oCreateEntry.getPath());
 
 				oModel.setProperty(oCreateEntry.getPath() + "/ID", "X");
 				oModel.setProperty(oCreateEntry.getPath() + "/Date", new Date());
@@ -177,39 +236,13 @@ sap.ui.define([
 							aItems.push(oItem);
 						});
 					},
-					change: this._onChange.bind(this),
-					dataReceived: this._onDataReceived.bind(this)
+					change: this.change.bind(this),
+					dataReceived: this.dataReceived.bind(this)
 				}
 			});
 
 			oTable.rebindTable();
-		},
-
-		_clearView: function () {
-			const oBindingContext = this.getView().getBindingContext();
-
-			if (oBindingContext) {
-				this.getModel().deleteCreatedEntry(oBindingContext);
-				this.getView().unbindElement();
-				this.getModel().resetChanges();
-				this.getModel().refresh(true, true);
-			}
-
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-		},
-
-		_getMyComponent: function () {
-			const sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
-			return sap.ui.component(sComponentId);
-		},
-
-		_onChange: function () {
-
-		},
-
-		_onDataReceived: function () {
-			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Header.__list;
-		}
+		}			
 
 	});
 

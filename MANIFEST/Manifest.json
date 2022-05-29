@@ -2,7 +2,7 @@
 	"sap.app": {
 		"dataSources": {
 			"mainService": {
-				"uri": "/sap/opu/odata/sap/ZQM_063_PPM_SUM_SRV/",
+				"uri": "/sap/opu/odata/sap/ZSM_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0",

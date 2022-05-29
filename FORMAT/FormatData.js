@@ -1,13 +1,11 @@
 /* Global Location */
 sap.ui.define([
 	"serhatmercan/controller/BaseController",
-	"serhatmercan/FORMAT/formatter"
-], function (BaseController, formatter) {
+	"serhatmercan/models/formatter"
+], function (BaseController, Formatter) {
 	"use strict";
 
 	return BaseController.extend("serhatmercan.FORMAT.FormatData", {
-
-		formatter: formatter,
 
 		onDateFormat: function (oEvent) {
 			var sDate = new Date(),
@@ -15,13 +13,13 @@ sap.ui.define([
 				sNo = "1",
 				sData = "Serhat";
 
-			var sLocalDate = formatter.getLocalDate(sDate),
-				sLocalTime = formatter.getLocalTime(sTime),
-				sFormattedNo = formatter.padLeftAlphaNum(sNo, 10),
-				sRemovedZeroNo = formatter.removeLeading(sNo),
-				sEnglishWords = formatter.convertToEnglishLocalizedUpperCase(sNo),
-				sUID = formatter._createUuidX16(),
-				sConvertedData = formatter._convertToEnglishLocalizedData(sData);
+			var sLocalDate = Formatter.getLocalDate(sDate),
+				sLocalTime = Formatter.getLocalTime(sTime),
+				sFormattedNo = Formatter.padLeftAlphaNum(sNo, 10),
+				sRemovedZeroNo = Formatter.removeLeading(sNo),
+				sEnglishWords = Formatter.convertToEnglishLocalizedUpperCase(sNo),
+				sUID = Formatter._createUuidX16(),
+				sConvertedData = Formatter._convertToEnglishLocalizedData(sData);
 		}
 
 	});

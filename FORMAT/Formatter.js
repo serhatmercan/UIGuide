@@ -62,7 +62,7 @@ sap.ui.define([
 			}
 			var sDate = new Date(sValue.valueOf());
 			sDate.setHours((sDate.getTimezoneOffset() / 60) * -1);
-			return sDate;
+			return sDate;	
 		},
 
 		getLocalTime: function (oTime) {

@@ -1,6 +1,6 @@
 <mvc:View controllerName="com.serhatmercan.SimpleForm" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc"
 	xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core">
-	<form:SimpleForm id="idSimpleForm" layout="ResponsiveGridLayout" width="auto" class="editableForm" title="Title" columnsXL="2" columnsL="1"
+	<form:SimpleForm id="SimpleForm" layout="ResponsiveGridLayout" width="auto" class="editableForm" title="Title" columnsXL="2" columnsL="1"
 		columnsM="1" columnsS="1" labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12" emptySpanXL="0" emptySpanL="0" emptySpanM="0"
 		emptySpanS="0" maxContainerCols="2" minWidth="1024" singleContainerFullSize="true" adjustLabelSpan="false" editable="true">
 		<form:toolbar>

@@ -3,6 +3,10 @@
     display: none;
 }
 
+.cell_color_green {
+	background-color: green !important;
+}
+
 .customLeftPosition {
     position: fixed !important;
 }
@@ -19,6 +23,10 @@
     border-style: solid !important;
     border-color: #b0bec5 !important;
     border-width: 2px !important;
+}
+
+.row_color_red {
+	background-color: red !important;
 }
 
 .sapFDynamicPageHeader.sapFDynamicPageHeaderWithContent {

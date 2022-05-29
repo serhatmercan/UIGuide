@@ -20,17 +20,17 @@ sap.ui.define([
 		},
 
 		getContentDensityClass: function () {
-			if (this._sContentDensityClass === undefined) {
+			if (this.sContentDensityClass === undefined) {
 				// eslint-disable-next-line sap-no-proprietary-browser-api
 				if (document.body.classList.contains("sapUiSizeCozy") || document.body.classList.contains("sapUiSizeCompact")) {
-					this._sContentDensityClass = "";
+					this.sContentDensityClass = "";
 				} else if (!Device.support.touch) {
-					this._sContentDensityClass = "sapUiSizeCompact";
+					this.sContentDensityClass = "sapUiSizeCompact";
 				} else {
-					this._sContentDensityClass = "sapUiSizeCozy";
+					this.sContentDensityClass = "sapUiSizeCozy";
 				}
 			}
-			return this._sContentDensityClass;
+			return this.sContentDensityClass;
 		}
 	});
 });

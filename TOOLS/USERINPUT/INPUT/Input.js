@@ -1,19 +1,86 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-			var oModel = new JSONModel({
+		onInit: function () {
+			this.setModel(
+				new JSONModel({
 				Value: "",
 				Integer: 1,
 				Unit: ""
-			});
+			}), "model");
+		},
 
-			this.setModel(oModel, "model");
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onACVH: function () {
+			this.oVHDialog.close();
+			this.oVHDialog.destroy();
+			this.oVHDialog = null;
+			this.sPath = "";
+		},
+
+		onBRT: function (oEvent) {
+			const oBindingParams = oEvent.getParameter("bindingParams");
+			const oFilterPeriod = new Filter("Key", FilterOperator.EQ, "X");
+			const oFilterPeriodX = new Filter("Key", FilterOperator.CP, "*");
+
+			oBindingParams.filters.push(oFilterPeriod);
+		},
+
+		onInitST: function () {
+			let oSmartFilter = this.byId("SFB");
+			let oJSONData = {};
+			let oID = {};
+
+			this.sID = "X";
+
+			if (oSmartFilter && this.sID) {
+				oID = {
+					items: [{
+						key: this.sID
+					}]
+				};
+				oJSONData.ID = oID;
+			}
+
+			oSmartFilter.setFilterData(oJSONData);
+		},
+
+		onSelectVH: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContextPath();
+			const sID = this.getModel().getProperty(sPath + "/ID");
+			const oModel = this.getModel("model");
+
+			oModel.setProperty("/Value", sID);
+			oModel.setProperty(this.sPath + "/Value", sID);
+			oModel.setProperty(this.sPath + "/ID", this.getModel().getProperty(oEvent.getSource().getBindingContextPath() + "/ID"));
+
+			this.onACVH();
+		},
+
+		onVHR: function () {
+			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
+
+			this.oVHDialog = sap.ui.xmlfragment("VH", "com.serhatmercan.SmartSearchHelp", this);
+
+			sap.ui.core.Fragment.byId("VH", "ST").setSmartFilterId(sap.ui.core.Fragment.byId("VH", "SFB").getId());
+
+			this.getView().addDependent(this.oVHDialog);
+
+			this.oVHDialog.open();
 		},
 
 		onChangeInput: function (oEvent) {

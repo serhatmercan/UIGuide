@@ -10,3 +10,4 @@
 		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
 	</layoutData>
 </Text>
+<Text text="{/#Main/Value/@sap:label}"/>

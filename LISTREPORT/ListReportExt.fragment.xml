@@ -17,4 +17,13 @@
 			<Button press="onPressButtonX"/>
 		</table:template>
 	</table:Column>
+	<table:Column width="10rem">
+		<Label text="{i18n>note}"/>
+		<table:customData>
+			<core:CustomData key="p13nData" value='\{"columnKey": "Note", "columnIndex" : "100"}'/>
+		</table:customData>
+		<table:template>
+			<TextArea value="{Note}"/>
+		</table:template>
+	</table:Column>
 </core:FragmentDefinition>

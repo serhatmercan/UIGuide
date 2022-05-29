@@ -6,18 +6,18 @@ decodeURIComponent("ID");
 history.go(-1);
 
 // Go To The ... Page
-this.getRouter().navTo("viewName"); // manifest/sap.ui5/routing/targets/viewName
+this.getRouter().navTo("ViewName"); // manifest/sap.ui5/routing/targets/ViewName
 
 // Go To The ... Page w/ Extra
-this.getRouter().navTo("viewName", {}, true);
+this.getRouter().navTo("ViewName", {}, true);
 
 // Go To The ... Page w/ Parameter
-this.getRouter().navTo("viewNameValue", { // manifest/sap.ui5/routing/targets/viewNameValue
+this.getRouter().navTo("ViewNameValue", { // manifest/sap.ui5/routing/targets/ViewNameValue
 	id: oEvent.getSource().getBindingContext("model").getProperty("Id") // "manifest/sap.ui5/routing/routes/pattern/..."
 });
 
 // Go To The ... Page w/ Parameters Which Are Null Or Not
-this.getRouter().navTo("manifest/sap.ui5/routing/targets/...", { // manifest/sap.ui5/routing/targets/viewNameValueNull
+this.getRouter().navTo("manifest/sap.ui5/routing/targets/...", { // manifest/sap.ui5/routing/targets/ViewNameValueNull
 	id: oEvent.getSource().getBindingContext("model").getProperty("Id"), // "manifest/sap.ui5/routing/routes/pattern/..."
 	null: oEvent.getSource().getBindingContext("model").getProperty("Null"), // "manifest/sap.ui5/routing/routes/pattern/..."
 	value: oEvent.getSource().getBindingContext("model").getProperty("Value") // "manifest/sap.ui5/routing/routes/pattern/..."

@@ -10,9 +10,8 @@
 </Panel>
 <!-- GENERAL - ATTRIBUTES -->
 <!-- 
-
-width="100%" 
 class="sapUiNoContentPadding" class="sapUiTinyMarginBegin panelBorderLine"
+width="100%" 
 
 expanded="true" 
 expandable="false"

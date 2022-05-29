@@ -7,14 +7,12 @@ sap.ui.define([
 
 	return BaseController.extend("xxx.controller.Main", {
 
-		Formatter: Formatter,
-
 		/* ================= */
 		/* Lifecycle Methods */
 		/* ================= */
 
 		onInit: function () {
-			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ============== */
@@ -25,8 +23,8 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		_onViewMatched: function (oEvent) {
-
+		patternMatched: function (oEvent) {
+			sap.ui.getCore().getMessageManager().removeAllMessages();				
 		}
 
 	});

@@ -96,12 +96,12 @@ sap.ui.define([
 
 		onReadAssociation: function (sSet, oExpand, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					urlParameters: oExpand,
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.read(sSet, oParameters);
+				oModel.read(sSet, mParameters);
 			});
 		},
 

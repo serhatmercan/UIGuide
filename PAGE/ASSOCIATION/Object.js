@@ -1,27 +1,29 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"com/serhatmercan/controller/BaseController"	
+], function (BaseController) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
-
-			var oViewModel = new JSONModel({
-				busy: true,
-				delay: 0
-			});
-
-			this.setModel(oViewModel, "objectView");
-
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-		_onObjectMatched: function (oEvent) {
-			var sId = oEvent.getParameter("arguments").objectId;
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		patternMatched: function (oEvent) {
+			const sPath = this.getModel().createKey("/MainSet", {
+				ID: oEvent.getParameter("arguments").ID
+			});
 
 			this.getView().bindElement({
-				path: "/MainSet(Id='" + sId + "')"
+				path: sPath
 			});
 		}
 

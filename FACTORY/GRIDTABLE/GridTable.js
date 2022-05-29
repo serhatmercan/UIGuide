@@ -1,6 +1,7 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -11,7 +12,7 @@ sap.ui.define([
 					Columns: [],
 					Rows: [],
 					Value: ""
-				}), "viewModel"
+				}), "model"
 			);
 		},
 
@@ -23,14 +24,14 @@ sap.ui.define([
 				}),
 				template: new sap.m.Text({
 					text: {
-						model: "viewModel",
+						model: "model",
 						path: oContext.getProperty("valuePath")
 					},
 					editable: false
 				}),
 				autoResizable: true,
-				minWidth: 100,
-				hAlign: sap.ui.core.TextAlign.Center
+				hAlign: sap.ui.core.TextAlign.Center,
+				minWidth: 100				
 			});
 		}
 

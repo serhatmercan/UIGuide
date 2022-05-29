@@ -6,11 +6,11 @@ sap.ui.define([
 	return BaseController.extend("xxx.controller.App", {
 		onInit: function () {
 			this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
-			this.onAttachBusy();
+			this.attachBusy();
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 		},
 
-		onAttachBusy: function () {
+		attachBusy: function () {
 			const oModel = this.getOwnerComponent().getModel();
 			const fnRequestSent = function () {
 				sap.ui.core.BusyIndicator.show();
@@ -18,7 +18,7 @@ sap.ui.define([
 			};
 			const fnRequestReceived = function () {
 				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
-				this.onRemoveDuplicateMessages();
+				this.removeDuplicateMessages();
 				sap.ui.core.BusyIndicator.hide();
 			}.bind(this);
 
@@ -36,7 +36,7 @@ sap.ui.define([
 			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 		},
 
-		onRemoveDuplicateMessages: function () {
+		removeDuplicateMessages: function () {
 			let oMessageManager = sap.ui.getCore().getMessageManager(),
 				oMessages = oMessageManager.getMessageModel().getData(),
 				aMessageTexts = oMessages.map(oItem => oItem.message),

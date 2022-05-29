@@ -1,4 +1,4 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
-	<t:Table id="idGridTable" columns="{ path:'viewModel>/Columns', factory:'onGenerateColumns' }" enableColumnReordering="false"
-		rows="{viewModel>/Rows}" selectionMode="None" visibleRowCount="10"></t:Table>
+	<t:Table id="GridTable" columns="{ path:'model>/Columns', factory:'onGenerateColumns' }" enableColumnReordering="false"
+		rows="{model>/Rows}" selectionMode="None" visibleRowCount="10"></t:Table>
 </core:FragmentDefinition>

@@ -1,2 +1,0 @@
-<Input id="idInput" value="{model>/Value}" valueLiveUpdate="true" showValueHelp="true" valueHelpOnly="false"
-	valueHelpRequest="onPressSHValue" change="onChangeValue"/>

@@ -1,4 +1,4 @@
-<Table id="idTable" items="{ path: '/TableSet', sorter: { path: 'Id', descending: false } }">
+<Table id="idTable" items="{ path: '/TableSet', sorter: { path: 'ID', descending: false } }">
 	<headerToolbar>
 		<Toolbar>
 			<Title id="idToolbarTitle" text="Toolbar Title"/>
@@ -12,7 +12,7 @@
 	<items>
 		<ColumnListItem>
 			<cells>
-				<Label text="{Name}"/>
+				<ObjectIdentifier title="{ID}" text="{Name}"/>
 			</cells>
 		</ColumnListItem>
 	</items>
@@ -27,4 +27,9 @@ width="auto"
 
 mode="MultiSelect"
 
+-->
+<!-- COLUMN LIST ITEM - ATTRIBUTES -->
+<!--
+type="Navigation" 
+press="onPress"
 -->

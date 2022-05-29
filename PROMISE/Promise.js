@@ -17,14 +17,14 @@ sap.ui.define([
 				Value: ""
 			});
 
-			this.setModel(oModel, "viewModel");
+			this.setModel(oModel, "model");
 
 			// Clear Metadata
 			jQuery.extend(true, {}, oData);
 		},
 
 		asyncFunction: async function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
@@ -39,7 +39,7 @@ sap.ui.define([
 		},
 
 		callFunction: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
@@ -54,12 +54,12 @@ sap.ui.define([
 		},
 
 		runMultiPromise: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
 			const oExpand = {
-				"$expand": "to_main,to_list"
+				"$expand": "Main,List"
 			};
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
@@ -68,12 +68,12 @@ sap.ui.define([
 					this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 					.then((oData) => {
 						// oData.results[0];
-						// oData.results[0].to_main.results
-						// oData.results[0].to_list.results,
+						// oData.results[0].Main.results
+						// oData.results[0].List.results,
 					})
 					.catch((err) => {})
 					.finally(() => {
-						oViewModel.setProperty("/Busy", false);
+						oModel.setProperty("/Busy", false);
 					}),
 					this._readMultiData("/...Set", aFilters, this.getModel())
 					.then((oData) => {
@@ -81,22 +81,22 @@ sap.ui.define([
 					})
 					.catch((err) => {})
 					.finally(() => {
-						oViewModel.setProperty("/Busy", false);
+						oModel.setProperty("/Busy", false);
 					})
 				])
 				.catch(() => {})
 				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
+					oModel.setProperty("/Busy", false);
 				});
 		},
 
 		deleteSingleData: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const oKey = this.getModel().createKey("/...Set", {
 				ID: "X"
 			});
 
-			oViewModel.setProperty("/Busy", true);
+			oModel.setProperty("/Busy", true);
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
@@ -106,7 +106,7 @@ sap.ui.define([
 				})
 				.catch((err) => {})
 				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
+					oModel.setProperty("/Busy", false);
 				});
 		},
 
@@ -141,7 +141,7 @@ sap.ui.define([
 		},
 
 		getMultiData: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X"),
 			];
@@ -155,7 +155,7 @@ sap.ui.define([
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
-			oViewModel.setProperty("/Busy", true);
+			oModel.setProperty("/Busy", true);
 
 			this._readMultiData("/...Set", aFilters, this.getModel())
 				.then((oData) => {
@@ -163,12 +163,12 @@ sap.ui.define([
 				})
 				.catch((err) => {})
 				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
+					oModel.setProperty("/Busy", false);
 				});
 		},
 
 		getMultiTable: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -178,7 +178,7 @@ sap.ui.define([
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
-			oViewModel.setProperty("/Busy", true);
+			oModel.setProperty("/Busy", true);
 
 			this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 				.then((oData) => {
@@ -188,7 +188,7 @@ sap.ui.define([
 				})
 				.catch(() => {})
 				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
+					oModel.setProperty("/Busy", false);
 				});
 		},
 
@@ -208,7 +208,7 @@ sap.ui.define([
 		sendMultiData: function (oEvent) {
 			const oResourceBundle = this.getResourceBundle();
 			const oModel = this.getModel();
-			const oViewModel = this.getModel("viewModel");
+			const oViewModel = this.getModel("model");
 			const aData = oViewModel.getProperty("/Data");
 			const oData = {
 				ID: "X",
@@ -280,9 +280,9 @@ sap.ui.define([
 		},
 
 		onSubmitChange: function () {
-			const oResourceBundle = this.getResourceBundle();
-			const oViewModel = this.getModel("viewModel");
+			const oResourceBundle = this.getResourceBundle();			
 			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
 
 			if (oModel.hasPendingChanges()) {
 				MessageBox.confirm(oResourceBundle.getText("Info"), {

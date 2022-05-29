@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartfield="sap.ui.comp.smartfield"
 	xmlns:smartform="sap.ui.comp.smartform">
-	<Dialog title="{i18n>title}" afterClose="onACDialog">
+	<Dialog id="Dialog" title="{i18n>title}" afterClose="onACDialog">
 		<content>
 			<smartform:SmartForm id="SmartForm" editable="true">
 				<smartform:Group>

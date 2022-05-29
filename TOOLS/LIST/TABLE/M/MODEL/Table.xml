@@ -51,6 +51,7 @@ noDataText="{model>/tableNoDataText}"
 busyIndicatorDelay="{model>/tableBusyDelay}"
 
 items="{ path: '/TableSet', suspended:true }"
+items="{ path: '/TableSet', parameters: { $expand : 'Items', $select : 'ID,Key,Value' }}"
 items="{ path: 'model>/Items', sorter: { path: 'ID', descending: false } }"
 items="{ path: 'model>/Items', sorter: [{ path: 'ID', descending: false }, { path: 'Key', descending: false }] }"
 

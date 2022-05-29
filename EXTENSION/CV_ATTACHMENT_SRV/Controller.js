@@ -1,9 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageBox",
-	"sap/ui/model/json/JSONModel",
-	"serhatmercan/Util"
-], function (BaseController, MessageBox, JSONModel, Util) {
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, MessageBox, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -16,14 +15,14 @@ sap.ui.define([
 					NotificationNo: "",
 					OrderNo: ""
 				}
-			}), "viewModel");
+			}), "model");
 		},
 
 		onACDocumentDialog: function () {
-			this._oDocumentDialog.close();
-			this._oDocumentDialog.destroy();
-			this._oDocumentDialog = null;
-			this._oAttach = null;
+			this.oDocumentDialog.close();
+			this.oDocumentDialog.destroy();
+			this.oDocumentDialog = null;
+			this.oAttach = null;
 		},
 
 		onSaveDocument: function () {
@@ -33,7 +32,7 @@ sap.ui.define([
 				styleClass: this.getOwnerComponent().getContentDensityClass(),
 				onClose: (sAction) => {
 					if (sAction === MessageBox.Action.OK) {
-						this._oAttach.save(true);
+						this.oAttach.save(true);
 						this.onACDocumentDialog();
 					}
 				}
@@ -41,7 +40,7 @@ sap.ui.define([
 		},
 
 		onShowDocument: function (sType) {
-			const oDocument = this.getModel("viewModel").getProperty("/Document");
+			const oDocument = this.getModel("model").getProperty("/Document");
 			const oResourceBundle = this.getResourceBundle();
 			let sObjectKey = "";
 			let sObjectType = "";
@@ -91,17 +90,17 @@ sap.ui.define([
 					objectType: sObjectType
 				}
 			}).then(function (oAttachmentComponent) {
-				this._oAttach = oAttachmentComponent;
+				this.oAttach = oAttachmentComponent;
 				this.byId("attachmentComponentContainer").setComponent(oAttachmentComponent);
 				var aAttributes = oAttachmentComponent.getAttributes();
 				aAttributes._VisibleActions.ADDURL = false;
 				oAttachmentComponent.setAttributes(aAttributes);
 			}.bind(this));
 
-			this._oDocumentDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);
-			this.getView().addDependent(this._oDocumentDialog);
-			this._oDocumentDialog.setTitle(oResourceBundle.getText(sTitle));
-			this._oDocumentDialog.open();
+			this.oDocumentDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);
+			this.getView().addDependent(this.oDocumentDialog);
+			this.oDocumentDialog.setTitle(oResourceBundle.getText(sTitle));
+			this.oDocumentDialog.open();
 		}
 
 	});

@@ -1,55 +1,74 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/UploadCollectionParameter",
 	"sap/m/PDFViewer"
-], function (BaseController, JSONModel, UploadCollectionParameter, PDFViewer) {
+], function (BaseController, Filter, FilterOperator, JSONModel, UploadCollectionParameter, PDFViewer) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			const oModel = new JSONModel({
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
+		onInit: function () {			
+			this.setModel(new JSONModel({
 				DocumentUrl: "",
 				Documents: [],
 				Value: "",
-			});
-			this.setModel(oModel, "model");
+			}), "model");
 		},
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onACFrame: function () {
-			this._oFrame.close();
-			this._oFrame.destroy();
-			this._oFrame = null;
+			this.oFrame.close();
+			this.oFrame.destroy();
+			this.oFrame = null;
 		},
 
-		onBUSDocument: function (oEvent) {
-			const oUploadParameter = new UploadCollectionParameter({
-				name: "slug",
-				value: encodeURIComponent(oEvent.getParameter("fileName")) + "&&" + "X"
-			});
-
-			oEvent.getParameters().addHeaderParameter(oUploadParameter);
+		onBUSDocument: function (oEvent) {			
+			oEvent.getParameter("addHeaderParameter")(
+				new UploadCollectionParameter({
+					name: "slug",
+					value: encodeURIComponent(oEvent.getParameter("fileName")) + "&&" + "X"
+			}));			
 		},
 
 		onCloseDocument: function () {
-			this._oDocument.close();
-			this._oDocument.destroy();
-			this._oDocument = null;
+			this.oDocument.close();
+			this.oDocument.destroy();
+			this.oDocument = null;
 		},
 
 		onCUDocument: function (oEvent) {
 			if (this.getModel("model").getProperty("/Value") !== "") {
-				sap.ui.core.Fragment.byId(this.getView().getId(), "idDocumentUC").fireFileDeleted(oEvent);
-				this._uploadDocument();
+				sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").fireFileDeleted(oEvent);
+				this.uploadDocument();
 			}
 
 			this.onCloseDocument();
 		},
 
+		onDownloadItem: function(){
+			const oModel = this.getModel();
+
+			this.byId("DocumentUC").getSelectedItems(oItem => {
+				window.open(
+					oModel.sServiceUrl + 
+					oModel.createKey("/DocumentSet", { DocumentID: oItem.getBindingContext().getObject("DocumentID") }) + "/$value", 
+					"_blank");					
+			});
+		},
+
 		onFDDocument: function (oEvent) {
 			const aOriginDocuments = oEvent.getSource().getBinding("items").getCurrentContexts();
-			const aNewDocuments = sap.ui.core.Fragment.byId(this.getView().getId(), "idDocumentUC").getItems();
+			const aNewDocuments = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").getItems();
 			let aOriginDocumentID = [];
 			let aNewDocumentID = [];
 			let aDocumentsIDs = [];
@@ -72,7 +91,7 @@ sap.ui.define([
 				}
 			});
 
-			this._deleteDocuments(aDocumentsIDs);
+			this.deleteDocuments(aDocumentsIDs);
 		},
 
 		onFDSingleDocument: function () {
@@ -81,9 +100,9 @@ sap.ui.define([
 				DocumentID: "X"
 			});
 
-			this._deleteSingleData(oDocumentKey, oModel)
+			this.onDelete(oDocumentKey, oModel)
 				.then(() => {
-					this.getModel("viewModel").setProperty("/Documents", []);
+					this.getModel("model").setProperty("/Documents", []);
 				})
 				.catch(() => {})
 				.finally(() => {});
@@ -102,6 +121,10 @@ sap.ui.define([
 			window.open(sDocumentPath, "_blank");
 		},
 
+		onSCDocument: function(){
+			this.byId("DownloadButton").setEnabled(this.byId("DocumentUC").getSelectedItems().length > 0);
+		},
+
 		onShowIFrame: function (oEvent) {
 			const oContext = this.getView().getBindingContext();
 			const oModel = this.getModel();
@@ -118,7 +141,7 @@ sap.ui.define([
 				jQuery.sap.encodeHTML(oLoadEvent) +
 				"' height='100%' width='100%'/>";
 
-			this._oFrame = new Dialog({
+			this.oFrame = new Dialog({
 				title: sFileName,
 				afterClose: this.onACFrame.bind(this),
 				content: [
@@ -139,55 +162,64 @@ sap.ui.define([
 				})
 			});
 
-			this._oFrame.open();
+			this.oFrame.open();
 		},
 
 		onShowDocument: function () {
-			if (!this._oDocument) {
-				this._oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);
-				this._oDocument.setModel(this.getModel("i18n"), "i18n");
-				this._oDocument.setModel(this.getModel());
-				this._getFiles();
+			if (!this.oDocument) {
+				this.oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);				
+				this.getFiles();
 			}
 
-			// Upload Button Visibility
-			this.byId('idDocumentUC').setUploadButtonInvisible(false);
+			this.oDocument.attachBeforeOpen(function (oEvent) {				
+				this.byId("DocumentUC").getBinding("items").filter([new Filter("X", FilterOperator.EQ, "X")]);
+			}.bind(this));
+			
+			this.byId('DocumentUC').setUploadButtonInvisible(false);
 
-			this._oDocument.open();
+			this.oDocument.open();
 		},
 
 		onUCDocument: function (oEvent) {
 			const oUploadCollection = oEvent.getSource();
-			const oModel = this.getModel();
-			let sCSRF;
+			const oModel = this.getModel();			
 
 			oModel.refreshSecurityToken();
-			sCSRF = oModel.getHeaders()["x-csrf-token"];
-			this._addParameter(oUploadCollection, "x-csrf-token", sCSRF);
+
+			this.addParameter(oUploadCollection, "x-csrf-token", oModel.getHeaders()["x-csrf-token"]);
+			this.addParameter(oUploadCollection, "ID", "X");
 		},
 
 		onUpdCmpDocument: function () {
-			this._getDocument();
+			this.getDocument();
 		},
 
 		onPrintout: function () {
-			this._getPrintout();
+			const aContexts = this.byId("Table").getTable().getSelectedContexts();
+			let sID = "";
+
+			if (aContexts.length === 0) {
+				MessageToast.show(this.getResourceBundle().getText("infoChooseRow"));
+				return;
+			}
+
+			sID = aContexts.map(oContext => this.getModel().getProperty(oContext.getPath() + "/ID")).join("-");
+
+			this.openPdfViewer(sID);
 		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		_addParameter: function (oCollection, sName, sValue) {
-			const oUploadParameter = new UploadCollectionParameter({
+		addParameter: function (oCollection, sName, sValue) {
+			oCollection.addHeaderParameter(new UploadCollectionParameter({
 				name: sName,
 				value: sValue
-			});
-
-			oCollection.addHeaderParameter(oUploadParameter);
+			}));
 		},
 
-		_deleteDocuments: function (aData) {
+		deleteDocuments: function (aData) {
 			let oData = {};
 
 			oData.ID = "Documents";
@@ -199,15 +231,15 @@ sap.ui.define([
 				});
 			});
 
-			this._sendMultiData("/DeepIDSet", oData, this.getModel())
+			this.onCreate("/DeepIDSet", oData, this.getModel())
 				.then((oData) => {
-					this._uploadDocument();
+					this.uploadDocument();
 				})
-				.catch((err) => {})
+				.catch(() => {})
 				.finally(() => {});
 		},
 
-		_getDocument: function () {
+		getDocument: function () {
 			const oModel = this.getModel();
 			const sID = oModel.getProperty(this.getView().getBindingContext().getPath() + "/ID");
 			const oKey = oModel.createKey("/DocumentSet", {
@@ -222,9 +254,9 @@ sap.ui.define([
 				.finally(() => {});
 		},
 
-		_getFiles: function () {
+		getFiles: function () {
 			const aFilters = [];
-			const aItems = sap.ui.core.Fragment.byId(this.getView().getId(), "idDocumentUC").getBinding("items");
+			const aItems = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").getBinding("items");
 			const sValue = this.getModel("model").getProperty("/Value");
 
 			aFilters.push(new Filter("X", FilterOperator.EQ, sValue));
@@ -232,21 +264,7 @@ sap.ui.define([
 			aItems.filter(aFilters);
 		},
 
-		_getPrintout: function () {
-			const aContexts = this.byId("idTable").getTable().getSelectedContexts();
-			let sID = "";
-
-			if (aContexts.length === 0) {
-				MessageToast.show(this.getResourceBundle().getText("infoChooseRow"));
-				return;
-			}
-
-			sID = aContexts.map(oContext => this.getModel().getProperty(oContext.getPath() + "/ID")).join("-");
-
-			this._openPdfViewer(sID);
-		},
-
-		_getUploadUrl: function () {
+		getUploadUrl: function () {
 			const sValue = this.getModel("model").getProperty("/Value");
 			const sPath = this.getModel().createKey("/MainEntitySet", {
 				ID: sValue
@@ -258,11 +276,11 @@ sap.ui.define([
 			return sDocumentPath;
 		},
 
-		_openPdfViewer: function (sID) {
-			const sServiceURL = this.getModel().sServiceUrl;
+		openPdfViewer: function (sID) {
 			const oPDFViewer = new PDFViewer();
-			let sPath = "",
-				sDocumentPath = "";
+			const sServiceURL = this.getModel().sServiceUrl;			
+			let sDocumentPath = "";
+			let	sPath = "";
 
 			sPath = this.getModel().createKey("/PrintoutSet", {
 				ID: sID
@@ -275,57 +293,23 @@ sap.ui.define([
 			oPDFViewer.open();
 		},
 
-		_uploadDocument: function () {
-			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "idDocumentUC");
+		uploadDocument: function () {
+			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 
 			if (oUploadCollection && oUploadCollection._aFileUploadersForPendingUpload.length > 0) {
-				this._updateUploadUrl();
+				this.updateUploadUrl();
 				oUploadCollection.upload();
 			}
 		},
 
-		_updateUploadUrl: function () {
-			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "idDocumentUC");
-			const sServiceUrl = this._getUploadUrl();
+		updateUploadUrl: function () {
+			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
+			const sServiceUrl = this.getUploadUrl();
 
 			oUploadCollection._aFileUploadersForPendingUpload.forEach(function (oPendingUploads) {
 				oPendingUploads.setUploadUrl(sServiceUrl);
 			});
-		},
-
-		/* ============ */
-		/* CRUD Methods */
-		/* ============ */
-
-		_deleteSingleData: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.remove(sSet, oParameters);
-			});
-		},
-
-		_getSingleData: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, oParameters);
-			});
-		},
-
-		_sendMultiData: function (sSet, oData, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				let oParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.create(sSet, oData, oParameters);
-			});
-		},
+		}
 
 	});
 

@@ -7,7 +7,13 @@
 			</content>
 		</OverflowToolbar>
 	</headerToolbar>
-	<List id="idList" headerText="List Title" items="{model>/Values}" includeItemInSelection="true">
+	<List items="{model>/Values}">
+		<headerToolbar>
+			<Toolbar>
+				<Text text="{i18n>toolbar}"/>
+				<ToolbarSpacer/>				
+			</Toolbar>
+		</headerToolbar>
 		<StandardListItem type="Active" title="{model>Id}" description="{model>Value}" info="{model>Info}"
 			blocked="{= ${model>Value} ? false : true}" infoState="{= ${model>Value} ? 'Error' : 'None' }"
 			highlight="{= ${model>Value} ? 'Error' : 'None' }" press="onPress"/>
@@ -15,16 +21,51 @@
 </mvc:View>
 <!-- LIST - ATTRIBUTES -->
 <!--
+id="List"
 
+items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
+
+headerText="{i18n>list}"
+mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
+
+enableBusyIndicator="true"
 growing="true"
-mode="SingleSelectMaster" mode="Delete" mode="MultiSelect"
-delete="onDeleteList"
+includeItemInSelection="true"
+
+delete="onDelete"
 itemPress="onItemPress"
-items="{path: 'mode>/Values', parameters: {operationMode: 'Client'} }"
+
+<items>
+	<CustomListItem>
+		<Panel>
+			<headerToolbar>
+				<Toolbar>
+				</Toolbar>
+			</headerToolbar>
+			<content>
+				<List id="ResultList" items="{model>/Results}" mode="Delete" delete="onDeleteResult">
+					<items>
+						<InputListItem label="{i18n>value}">
+							<HBox>
+								<Input value="{model>Result}"/>
+								<Button icon="sap-icon://write-new" tooltip="{i18n>description}" press="onShowDescription"/>
+							</HBox>
+						</InputListItem>
+					</items>
+				</List>
+			</content>
+		</Panel>
+	</CustomListItem>	
+</items>
 -->
 <!-- STANDARD LIST ITEM - ATTRIBUTES -->
 <!--
 
 counter="{model>Counter}"
 
+<StandardListItem>
+	<customData>
+		<core:CustomData key="CDKey" value="{model>Read}" writeToDom="true"/>
+	</customData>
+</StandardListItem>
 -->

@@ -1,16 +1,16 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" controllerName="com.serhatmercan.controller.Main">
-	<semantic:FullscreenPage id="idPage" showNavButton="true" navButtonPress="onNavBack">
+	<semantic:FullscreenPage id="Page" showNavButton="true" navButtonPress="onNavBack">
 		<semantic:content>
-			<Table id="idTable" items="{ path: '/MainSet', sorter: { path: 'Id', descending: false } }">
+			<Table id="Table" items="{ path: '/MainSet', sorter: { path: 'ID', descending: false } }">
 				<columns>
 					<Column>
-						<Text text="{i18n>id}"/>
+						<Text text="{i18n>ID}"/>
 					</Column>
 				</columns>
 				<items>
-					<ColumnListItem type="Navigation" press="onPress">
+					<ColumnListItem type="Navigation" press="onGoToObject">
 						<cells>
-							<ObjectIdentifier title="{Id}" text="{Name}"/>
+							<ObjectIdentifier title="{ID}" text="{Name}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

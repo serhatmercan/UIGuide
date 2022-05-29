@@ -1,11 +1,11 @@
 {
 	"sap.ui5": {
 		"models": {
-			"viewModel": {
+			"model": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},
 				"preload": true,
-				"uri": "model/viewModel.json"
+				"uri": "model/model.json"
 			}
 		},
 		"extends": {
@@ -18,7 +18,7 @@
 								"EntitySet": "MainSet",
 								"Actions": {
 									"DetailButton": {
-										"id": "idDetailButton",
+										"id": "DetailButton",
 										"text": "{@i18n>detail}",
 										"press": "onGoToDetail"
 									}
@@ -48,7 +48,7 @@
 								"Header": {
 									"Actions": {
 										"GoToExternalPage": {
-											"id": "idExternalPage",
+											"id": "ExternalPage",
 											"text": "{@i18n>externalPage}",
 											"press": "onGoToExternalPage"
 										}

@@ -40,5 +40,6 @@ submit="onSubmit"
 SEARCH HELP
 
 showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowVHValue"
+valueHelpRequest="onVHR"
 
 -->

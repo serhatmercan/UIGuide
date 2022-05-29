@@ -1,20 +1,28 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument">
 		<content>
-			<UploadCollection id="idDocumentUC" items="{ path: '/DocumentSet', suspended: true }" uploadUrl="{viewModel/DocumentUrl}"
+			<UploadCollection id="DocumentUC" items="{ path: '/DocumentSet', suspended: true }" uploadUrl="{model/DocumentUrl}"
 				instantUpload="false" multiple="true" maximumFilenameLength="55" maximumFileSize="10" noDataDescription="{i18n>noAttach}"
-				sameFilenameAllowed="true" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument">
+				sameFilenameAllowed="true" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" selectionChange="onSCDocument">
+				<toolbar>
+					<OverflowToolbar>
+						<Title/>
+						<ToolbarSpacer/>
+						<Button id="DownloadButton" text="{i18n>download}" type="Transparent" enabled="false"  press="onDownloadItem"/>
+						<UploadCollectionToolbarPlaceholder/>
+					</OverflowToolbar>
+				</toolbar>
 				<items>
 					<UploadCollectionItem documentId="{DocumentID}" fileName="{Filename}" mimeType="{Mimetype}" url="{Url}" enableDelete="true"
 						enableEdit="false" visibleEdit="false" press="onPressUCI"/>
 				</items>
 			</UploadCollection>
-			<UploadCollection id="idDocumentUC" instantUpload="true" multiple="false" uploadUrl="/sap/opu/odata/sap/ZMM_SM_SRV/DocumentSet"
+			<UploadCollection id="DocumentUC" instantUpload="true" multiple="false" uploadUrl="/sap/opu/odata/sap/ZMM_SM_SRV/DocumentSet"
 				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDSingleDocument" uploadComplete="onUpdCmpDocument"
-				items="{viewModel>/Documents}">
+				items="{model>/Documents}">
 				<items>
-					<UploadCollectionItem documentId="{viewModel>DocumentID}" fileName="{viewModel>FileName}" mimeType="{viewModel>Mimetype}"
-						url="{viewModel>Url}" enableEdit="false" visibleEdit="false"/>
+					<UploadCollectionItem documentId="{model>DocumentID}" fileName="{model>FileName}" mimeType="{model>Mimetype}"
+						url="{model>Url}" enableEdit="false" visibleEdit="false"/>
 				</items>
 			</UploadCollection>
 		</content>

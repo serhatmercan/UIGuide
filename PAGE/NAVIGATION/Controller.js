@@ -5,18 +5,19 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		_onObjectMatched: function (oEvent) {
-			const sId = oEvent.getParameter("arguments").id;
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-			this._getStartupParameters();
+		onInit: function () {
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-		_getMyComponent: function () {
-			const sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
-			return sap.ui.component(sComponentId);
-		},
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-		_goToExternalApplication: function () {
+		onGoToExternalApplication: function (oEvent, oController) {
 			const oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
 			const oParams = {};
 			const oTarget = {
@@ -34,14 +35,24 @@ sap.ui.define([
 			oCrossAppNav.toExternal(oProperties);
 		},
 
-		_getStartupParameters: function () {
-			const oStartupParameters = this._getMyComponent().getComponentData().startupParameters;
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+		
+		getMyComponent: function () {			
+			return sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
+		},
+
+		getStartupParameters: function () {
+			const oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
 			const sID = oStartupParameters.ID;
 			const sValue = oStartupParameters.Value;
 		},
 
-		_getMyComponent: function () {
-			return sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
+		patternMatched: function (oEvent) {
+			const sID = oEvent.getParameter("arguments").ID;	
+			
+			this.getStartupParameters();
 		}
 
 	});

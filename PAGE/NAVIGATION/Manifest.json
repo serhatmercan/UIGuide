@@ -3,40 +3,40 @@
 		"routing": {
 			"routes": [{
 				"pattern": "ViewName/",
-				"name": "viewName",
+				"name": "ViewName",
 				"target": [
-					"master",
-					"viewName"
+					"Master",
+					"ViewName"
 				]
 			}, {
-				"pattern": "ViewNameValue/{id}",
-				"name": "viewNameValue",
+				"pattern": "ViewNameValue/{ID}",
+				"name": "ViewNameValue",
 				"target": [
-					"object",
-					"viewNameValue"
+					"Object",
+					"ViewNameValue"
 				]
 			}, {
-				"pattern": "ViewNameValueNull/{id},:null:,{value}",
-				"name": "viewNameValueNull",
+				"pattern": "ViewNameValueNull/{ID},:null:,{Value}",
+				"name": "ViewNameValueNull",
 				"target": [
-					"object",
-					"viewNameValueNull"
+					"Object",
+					"ViewNameValueNull"
 				]
 			}],
 			"targets": {
-				"viewName": {
+				"ViewName": {
 					"viewName": "ViewName",
-					"viewId": "viewName",
+					"viewId": "ViewName",
 					"viewLevel": 1
 				},
-				"viewNameValue": {
+				"ViewNameValue": {
 					"viewName": "ViewNameValue",
-					"viewId": "viewNameValue",
+					"viewId": "ViewNameValue",
 					"viewLevel": 2
 				},
-				"viewNameValueNull": {
+				"ViewNameValueNull": {
 					"viewName": "ViewNameValueNull",
-					"viewId": "viewNameValueNull",
+					"viewId": "ViewNameValueNull",
 					"viewLevel": 3
 				}
 			}
