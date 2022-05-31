@@ -2,18 +2,18 @@
 	<NavContainer id="idNavContainer">
 		<Page busy="{model>/Busy}" floatingFooter="true" showFooter="{=${message>/}.length > 0}" showHeader="false">
 			<content>
-				<Wizard id="idWizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="onCompleteWizard">
-					<WizardStep id="idWS1" title="{i18n>ws1}" validated="true">
+				<Wizard id="Wizard" class="sapUiResponsivePadding--header sapUiResponsivePadding--content" complete="onCompleteWizard">
+					<WizardStep id="WS1" title="{i18n>ws1}" validated="true">
 						<core:Fragment fragmentName="..." type="XML"/>
 					</WizardStep>
-					<WizardStep id="idWS2" title="{i18n>ws2}">
+					<WizardStep id="WS2" title="{i18n>ws2}">
 						<core:Fragment fragmentName="..." type="XML"/>
 					</WizardStep>
 				</Wizard>
 			</content>
 			<footer>
 				<OverflowToolbar>
-					<Button id="idButtonMessage" icon="sap-icon://alert" text="{=${message>/}.length}" type="Emphasized" visible="{=${message>/}.length > 0}"
+					<Button id="ButtonMessage" icon="sap-icon://alert" text="{=${message>/}.length}" type="Emphasized" visible="{=${message>/}.length > 0}"
 						press="onShowMessages"/>
 				</OverflowToolbar>
 			</footer>

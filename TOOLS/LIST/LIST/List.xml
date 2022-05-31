@@ -14,18 +14,15 @@
 				<ToolbarSpacer/>				
 			</Toolbar>
 		</headerToolbar>
-		<StandardListItem type="Active" title="{model>Id}" description="{model>Value}" info="{model>Info}"
-			blocked="{= ${model>Value} ? false : true}" infoState="{= ${model>Value} ? 'Error' : 'None' }"
-			highlight="{= ${model>Value} ? 'Error' : 'None' }" press="onPress"/>
+		<StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" 
+			info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" title="{model>Id}" type="Active" press="onPress"/>
 	</List>
 </mvc:View>
 <!-- LIST - ATTRIBUTES -->
 <!--
 id="List"
-
-items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
-
 headerText="{i18n>list}"
+items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
 mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
 
 enableBusyIndicator="true"

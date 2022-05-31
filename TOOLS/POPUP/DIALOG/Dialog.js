@@ -1,179 +1,130 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/Button",
+	"sap/m/ButtonType",
+	"sap/m/Dialog",
+	"sap/m/TextArea",
 	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
 	"sap/ui/core/Fragment"
-], function (BaseController, JSONModel, Fragment) {
+], function (BaseController, Button, ButtonType, Dialog, TextArea, JSONModel, Filter, FilterOperator, Fragment) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
-
-			var oModel = new JSONModel({
-				Values: {
-					Value: {}
-				}
-			});
-
-			this.setModel(oModel, "model");
-
+			this.setModel(
+				new JSONModel({
+					Values: {
+						Value: {}
+					}
+			}), "model");
 		},
 
-		showDialog: function (oEvent) {
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-			// var oControl = oEvent.getSource();
+		onACDialog: function(oEvent){
+			this.oDialog.close();
+			this.oDialog.destroy();
+			this.oDialog = null;
 
-			if (!this._oDialog) {
-
-				this._oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
-
-				/*
-				// Add Button to Dialog
-				this._oDialog._oDialog._header.addContentRight(new sap.m.Button({
-					icon: "sap-icon://add",
-					type: "Emphasized",
-					tooltip: this._oResourceBundle.getText("createSample"),
-					press: this.onSaveButton.bind(this)
-				}));
-				
-				// Dialog Object's Visible
-				this._oDialog._oSubHeader.setVisible(false);
-				*/
-
-				// Set Model to Dialog
-				// this._oDialog.setModel(this.getModel("model"), "model");
-
-				this.getView().addDependent(this._oDialog);
-				// oEvent.getSource().addDependent(this._oDialog);
-			}
-
-			/*
-			// Before Show Dialog
-			this._oDialog.attachBeforeOpen(function() {
-				// Read Function OR Filter => getData | onFilter
-			}.bind(this));
-
-			// Bind Model to Dialog
-			this._oDialog.bindElement({
-				path: "model>/Values"
-			});
-				
-			// Bind Model w/ Path to Dialog
-			var sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
-			this._oDialog.bindElement({
-				model: "viewModel",
-				path: "model>" + sPath
-			});
-			
-			// Set Dialog Height 
-			this._oDialog.setContentHeight("250px");
-			
-			// Add Input to Dialog
-			oControl.addDependent(this._oDialog);
-				
-			*/
-
-			this._oDialog.open();
-
-		},
-
-		onPressContinue: function () {
-			var sPath = this.byId("idDialog").getBindingContext("model").getPath(),
-				oData = this.getModel("model").getProperty(sPath);
-
-			// Set Input Value
-			// oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
-		},
-
-		onACDialog: function (oEvent) {
 			oEvent.getSource().destroy();
-
-			this._oDialog.close();
-			this._oDialog.destroy();
-			this._oDialog = null;
-			this.clearModel();
-		},
-
-		onPressCancel: function () {
-			this._oDialog.close();
 		},
 
 		onFilterDialogTable: function () {
-			// this._oDialog = sap.ui.xmlfragment("idDialog","com.serhatmercan.fragment.Dialog", this);
+			this.oDialog = sap.ui.xmlfragment("Dialog","com.serhatmercan.fragment.Dialog", this);
 
 			var aFilters = [
 				new Filter("Key", FilterOperator.EQ, "A"),
 				new Filter("Value", FilterOperator.EQ, "X")
 			];
 
-			sap.ui.core.Fragment.byId("idDialog", "idTable").getBinding("items").filter(aFilters);
+			sap.ui.core.Fragment.byId("Dialog", "Table").getBinding("items").filter(aFilters);
 		},
 
-		addTextAreaInDialog: function () {
+		onPressContinue: function (oEvent) {
+			const sPath = this.byId("Dialog").getBindingContext("model").getPath();
+			const oData = this.getModel("model").getProperty(sPath);
 
-			var that = this;
+			// Set Input Value
+			oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
+		},
 
-			var oTextAreaDialog = new Dialog({
-				title: this.getResourceBundle().getText("dialogTitle"),
-				type: "Message",
-				content: [
-					new TextArea("idTextArea", {
-						liveChange: function (oEvent) {
-							var sText = oEvent.getParameter("value"),
-								oParent = oEvent.getSource().getParent();
-							oParent.getBeginButton().setEnabled(sText.length > 0);
-						},
-						width: "100%",
-						placeholder: "Add Text"
-					})
-				],
-				beginButton: new Button({
-					type: ButtonType.Emphasized,
-					text: "OK",
-					enabled: false,
-					press: function (oEvent) {
-						var sText = sap.ui.getCore().byId("idTextArea").getValue(),
-							sPath = oTextAreaDialog.getParent().getBindingContext().getPath(),
-							oContext = this.getView().getModel().createEntry(sPath);
-						// var sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
-						// var sCarrid = oTextAreaDialog.getParent().getBindingContext().getProperty().Carrid;
-						// https://openui5.hana.ondemand.com/topic/6c47b2b39db9404582994070ec3d57a2.html#loio6c47b2b39db9404582994070ec3d57a2
-						this.addNote(sText);
-						oTextAreaDialog.close();
-					}
-				}),
-				endButton: new Button({
-					text: "Cancel",
-					press: function () {
-						oTextAreaDialog.close();
-					}
-				}),
-				afterClose: function () {
-					oTextAreaDialog.destroy();
-				}
+		onShowDialog: function (oEvent) {
+			this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
+			this.getView().addDependent(this.oDialog);
+			this.oDialog.open();
+		},	
+
+		onShowDialogDetail: function(oEvent){
+			const oControl = oEvent.getSource();
+
+			if (!this.oDialog) {
+				// Add Button To Dialog
+				this.oDialog.oDialog._header.addContentRight(new sap.m.Button({
+					icon: "sap-icon://add",
+					tooltip: this.getResourceBundle().getText("save"),
+					type: "Emphasized",				
+					press: this.onSaveButton.bind(this)
+				}));
+
+				// Header Visible
+				this.oDialog._oSubHeader.setVisible(false);
+
+				// Set Model To Dialog
+				this.oDialog.setModel(this.getModel("model"), "model");
+
+				// Add Dialog To View
+				oEvent.getSource().addDependent(this.oDialog);
+			}
+
+			// Before Show Dialog
+			this.oDialog.attachBeforeOpen((oEvent) => {
+				// Read Function OR Filter => getData | onFilter
 			});
 
-			oEvent.getSource().addDependent(oTextAreaDialog);
+			// Bind Model to Dialog
+			this.oDialog.bindElement({
+				path: "model>/Values"
+			});
 
-			oTextAreaDialog.open();
+			// Bind Model w/ Path to Dialog
+			const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 
+			this.oDialog.bindElement({
+				model: "model",
+				path: "model>" + sPath
+			});
+			
+			// Set Dialog Height 
+			this.oDialog.setContentHeight("250px");
+			
+			// Add Input to Dialog
+			oControl.addDependent(this.oDialog);
 		},
 
 		onShowDialog: function () {
 			// Default
-			this.onOpenDialog("idDialog", "serhatmercan.Dialog");
+			this.openDialog("Dialog", "serhatmercan.Dialog");
 
 			// Default w/ Then
-			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {});
+			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {});
 
 			// w/ Binding Path
-			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {
+			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {
 				oDialog.bindElement({
-					path: "viewModel>" + sPath
+					path: "model>" + sPath
 				});
 			});
 
-			const oTable = this.byId("idTable").getTable();
+			const oTable = this.byId("Table").getTable();
 			const iSelectedIndex = oTable.getSelectedIndex();
 			let oBindElement = {};
 
@@ -181,16 +132,64 @@ sap.ui.define([
 			oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
 
 			// w/ Binding Element
-			this.onOpenDialog("idDialog", "serhatmercan.Dialog").then((oDialog) => {
+			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {
 				oDialog.bindElement(oBindElement);
 			});
 		},
 
-		onOpenDialog: function (sDialogId, sFragmentName) {
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		addTextAreaInDialog: function () {
+			const oResourceBundle = this.getResourceBundle();
+			const oTextAreaDialog = new Dialog({
+				title: oResourceBundle.getText("title"),
+				type: "Message",
+				content: [
+					new TextArea("TextArea", {
+						liveChange: function (oEvent) {							
+							oEvent.getSource().getParent().getBeginButton().setEnabled(oEvent.getParameter("value").length > 0);
+						},						
+						placeholder: oResourceBundle.getText("placeholder"),
+						width: "100%"
+					})
+				],
+				beginButton: new Button({
+					text: "OK",
+					type: ButtonType.Emphasized,					
+					enabled: false,
+					press: (oEvent) => {
+						const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
+						const oContext = this.getModel().createEntry(sPath);
+						// const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
+						// const sID = oTextAreaDialog.getParent().getBindingContext().getProperty("ID");
+						// https://openui5.hana.ondemand.com/topic/6c47b2b39db9404582994070ec3d57a2.html#loio6c47b2b39db9404582994070ec3d57a2
+						this.addNote(this.byId("TextArea").getValue());
+						oTextAreaDialog.close();
+					}
+				}),
+				endButton: new Button({
+					text: "Cancel",
+					press: () => {
+						oTextAreaDialog.close();
+					}
+				}),
+				afterClose: () => {
+					oTextAreaDialog.destroy();
+				}
+			});
+
+			oEvent.getSource().addDependent(oTextAreaDialog);
+
+			oTextAreaDialog.open();
+		},
+
+		openDialog: function (sDialogID, sFragmentName) {
 			return new Promise((fnResolve, fnReject) => {
-				var oView = this.getView(),
-					oDialog = this.byId(sDialogId),
-					sContentDensityClass = this.getOwnerComponent().getContentDensityClass();
+				const oView = this.getView();
+				const oDialog = this.byId(sDialogID);
+				const sContentDensityClass = this.getOwnerComponent().getContentDensityClass();
 
 				if (!oDialog) {
 					Fragment.load({
@@ -208,11 +207,6 @@ sap.ui.define([
 					fnResolve(oDialog);
 				}
 			});
-		},
-
-		onCloseDialog: function (oEvent) {
-			this.onClearMessages();
-			oEvent.getSource().getParent().close();
 		}
 
 	});

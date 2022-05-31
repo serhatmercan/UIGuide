@@ -1,53 +1,18 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
-	<Dialog title="Tree Table" stretch="true" horizontalScrolling="false" afterClose="onAfterClose">
-		<content>
-			<table:TreeTable id="idTreeTable" selectionBehavior="RowOnly" selectionMode="Single" width="auto"
-				rows="{ path : '/TreeTableSet', parameters: { countMode: 'Inline' } }">
-				<table:columns>
-					<table:Column label="Node">
-						<table:template>
-							<HBox alignItems="Center" justifyContent="Start" alignContent="Center">
-								<Text text="{Node}" wrapping="false"/>
-							</HBox>
-						</table:template>
-					</table:Column>
-					<table:Column label="Description">
-						<table:template>
-							<Text text="{Description}" wrapping="false"/>
-						</table:template>
-					</table:Column>
-				</table:columns>
-			</table:TreeTable>
-		</content>
-		<beginButton>
-			<Button text="Ok" press="onConfirm"/>
-		</beginButton>
-		<endButton>
-			<Button text="Cancel" press="onAfterClose"/>
-		</endButton>
-	</Dialog>
+	<t:TreeTable id="TreeTable" rows="{ path : '/TreeTableSet', parameters: { countMode: 'Inline' } }" selectionBehavior="RowOnly" selectionMode="Single">
+		<t:columns>
+			<t:Column label="{i18n>Node}">
+				<t:template>
+					<HBox alignContent="Center" alignItems="Center" justifyContent="Start">
+						<Text text="{Node}" wrapping="false"/>
+					</HBox>
+				</t:template>
+			</t:Column>
+			<t:Column label="{i18n>Description}">
+				<t:template>
+					<Text text="{Description}" wrapping="false"/>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:TreeTable>	
 </core:FragmentDefinition>
-<!-- DIALOG - ATTRIBUTES -->
-<!--
-contentWidth="450px" 
-contentHeight="2000px" 
-
-stretch="{= ${device>/system/phone} ? true : false }"
-
-busyIndicatorDelay="0" 
-busy="{dataModel>/GlobalBusy}"
--->
-<!-- TREE TABLE - ATTRIBUTES -->
-<!--
-fixedColumnCount="0"
-visibleRowCount="10"
-
-rowHeight="40px" 
-
-enableColumnReordering="false" 
-expandFirstLevel="false" 
--->
-<!-- HBOX - ATTRIBUTES -->
-<!--
-height=40px
--->

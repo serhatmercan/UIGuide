@@ -175,7 +175,7 @@ sap.ui.define([
 				this.byId("DocumentUC").getBinding("items").filter([new Filter("X", FilterOperator.EQ, "X")]);
 			}.bind(this));
 			
-			this.byId('DocumentUC').setUploadButtonInvisible(false);
+			this.byId("DocumentUC").setUploadButtonInvisible(false);
 
 			this.oDocument.open();
 		},

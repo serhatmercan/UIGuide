@@ -29,7 +29,7 @@ sap.ui.define([
 			let sPath;
 
 			if (!this._oPDFViewer) {
-				this._oPDFViewer = sap.ui.xmlfragment("idDialog", "com.serhatmercan.Dialog.Html", this);
+				this._oPDFViewer = sap.ui.xmlfragment("Dialog", "com.serhatmercan.Dialog.Html", this);
 				this._oPDFViewer.setModel(this.getModel("i18n"), "i18n");
 				this._oPDFViewer.setModel(oModel);
 			}
@@ -43,7 +43,7 @@ sap.ui.define([
 			const sSource = "<iframe name='PDF' src='" + jQuery.sap.encodeHTML(sURL + "/$value") + "' onLoad='" +
 				jQuery.sap.encodeHTML(oLoadEvent) + "' width='100%' height='99%' type='application/pdf'/>";
 
-			sap.ui.core.Fragment.byId("idDialog", "idIFrame").setContent(sSource);
+			sap.ui.core.Fragment.byId("Dialog", "idIFrame").setContent(sSource);
 
 			this._oPDFViewer.open();
 		},

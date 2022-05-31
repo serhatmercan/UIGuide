@@ -3,12 +3,15 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
-	"sap/ui/model/FilterType"
-], function (BaseController, JSONModel, Filter, FilterOperator, FilterType) {
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
+
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
 		onInit: function () {
 			const oModel = new JSONModel({
@@ -23,14 +26,17 @@ sap.ui.define([
 			jQuery.extend(true, {}, oData);
 		},
 
-		asyncFunction: async function () {
-			const oModel = this.getModel("model");
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onAsyncFunction: async function () {
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
 			};
 
-			await this._callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
+			await this.callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
@@ -38,14 +44,13 @@ sap.ui.define([
 				.finally(() => {});
 		},
 
-		callFunction: function () {
-			const oModel = this.getModel("model");
+		onCallFunction: function () {
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
 			};
 
-			this._callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
+			this.callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
@@ -53,7 +58,7 @@ sap.ui.define([
 				.finally(() => {});
 		},
 
-		runMultiPromise: function () {
+		onRunMultiPromise: function () {
 			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -65,21 +70,21 @@ sap.ui.define([
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
 			Promise.all([
-					this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
+					this.readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 					.then((oData) => {
 						// oData.results[0];
 						// oData.results[0].Main.results
 						// oData.results[0].List.results,
 					})
-					.catch((err) => {})
+					.catch(() => {})
 					.finally(() => {
 						oModel.setProperty("/Busy", false);
 					}),
-					this._readMultiData("/...Set", aFilters, this.getModel())
+					this.readMultiData("/...Set", aFilters, this.getModel())
 					.then((oData) => {
 						// oData.results[0];
 					})
-					.catch((err) => {})
+					.catch(() => {})
 					.finally(() => {
 						oModel.setProperty("/Busy", false);
 					})
@@ -90,27 +95,28 @@ sap.ui.define([
 				});
 		},
 
-		deleteSingleData: function () {
-			const oModel = this.getModel("model");
-			const oKey = this.getModel().createKey("/...Set", {
+		onDeleteSingleData: function () {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
 			});
 
-			oModel.setProperty("/Busy", true);
+			oViewModel.setProperty("/Busy", true);
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
-			this._deleteSingleData(oKey, this.getModel())
+			this.deleteSingleData(oKey, oModel)
 				.then(() => {
 					sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				})
-				.catch((err) => {})
+				.catch(() => {})
 				.finally(() => {
-					oModel.setProperty("/Busy", false);
+					oViewModel.setProperty("/Busy", false);
 				});
 		},
 
-		getAssociationData: function () {
+		onGetAssociationData: function () {
 			const oModel = this.getModel();
 			const sPath = oModel.createKey("/...Set", {
 				ID: sID
@@ -119,7 +125,7 @@ sap.ui.define([
 				"$expand": "Items,Values"
 			};
 
-			this._getAssociationData(sPath, oExpand, oModel)
+			this.getAssociationData(sPath, oExpand, oModel)
 				.then((oData) => {
 					const aItems = oData.Items.results;
 					const aValues = oData.Values.results;
@@ -128,19 +134,19 @@ sap.ui.define([
 				.finally(() => {});
 		},
 
-		getSingleData: function () {
+		onGetSingleData: function () {
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
 			});
 
-			this._readSingleData(oKey, oModel)
+			this.readSingleData(oKey, oModel)
 				.then((oData) => {})
 				.catch(() => {})
 				.finally(() => {});
 		},
 
-		getMultiData: function () {
+		onGetMultiData: function () {
 			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X"),
@@ -157,34 +163,34 @@ sap.ui.define([
 
 			oModel.setProperty("/Busy", true);
 
-			this._readMultiData("/...Set", aFilters, this.getModel())
+			this.readMultiData("/...Set", aFilters, this.getModel())
 				.then((oData) => {
 					// oData.results[0];
 				})
-				.catch((err) => {})
+				.catch(() => {})
 				.finally(() => {
 					oModel.setProperty("/Busy", false);
 				});
 		},
 
-		getMultiTable: function () {
+		onGetMultiTable: function () {
 			const oModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
 			const oExpand = {
-				"$expand": "to_main,to_list"
+				"$expand": "Main,List"
 			};
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 
 			oModel.setProperty("/Busy", true);
 
-			this._readMultiTable("/...Set", aFilters, oExpand, this.getModel())
+			this.readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 				.then((oData) => {
 					// oData.results[0];
-					// oData.results[0].to_main.results
-					// oData.results[0].to_list.results,
+					// oData.results[0].Main.results
+					// oData.results[0].List.results,
 				})
 				.catch(() => {})
 				.finally(() => {
@@ -192,44 +198,44 @@ sap.ui.define([
 				});
 		},
 
-		updateData: function () {
+		onUpdateData: function () {
 			const oData = {};
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
 			});
 
-			this._updateData(oKey, oData, oModel)
+			this.updateData(oKey, oData, oModel)
 				.then((oData) => {})
 				.catch(() => {})
 				.finally(() => {});
 		},
 
-		sendMultiData: function (oEvent) {
+		onSendMultiData: function (oEvent) {
 			const oResourceBundle = this.getResourceBundle();
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const aData = oViewModel.getProperty("/Data");
 			const oData = {
 				ID: "X",
-				to_Items: []
+				Items: []
 			};
-			const aPaths = this.getView().getBindingContext().getProperty("to_Items");
+			const aPaths = this.getView().getBindingContext().getProperty("Items");
 
-			aData.forEach((Data) => {
-				oData.to_Items.push(Data);
+			aData.forEach((xData) => {
+				oData.Items.push(xData);
 			});
 
-			oData.to_Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
+			oData.Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
 
 			// Match Binding Data
-			oData = jQuery.extend(true, {}, aData.to_Items);
+			oData = jQuery.extend(true, {}, aData.Items);
 
 			// Clear Metadata
 			delete oData.__metadata;
 
 			// Clear Items Metadata
-			oData.to_Items.forEach(oItem => {
+			oData.Items.forEach(oItem => {
 				delete oItem.__metadata;
 			});
 
@@ -249,7 +255,7 @@ sap.ui.define([
 						sap.ui.getCore().getMessageManager().removeAllMessages();
 						oViewModel.setProperty("/Busy", true);
 
-						this._sendMultiData("/...Set", oData, this.getModel())
+						this.sendMultiData("/...Set", oData, this.getModel())
 							.then((oResponse) => {
 								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
@@ -294,11 +300,11 @@ sap.ui.define([
 							sap.ui.getCore().getMessageManager().removeAllMessages();
 							oViewModel.setProperty("/Busy", true);
 
-							this._submitChange()
+							this.submitChange()
 								.then(() => {
 									oModel.resetChanges();
 								})
-								.catch((err) => {})
+								.catch(() => {})
 								.finally(() => {
 									oViewModel.setProperty("/Busy", false);
 								});
@@ -308,7 +314,11 @@ sap.ui.define([
 			}
 		},
 
-		_callFunction: function (sEntity, sMethod, oModel, oURLParameters) {
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		callFunction: function (sEntity, sMethod, oModel, oURLParameters) {
 			return new Promise((fnResolve, fnReject) => {
 				const mParameters = {
 					method: sMethod,
@@ -321,7 +331,7 @@ sap.ui.define([
 			});
 		},
 
-		_deleteSingleData: function (sSet, oModel) {
+		deleteSingleData: function (sSet, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					success: fnSuccess,
@@ -331,18 +341,18 @@ sap.ui.define([
 			});
 		},
 
-		_getAssociationData: function (sSet, oExpand, oModel) {
+		getAssociationData: function (sSet, oExpand, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
-				const oParameters = {
+				const mParameters = {
 					urlParameters: oExpand,
 					success: fnSuccess,
 					error: fnReject
 				};
-				oModel.read(sSet, oParameters);
+				oModel.read(sSet, mParameters);
 			});
 		},
 
-		_updateData: function (sSet, oData, oModel) {
+		updateData: function (sSet, oData, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					success: fnSuccess,
@@ -352,7 +362,7 @@ sap.ui.define([
 			});
 		},
 
-		_readMultiData: function (sSet, aFilters, oModel) {
+		readMultiData: function (sSet, aFilters, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					filters: aFilters,
@@ -363,7 +373,7 @@ sap.ui.define([
 			});
 		},
 
-		_readSingleData: function (sSet, oModel) {
+		readSingleData: function (sSet, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					success: fnSuccess,
@@ -373,7 +383,7 @@ sap.ui.define([
 			});
 		},
 
-		_readMultiTable: function (sSet, aFilters, oExpand, oModel) {
+		readMultiTable: function (sSet, aFilters, oExpand, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					filters: aFilters,
@@ -385,7 +395,7 @@ sap.ui.define([
 			});
 		},
 
-		_sendMultiData: function (sSet, oData, oModel) {
+		sendMultiData: function (sSet, oData, oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					success: fnSuccess,
@@ -395,7 +405,7 @@ sap.ui.define([
 			});
 		},
 
-		_submitChange: function (oModel) {
+		submitChange: function (oModel) {
 			return new Promise(function (fnSuccess, fnReject) {
 				const mParameters = {
 					success: fnSuccess,
@@ -403,7 +413,7 @@ sap.ui.define([
 				};
 				oModel.submitChanges(mParameters);
 			});
-		},
+		}
 
 	});
 

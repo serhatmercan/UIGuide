@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.serhatmercan.Controller" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.m.semantic">
-	<semantic:MasterPage id="idMasterDetail" title="Master Detail" navButtonPress="onNavBack" showNavButton="true" showFooter="false">
+	<semantic:MasterPage id="MasterDetail" title="{i18n>masterDetail}" navButtonPress="onNavBack" showNavButton="true" showFooter="false">
 		<semantic:content>
-			<List id="idList" items="{ path: '/', sorter: { path: 'group', descending: false, group: true }, groupHeaderFactory: '.getGroupHeader' }"
+			<List id="List" items="{ path: '/', sorter: { path: 'group', descending: false, group: true }, groupHeaderFactory: '.getGroupHeader' }"
 				mode="SingleSelectMaster" includeItemInSelection="true" selectionChange="onSelectionChange">
 				<StandardListItem highlight="None" icon="{icon}" title="{text}"/>
 			</List>

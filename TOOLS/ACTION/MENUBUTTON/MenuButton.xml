@@ -4,8 +4,8 @@
 		<MenuButton text="{i18n>menuButton}" enabled="{model>/menuStatu}">
 			<menu>
 				<Menu>
-					<MenuItem text="{i18n>MI1}" icon="sap-icon://edit" press="onShowMI1"/>
-					<MenuItem text="{i18n>MI2}" icon="sap-icon://enter-more" press="onShowMI2"/>
+					<MenuItem text="{i18n>MI1}" icon="sap-icon://edit" press="onShowMI('I', $event)"/>
+					<MenuItem text="{i18n>MI2}" icon="sap-icon://enter-more" press="onShowMI('II', $event)"/>
 				</Menu>
 			</menu>
 		</MenuButton>

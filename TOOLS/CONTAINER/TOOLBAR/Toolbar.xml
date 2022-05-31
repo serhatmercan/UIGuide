@@ -1,5 +1,9 @@
-<Toolbar id="idToolbar">
-	<Title id="idTitle" text="Title"/>
+<Toolbar>
+	<Title/>
 	<ToolbarSpacer/>
-	<Button id="idButton" text="Button" press="onPress"/>
+	<Button press="onPress"/>
 </Toolbar>
+<!--
+TOOLBAR - ATTRIBUTES
+id="Toolbar"
+-->

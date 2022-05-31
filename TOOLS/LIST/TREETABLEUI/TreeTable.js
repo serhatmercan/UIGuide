@@ -17,7 +17,7 @@ sap.ui.define([
 		},
 
 		onAddDataToTreeTable: function () {
-			const oTreeTable = this.byId("idTreeTable");
+			const oTreeTable = this.byId("TreeTable");
 			const aRows = oTreeTable.getBinding("rows");
 			const aSelectedIndices = aRows.getSelectedIndices();
 
@@ -32,7 +32,7 @@ sap.ui.define([
 		onTOS: function (oEvent) {
 			const oTreeTable = oEvent.getSource();
 			const iRowCount = oTreeTable.getVisibleRowCount();
-			const iSelectedRowCount = this.getView().getModel("model").getProperty(oEvent.getParameter("rowContext").getPath() + "/results").length;
+			const iSelectedRowCount = this.getModel("model").getProperty(oEvent.getParameter("rowContext").getPath() + "/Items").length;
 
 			oEvent.getParameter("expanded") ?
 				oTreeTable.setVisibleRowCount(iRowCount + iSelectedRowCount) :

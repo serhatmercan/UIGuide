@@ -15,12 +15,12 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this._setVizProperties();
+			this.setVizProperties();
 		},
 
-		_setVizProperties: function () {
-			const oVizFrame = this.byId("idVizFrame");
-			const oPopOver = this.getView().byId("idPopOver");
+		setVizProperties: function () {
+			const oVizFrame = this.byId("VizFrame");
+			const oPopOver = this.byId("PopOver");
 
 			oVizFrame.setAutoAdjustHeight(true);
 			oVizFrame.setShowFullScreen(true);
@@ -37,19 +37,18 @@ sap.ui.define([
 			oPopOver.connect(oVizFrame.getVizUid());
 		},
 
-		_getTotalChartData: function () {
+		getTotalChartData: function () {
 			const oModel = this.getModel("model");
 			const aChart = [];
-			const oChart = {
-				Ntgew: 100,
+			const oChart = {				
 				Brgew: 250,
 				BrgewMt: 500,
-				PartiId: 1
+				ID: 1
 			};
 
 			aChart.push(oChart);
 			oModel.setProperty("/Chart", oChart);
-		},
+		}
 
 	});
 

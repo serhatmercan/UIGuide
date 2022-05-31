@@ -17,7 +17,7 @@ sap.ui.define([
 		},
 
 		onGenerateFB: function () {
-			const oFlexBox = this.byId("idFlexBox");
+			const oFlexBox = this.byId("FlexBox");
 
 			this.getView().getModel("model").getProperty("/Items").forEach(oSkill => {
 				oFlexBox.addItem(new sap.m.GenericTag({

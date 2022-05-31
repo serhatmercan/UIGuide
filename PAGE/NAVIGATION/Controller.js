@@ -18,21 +18,32 @@ sap.ui.define([
 		/* ============== */
 
 		onGoToExternalApplication: function (oEvent, oController) {
-			const oCrossAppNav = sap.ushell.Container.getService("CrossApplicationNavigation");
 			const oParams = {};
 			const oTarget = {
 				action: "manage", // display
 				semanticObject: "ZApplication"
 			};
 			const oProperties = {
-				target: oTarget,
-				params: oParams
+				params: oParams,
+				target: oTarget				
 			};
 
 			oParams["ID"] = ["X"];
 			oParams["Value"] = ["ABC"];
 
-			oCrossAppNav.toExternal(oProperties);
+			sap.ushell.Container.getService("CrossApplicationNavigation").toExternal(oProperties);
+		},
+
+		onGoToExternalApplicationInNewTab: function(){
+			const oHrefForExternal = sap.ushell.Container.getService("CrossApplicationNavigation").hrefForExternal({
+				target: {
+					action: "display",
+					semanticObject: "ZSM_APP"
+				},
+				params: {}
+			});
+
+			sap.m.URLHelper.redirect(window.location.href.split("#")[0] + oHrefForExternal, true);
 		},
 
 		/* ================ */

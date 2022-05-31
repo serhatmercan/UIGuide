@@ -1,13 +1,17 @@
-<Text text="Text"/>
-<Text text="{ path: 'mode>Date', type: 'sap.ui.model.type.Date', formatOptions: {UTC: true, style: 'short', pattern: 'dd.MM.yyyy' } }"/>
-<Text
-	text="{ path:'model>Value', type:'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ',', maxFractionDigits: 0} }"/>
-<Text
-	text="{ path: 'model>Time/ms', type: 'sap.ui.model.type.Time', formatOptions: {UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss'} }"/>
-<Text text="{ path: 'model>Value', type: 'sap.ui.model.type.String', constraints: { isDigitSequence: true, maxLength: 10 } }"/>
-<Text text="{i18n>text}:">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Text text="{i18n>text}"/>
+	<Text text="{i18n>text}:">
 	<layoutData>
 		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
 	</layoutData>
 </Text>
-<Text text="{/#Main/Value/@sap:label}"/>
+</core:FragmentDefinition>
+<!--
+TEXT - ATTRIBUTES
+
+text="{/#Main/Value/@sap:label}"
+text="{ path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, style: 'short', pattern: 'dd.MM.yyyy' } }"
+text="{ path: 'model>Time/ms', type: 'sap.ui.model.type.Time', formatOptions: { UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss'} }"
+text="{ path: 'model>Value', type:'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ',', maxFractionDigits: 0} }"
+text="{ path: 'model>Value', type: 'sap.ui.model.type.String', constraints: { isDigitSequence: true, maxLength: 10 } }"
+-->

@@ -1,49 +1,49 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog id="idDialog" title="Dialog Title" afterClose="onACDialog">
-		<customHeader>
-			<Toolbar>
-				<ToolbarSpacer/>
-				<Title text="{i18n>title}"/>
-				<ToolbarSpacer/>
-				<Button press="onPress"/>
-			</Toolbar>
-		</customHeader>
-		<content>
-			<Label text="{viewModel>Value/Value1}"/>
+	<Dialog afterClose="onACDialog">		
+		<content>			
 		</content>
-		<!--	
-		<buttons>
-			<Button text="{i18n>button1}" press="onPressButton1"/>
-			<Button text="{i18n>button2}" press="onPressButton2"/>
-			<Button text="{i18n>button3}" press="onPressButton3"/>
-		</buttons>
-		-->
-		<!--		
-		<Toolbar>
-			<Button visible="{=${messageModel>/}.length > 0}" text="{= ${messageModel>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
-				press="onShowMessages"/>
-			<ToolbarSpacer/>
-			<Button text="{i18n>button2}" press="onPressButton2"/>
-			<Button text="{i18n>button3}" press="onPressButton3"/>
-		</Toolbar>
-		-->
-		<beginButton>
-			<Button text="{i18n>continue}" press="onPressContinue"/>
-		</beginButton>
-		<endButton>
-			<Button text="{i18n>cancel}" press="onACDialog"/>
-		</endButton>
 	</Dialog>
 </core:FragmentDefinition>
+<!-- DIALOG LAYOUT -->
+<!--
+<content>	
+	<customHeader>
+		<Toolbar>
+			<ToolbarSpacer/>
+			<Title text="{i18n>title}"/>
+			<ToolbarSpacer/>
+			<Button press="onPress"/>
+		</Toolbar>
+	</customHeader>
+</content>
+<buttons>
+	<Button text="{i18n>buttonI}" press="onPressButtonI"/>
+	<Button text="{i18n>buttonII}" press="onPressButtonII"/>
+	<Button text="{i18n>buttonIII}" press="onPressButtonIII"/>
+</buttons>
+<Toolbar>
+	<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup" press="onShowMessages"/>
+	<ToolbarSpacer/>
+	<Button text="{i18n>buttonIV}" press="onPressButtonIV"/>
+	<Button text="{i18n>buttonV}" press="onPressButtonV"/>
+</Toolbar>
+<beginButton>
+	<Button text="{i18n>continue}" press="onPressContinue"/>
+</beginButton>
+<endButton>
+	<Button text="{i18n>cancel}" press="onACDialog"/>
+</endButton>
+-->
 <!-- DIALOG ATTRIBUTES -->
 <!-- 
+id="idDialog" 
+busyIndicatorDelay="0"
 class="sapUiContentPadding" 	
 contentHeight="auto"
 contentWidth="100rem"
+title="{i18n>title}"
 
 busy="false"
-busyIndicatorDelay="0"
-
 horizontalScrolling="false"
 showHeader="true" 
 stretch="true" stretch="{= ${device>/system/phone} }"

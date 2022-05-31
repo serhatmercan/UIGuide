@@ -1,17 +1,21 @@
-<Panel id="idPanel" headerText="{i18n>text}">
-	<headerToolbar>
-		<OverflowToolbar>
-			<Title/>
-			<ToolbarSpacer/>
-			<Button/>
-		</OverflowToolbar>
-	</headerToolbar>
-	<content></content>
-</Panel>
-<!-- GENERAL - ATTRIBUTES -->
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel>
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title/>
+				<ToolbarSpacer/>
+				<Button/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<content></content>
+	</Panel>
+</core:FragmentDefinition>
+<!-- PANEL -->
 <!-- 
+id="Panel"
 class="sapUiNoContentPadding" class="sapUiTinyMarginBegin panelBorderLine"
-width="100%" 
+headerText="{i18n>text}"
+width="100%"
 
 expanded="true" 
 expandable="false"

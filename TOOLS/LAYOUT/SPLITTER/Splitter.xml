@@ -1,5 +1,5 @@
 <!-- xmlns:l="sap.ui.layout" -->
-<l:Splitter height="auto" orientation="Vertical">
+<l:Splitter>
 	<l:layoutData>
 		<l:SplitterLayoutData size="24rem"/>
 	</l:layoutData>
@@ -12,5 +12,7 @@
 </l:Splitter>
 <!-- SPLITTER LAYOUT DATA -->
 <!--
+height="auto" 
+orientation="Vertical"
 size="auto" size="100%"
 -->

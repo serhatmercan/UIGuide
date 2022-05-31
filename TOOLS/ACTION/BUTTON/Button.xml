@@ -1,14 +1,14 @@
-<!-- BUTTON - TYPES -->
-<Button text="Button" tooltip="Button Tooltip" type="Emphasized" icon="sap-icon://add" press="onPressButton"/>
-
-<!-- 
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Button text="{i18n>button}" tooltip="{i18n>buttonTooltip}" type="Emphasized" icon="sap-icon://add" press="onPress"/>
+</core:FragmentDefinition>
+<!--
 
 BUTTON - ATTRIBUTES
 
-id="saveUsersButton" 
+id="Button" 
 class="sapUiSmallMarginTop sapUiSmallMarginBegin"
+iconFirst="true"
 type="Accept" type="Reject"
 
 visible=true
-iconFirst="true"
 -->

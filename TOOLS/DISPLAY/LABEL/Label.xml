@@ -1,9 +1,10 @@
-<Label text="Label Text" labelFor="Label ID"/>
+<Label text="{i18n>text}"/>
 <!-- LABEL ATTRIBUTES -->
 <!--
 
 class="sapUiSmallMarginTop" class="sapUiSmallMarginBegin sapUiSmallMarginTop" class="formLabel"
 design="Bold"
+labelFor="IDText"
 textAlign="Begin"
 wrapping="true"
 

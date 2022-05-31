@@ -16,10 +16,7 @@ sap.ui.define([
 		},
 
 		onSearch: function () {
-
-			var oModel = this.getModel("model"),
-				sValue = oModel.getProperty("/Value");
-
+			const sValue = this.getModel("model").getProperty("/Value");
 		}
 
 	});

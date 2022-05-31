@@ -6,39 +6,30 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
 				GanttData: []
 			});
 
-			this.setModel(oModel, "viewModel");
+			this.setModel(oModel, "model");
 		},
 
-		onShowDetailGC: function () {
-			const sUID = this.byId("idGCTable").getSelectedShapeUid();
-
-			if (sUID.length === 0) {
-				MessageToast.show(this.getResourceBundle().getText("checkColumn"));
-				return;
-			}
-
-			const sPath = Utility.parseUid(sUID).shapeDataName;
-
-			this.openDialog("idDialogChartDetail", "serhatmercan.ChartDetail").then((oDialog) => {
-				oDialog.bindElement({
-					path: "viewModel>" + sPath
-				});
-			});
-		},
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onGCShapePress: function (oEvent) {
-			const sPath = oEvent.getParameter("shape").getBindingContext("viewModel").getPath();
+			const sPath = oEvent.getParameter("shape").getBindingContext("model").getPath();
 		},
 
 		onGCShapeDrop: function (oEvent) {
 			const oDraggedShapeDates = oEvent.getParameter("draggedShapeDates");
-			const oModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const sShapeId = oEvent.getParameter("lastDraggedShapeUid");
 			const oShapeInfo = Utility.parseUid(sShapeId);
 			const sPath = oShapeInfo.shapeDataName;
@@ -58,8 +49,29 @@ sap.ui.define([
 			oShape.setEndTime(aNewTimes[1]);
 		},
 
+		onShowDetailGC: function () {
+			const sUID = this.byId("GCTable").getSelectedShapeUid();
+
+			if (sUID.length === 0) {
+				MessageToast.show(this.getResourceBundle().getText("checkColumn"));
+				return;
+			}
+
+			const sPath = Utility.parseUid(sUID).shapeDataName;
+
+			this.openDialog("DialogChartDetail", "serhatmercan.ChartDetail").then((oDialog) => {
+				oDialog.bindElement({
+					path: "model>" + sPath
+				});
+			});
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
 		setGanttChartData: function () {
-			const oViewModel = this.getModel("viewModel");
+			const oModel = this.getModel("model");
 			const aHeader = oData.to_Top.results;
 			const aDetail = oData.to_Detail.results;
 			const oGanttData = {
@@ -141,9 +153,9 @@ sap.ui.define([
 				}
 			});
 
-			oViewModel.setProperty("/GanttData", oGanttData);
+			oModel.setProperty("/GanttData", oGanttData);
 
-			this.byId("idGCTable").setWidth("auto");
+			this.byId("GCTable").setWidth("auto");
 		}
 
 	});

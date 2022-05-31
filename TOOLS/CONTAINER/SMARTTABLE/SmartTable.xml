@@ -3,14 +3,14 @@
 	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable"
 	height="100%">
 	<semantic:FullscreenPage showFooter="false">
-		<VBox fitContainer="true" busy="{viewModel>/Busy}">
-			<smartvariants:SmartVariantManagement id="idSVM" persistencyKey="pkVariant"/>
-			<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP"></smartFilterBar:SmartFilterBar>
-			<smartTable:SmartTable id="idST" entitySet="AnnotationListSet" class="sapUiResponsiveContentPadding" header="{i18n>smartTable}"
-				smartFilterId="idSFB" smartVariant="idSVM" tableBindingPath="to_Item" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key"
+		<VBox busy="{model>/Busy}" fitContainer="true">
+			<smartvariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
+			<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFB"/>
+			<smartTable:SmartTable id="ST" entitySet="...Set" class="sapUiResponsiveContentPadding" header="{i18n>smartTable}"
+				smartFilterId="SFB" smartVariant="SVM" tableBindingPath="Items" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key"
 				ignoredFields="Value" requestAtLeastFields="ID" width="25%" cd:useSmartField="true" demandPopin="true" editable="true"
 				enableAutoBinding="true" showFullScreenButton="true" showRowCount="true" showTablePersonalisation="false" useTablePersonalisation="true"
-				useExportToExcel="false" useVariantManagement="false" beforeRebindTable="onBRT" dataReceived="onDT" fieldChange="onChangeField"
+				useExportToExcel="false" useVariantManagement="false" beforeRebindTable="onBRT" dataReceived="onDT" fieldChange="onFieldChange"
 				initialized="onInitST">
 				<smartTable:customToolbar>
 					<OverflowToolbar design="Transparent">
@@ -19,7 +19,7 @@
 					</OverflowToolbar>
 				</smartTable:customToolbar>
 				<!-- Responsive Table -->
-				<Table id="idTableST" mode="MultiSelect" growing="true" growingScrollToLoad="true" growingThreshold="100" sticky="ColumnHeaders">
+				<Table id="SmartTable" mode="MultiSelect" growing="true" growingScrollToLoad="true" growingThreshold="100" sticky="ColumnHeaders">
 					<columns>
 						<Column id="idColumnKey">
 							<customData>
@@ -40,11 +40,11 @@
 					</items>
 				</Table>
 				<!-- Grid Table -->
-				<ui:Table id="idUITable" selectionMode="Single" visibleRowCount="15" alternateRowColors="true" enableColumnFreeze="true">
+				<ui:Table id="SmartTable" selectionMode="Single" visibleRowCount="15" alternateRowColors="true" enableColumnFreeze="true">
 					<ui:rowSettingsTemplate>
 						<ui:RowSettings highlight="{= ${Statu} === 'X' ? 'Error' : undefined}"/>
 					</ui:rowSettingsTemplate>
-					<ui:Column id="idColumn" width="10rem">
+					<ui:Column id="Key" width="10rem">
 						<Label text="{/#SFEntity/Key/@sap:label}"/>
 						<ui:customData>
 							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"1"}'/>
@@ -53,7 +53,7 @@
 							<DatePicker value="{ path:'Date', type:'sap.ui.model.type.Date', formatOptions: {UTC:true} }"/>
 						</ui:template>
 					</ui:Column>
-					<ui:Column id="idColumn" width="10rem">
+					<ui:Column id="Value" width="10rem">
 						<Label text="{i18n>column}"/>
 						<ui:customData>
 							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"2"}'/>

@@ -1,15 +1,12 @@
-<l:VerticalLayout id="idVL">
-	<l:content>
-	</l:content>		
-</l:VerticalLayout>
-
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout>
+		<l:content>
+		</l:content>		
+	</l:VerticalLayout>
+</core:FragmentDefinition>
 <!-- VERTICAL LAYOUT ATTRIBUTES -->
 <!--
-
-xmlns:l="sap.ui.layout"
-
+id="VL"
 class="sapUiContentPadding" 
-
 width="100%"
-
 -->

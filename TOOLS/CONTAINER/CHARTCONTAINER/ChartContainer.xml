@@ -4,22 +4,21 @@
 		<common:content>
 			<common:ChartContainerContent>
 				<common:content>
-					<viz:Popover id="idPopOver"/>
-					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: { text: 'Viz Frame' } }" vizType="column">
+					<viz:Popover id="PopOver"/>
+					<viz:VizFrame id="VizFrame" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: { text: 'Viz Frame' } }" vizType="column">
 						<viz:dataset>
 							<viz.data:FlattenedDataset data="{model>/Chart}">
 								<viz.data:dimensions>
 									<viz.data:DimensionDefinition name="ID" value="{model>ID}"/>
 								</viz.data:dimensions>
-								<viz.data:measures>
-									<viz.data:MeasureDefinition name="Net Miktar" value="{model>Ntgew}"/>
-									<viz.data:MeasureDefinition name="Brüt Miktar MT" value="{model>BrgewMt}"/>
-									<viz.data:MeasureDefinition name="Brüt Miktar KG" value="{model>Brgew}"/>
+								<viz.data:measures>									
+									<viz.data:MeasureDefinition name="Gross Amount M" value="{model>BrgewMt}"/>
+									<viz.data:MeasureDefinition name="Gross Amount K" value="{model>Brgew}"/>
 								</viz.data:measures>
 							</viz.data:FlattenedDataset>
 						</viz:dataset>
 						<viz:feeds>
-							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Net Miktar,Brüt Miktar MT,Brüt Miktar KG"/>
+							<viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Gross Amount M,Gross Amount K"/>
 							<viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="ID"/>
 						</viz:feeds>
 					</viz:VizFrame>

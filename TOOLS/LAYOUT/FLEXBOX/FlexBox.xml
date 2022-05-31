@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<FlexBox id="idFlexBox" alignContent="Center" alignItems="Center" fitContainer="true" height="100%" justifyContent="Center" width="100%"
+	<FlexBox id="FlexBox" alignContent="Center" alignItems="Center" fitContainer="true" height="100%" justifyContent="Center" width="100%"
 		wrap="Wrap">
 		<Title text="{Title}"/>
 	</FlexBox>

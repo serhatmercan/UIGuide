@@ -15,6 +15,10 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "model");
+		},
+
+		onShowMI: function(sType, oEvent){
+
 		}
 
 	});

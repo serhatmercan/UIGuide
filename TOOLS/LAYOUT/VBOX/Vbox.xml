@@ -1,14 +1,14 @@
-<VBox id="idVBOX"></VBox>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <VBox>
+    </VBox>
+</core:FragmentDefinition>
 <!-- VBOX - ATTRIBUTES -->
 <!--
-
-Description: Setting One Or More Than Tools Vertically in One Column 
-
+id="VB"
 class="sapUiSmallMarginBegin" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
 alignContent="Start"
 justifyContent="Start" 
 renderType="Bare"
 
 busy="true"
-
 -->

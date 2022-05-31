@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.suite.ui.commons" xmlns:core="sap.ui.core" xmlns:m="sap.m">
-	<ProcessFlow id="idProcessFlow" nodes="{model>/Nodes}" lanes="{model>/Lanes}" scrollable="false" wheelZoomable="false">
+	<ProcessFlow id="ProcessFlow" nodes="{model>/Nodes}" lanes="{model>/Lanes}" scrollable="false" wheelZoomable="false">
 		<nodes>
 			<ProcessFlowNode children="{model>Children}" laneId="{model>Lane}" nodeId="{model>ID}">
 				<zoomLevelOneContent>

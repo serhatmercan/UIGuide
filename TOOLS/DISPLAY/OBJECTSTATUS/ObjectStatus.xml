@@ -1,3 +1,12 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<ObjectStatus class="sapUiSmallMargin" text="{i18n>text}" inverted="true" state="Information" visible="{= ${initializeModel>/Value} }"/>
+	<ObjectStatus text="{i18n>text}"/>
 </mvc:View>
+<!--
+OBJECT STATUS - ATTRIBUTES
+
+class="sapUiSmallMargin"
+state="Information"
+
+inverted="true" 
+visible="{= ${model>/Value} }"
+-->

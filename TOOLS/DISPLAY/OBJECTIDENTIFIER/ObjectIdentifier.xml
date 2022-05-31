@@ -1,3 +1,3 @@
-<ObjectIdentifier title="Title" text="Text"/>
+<ObjectIdentifier title="{i18n>title}" text="{i18n>text}"/>
 <ObjectIdentifier title="{ path: 'Menge', type: 'sap.ui.model.type.Float', formatOptions: { decimals:2, parseAsString: true } }"
 	text="{Meins}"/>

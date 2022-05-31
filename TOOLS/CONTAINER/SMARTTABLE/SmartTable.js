@@ -8,19 +8,39 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
 			this.getView().setModel(
 				new JSONModel({
 					Busy: false,
 					Data: [],
 					Statu: false
-				}), "viewModel");
+				}), "model");
 
-			this.byId("idST").getTable().attachRowSelectionChange((oEvent) => {
-				this.getModel("viewModel").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
+			this.byId("ST").getTable().attachRowSelectionChange((oEvent) => {
+				this.getModel("model").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
 			});
 
-			this.byId("idST").getTable()._getSelectAllCheckbox().setVisible(false);
+			this.byId("ST").getTable()._getSelectAllCheckbox().setVisible(false);
+		},
+
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onBeforeRebindTableWithResizing: function (oEvent) {
+			const oBindingParams = oEvent.getParameter("bindingParams");
+			const oTable = oEvent.getSource();
+
+			oBindingParams.events = {
+				"dataReceived": () => {
+					setTimeout(() => this.setTableWithResizing(oTable));
+				}
+			};
 		},
 
 		onBRT: function (oEvent) {
@@ -35,6 +55,21 @@ sap.ui.define([
 			this.onSetTableContent(oTable);
 		},
 
+		onChangeKey: function (oEvent) {
+			const sValue = oEvent.getParameter("selectedItem").getKey();
+			const sRowPath = oEvent.getSource().getBindingContext().getPath();
+			const oModel = this.getModel();
+			const oRowData = oModel.getProperty(sRowPath);
+			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
+		},
+
+		onDetail: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContextPath();
+			const oContext = this.getModel().getProperty(sPath);
+
+			this.sID = oContext.ID;
+		},
+
 		onDT: function (oEvent) {
 			const oData = oEvent.getParameters().getParameter("data");
 			let sID = "";
@@ -44,31 +79,19 @@ sap.ui.define([
 			}
 		},
 
-		onSetFilter: function () {
-			this.byId("idSFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
-				oItem.getControl().setValueHelpOnly(true);
-			});
-		},
-
-		onSetTableContent: function (oTable) {
-			oEvent.getParameter("bindingParams").events = {
-				"dataReceived": () => {
-					setTimeout(() => this._setTableContent(oTable));
-				}
-			};
-		},
+		onFieldChange: function(oEvent){},
 
 		onInitST: function () {
-			const oSmartFilter = this.byId("idSFB");
+			const oSmartFilter = this.byId("SFB");
 			const oJSONData = {};
 			const oID = {};
 
-			this._sID = "X";
+			this.sID = "X";
 
-			if (oSmartFilter && this._sID) {
+			if (oSmartFilter && this.sID) {
 				oID = {
 					items: [{
-						key: this._sID
+						key: this.sID
 					}]
 				};
 				oJSONData.ID = oID;
@@ -77,87 +100,34 @@ sap.ui.define([
 			oSmartFilter.setFilterData(oJSONData);
 		},
 
-		getData: function () {
-			const oModel = this.getModel();
-			const oContext = this.getView().getBindingContext();
-			const sBindingPath = oContext.getPath();
-			const oData = oContext.getObject();
-			const sID = oModel.getProperty(sBindingPath + "/ID");
-			const aData = [];
+		onPressKey: function (oEvent) {
+			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
+		},
 
-			oData.to_Item.__list.forEach((Item) => {
-				aData.push(oContext.getProperty("/" + Item));
+		onSetFilter: function () {
+			this.byId("SFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
+				oItem.getControl().setValueHelpOnly(true);
 			});
 		},
 
-		setData: function () {
-			const oViewModel = this.getModel("viewModel");
-			const sPath = oModel.createKey("/AnnotationListSet", {
-				ID: "X"
-			});
-			const oExpand = {
-				"$expand": "to_Item"
+		onSetTableContent: function (oTable) {
+			oEvent.getParameter("bindingParams").events = {
+				"dataReceived": () => {
+					setTimeout(() => this.setTableContent(oTable));
+				}
 			};
-			const oView = this.getView();
-			const oSmartTable = this.byId("idST");
-
-			oViewModel.setProperty(this._sPath + "/Data", []);
-
-			if (!oView.getBindingContext().getProperty("to_Item")) {
-				oView.bindElement({
-					path: sPath,
-					parameters: oExpand,
-					events: {
-						dataReceived: this._onDataReceived.bind(this)
-					}
-				});
-
-				oSmartTable.rebindTable();
-			}
-		},
+		},						
 
 		onShow: function (oEvent) {
 			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
-			const aSmartTableContexts = this.byId("idST").getTable().getSelectedContexts();
-			const aTableContexts = this.byId("idTableST").getSelectedContexts();
+			const aSmartTableContexts = this.byId("ST").getTable().getSelectedContexts();
+			const aTableContexts = this.byId("SmartTable").getSelectedContexts();
 			const aIDs = [];
 
 			aTableContexts.forEach((oContext) => {
 				aIDs.push(this.getModel().getProperty(oContext.getPath() + "/ID"));
 			});
-		},
-
-		onDetail: function (oEvent) {
-			const sPath = oEvent.getSource().getBindingContextPath();
-			const oContext = this.getModel().getProperty(sPath);
-
-			this._sID = oContext.ID;
-		},
-
-		onPressKey: function (oEvent) {
-			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
-		},
-
-		onBeforeRebindTableWithResizing: function (oEvent) {
-			const oBindingParams = oEvent.getParameter("bindingParams");
-			const oTable = oEvent.getSource();
-
-			oBindingParams.events = {
-				"dataReceived": () => {
-					setTimeout(() => this._setTableWithResizing(oTable));
-				}
-			};
-		},
-
-		onChangeField: function(oEvent){},
-
-		onChangeKey: function (oEvent) {
-			const sValue = oEvent.getParameter("selectedItem").getKey();
-			const sRowPath = oEvent.getSource().getBindingContext().getPath();
-			const oModel = this.getModel();
-			const oRowData = oModel.getProperty(sRowPath);
-			const aData = this.getView().getBindingContext().getProperty("to_Item").map(sPath => oModel.getProperty("/" + sPath));
-		},
+		},		
 
 		onShowDetail: function (oEvent) {
 			const oContext = oEvent.getSource().getBindingContext();
@@ -171,16 +141,37 @@ sap.ui.define([
 			});
 		},
 
-		_getSelectedData: function () {
-			const aContexts = this.byId("idTableST").getSelectedContexts();
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		dataReceived: function () {
+			const aData = this.getView().getElementBinding().getBoundContext().getObject().Items.__list;
+		},
+		
+		getData: function () {
+			const oModel = this.getModel();
+			const oContext = this.getView().getBindingContext();
+			const sBindingPath = oContext.getPath();
+			const oData = oContext.getObject();
+			const sID = oModel.getProperty(sBindingPath + "/ID");
+			const aData = [];
+
+			oData.Items.__list.forEach((Item) => {
+				aData.push(oContext.getProperty("/" + Item));
+			});
+		},
+
+		getSelectedData: function () {
+			const aContexts = this.byId("SmartTable").getSelectedContexts();
 
 			if (aContexts.length > 0) {
-				this._oSelectedData = this.getModel().getProperty(aContexts[0].getPath());
+				this.oSelectedData = this.getModel().getProperty(aContexts[0].getPath());
 			}
 		},
 
-		_getSelectedDataFromUISmartTable: function () {
-			const oTable = this.byId("idST").getTable();
+		getSelectedDataFromUISmartTable: function () {
+			const oTable = this.byId("ST").getTable();
 			const aContexts = oTable.getBinding("rows").getContexts();
 			const aIndices = oTable.getSelectedIndices();
 			const aData = [];
@@ -190,26 +181,53 @@ sap.ui.define([
 			return aData;
 		},
 
-		_getSelectedMultiData: function () {
-			const oTable = this.byId("idTableST").getTable();
+		getSelectedMultiData: function () {
+			const oTable = this.byId("SmartTable").getTable();
 			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
 		},
 
-		_getTotalCount: function () {
-			const oTable = this.byId("idTableST").getTable();
+		getTotalCount: function () {
+			const oTable = this.byId("SmartTable").getTable();
 			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
-			const iTotal = aSelectedData.reduce((sum, current) => sum + +current.Amount, 0)
+			const iTotal = aSelectedData.reduce((iSum, oCurrent) => iSum + +oCurrent.Amount, 0)
 		},
 
-		_refreshTable: function () {
-			this.byId("idTableST").clearSelection();
-			this.byId("idTableST").removeSelections();
-			this.byId("idTableST").getBinding("items").refresh(true);
-			this.byId("idTableST").getBinding("rows").refresh(true);
-			this.byId("idST").rebindTable();
+		refreshTable: function () {
+			this.byId("SmartTable").clearSelection();
+			this.byId("SmartTable").removeSelections();
+			this.byId("SmartTable").getBinding("items").refresh(true);
+			this.byId("SmartTable").getBinding("rows").refresh(true);
+			this.byId("ST").rebindTable();
 		},
 
-		_setTableContent: function (oTable) {
+		setData: function () {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const sPath = oModel.createKey("/...Set", {
+				ID: "X"
+			});
+			const oExpand = {
+				"$expand": "Items"
+			};
+			const oView = this.getView();
+			const oSmartTable = this.byId("ST");
+
+			oViewModel.setProperty(this.sPath + "/Data", []);
+
+			if (!oView.getBindingContext().getProperty("Items")) {
+				oView.bindElement({
+					path: sPath,
+					parameters: oExpand,
+					events: {
+						dataReceived: this.dataReceived.bind(this)
+					}
+				});
+
+				oSmartTable.rebindTable();
+			}
+		},
+
+		setTableContent: function (oTable) {
 			oTable.getItems().forEach(oItem => {
 				let bFlag = this.getModel().getProperty(oItem.getBindingContextPath() + "/Flag") === "X" ? true : false;
 				let oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
@@ -219,17 +237,13 @@ sap.ui.define([
 			});
 		},
 
-		_setTableWithResizing: function (oTable) {
+		setTableWithResizing: function (oTable) {
 			const aColumns = oTable.getTable().getColumns();
 
 			for (let i = aColumns.length - 1; i > -1; i--) {
 				aColumns[i].getParent().autoResizeColumn(i);
 			}
-		},
-
-		_onDataReceived: function () {
-			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Item.__list;
-		}
+		}		
 
 	});
 

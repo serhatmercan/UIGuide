@@ -1,2 +1,14 @@
-<MessageStrip text="{i18n>message}" class="sapUiMediumMarginBottom" enableFormattedText="true" showCloseButton="true" showIcon="true"
-	type="Warning" visible="{model>/Visibility}"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<MessageStrip text="{i18n>message}"/>
+</core:FragmentDefinition>
+<!--
+MESSAGE STRIP - ATTRIBUTES
+
+class="sapUiMediumMarginBottom" 
+type="Warning"
+
+enableFormattedText="true" 
+showCloseButton="true" 
+showIcon="true"
+visible="{model>/Visibility}"
+-->

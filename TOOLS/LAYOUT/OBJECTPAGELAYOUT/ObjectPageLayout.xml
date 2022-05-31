@@ -1,6 +1,6 @@
 <mvc:View xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"
 	xmlns:smartForm="sap.ui.comp.smartform" xmlns:f="sap.f">
-	<ObjectPageLayout id="idOPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" alwaysShowContentHeader="true"
+	<ObjectPageLayout id="OPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" alwaysShowContentHeader="true"
 		preserveHeaderStateOnScroll="true" showFooter="true" showHeaderContent="true" toggleHeaderOnTitleClick="true">
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
@@ -37,7 +37,7 @@
 			<smartForm:SmartForm></smartForm:SmartForm>
 		</headerContent>
 		<sections>
-			<ObjectPageSection id="idOPS" showTitle="false" visible="{= !${model>/Value} }">
+			<ObjectPageSection id="OPS" showTitle="false" visible="{= !${model>/Value} }">
 				<subSections>
 					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer">
 						<m:MessagePage id="idMessagePage" icon="sap-icon://inspection" description="" text="{i18n>initialMessagePageTitle}" showHeader="false"/>

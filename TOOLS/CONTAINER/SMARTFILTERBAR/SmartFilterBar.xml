@@ -1,27 +1,27 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
 	xmlns:smartTable="sap.ui.comp.smarttable">
-	<smartFilterBar:SmartFilterBar id="idSFB" entitySet="AnnotationListSet" persistencyKey="pKeySFP" considerSelectionVariants="true"
-		showFilterConfiguration="false" smartVariant="idSVM" initialized="onInitSFB">
+	<smartFilterBar:SmartFilterBar id="SFB" entitySet="AnnotationListSet" persistencyKey="SFB" considerSelectionVariants="true"
+		showFilterConfiguration="false" smartVariant="SVM" initialized="onInitSFB">
 		<smartFilterBar:layoutData>
 			<FlexItemData shrinkFactor="0"/>
 		</smartFilterBar:layoutData>
 	</smartFilterBar:SmartFilterBar>
 	<smartFilterBar:controlConfiguration>
-		<smartFilterBar:ControlConfiguration id="idCC" key="paintArchive" index="1" label="{i18n>paintArchive}" filterType="single"
+		<smartFilterBar:ControlConfiguration id="CC" key="SFB" index="1" label="{i18n>sfb}" filterType="single"
 			mandatory="mandatory" preventInitialDataFetchInValueHelpDialog="false" visibleInAdvancedArea="true">
 			<smartFilterBar:customControl>
 				<RadioButtonGroup id="rbg" columns="3">
-					<RadioButton id="rbAll" text="{i18n>all}"/>
-					<RadioButton id="rbThereIs" text="{i18n>thereIs}"/>
-					<RadioButton id="rbNo" text="{i18n>no}"/>
+					<RadioButton id="AllRB" text="{i18n>all}"/>
+					<RadioButton id="ThereIsRB" text="{i18n>thereIs}"/>
+					<RadioButton id="NoRB" text="{i18n>no}"/>
 				</RadioButtonGroup>
 			</smartFilterBar:customControl>
 		</smartFilterBar:ControlConfiguration>
 		<smartFilterBar:ControlConfiguration key="CheckValue">
 			<smartFilterBar:customControl>
-				<CheckBox id="idCB" selected="true"/>
+				<CheckBox id="CB" selected="true"/>
 			</smartFilterBar:customControl>
 		</smartFilterBar:ControlConfiguration>
 	</smartFilterBar:controlConfiguration>
-	<smartTable:SmartTable id="idST" beforeRebindTable="onBRT"/>
+	<smartTable:SmartTable id="ST" beforeRebindTable="onBRT"/>
 </mvc:View>

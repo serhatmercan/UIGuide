@@ -6,6 +6,10 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
 			const oModel = new JSONModel({
 				Value: ""
@@ -13,31 +17,12 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-		bindDialog: function () {
-			const oModel = this.getModel();
-			const oCreateEntry = oModel.createEntry("/...Set");
-
-			sap.ui.core.Fragment.byId(this.getView().getId(), "idSmartForm").bindElement(oCreateEntry.getPath());
-			oModel.setProperty(oCreateEntry.getPath() + "/Value", "X");
-
-			// From Smart Table To Smart Form
-			const oTable = this.byId("idSmartTable").getTable();
-			const iSelectedIndex = oTable.getSelectedIndex();
-			const oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
-
-			this.onOpenDialog("idDialog", "serhatmercan.SmartForm").then((oDialog) => {
-				oDialog.bindElement(oBindElement);
-			});
-		},
-
-		check: function () {
-			if (this.byId("idSmartField").check().length) {
-				return;
-			}
-		},
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onScanBarcode: function () {
 			const fnSuccess = function (oScan) {
@@ -55,24 +40,49 @@ sap.ui.define([
 			}
 		},
 
-		_onViewMatched: function (oEvent) {
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		bindDialog: function () {
+			const oModel = this.getModel();
+			const oCreateEntry = oModel.createEntry("/...Set");
+
+			sap.ui.core.Fragment.byId(this.getView().getId(), "SmartForm").bindElement(oCreateEntry.getPath());
+			oModel.setProperty(oCreateEntry.getPath() + "/Value", "X");
+
+			// From Smart Table To Smart Form
+			const oTable = this.byId("SmartTable").getTable();
+			const iSelectedIndex = oTable.getSelectedIndex();
+			const oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
+
+			this.onOpenDialog("Dialog", "serhatmercan.SmartForm").then((oDialog) => {
+				oDialog.bindElement(oBindElement);
+			});
+		},
+
+		check: function () {
+			if (this.byId("SmartField").check().length) {
+				return;
+			}
+		},	
+
+		getData: function () {
+			const oSFData = this.byId("SmartForm").getBindingContext().getProperty();
+		},
+
+		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const sPath = this.getModel().createEntry("/ValueSet").getPath();
 
-				this.byId("idSmartForm").bindElement(sPath);
+				this.byId("SmartForm").bindElement(sPath);
 				this.getModel().setProperty(sPath + "/Value", "X");
 			}.bind(this));
-		},
+		},		
 
-		_getData: function () {
-			const oSFData = this.byId("idSmartForm").getBindingContext().getProperty();
-		},
-
-		_setData: function () {
-			const sPath = this.byId("idSmartForm").getBindingContext().getPath();
-
-			this.getModel().setProperty(sPath + "/ID", "X");
-		},
+		setData: function () {
+			this.getModel().setProperty(this.byId("SmartForm").getBindingContext().getPath() + "/ID", "X");
+		}
 
 	});
 

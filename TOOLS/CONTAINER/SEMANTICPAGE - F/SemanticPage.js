@@ -18,8 +18,8 @@ sap.ui.define([
 		onShowMessages: function (oEvent) {
 			const oMessagesButton = oEvent.getSource();
 
-			if (!this._oMessagePopover) {
-				this._oMessagePopover = new sap.m.MessagePopover({
+			if (!this.oMessagePopover) {
+				this.oMessagePopover = new sap.m.MessagePopover({
 					items: {
 						path: "message>/",
 						template: new sap.m.MessagePopoverItem({
@@ -29,10 +29,10 @@ sap.ui.define([
 						})
 					}
 				});
-				oMessagesButton.addDependent(this._oMessagePopover);
+				oMessagesButton.addDependent(this.oMessagePopover);
 			}
 
-			this._oMessagePopover.toggle(oMessagesButton);
+			this.oMessagePopover.toggle(oMessagesButton);
 		}
 
 	});

@@ -1,9 +1,12 @@
-<ScrollContainer id="idScrollContainer">
-</ScrollContainer>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <ScrollContainer>
+    </ScrollContainer>
+</core:FragmentDefinition>
 
 <!-- SCROLL CONTAINER - ATTRIBUTES -->
 <!--
 
+id="ScrollContainer"
 height="100%" 
 width="100%" 
 

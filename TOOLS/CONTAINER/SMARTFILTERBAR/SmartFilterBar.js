@@ -1,10 +1,15 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/Filter",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], function (BaseController, Filter, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
+
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
 		onInit: function () {
 			const oModel = new JSONModel({
@@ -15,15 +20,19 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */	
+
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
-			const oFilter = new Filter("Value", FilterOperator.EQ, this.byId("idCB").getSelected());
+			const oFilter = new Filter("Value", FilterOperator.EQ, this.byId("CB").getSelected());
 
 			oBindingParams.filters.push(oFilter);
 		},
 
 		onGetSFBData: function () {
-			const oSFBData = this.byId("idSFB").getFilterData();
+			const oSFBData = this.byId("SFB").getFilterData();
 			const sID = oSFBData.ID;
 			const aIDRange = oSFBData.ID.ranges;
 			const sIDValue = aIDRange[0].value1;
@@ -35,8 +44,8 @@ sap.ui.define([
 		},
 
 		onInitSFB: function (oEvent) {
-			const oSFB = this.byId("idSFB");
-			const oST = this.byId("idST");
+			const oSFB = this.byId("SFB");
+			const oST = this.byId("ST");
 			const oID = {};
 
 			oEvent.getSource().getAllFilterItems().filter(oFilter => oFilter.getName() === "ID")[0].setVisible(false);

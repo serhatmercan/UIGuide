@@ -5,7 +5,7 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onPressButton: function (oEvent) {
+		onPress: function (oEvent) {
 
 		}
 

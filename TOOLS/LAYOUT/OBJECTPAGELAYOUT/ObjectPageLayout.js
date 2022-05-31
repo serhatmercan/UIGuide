@@ -47,7 +47,7 @@ sap.ui.define([
 		},
 
 		_setInitialSubSection: function () {
-			this.getView().byId("idOPL").setSelectedSection(this.getView().byId("idOPS").getId());
+			this.getView().byId("OPL").setSelectedSection(this.getView().byId("OPS").getId());
 		}
 
 	});

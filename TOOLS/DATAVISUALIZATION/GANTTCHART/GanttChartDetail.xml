@@ -1,21 +1,21 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
-	<Dialog id="idDialogChartDetail" busy="{viewModel>/Busy}" title="{i18n>detail}">
+	<Dialog id="DialogChartDetail" busy="{model>/Busy}" title="{i18n>detail}">
 		<content>
-			<table:Table id="idChartDetailTable" rows="{viewModel>Detail}" enableColumnFreeze="true" selectionMode="None" visibleRowCount="10">
+			<table:Table id="ChartDetailTable" rows="{model>Detail}" enableColumnFreeze="true" selectionMode="None" visibleRowCount="10">
 				<table:extension>
 					<Toolbar>
 						<ToolbarSpacer/>
 						<Label text="{i18n>model}:" design="Bold"/>
-						<Text text="{viewModel>Model} {viewModel>ModelName}"/>
+						<Text text="{model>Model} {model>ModelName}"/>
 						<ToolbarSpacer/>
 						<Label text="{i18n>mainOrder}:" design="Bold"/>
-						<Text text="{viewModel>MainOrder}"/>
+						<Text text="{model>MainOrder}"/>
 						<ToolbarSpacer/>
 						<Label text="{i18n>variant}:" design="Bold"/>
-						<Text text="{viewModel>Variant}"/>
+						<Text text="{model>Variant}"/>
 						<ToolbarSpacer/>
 						<Label text="{i18n>planNo}:" design="Bold"/>
-						<Text text="{viewModel>PlanNo}"/>
+						<Text text="{model>PlanNo}"/>
 						<ToolbarSpacer/>
 					</Toolbar>
 				</table:extension>
@@ -23,27 +23,27 @@
 					<table:Column hAlign="Center">
 						<Label text="{i18n>date}"/>
 						<table:template>
-							<Text text="{ path:'viewModel>Tarih', type:'sap.ui.model.type.Date', formatOptions: {UTC:true} }"/>
+							<Text text="{ path:'model>Tarih', type:'sap.ui.model.type.Date', formatOptions: {UTC:true} }"/>
 						</table:template>
 					</table:Column>
 					<table:Column hAlign="Center">
 						<Label text="{i18n>plannedCount}"/>
 						<table:template>
-							<Text text="{ path: 'viewModel>PlanlananAdet', type:'sap.ui.model.type.Integer'}"/>
+							<Text text="{ path: 'model>PlanlananAdet', type:'sap.ui.model.type.Integer'}"/>
 						</table:template>
 					</table:Column>
 					<table:Column hAlign="Center">
 						<Label text="{i18n>realizedCount}"/>
 						<table:template>
-							<Text text="{ path: 'viewModel>GerceklesenAdet', type:'sap.ui.model.type.Integer'}"/>
+							<Text text="{ path: 'model>GerceklesenAdet', type:'sap.ui.model.type.Integer'}"/>
 						</table:template>
 					</table:Column>
 					<table:Column hAlign="Center">
 						<Label text="{i18n>warning}"/>
 						<table:template>
-							<Text text="{viewModel>Msgty}"/>
-							<core:Icon src="{ path:'viewModel>Msgty', formatter: '.formatter.getMessageIcon' }"
-								color="{ path:'viewModel>Msgty', formatter: '.formatter.getMessageColor' }"/>
+							<Text text="{model>Msgty}"/>
+							<core:Icon src="{ path:'model>Msgty', formatter: '.formatter.getMessageIcon' }"
+								color="{ path:'model>Msgty', formatter: '.formatter.getMessageColor' }"/>
 						</table:template>
 					</table:Column>
 				</table:columns>

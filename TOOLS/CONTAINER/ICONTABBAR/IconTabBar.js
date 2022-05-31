@@ -5,32 +5,44 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
-			this.byId("idITB").setSelectedKey("keyITF1");
+			this.byId("ITB").setSelectedKey("ITFI");
 		},
 
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+		
 		onSelectITB: function (oEvent) {
-			if (oEvent.getParameter("key") === "ITF1") {}
+			if (oEvent.getParameter("key") === "ITFI") {}
 
 			switch (oEvent.getParameter("key")) {
-			case "keyITF1":
+			case "ITFI":
 				break;
 			default:
 				break;
 			}
 		},
 
-		getSelectedDataITB: function (oEvent) {
-			const oITB = this.byId("idITB");
-			const oSelectedFilterItem = oITB.getAggregation("items").find(oItem => oItem.getKey() === oITB.getSelectedKey());
-			const oSelectedTable = oSelectedFilterItem.getContent()[0];
-		},
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
 		getITBContents: function () {
-			this.byId("idITB").getItems().forEach(oItem => {
+			this.byId("ITB").getItems().forEach(oItem => {
 				oItem.getContent()[0].clearSelection();
 			});
-		}
+		},
+
+		getSelectedDataITB: function (oEvent) {
+			const oITB = this.byId("ITB");
+			const oSelectedFilterItem = oITB.getAggregation("items").find(oItem => oItem.getKey() === oITB.getSelectedKey());
+			const oSelectedTable = oSelectedFilterItem.getContent()[0];
+		}		
 
 	});
 

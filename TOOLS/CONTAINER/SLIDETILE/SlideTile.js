@@ -18,9 +18,9 @@ sap.ui.define([
 		},
 
 		onGenerateSlideTile: function () {
-			const oSlideTile = this.byId("idSlideTile");
+			const oSlideTile = this.byId("SlideTile");
 
-			this.getView().getModel("model").getProperty("/Items").forEach(oItem => {
+			this.getModel("model").getProperty("/Items").forEach(oItem => {
 				let oTC = new sap.m.TileContent({});
 
 				oTC.setContent(new sap.m.ImageContent({
