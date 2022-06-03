@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<TableSelectDialog multiSelect="true" search="onSearchTSD" confirm="onConfirmTSD" cancel="onCancelTSD" items="{ path : '/ListSet' }">
+	<TableSelectDialog items="{/...Set}" multiSelect="true" cancel="onCancelTSD" confirm="onConfirmTSD" search="onSearchTSD">
 		<ColumnListItem>
 			<cells>
 				<ObjectIdentifier title="{Value}" text="{ValueName} {ValueResult}"/>
@@ -13,7 +13,7 @@
 			</Column>
 		</columns>
 	</TableSelectDialog>
-	<SelectDialog items="{/ListSet}" title="{i18n>listVH}" multiSelect="true" cancel="onCancelSD" confirm="onConfirmSD" search="onSearchSD">
-		<StandardListItem title="{Pernr}" description="{Stext}"/>
+	<SelectDialog items="{/...Set}" title="{i18n>listVH}" multiSelect="true" cancel="onCancelSD" confirm="onConfirmSD" search="onSearchSD">
+		<StandardListItem description="{Stext}" title="{Pernr}"/>
 	</SelectDialog>
 </core:FragmentDefinition>

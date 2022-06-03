@@ -1,27 +1,47 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form"
-	xmlns:smartField="sap.ui.comp.smartfield" xmlns:l="sap.ui.layout">
-	<f:SimpleForm id="idSimpleForm">
-		<smartField:SmartField id="idID" value="{ID}" entitySet="SFSet" change="onChangeID" busy="{model>/Busy}" editable="false" enabled="false"
-			mandatory="true" showLabel="false" textLabel="{i18n>ID}" visible="false" placeholder="{i18n>ID}" width="18rem"
-			textInEditModeSource="ValueList" valueListChanged="onVLC" innerControlsCreated="onICC">
-			<smartField:layoutData>
-				<l:GridData spanL="3" spanM="3" spanS="3"/>
-			</smartField:layoutData>
-			<smartField:configuration>
-				<smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionAndId" preventInitialDataFetchInValueHelpDialog="true"/>
-			</smartField:configuration>
-			<smartfield:customData>
-				<core:CustomData key="multiLineSettings" value="{ rows: 5 }"/>
-			</smartfield:customData>
-		</smartField:SmartField>
-	</f:SimpleForm>
+	xmlns:smartfield="sap.ui.comp.smartfield" xmlns:l="sap.ui.layout">
+	<smartfield:smartfield value="{ID}"/>
 </mvc:View>
-<!-- SMART FIELD -->
+<!-- SMART FIELD - ATTRIBUTES -->
 <!--
+id="ID"
+busy="{model>/Busy}" 
+entitySet="...Set"
+placeholder="{i18n>ID}"
+textInEditModeSource="ValueList" 
+textLabel="{i18n>ID}"
 value="{ path: 'Value', type: 'sap.ui.model.type.Integer' }
-value="{ path: 'Date', type:'sap.ui.model.type.Date', formatOptions: { UTC: true } }"
+value="{ path: 'Date', type:'sap.ui.model.type.Date', formatOptions: { UTC: true } }"   
+width="18rem"			  
 
-Smart Field - Configuration
+editable="false" 
+enabled="false"
+mandatory="true" 
+showLabel="false"
+showSuggestion="false"
+visible="false"
 
+change="onChangeID"
+innerControlsCreated="onICC"	  
+valueListChanged="onVLC"
+-->
+<!-- SMART FIELD - LAYOUT -->
+<!--
+<f:SimpleForm id="SimpleForm">
+	<smartfield:smartfield value="{ID}">
+		<smartfield:layoutData>
+			<l:GridData spanL="3" spanM="3" spanS="3"/>
+		</smartfield:layoutData>
+		<smartfield:configuration>
+			<smartfield:Configuration controlType="dropDownList" displayBehaviour="descriptionAndId" preventInitialDataFetchInValueHelpDialog="true"/>
+		</smartfield:configuration>
+		<smartfield:customData>
+			<core:CustomData key="multiLineSettings" value="{ rows: 5 }"/>
+		</smartfield:customData>
+	</smartfield:smartfield>
+</f:SimpleForm>
+-->
+<!-- SMART FIELD - CONFIGURATION -->
+<!--
 displayBehaviour="idAndDescription"
 -->

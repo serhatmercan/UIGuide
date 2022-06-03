@@ -1,18 +1,18 @@
-let aMercans = [{
-	id: 1,
-	name: "Serhat",
-	surname: "Mercan",
-	score: 75
+const aMercans = [{
+	ID: 1,
+	Name: "Serhat",
+	Surname: "Mercan",
+	Score: 75
 }, {
-	id: 2,
-	name: "Elif",
-	surname: "Mercan",
-	score: 100
+	ID: 2,
+	Name: "Elif",
+	Surname: "Mercan",
+	Score: 100
 }, {
-	id: 3,
-	name: "Selim",
-	surname: "Mercan",
-	score: 100
+	ID: 3,
+	Name: "Selim",
+	Surname: "Mercan",
+	Score: 100
 }];
 
-aMercans.filter(item => item.surname === "Mercan").map(item => item.id += 1).reduce((total, id) => total + id, 0); // Return 9
+aMercans.filter(oMercan => oMercan.Surname === "Mercan").map(oItem => oItem.ID += 1).reduce((iTotal, iID) => iTotal + iID, 0); // Return 9

@@ -8,6 +8,10 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+	
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
@@ -16,26 +20,54 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("main").attachPatternMatched(this._onViewMatched, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onChangeID: function (oEvent) {
 			const sID = oEvent.getParameter("value");
 			const sPath = this.getView().getBindingContext().getPath();
 			const oModel = this.getModel();
 			const sBindingValuePath = oEvent.getSource().getBinding("value").getPath(); // Value
-			const sValue = oModel.getProperty("/VHIDSet('" + sID + "')/Value"); // Get SH Data	
+			const sValue = oModel.getProperty("/...Set('" + sID + "')/Value"); // Get SH Data	
 
 			oEvent.getSource().setValue(sID);
 			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));
 		},
 
-		onControlExplanationValueState: function () {
-			let oContainer = oEvent.getSource();
-			let sExplanationID = oContainer.getId();
-			let aSmartFields = [];
+		onFilterDDL: function () {
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+
+			this.byId("ID").getInnerControls()[0].getBinding("items").filter(aFilters);
+			this.byId("ID").getInnerControls()[0].getBinding("items").filter([
+				new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/Value"))
+			]);
+		},
+
+		onICC: function (oEvent) {
+			this.setSmartFieldValueHelpOnly(oEvent.getParameters()[0]);
+		},
+
+		onVLC: function (oEvent) {
+			const sPath = oEvent.getSource().getBindingContext().getPath();
+			const oData = this.getModel().getProperty(sPath);
+		},		
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		controlExplanationValueState: function () {
+			const oContainer = oEvent.getSource();
+			const sExplanationID = oContainer.getId();
+			const aSmartFields = [];
 			let bCheckSmartForm = "";
-			// const aSmartFields = this.byId("idSFData").getSmartFields();
+			// const aSmartFields = this.byId("SFData").getSmartFields();
 			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
 
 			do {
@@ -55,7 +87,7 @@ sap.ui.define([
 			const xValue = oKeyField.getValue();
 
 			if (xValue) {
-				if (xValue === "H" || xValue === "Hayır" || xValue === "Yok" || xValue === "Y" || +xValue <= 0 ||
+				if (xValue === "N" || xValue === "No" || xValue === "None" || xValue === "Y" || +xValue <= 0 ||
 					oExplanationField.getValue() !== "") {
 					oExplanationField.setValueState("None");
 				} else {
@@ -66,12 +98,12 @@ sap.ui.define([
 			}
 		},
 
-		onControlKeyValueState: function () {
+		controlKeyValueState: function () {
 			let oContainer = oEvent.getSource();
 			let sKeyID = oContainer.getId();
 			let aSmartFields = [];
 			let bCheckSmartForm = "";
-			// const aSmartFields = this.byId("idSFData").getSmartFields();
+			// const aSmartFields = this.byId("SFData").getSmartFields();
 			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
 
 			do {
@@ -90,7 +122,7 @@ sap.ui.define([
 			const xValue = oEvent.getSource().getValue();
 
 			if (xValue) {
-				if (xValue === "H" || xValue === "Hayır" || xValue === "Yok" || xValue === "Y" || +xValue <= 0 ||
+				if (xValue === "N" || xValue === "No" || xValue === "None" || xValue === "Y" || +xValue <= 0 ||
 					oExplanationField.getValue() !== "") {
 					oExplanationField.setValueState("None");
 				} else {
@@ -101,39 +133,9 @@ sap.ui.define([
 			}
 		},
 
-		onFilterDDL: function () {
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X")
-			];
-
-			this.byId("idID").getInnerControls()[0].getBinding("items").filter(aFilters);
-			this.byId("idID").getInnerControls()[0].getBinding("items")
-				.filter(
-					[new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/Value"))]);
-		},
-
-		onVLC: function (oEvent) {
-			const sPath = oEvent.getSource().getBindingContext().getPath();
-			const oData = this.getModel().getProperty(sPath);
-		},
-
-		onICC: function (oEvent) {
-			this._setSmartFieldValueHelpOnly(oEvent);
-		},
-
-		_setData: function () {
-			this.getModel().setProperty(this.byId("idSimpleForm").getBindingContext().getPath() + "/ID", "XYZ");
-		},
-
-		_setSmartFieldValueHelpOnly: function (oEvent) {
-			if (oEvent.getParameters()[0].getMetadata().getElementName() === "sap.m.Input") {
-				oEvent.getParameters()[0].setValueHelpOnly(true);
-			}
-		},
-
-		_onViewMatched: function (oEvent) {
+		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-				this.byId("idSimpleForm").bindElement(this.getModel().createEntry("/IDSet").getPath());
+				this.byId("SimpleForm").bindElement(this.getModel().createEntry("/...Set").getPath());
 			}.bind(this));
 
 			const sPath = this.getModel().createKey("/SFSet", {
@@ -143,9 +145,19 @@ sap.ui.define([
 			this.getView().bindElement({
 				path: sPath,
 				parameters: {
-					expand: "to_Header,to_Items"
+					expand: "Header,Items"
 				}
 			});
+		},
+
+		setData: function () {
+			this.getModel().setProperty(this.byId("SimpleForm").getBindingContext().getPath() + "/ID", "XYZ");
+		},
+
+		setSmartFieldValueHelpOnly: function (oItem) {
+			if (oItem.getMetadata().getElementName() === "sap.m.Input") {
+				oItem.setValueHelpOnly(true);
+			}
 		}
 
 	});

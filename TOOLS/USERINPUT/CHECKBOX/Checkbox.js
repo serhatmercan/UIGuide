@@ -16,7 +16,7 @@ sap.ui.define([
 		},
 		
 		getValue: function() {
-			sValue = this.byId("idCheckBox").getSelected();
+			sValue = this.byId("CheckBox").getSelected();
 		}
 
 	});

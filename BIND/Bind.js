@@ -1,7 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -23,7 +25,8 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);	
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);					
 		},
 
 		/* ============== */
@@ -142,7 +145,16 @@ sap.ui.define([
 
 		/* ================ */
 		/* Internal Methods */
-		/* ================ */			
+		/* ================ */	
+		
+		attachRequestCompleted: function(){
+			setTimeout(() => {
+				this.byId("ComboBox").fireChange();
+				this.byId("ComboBox").getInnerControls()[0].getBinding("items").filter([
+						new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
+				]);
+			}, 500);		
+		},
 
 		change: function () {
 

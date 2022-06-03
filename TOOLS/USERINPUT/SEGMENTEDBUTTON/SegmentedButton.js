@@ -9,13 +9,13 @@ sap.ui.define([
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
-				Value: ""
+				Value: "SBIA"
 			});
 
 			this.setModel(oModel, "model");
 		},
 
-		onSelectionChange: function (oEvenet) {
+		onSelectionChange: function (oEvent) {
 			const sKey = oEvent.getParameter("item").getKey();
 		}
 

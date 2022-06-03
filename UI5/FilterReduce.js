@@ -1,46 +1,46 @@
-let aData = [{
-	Adres: 1,
-	Matnr: "X",
-	Miktar: 75
+const aData = [{
+	ID: 1,
+	Material: "X",
+	Amount: 75
 }, {
-	Adres: 1,
-	Matnr: "X",
-	Miktar: 100
+	ID: 1,
+	Material: "X",
+	Amount: 100
 }, {
-	Adres: 1,
-	Matnr: "Y",
-	Miktar: 150
+	ID: 1,
+	Material: "Y",
+	Amount: 150
 }, {
-	Adres: 2,
-	Matnr: "Y",
-	Miktar: 100
+	ID: 2,
+	Material: "Y",
+	Amount: 100
 }, {
-	Adres: 2,
-	Matnr: "Z",
-	Miktar: 10
+	ID: 2,
+	Material: "Z",
+	Amount: 10
 }, {
-	Adres: 3,
-	Matnr: "Z",
-	Miktar: 25
+	ID: 3,
+	Material: "Z",
+	Amount: 25
 }];
-
-let xData = aData.reduce(function (acc, val) {
-	let o = acc.filter(function (obj) {
-		return obj.Adres == val.Adres && obj.Matnr == val.Matnr;
+const xData = aData.reduce((aItems, oValue) => {	
+	let oData = oItem.filter(xItem => {
+		return xItem.ID == oValue.ID && xItem.Material == oValue.Material;
 	}).pop() || {
-		Adres: val.Adres,
-		Matnr: val.Matnr,
-		Miktar: 0
+		ID: oValue.ID,
+		Material: oValue.Material,
+		Amount: 0
 	};
-	o.Miktar += val.Miktar;
-	acc.push(o);
-	return acc;
-}, []);
 
-let oData = xData.map(item => {
+	oData.Amount += oValue.Amount;
+	aItems.push(oData);
+
+	return aItems;
+}, []);
+const oXData = xData.map(oItem => {
 	return {
-		Adres: item.Adres,
-		Matnr: item.Matnr,
-		Miktar: item.Miktar
+		ID: oItem.ID,
+		Material: oItem.Material,
+		Amount: oItem.Amount
 	};
-}).filter((v, i, a) => a.findIndex(t => (t.Adres === v.Adres) && (t.Matnr === v.Matnr)) === i);
+}).filter((v, i, a) => a.findIndex(t => (t.ID === v.ID) && (t.Material === v.Material)) === i);

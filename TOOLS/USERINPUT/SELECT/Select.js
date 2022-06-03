@@ -1,27 +1,34 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+	
 		onInit: function () {
-
-			var aList = [{
-				Key: "1",
-				Text: "One"
-			}, {
-				Key: "2",
-				Text: "Two"
-			}, {
-				Key: "3",
-				Text: "Three"
-			}];
-
-			oListModel = new JSONModel(aList);
-			this.setModel(oListModel, "listModel");
-
+			this.setModel(new JSONModel({
+				Key: "",
+				Items: [{
+					Key: "1",
+					Text: "One"
+				}, {
+					Key: "2",
+					Text: "Two"
+				}, {
+					Key: "3",
+					Text: "Three"
+				}]
+			}), "model");
 		},
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onChangeSelect: function (oEvent) {
 			const oData = oEvent.getParameter("selectedItem").getBindingContext().getObject();
@@ -41,7 +48,7 @@ sap.ui.define([
 			const sRowPath = oEvent.getSource().getBindingContext().getPath();
 			const oModel = this.getModel();
 			const oRowData = oModel.getProperty(sRowPath);
-			const aData = this.getView().getBindingContext().getProperty("to_Item").map(sPath => oModel.getProperty("/" + sPath));
+			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
 		}
 
 	});

@@ -1,23 +1,22 @@
 <!-- OPERATION -->
-<ObjectIdentifier text="{= parseInt(${model>Value1})} - {= parseInt(${model>Value2})}"/>
+<ObjectIdentifier text="{= +${model>ValueI} } - {= +${model>ValueII} }"/>
 <!-- IF - ELSE -->
-<Text visible="{= ${model>/checkData} || ${model>/checkValue} }"/>
+<Text visible="{= ${model>/Data} || ${model>/Value} }"/>
 <!-- IF - ELSE -->
-<ObjectIdentifier title="{= ${model>Statu} === '' ? ${model>Value1} : ${model>Value2}}"
-	text="{= ${model>Statu} ? ${model>Value1} : ${model>Value2} }"/>
+<ObjectIdentifier text="{= ${model>Statu} ? ${model>ValueI} : ${model>ValueII} }" title="{= ${model>Statu} === '' ? ${model>ValueI} : ${model>ValueII}}"/>
 <!-- IF - ELSE -->
 <Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }"/>
 <!-- IF - ELSE -->
-<Input enabled="{= !!${oModel>Value} }"/>
+<Input enabled="{= !!${model>Value} }"/>
 <!-- Value ; Contains Data => Enabled = True -->
 <!-- IF : Two Conditions - ELSE -->
-<Input visible="{= ${objectView>/newMachConf} || ${objectView>/editMode} === true ? false : true }"/>
+<Input visible="{= ${model>/Value} || ${model>/Value} === true ? false : true }"/>
 <!-- IF : Not True -->
-<Input enabled="{=$ !{viewModel>/Busy}}"/>
-<Input visible="{= !${viewModel>/MaterialSelected}}"/>
+<Input enabled="{=$ !{model>/Busy}}"/>
+<Input visible="{= !${model>/MaterialSelected}}"/>
 <!-- IF : AND Operator -->
-<Input enabled="{= ${colorCodeModel>/Detail/PantoneStatu} &amp;&amp; ${colorCodeModel>/Info/Statu} === 'Dış'}"/>
+<Input enabled="{= ${model>/ValueI} &amp;&amp; ${model>/ValueII} === 'X' }"/>
 <!-- LESS THAN -->
-<Input valueState="{= parseInt(${viewModel>BantCalisanSayi}) &lt; 0 ? 'Error' : 'Success' }"/>
+<Input valueState="{= +${model>Value} &lt; 0 ? 'Error' : 'Success' }"/>
 <!-- LESS EQUAL THAN -->
-<Input valueState="{= ${viewModel>Zzbukumfire} === '' || +${viewModel>Zzbukumfire} &lt;= 0 ? 'Error' : 'Success' }"/>
+<Input valueState="{= ${model>ValueI} === '' || +${model>ValueII} &lt;= 0 ? 'Error' : 'Success' }"/>

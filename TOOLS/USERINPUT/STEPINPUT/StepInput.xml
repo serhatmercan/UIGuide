@@ -1,1 +1,8 @@
-<StepInput value="{model>/Value}" displayValuePrecision="3" step="1000"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <StepInput value="{model>/Value}"/>
+</core:FragmentDefinition>
+<!-- STEP INPUT - ATTRIBUTES -->
+<!--
+displayValuePrecision="3" 
+step="1000"
+-->

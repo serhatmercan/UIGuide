@@ -3,12 +3,8 @@ sap.ui.define([], function () {
 
 	return {
 
-		validField: function (sValue) {
-			if (sValue.match(/[a-zA-Z&^(\+|-|\*|\/|=|>|<|>=|<=|&|\||%|!|\^|\(|\))$&\.-]/)) {
-				return false;
-			} else {
-				return true;
-			}
+		validField: function (sValue) {			
+			return sValue.match(/[a-zA-Z&^(\+|-|\*|\/|=|>|<|>=|<=|&|\||%|!|\^|\(|\))$&\.-]/) ? true : false;
 		},
 
 		padLeft: function (num, digit) {

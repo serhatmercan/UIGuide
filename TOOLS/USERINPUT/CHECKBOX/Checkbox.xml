@@ -1,11 +1,13 @@
-<CheckBox id="idCheckBox" selected="{model>/Value}" valueState="Information" visible="false"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <CheckBox selected="{model>/Value}"/>
+</core:FragmentDefinition>
 <!-- CHECKBOX ATTRIBUTES -->
 <!-- 
-
+id="CheckBox"
+text="{i18n>text}"
+valueState="Information" 
 width="auto"
 
-text="Check Box Text" 
- 
 selected="true"
-
+visible="false"
 -->

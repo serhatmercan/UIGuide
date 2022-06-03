@@ -3,12 +3,12 @@
 	<Dialog id="VHDialog" title="{i18n>title}" afterClose="onACVH">
 		<content>
 			<VBox fitContainer="true">
-				<smartFilterBar:SmartFilterBar id="SFB" entitySet="VHSet" persistencyKey="SFPKey" initialized="onInitST"/>
-				<smartTable:SmartTable id="ST" entitySet="VHSet" enableAutoBinding="true" initiallyVisibleFields="ID,Value" smartFilterId="SFB"
+				<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFPKey" initialized="onInitST"/>
+				<smartTable:SmartTable id="ST" entitySet="...Set" enableAutoBinding="true" initiallyVisibleFields="ID,Value" smartFilterId="SFB"
 					tableType="ResponsiveTable" useExportToExcel="false" useTablePersonalisation="false" beforeRebindTable="onBRT">
 					<Table id="Table" growing="true" growingScrollToLoad="true" growingThreshold="100">
 						<items>
-							<ColumnListItem type="Navigation" press="onSelectVH"/>
+							<ColumnListItem type="Navigation" press="onSelect"/>
 						</items>
 					</Table>
 				</smartTable:SmartTable>

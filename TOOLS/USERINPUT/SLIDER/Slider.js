@@ -1,22 +1,19 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"serhatmercan/Util"
-], function (BaseController, JSONModel, Util) {
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit: function () {
-			const oModel = new JSONModel({
-				Busy: false,
-				Items: [],
-				Value: ""
-			});
-
-			this.setModel(oModel, "model");
-
-			const sID = Util.getID();
+			this.setModel(
+				new JSONModel({
+					Busy: false,
+					Items: [],
+					Value: ""
+				}), "model"
+			);
 		}
 
 	});

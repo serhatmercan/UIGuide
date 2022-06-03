@@ -14,11 +14,14 @@ sap.ui.define([
 
 		onInit: function () {
 			this.setModel(
-				new JSONModel({
-				Value: "",
-				Integer: 1,
-				Unit: ""
+				new JSONModel({					
+					Integer: 1,
+					Unit: "",
+					Value: ""
 			}), "model");
+
+			this.byId("Input").focus();
+			this.byId("Input").setValue("");
 		},
 
 		/* ============== */
@@ -32,22 +35,42 @@ sap.ui.define([
 			this.sPath = "";
 		},
 
-		onBRT: function (oEvent) {
-			const oBindingParams = oEvent.getParameter("bindingParams");
+		onBRT: function (oEvent) {			
 			const oFilterPeriod = new Filter("Key", FilterOperator.EQ, "X");
 			const oFilterPeriodX = new Filter("Key", FilterOperator.CP, "*");
 
-			oBindingParams.filters.push(oFilterPeriod);
+			oEvent.getParameter("bindingParams").filters.push(oFilterPeriod);
+		},	
+
+		onCancel: function () {
+			this.oVHDialog.destroy();
+			this.oVHDialog = null;
+		},
+
+		onChangeInput: function (oEvent) {
+			const sValue = oEvent.getParameter("newValue");
+
+			this.validateField(oEvent);
+		},
+
+		onConfirm: function (oEvent) {
+			const oData = oEvent.getParameter("selectedItem").getBindingContext().getProperty();
+			const oSelectedItem = oEvent.getParameter("selectedItem");
+			const sTitle = oSelectedItem.getTitle();
+			const sDescription = oSelectedItem.getDescription();
+			const sInfo = oSelectedItem.getInfo();
+
+			this.oVHDialog.close();
 		},
 
 		onInitST: function () {
-			let oSmartFilter = this.byId("SFB");
+			const oSFB = this.byId("SFB");
 			let oJSONData = {};
 			let oID = {};
 
 			this.sID = "X";
 
-			if (oSmartFilter && this.sID) {
+			if (oSFB && this.sID) {
 				oID = {
 					items: [{
 						key: this.sID
@@ -56,10 +79,18 @@ sap.ui.define([
 				oJSONData.ID = oID;
 			}
 
-			oSmartFilter.setFilterData(oJSONData);
+			oSFB.setFilterData(oJSONData);
 		},
 
-		onSelectVH: function (oEvent) {
+		onSearch: function (oEvent) {
+			const aFilters = [
+				new Filter("Title", FilterOperator.Contains, oEvent.getParameter("value"))
+			];
+
+			oEvent.getParameter("itemsBinding").filter(aFilters);
+		},
+
+		onSelect: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContextPath();
 			const sID = this.getModel().getProperty(sPath + "/ID");
 			const oModel = this.getModel("model");
@@ -71,7 +102,7 @@ sap.ui.define([
 			this.onACVH();
 		},
 
-		onVHR: function () {
+		onVHR: function(oEvent){
 			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
 
 			this.oVHDialog = sap.ui.xmlfragment("VH", "com.serhatmercan.SmartSearchHelp", this);
@@ -83,113 +114,48 @@ sap.ui.define([
 			this.oVHDialog.open();
 		},
 
-		onChangeInput: function (oEvent) {
-			var sValue = oEvent.getParameter("newValue");
+		onVHR: function () {
+			if (!this.oVHDialog) {
+				this.oVHDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.InputSHList", this);				
+				this.getView().addDependent(this.oVHDialog);			
+			}
 
-			this.onValidateField(oEvent);
+			this.oVHDialog.open();
 		},
+		
+		onVHR: function () {
+			const aFilters = [
+				new Filter("Value", FilterOperator.Contains, "X")
+			];
 
-		onFocusInput: function () {
-			this.byId("idInput").focus();
-		},
+			if (!this.oVHDialog) {
+				this.oVHDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.InputSHList", this);
+				this.oVHDialog._oSubHeader.setVisible(false);
+				this.getView().addDependent(this.oVHDialog);
+			}
 
-		onValidateField: function (oEvent) {
-			const iValue = +oEvent.getParameters().value;
+			this.oVHDialog._oDialog.attachBeforeOpen((oEvent) => {
+				const aFilters = [
+					new Filter("Value", FilterOperator.EQ, this.getModel("model").getProperty("/Value"))
+				];	
+
+				this.byId("SD").getBinding("items").filter(aFilters);
+			});
+
+			sap.ui.core.Fragment.byId(this.getView().getId(), "SD").getBinding("items").filter(aFilters);
+		},	
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		validateField: function (oEvent) {
+			const iValue = +oEvent.getParameter("value");
 			const oSource = oEvent.getSource();
 			const sProperty = oSource.getBinding("value").getPath();
-			const sPath = oSource.getParent().getBindingContext("viewModel").getPath();
+			const sPath = oSource.getParent().getBindingContext("model").getPath();
 
-			this.getModel("viewModel").setProperty(sPath + "/" + sProperty, iValue > 0 ? iValue : 0);
-		},
-
-		clearInput: function (oEvent) {
-			oEvent.getSource().setValue("");
-		},
-
-		onPressSHList: function () {
-
-			if (!this._oInputSHList) {
-				this._oInputSHList = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.InputSHList", this);
-				this._oInputSHList._oSubHeader.setVisible(false);
-				this.getView().addDependent(this._oInputSHList);
-			}
-
-			this._oInputSHList._oDialog.attachBeforeOpen(function () {
-
-				var oDialog = this.byId("idInputSH"),
-					sValue = this.getModel("model").getProperty("/Value"),
-					aFilters = [];
-
-				if (sMatnr) {
-					aFilters.push(new Filter("Title", FilterOperator.EQ, sValue));
-				}
-
-				oDialog.getBinding("items").filter(aFilters);
-
-			}.bind(this));
-
-			this._oInputSHList.open();
-		},
-
-		onConfirmSD: function (oEvent) {
-			var oSelectedItem = oEvent.getParameter("selectedItem"),
-				sTitle = oSelectedItem.getTitle(),
-				sDescription = oSelectedItem.getDescription(),
-				sInfo = oSelectedItem.getInfo();
-
-			this._oInputSHList.close();
-		},
-
-		onCancelSD: function () {
-			this._oInputSHList.destroy();
-			this._oInputSHList = null;
-		},
-
-		onShowVHValue: function () {
-			let aFilters = [new Filter("Value", FilterOperator.Contains, this._sValue)];
-
-			if (!this._oVHValue) {
-				this._oVHValue = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.valueHelp.Value", this);
-				this._oVHValue.setModel(this.getModel("i18n"), "i18n");
-				this._oVHValue.setModel(this.getModel());
-				this.getView().addDependent(this._oVHValue);
-				sap.ui.core.Fragment.byId(this.getView().getId(), "idSDValue").getBinding("items").filter(aFilters);
-			}
-
-			this._oVHValue.open();
-		},
-
-		onSearchSDValue: function (oEvent) {
-			const aFilters = [new Filter("Title", FilterOperator.Contains, oEvent.getParameter("value"))];
-			oEvent.getParameter("itemsBinding").filter(aFilters);
-		},
-
-		onConfirmSDValue: function (oEvent) {
-			let oSelectedItem = oEvent.getParameter("selectedItem"),
-				sTitle = oSelectedItem.getTitle(),
-				sDescription = oSelectedItem.getDescription(),
-				sInfo = oSelectedItem.getInfo();
-
-			let oData = oEvent.getParameter("selectedItem").getBindingContext().getProperty(),
-				oModel = this.getView().getModel("model");
-
-			oModel.setProperty("/Value", oData.Value);
-
-			this.onCancelSDValue();
-		},
-
-		onCancelSDValue: function () {
-			this._oVHValue.close();
-			this._oVHValue.destroy();
-			this._oVHValue = null;
-		},
-
-		onLiveChange: function (oEvent) {
-
-		},
-
-		onSubmit: function (oEvent) {
-			const sValue = oEvent.getParameter("value");
+			this.getModel("model").setProperty(sPath + "/" + sProperty, iValue > 0 ? iValue : 0);
 		}
 
 	});

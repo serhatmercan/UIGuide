@@ -1,4 +1,6 @@
-<ndc:BarcodeScannerButton id="idBSB" scanSuccess="onScanSuccess"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ndc="sap.ndc">
+    <ndc:BarcodeScannerButton id="BSB" scanSuccess="onScanSuccess"/>
+</core:FragmentDefinition>
 
 <!-- BARCODE SCANNER BUTTON - ATTRIBUTES -->
 <!--

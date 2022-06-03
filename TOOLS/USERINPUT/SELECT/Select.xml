@@ -1,26 +1,28 @@
-<Select items="{listModel>/}" selectedKey="{listModel>/Key}" change="onChangeSelect">
-	<core:Item key="{listModel>Key}" text="{listModel>Text}"/>
-</Select>
-<Select items="{path: '/VHSelectSet'}" selectedKey="{listModel>/Text}" autoAdjustWidth="false" required="true" showSecondaryValues="true"
-	visible="false">
-	<core:ListItem key="{Key}" text="{Text}" additionalText="{AdditionalText}"/>
-</Select>
-<Select id="idSelect" selectedKey="{listModel>/Key}" showSecondaryValues="true">
-	<core:ListItem key="X" additionalText="X" text="X Data"/>
-	<core:ListItem key="Y" additionalText="Y" text="Y Data"/>
-</Select>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Select items="{model>/Items}" selectedKey="{model>/Key}">
+		<core:Item key="{model>Key}" text="{model>Text}"/>
+	</Select>
+</core:FragmentDefinition>
 <!-- SELECT ATTRIBUTES -->
 <!-- 
-
-xmlns:core="sap.ui.core"
-
+id="Select"
+items="{/...Set}"
+items="{ path:'model>/Items', templateShareable: 'true' }"	
 maxWidth="15rem"
+valueState="Error"
+valueStateText="{i18n>error}"
 width="5rem"
 
+autoAdjustWidth="false"
 forceSelection="true" 
-valueState="Error"
-valueStateText="Error Occured"
+required="true" 
+showSecondaryValues="true"
+visible="false"
 
-items="{path:'listModel>/' , templateShareable: 'true'}"	 items="{ path: '/VHSelectSet' }"
+change="onChangeSelect"
+-->
 
+<!-- LIST ITEM ATTRIBUTES -->
+<!--
+	<core:ListItem key="{model>Key}" additionalText="{model>AdditionalText}" text="{model>Text}"/>
 -->

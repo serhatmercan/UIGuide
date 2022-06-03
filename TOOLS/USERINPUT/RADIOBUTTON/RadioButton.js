@@ -6,22 +6,35 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
 		onInit: function () {
 			const oModel = new JSONModel({
-				Busy: false,
-				Value: ""
+				RBExternal: true,
+				RBInternal: false,
 			});
 
 			this.setModel(oModel, "model");
 		},
 
-		getSelectedValue: function () {
-			const iIndex = this.byId("idRBG").getSelectedIndex();
-		},
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onSelectRBG: function (oEvent) {
-			const iIndex = oEvent.getSource().getSelectedIndex();
+			
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		getSelectedIndex: () => {
+			return this.byId("idRBG").getSelectedIndex();
 		}
+		
 
 	});
 

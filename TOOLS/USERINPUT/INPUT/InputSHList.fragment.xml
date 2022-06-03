@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<SelectDialog id="idInputSH" title="{i18n>selectDialog}" contentHeight="auto" items="{ path: '/VHSelectDialogSet', suspended: true }"
-		confirm="onConfirmSD" cancel="onCancelSD" search="onSearchSDValue" contentHeight="auto" growing="true" growingThreshold="100">
+	<SelectDialog id="SD" contentHeight="auto" growingThreshold="100" title="{i18n>title}" items="{ path: '/...Set', suspended: true }" growing="true"  
+		cancel="onCancel" confirm="onConfirm" search="onSearch">
 		<StandardListItem title="{Title}" description="{Description}" info="{Info}" type="Active"/>
 	</SelectDialog>
 </core:FragmentDefinition>

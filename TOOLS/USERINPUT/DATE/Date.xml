@@ -1,17 +1,21 @@
-<!-- DATE TYPES -->
-<DateTimeInput value="{path: 'model>/Date', type: 'sap.ui.model.type.Date'}" type="Date" change="onChangeDTI"/>
-<DateRangeSelection dateValue="{mode>/Date1}" secondDateValue="{model>/Date2}" required="true"/>
-<!--
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <DateTimeInput value="{ path: 'model>/Date', type: 'sap.ui.model.type.Date' }" type="Date"/>
+    <DateRangeSelection dateValue="{model>/DateI}" secondDateValue="{model>/DateII}"/>
+</core:FragmentDefinition>
 
+<!--
 DATE TIME INPUT - ATTRIBUTES
 
-id="idDTI" 
-name="nameDTI" 
+id="DTI" 
+name="DTI" 
 
-visible="true" 
+visible="true"
+
+change="onChangeDTI"
 
 DATE RANGE SELECTION - ATTRIBUTES
 
 displayFormat="short" 
 
+required="true"
 -->

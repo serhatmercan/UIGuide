@@ -1,16 +1,19 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<MultiComboBox id="idMCB" items="{model>Items}" selectedKeys="{viewModel>Values}" selectionFinish="onSelectionFinishMCB"
-		showSecondaryValues="true">
-		<core:ListItem key="{model>ID}" text="{model>Text}" additionalText="{FasonAdi}"/>
+	<MultiComboBox items="{model>/Items}" selectedKeys="{model>/Values}">
+		<core:ListItem key="{model>ID}" text="{model>ID}"/>
 	</MultiComboBox>
 </core:FragmentDefinition>
-<!-- 
-<MultiComboBox items="{path:'/VhIDSet', templateShareable:true}" selectedKeys="{viewModel>Values}"showSecondaryValues="true">
-	<core:ListItem key="{ID}" text="{Text}" additionalText="{ID}"/>
-</MultiComboBox>
+<!-- MULTI COMBO BOX - LAYOUT  -->
+<!--
+showSecondaryValues="true"
+<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
 -->
-<!-- MULTI COMBO BOX  -->
-<!-- 
-items="{ path: '/VHSet' }"
-items="{ path: 'model>/Items', sorter: { path: 'model>ID', group: true, ascending:false } }"
+<!-- MULTI COMBO BOX - ATTRIBUTES  -->
+<!--
+id="MCB"	 
+items="{/...Set}"
+items="{ path:'/...Set', templateShareable:true }"
+items="{ path: 'model>/Items', sorter: { path: 'model>ID', ascending:false, group: true } }"
+
+selectionFinish="onSFMultiCombobox"
 -->

@@ -1,2 +1,15 @@
-<TextArea value="{model>Value}" growing="true" growingMaxLines="10" height="100%" maxLength="1000" rows="5" showExceededText="true"
-	width="100%" valueLiveUpdate="true"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TextArea value="{model>Value}"/>
+</core:FragmentDefinition>
+<!-- TEXT AREA - ATTRIBUTES -->
+<!--
+growingMaxLines="10" 
+height="100%" 
+maxLength="1000" 
+rows="5"
+width="100%"
+
+growing="true"  
+showExceededText="true"
+valueLiveUpdate="true"
+-->

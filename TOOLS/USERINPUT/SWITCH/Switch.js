@@ -21,7 +21,7 @@ sap.ui.define([
 			const sPath = oEvent.getSource().getBindingContext().getPath();
 
 			this.getModel("model").setProperty(sPath + "/Value", bState);
-		},
+		}
 
 	});
 

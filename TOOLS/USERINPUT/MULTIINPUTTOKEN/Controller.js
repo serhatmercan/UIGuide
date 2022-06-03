@@ -11,38 +11,50 @@ sap.ui.define([
 
 		formatter: formatter,
 
-		onInit: function () {
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-			var oModel = new JSONModel({
+		onInit: function () {
+			const oModel = new JSONModel({
 				Value: "",
 				List: []
 			});
 
 			this.setModel(oModel, "model");
 
+			this.byId("MI").setValueState("Error");
 		},
 
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
 		onCancelSD: function () {
-			this._oDialog.destroy();
-			this._oDialog = null;
+			this.oDialog.destroy();
+			this.oDialog = null;
+		},	
+
+		onCancelTSD: function () {
+			this.oDialog.destroy();
+			this.oDialog = null;
 		},
 
 		onChange: function (oEvent) {
-			var sValue = oEvent.getParameter("newValue"),
-				sPath = oEvent.getSource().getBindingInfo("tokens").path,
-				sModel = oEvent.getSource().getBindingInfo("tokens").model,
-				sKeyField = oEvent.getSource().getBindingInfo("tokens").template.getBindingInfo("key").parts[0].path,
-				aList = this.getModel(sModel).getProperty(sPath),
-				oObj = {};
+			const sValue = oEvent.getParameter("newValue");
+			const sPath = oEvent.getSource().getBindingInfo("tokens").path;
+			const sModel = oEvent.getSource().getBindingInfo("tokens").model;
+			const sKeyField = oEvent.getSource().getBindingInfo("tokens").template.getBindingInfo("key").parts[0].path;
+			const aList = this.getModel(sModel).getProperty(sPath);
+			const oObj = {};
 
 			oObj[sKeyField] = formatter.validField(sValue) ? formatter.padLeft(sValue, oEvent.getSource().getMaxLength()) : sValue.toUpperCase();
+			
 			aList.push(oObj);
+			
 			this.getModel(sModel).setProperty(sPath, aList);
+			
 			oEvent.getSource().setValue("");
-		},
-
-		onChangeValueState: function () {
-			this.byId("idMI").setValueState("Error");
 		},
 
 		onConfirmSD: function () {
@@ -56,29 +68,52 @@ sap.ui.define([
 			this.onCancelSD();
 		},
 
-		onTokenChange: function (oEvent) {
+		onConfirmTSD: function (oEvent) {
+			const oModel = this.getModel();
+			const aItems = [];
 
+			oEvent.getParameter("selectedContexts").forEach(oContext => {
+				aItems.push(oModel.getProperty(oContext.getPath()));
+			});
+
+			this.getModel("viewModel").setProperty("/List", aItems);
+			
+			this.onCancelTSD();
+		},
+
+		onSearchSD: function (oEvent) {
+			oEvent.getSource().getBinding("items").filter([
+				new Filter("ID", FilterOperator.Contains, oEvent.getParameter("value"))
+			]);
+		},
+
+		onSearchTSD: function (oEvent) {
+			const sValue = oEvent.getParameter("value");
+			const aFilters = [
+				new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())
+			];
+
+			sap.ui.getCore().byId(oEvent.getSource().getId()).getBinding("items").filter(aFilters, "Application");
+		},
+
+		onTC: function (oEvent) {
 			if (oEvent.getParameter("type") === "removed") {
-
-				var oToken = oEvent.getParameter("token"),
-					sKey = oToken.getProperty("key"),
-					sKeyField = oToken.getBindingInfo("key").parts[0].path,
-					aParts = oToken.getBindingInfo("key").binding.getContext().getPath().split("/"),
-					sPath = "/" + aParts[1],
-					oModel = this.getModel("model");
-
-				var sIndex = oModel.getProperty(sPath).map(function (obj) {
-					return obj[sKeyField];
+				const oToken = oEvent.getParameter("token");
+				const sKey = oToken.getProperty("key");
+				const sKeyField = oToken.getBindingInfo("key").parts[0].path;
+				const aParts = oToken.getBindingInfo("key").binding.getContext().getPath().split("/");
+				const sPath = "/" + aParts[1];
+				const oModel = this.getModel("model");
+				const sIndex = oModel.getProperty(sPath).map((oData) => {
+					return oData[sKeyField];		
 				}).indexOf(sKey);
 
 				oModel.getProperty(sPath).splice(sIndex, 1);
 				oModel.setProperty(sPath, oModel.getProperty(sPath));
-
 			}
-
 		},
 
-		onTokenUpdate: function (oEvent) {
+		onTU: function (oEvent) {
 			const oSource = oEvent.getSource();
 			const iDeletedTokenRow = oSource.getParent().getIndex();
 			const aTokens = oSource.getTokens();
@@ -88,43 +123,15 @@ sap.ui.define([
 			oModel.setProperty("/List", oModel.getProperty("/List").filter(oToken => oToken.ID !== oEvent.getParameter("removedTokens")[0].getKey()));
 		},
 
-		onValueHelpRequest: function (oEvent) {
-			this._oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
-			this.getView().addDependent(this._oDialog);
-			this._oDialog.open();
-		},
-
-		onSearchSD: function (oEvent) {
-			oEvent.getSource().getBinding("items").filter([new Filter("ID", FilterOperator.Contains, oEvent.getParameter("value"))]);
-		},
-
-		onSearchTSD: function (oEvent) {
-			var sValue = oEvent.getParameter("value"),
-				oTable = sap.ui.getCore().byId(oEvent.getSource().getId()),
-				aFilters = [];
-
-			aFilters.push(new Filter("Value", FilterOperator.Contains, sValue.toUpperCase()));
-			oTable.getBinding("items").filter(aFilters, "Application");
-		},
-
-		onConfirmTSD: function (oEvent) {
-			var aSelectedContexts = oEvent.getParameter("selectedContexts"),
-				oModel = this.getModel("model")
-			sPath = "/List";
-
-			for (var i = 0; i < aSelectedContexts.length; i++) {
-				oModel.getProperty(sPath).push(this.getModel().getProperty(aSelectedContexts[i].sPath));
-			}
-
-			oModel.setProperty(sPath, oModel.getProperty(sPath));
-			oModel.refresh();
-			this.onCancelTSD();
-		},
-
-		onCancelTSD: function () {
-			this._oDialog.destroy();
-			this._oDialog = null;
+		onVHR: function (oEvent) {
+			this.oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
+			this.getView().addDependent(this.oDialog);
+			this.oDialog.open();
 		}
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
 	});
 

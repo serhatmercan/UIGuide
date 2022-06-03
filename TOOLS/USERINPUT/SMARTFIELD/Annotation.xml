@@ -10,7 +10,7 @@
 			<Annotations Target="Metadata.ID/ID">
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
-						<PropertyValue Property="CollectionPath" String="VHIDSet"/>
+						<PropertyValue Property="CollectionPath" String="...Set"/>
 						<PropertyValue Property="Parameters">
 							<Collection>
 								<Record Type="Common.ValueListParameterOut">

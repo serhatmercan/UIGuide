@@ -14,7 +14,7 @@ sap.ui.define([
 		},
 
 		addDialog: function () {
-			this._oDialog.setModel(this.getModel("message"), "message");
+			this.oDialog.setModel(this.getModel("message"), "message");
 		},
 
 		addMessages: function(){
@@ -22,12 +22,14 @@ sap.ui.define([
 			const sMessage = this.getResourceBundle().getText("sMessage");
 			let aMessages = [];	
 
-			aMessages.push(new sap.ui.core.message.Message({
-				message: sMessage,
-				processor: oModel,
-				technical: true,
-				type: sap.ui.core.MessageType.Error,								
-			}));
+			aMessages.push(
+				new sap.ui.core.message.Message({
+					message: sMessage,
+					processor: oModel,
+					technical: true,
+					type: sap.ui.core.MessageType.Error
+				})
+			);
 
 			sap.ui.getCore().getMessageManager().addMessages(aMessages);
 			MessageToast.show(that.getResourceBundle().getText("errorOccurred"));
@@ -69,8 +71,8 @@ sap.ui.define([
 		onShowMessages: function () {
 			const oMessagesButton = oEvent.getSource();
 
-			if (!this._oMessagePopover) {
-				this._oMessagePopover = new sap.m.MessagePopover({
+			if (!this.oMessagePopover) {
+				this.oMessagePopover = new sap.m.MessagePopover({
 					items: {
 						path: "message>/",
 						template: new sap.m.MessagePopoverItem({
@@ -81,10 +83,10 @@ sap.ui.define([
 					}
 				});
 
-				oMessagesButton.addDependent(this._oMessagePopover);
+				oMessagesButton.addDependent(this.oMessagePopover);
 			}
 
-			this._oMessagePopover.toggle(oMessagesButton);
+			this.oMessagePopover.toggle(oMessagesButton);
 		}
 		
 	});

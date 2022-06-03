@@ -9,22 +9,22 @@
 			<Panel>
 				<FlexBox height="100%" width="100%" alignContent="Center" alignItems="Center" justifyContent="Center">
 					<items>
-						<GenericTile id="idGT1" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt1}" press="onGoToObject">
+						<GenericTile id="GTI" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTI}" press="onGoToObject">
 							<TileContent>
 								<ImageContent src="sap-icon://add-activity"/>
 							</TileContent>
 						</GenericTile>
-						<GenericTile id="idGT2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt2}" press="onGoToObject">
+						<GenericTile id="GTII" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTII}" press="onGoToObject">
 							<TileContent>
 								<ImageContent src="sap-icon://add-activity"/>
 							</TileContent>
 						</GenericTile>
-						<GenericTile id="idGT3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt3}" press="onGoToObject">
+						<GenericTile id="GTIII" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTIII}" press="onGoToObject">
 							<TileContent>
 								<ImageContent src="sap-icon://show-edit"/>
 							</TileContent>
 						</GenericTile>
-						<GenericTile id="idGT4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>gt4}">
+						<GenericTile id="GTIV" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTIV}">
 							<TileContent>
 								<NumericContent value="{model>/Value}" valueColor="Good"/>
 							</TileContent>

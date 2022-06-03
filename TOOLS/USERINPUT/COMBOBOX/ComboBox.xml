@@ -1,11 +1,30 @@
-<ComboBox id="idComboBox" class="sapUiTinyMarginBegin" items="{ path:'/ComboBoxSet', suspended: true, templateShareable: true }"
-	value="{model>/Value}" selectedKey="{model>/Value}" showButton="true" showSecondaryValues="true" change="onChangeCB"
-	loadItems="onLoadItemsCB" selectionChange="onSelectionChangeCB" required="true">
-	<items>
-		<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}"/>
-		<core:Item key="{model>ID}" text="{model>ID}"/>
-	</items>
-</ComboBox>
-<ComboBox items="{ path: 'model>/Items', templateShareable: true }" selectedKey="{model>/Item}" showSecondaryValues="true">
-	<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Value}"/>
-</ComboBox>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ComboBox items="{/...Set}" selectedKey="{model>/Value}" >
+		<items>
+			<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}"/>			
+		</items>
+	</ComboBox>
+</core:FragmentDefinition>
+<!--
+COMBO BOX - ATTRIBUTES
+
+id="ComboBox" 
+class="sapUiTinyMarginBegin"
+items="{model>/Items}"
+items="{ path:'/...Set', suspended: true, templateShareable: true }"
+selectedKey="{model>/Item}"
+value="{model>/Value}"
+
+required="true"
+showButton="true" 
+showSecondaryValues="true" 
+
+change="onChangeCB"
+loadItems="onLoadItemsCB" 
+selectionChange="onSelectionChangeCB" 
+
+ITEMS - ATTRIBUTES
+<core:Item key="{model>ID}" text="{model>ID}"/>
+<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
+
+-->

@@ -1,2 +1,11 @@
-<TimePicker displayFormat="HH:mm:ss" placeholder="dd:mm" editable="false"
-	value="{ path: 'model>Value', type: 'sap.ui.model.odata.type.Time', formatOptions:{ style:'short', UTC: true } }"></TimePicker>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TimePicker value="{model>Value}"/>
+</core:FragmentDefinition>
+<!-- TIME PICKER - ATTRIBUTES -->
+<!--
+displayFormat="HH:mm:ss" 
+placeholder="dd:mm" 
+value="{ path: 'model>Value', type: 'sap.ui.model.odata.type.Time', formatOptions:{ style:'short', UTC: true } }"
+
+editable="false"
+-->

@@ -10,7 +10,7 @@ sap.ui.define([
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
-				Data: [],
+				Items: [],
 				Value: ""
 			});
 
@@ -21,8 +21,8 @@ sap.ui.define([
 			const oSource = oEvent.getSource();
 			const oView = this.getView();
 
-			if (!this._oPopover) {
-				this._materialDetailDialog = Fragment.load({
+			if (!this.oPopover) {
+				this.oMaterialDetailDialog = Fragment.load({
 					id: oView.getId(),
 					name: "..fragment.Popover",
 					controller: this
@@ -31,7 +31,7 @@ sap.ui.define([
 					return oPopover;
 				});
 			}
-			this._oPopover.then(function (oPopover) {
+			this.oPopover.then(function (oPopover) {
 				oPopover.openBy(oButton);
 			});
 		},

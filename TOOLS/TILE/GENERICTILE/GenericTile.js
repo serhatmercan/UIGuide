@@ -11,9 +11,9 @@ sap.ui.define([
 			const sID = oEvent.getSource().getId();
 			const oRouter = this.getRouter();
 
-			if (sID.includes("idGT1")) {
+			if (sID.includes("GTI")) {
 				oRouter.navTo("object", {
-					Mode: "Obj"
+					Mode: "X"
 				});
 			}
 		}

@@ -1,38 +1,51 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+], function (BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-			var oModel = new JSONModel({
-				Value: ""
+		onInit: function () {
+			this.setModel(
+				new JSONModel({
+					Items,
+					Value: ""
+			}), "model");
+			
+			this.byId("ComboBox").fireSelectionChange({
+				selectedItem: sID
 			});
 
-			this.setModel(oModel, "model");
-
+			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);
 		},
 
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
 		onChangeCB: function (oEvent) {
-			let oItem = oEvent.getSource().getSelectedItem(),
-				oObject = oItem.getBindingContext().getObject(),
-				sText = oItem.getProperty("text"),
-				sAdditionalText = oItem.getProperty("additionalText"),
-				sPath = oEvent.getSource().getParent().getBindingContext("model").getPath(),
-				oModel = this.getView().getModel("model"),
-				oComboBox = oEvent.getSource();
+			const oComboBox = oEvent.getSource();
+			const oItem = oEvent.getSource().getSelectedItem();
+			const oModel = this.getModel("model");			
+			const oObject = oItem.getBindingContext().getObject();
+			const sAdditionalText = oItem.getProperty("additionalText");
+			const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
+			const sValue = this.getModel("model").getProperty("/Value");
+			const sText = oItem.getProperty("text");
+			let aFilters = [];					
 
 			oModel.setProperty(sPath + "/Value", sText);
 
-			var sValue = this.getModel("model").getProperty("/Value"),
-				aFilters = [];
-
-			if (sValue) {
-				aFilters.push(new Filter("Value", FilterOperator.EQ, sValue));
-			}
+			aFilters = [
+				new Filter("Value", FilterOperator.EQ, sValue)
+			];
 
 			oComboBox.getBinding("items").filter(aFilters);
 
@@ -40,32 +53,25 @@ sap.ui.define([
 		},
 
 		onCheckValue: function (oEvent) {
-			let oComboBox = oEvent.getSource(),
-				oItem = oEvent.getSource().getSelectedItem();
+			const oComboBox = oEvent.getSource();
 
-			if (!oItem) {
-				let oModel = this.getModel("model");
-				oColorCodeModel.setProperty("/Value", "");
-				oColorCodeModel.refresh(true);
-				oComboBox.setValueState("Error");
-			} else {
-				oComboBox.setValueState("None");
-			}
+			oComboBox.setValueState(oComboBox.getSelectedItem() ? "None" : "Error");
 		},
 
 		onFilterTableRow: function (oEvent) {
+			const aRows = this.byId("Table").getItems();
 			const oSource = oEvent.getSource();
 			const oItem = oSource.getSelectedItem();
 			const iIndex = oSource.getParent().getBindingContext("model").getPath().slice(-1);
-			const aRows = this.byId("idTable").getItems();
+			let aFilters = [];		
 
 			if (oSource) {
-				const aFilters = [
+				aFilters = [
 					new Filter("ID", FilterOperator.EQ, oSource.getAdditionalText())
 				];
 
-				aRows.forEach((item) => {
-					item.getCells()[3].getBinding("items").filter(aFilters);
+				aRows.forEach((oRow) => {
+					oRow.getCells()[3].getBinding("items").filter(aFilters);
 				});
 			}
 		},
@@ -84,11 +90,19 @@ sap.ui.define([
 			const sKey = oItem.getKey();
 			const sValue = oItem.getValue();
 		},
+		
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
-		// Trigger to ComboBox
-		this.byId("idComboBox").fireSelectionChange({
-			selectedItem: sID
-		});
+		attachRequestCompleted: function(){
+			setTimeout(() => {
+				this.byId("ComboBox").fireChange();
+				this.byId("ComboBox").getInnerControls()[0].getBinding("items").filter([
+					new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
+				]);
+			}, 500);		
+		}
 
 	});
 

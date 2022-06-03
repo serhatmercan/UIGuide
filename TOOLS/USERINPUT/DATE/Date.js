@@ -1,13 +1,13 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit: function () {
-
-			var oModel = new JSONModel({
+			const oModel = new JSONModel({
 				Date: new Date(),
 				Date1: null,
 				Date2: null,
@@ -18,8 +18,8 @@ sap.ui.define([
 		},
 
 		onChangeDTI: function (oEvent) {
-			var sDate = oEvent.getParameters().dateValue, // Input Value
-				sYear = sDate.getFullYear(); // Input Value's Year
+			const dDate = oEvent.getParameter("dateValue");
+			const iYear = dDate.getFullYear();
 		}
 
 	});
