@@ -1,7 +1,7 @@
 {
 	"sap.app": {
 		"dataSources": {
-			"menu": {
+			"Menu": {
 				"uri": "model/Menu.json",
 				"type": "JSON"
 			}
@@ -9,9 +9,9 @@
 	},
 	"sap.ui5": {
 		"models": {
-			"menu": {
+			"Menu": {
 				"type": "sap.ui.model.json.JSONModel",
-				"dataSource": "menu"
+				"dataSource": "Menu"
 			}
 		},
 		"routing": {
@@ -23,60 +23,60 @@
 				"controlAggregation": "detailPages",
 				"bypassed": {
 					"target": [
-						"menu",
-						"notFound"
+						"Menu",
+						"NotFound"
 					]
 				},
 				"async": true
 			},
 			"routes": [{
 				"pattern": "",
-				"name": "menu",
+				"name": "Menu",
 				"target": [
-					"menu"
+					"Menu"
 				]
 			}, {
-				"pattern": "View1",
-				"name": "view1",
+				"pattern": "ViewI",
+				"name": "ViewI",
 				"target": [
-					"menu",
-					"view1"
+					"Menu",
+					"ViewI"
 				]
 			}, {
-				"pattern": "View2",
-				"name": "view2",
+				"pattern": "ViewII",
+				"name": "ViewII",
 				"target": [
-					"menu",
-					"view2"
+					"Menu",
+					"ViewII"
 				]
 			}, {
-				"pattern": "View3",
-				"name": "view3",
+				"pattern": "ViewIII",
+				"name": "ViewIII",
 				"target": [
-					"menu",
-					"view3"
+					"Menu",
+					"ViewIII"
 				]
 			}],
 			"targets": {
-				"menu": {
+				"Menu": {
 					"viewName": "Menu",
 					"viewLevel": 1,
-					"viewId": "menu",
+					"viewId": "Menu",
 					"controlAggregation": "masterPages"
 				},
-				"view1": {
-					"viewName": "View1",
-					"viewId": "view1",
+				"ViewI": {
+					"viewName": "ViewI",
+					"viewId": "ViewI",
 					"viewLevel": 2
 				},
-				"view2": {
-					"viewName": "View2",
-					"viewId": "view2",
+				"ViewII": {
+					"viewName": "ViewII",
+					"viewId": "ViewII",
 					"viewLevel": 2
 				},
-				"view3": {
-					"viewName": "View3",
-					"viewId": "view3",
+				"ViewIII": {
+					"viewName": "ViewIII",
+					"viewId": "ViewIII",
 					"viewLevel": 2
 				}
 			}

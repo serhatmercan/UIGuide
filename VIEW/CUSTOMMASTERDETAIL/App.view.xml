@@ -1,4 +1,0 @@
-<mvc:View controllerName="com.serhatmercan.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" busy="{appView>/busy}"
-		  busyIndicatorDelay="{appView>/delay}" xmlns="sap.m">
-	<SplitApp id="idAppControl" mode="HideMode"/>
-</mvc:View>

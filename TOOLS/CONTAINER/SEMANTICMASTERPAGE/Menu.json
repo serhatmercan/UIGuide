@@ -1,0 +1,16 @@
+[{
+	"Group": "Group - 1",
+	"View": "View1",
+	"Text": "View 1",
+	"Icon": "sap-icon://..."
+}, {
+	"Group": "Group - 1",
+	"View": "View2",
+	"Text": "View 2",
+	"Icon": "sap-icon://..."
+}, {
+	"Group": "Group - 2",
+	"View": "View3",
+	"Text": "View 3",
+	"Icon": "sap-icon://..."
+}]
