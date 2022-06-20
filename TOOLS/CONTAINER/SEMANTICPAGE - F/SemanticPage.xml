@@ -21,3 +21,7 @@
 		</semantic:messagesIndicator>
 	</semantic:SemanticPage>
 </mvc:View>
+<!-- SEMANTIC PAGE - LAYOUT -->
+<!--
+<core:Fragment fragmentName="serhatmercan.fragment.main.Title" type="XML"/>
+-->

@@ -7,6 +7,10 @@ sap.ui.define([
 
 		onPress: function (oEvent) {
 
+		},
+
+		onSendParameter: function(sType, oEvent){
+
 		}
 
 	});

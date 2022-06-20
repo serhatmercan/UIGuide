@@ -14,6 +14,9 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "model");
+
+			this.byId("TreeTable").collapseAll();
+			this.byId("TreeTable").expandToLevel(1);
 		},
 
 		onAddDataToTreeTable: function () {

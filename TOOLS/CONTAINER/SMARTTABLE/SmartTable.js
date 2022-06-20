@@ -19,9 +19,15 @@ sap.ui.define([
 					Data: [],
 					Statu: false
 				}), "model");
-
+			
+			// Grid Table		
 			this.byId("ST").getTable().attachRowSelectionChange((oEvent) => {
 				this.getModel("model").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
+			});
+
+			// Responsive Table			
+			this.byId("ST").getTable().attachSelectionChange((oEvent) => {
+				this.getModel("model").setProperty("/Statu", !!oEvent.getSource().getSelectedContextPaths().length);
 			});
 
 			this.byId("ST").getTable()._getSelectAllCheckbox().setVisible(false);
@@ -141,6 +147,10 @@ sap.ui.define([
 			});
 		},
 
+		onSSBarcode: function (oEvent) {			
+			this.getModel().setProperty(oEvent.getSource().getBindingContext().getPath() + "/ID", oEvent.getParameter("text"));
+		},
+
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
@@ -157,34 +167,20 @@ sap.ui.define([
 			const sID = oModel.getProperty(sBindingPath + "/ID");
 			const aData = [];
 
-			oData.Items.__list.forEach((Item) => {
-				aData.push(oContext.getProperty("/" + Item));
+			oData.Items.__list.forEach((sPath) => {
+				aData.push(oContext.getProperty("/" + sPath));
 			});
 		},
 
-		getSelectedData: function () {
-			const aContexts = this.byId("SmartTable").getSelectedContexts();
-
-			if (aContexts.length > 0) {
-				this.oSelectedData = this.getModel().getProperty(aContexts[0].getPath());
-			}
-		},
-
-		getSelectedDataFromUISmartTable: function () {
-			const oTable = this.byId("ST").getTable();
-			const aContexts = oTable.getBinding("rows").getContexts();
-			const aIndices = oTable.getSelectedIndices();
-			const aData = [];
-
-			aIndices.forEach(iIndex => aData.push(aContexts[iIndex].getObject()));
-
-			return aData;
-		},
-
-		getSelectedMultiData: function () {
+		getSelectedDataFromGridST: function () {
 			const oTable = this.byId("SmartTable").getTable();
-			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
+			
+			return oTable.getSelectedIndices().map(iIndex => oTable.getContextByIndex(iIndex).getObject());
 		},
+
+		getSelectedDataFromResponsiveST: function () {
+			return this.byId("ST").getTable().getSelectedContexts().map(oContext => this.getModel().getProperty(oContext.getPath() + "/"));
+		},		
 
 		getTotalCount: function () {
 			const oTable = this.byId("SmartTable").getTable();
@@ -195,8 +191,8 @@ sap.ui.define([
 		refreshTable: function () {
 			this.byId("SmartTable").clearSelection();
 			this.byId("SmartTable").removeSelections();
-			this.byId("SmartTable").getBinding("items").refresh(true);
-			this.byId("SmartTable").getBinding("rows").refresh(true);
+			this.byId("SmartTable").getBinding("items").refresh(true);	// Grid
+			this.byId("SmartTable").getBinding("rows").refresh(true);	// Responsive
 			this.byId("ST").rebindTable();
 		},
 

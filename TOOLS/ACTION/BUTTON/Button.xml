@@ -11,4 +11,6 @@ iconFirst="true"
 type="Accept" type="Reject"
 
 visible=true
+
+press="onSendParameter('P', $event)"
 -->

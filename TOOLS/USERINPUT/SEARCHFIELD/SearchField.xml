@@ -1,8 +1,16 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
 	<SearchField liveChange="onLiveChange"/>
 </core:FragmentDefinition>
+<!-- SEARCH FIELD - ATTRIBUTES -->
 <!--
-SEARCH FIELD - ATTRIBUTES
-
+id="SearchField"
 width="100%"
+-->
+<!-- SEARCH FIELD - LAYOUT -->
+<!--
+<SearchField>
+	<layoutData>
+		<OverflowToolbarLayoutData maxWidth="500px" priority="NeverOverflow" shrinkable="true"/>
+	</layoutData>
+</SearchField>
 -->

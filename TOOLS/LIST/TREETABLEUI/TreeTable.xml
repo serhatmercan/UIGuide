@@ -14,24 +14,29 @@
 		</t:columns>
 	</t:TreeTable>
 </core:FragmentDefinition>
+<!-- TREE TABLE - ATTRIBUTES -->
 <!--
-TREE TABLE - ATTRIBUTES
-
 id="TreeTable" 
 ariaLabelledBy="title"  
-selectionMode="MultiToggle"
+selectionMode="MultiToggle" selectionMode="None"
 visibleRowCount="5" 
+visibleRowCountMode="Fixed"
 
-enableSelectAll="false"
+enableSelectAll="false" 
 
 toggleOpenState="onTOS"
 
 TREE TABLE - EXTENSION
 <t:extension>
 	<OverflowToolbar>
-	<Title text="{i18n>treeTable}"/>
-	<ToolbarSpacer/>
-	<Button press="onAddDataToTreeTable"/>
+		<Title text="{i18n>treeTable}"/>
+		<ToolbarSpacer/>
+		<Button press="onAddDataToTreeTable"/>
 	</OverflowToolbar>
 </t:extension>
+-->
+<!-- TREE TABLE - COLUMN - ATTRIBUTES -->
+<!--
+<t:Column sortProperty="ID" width="14%">
+</t:Column>
 -->

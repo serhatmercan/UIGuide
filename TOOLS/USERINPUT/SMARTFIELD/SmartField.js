@@ -133,6 +133,10 @@ sap.ui.define([
 			}
 		},
 
+		getData: function(){
+			return this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID");
+		},
+
 		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				this.byId("SimpleForm").bindElement(this.getModel().createEntry("/...Set").getPath());

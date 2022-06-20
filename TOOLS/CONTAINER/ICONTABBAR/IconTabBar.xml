@@ -12,19 +12,21 @@
 ICON TAB BAR - ATTRIBUTES 
 
 id="ITB"
-backgroundDesign="Translucent"
+backgroundDesign="Solid" backgroundDesign="Translucent"
 class="sapUiNoContentPadding" class="sapUiResponsiveContentPadding"
 headerBackgroundDesign="Transparent" headerBackgroundDesign="Translucent"
 headerMode="Inline"
 selectedKey="Header" 
 
+applyContentPadding="false"
 expandable="false" 
 expanded="true" expanded="{device>/isNoPhone}" 
-stretchContentHeight="true" 
+stretchContentHeight="true"
+upperCase="false" 
 
 ICON TAB FILTER - ATTRIBUTES
 
-design="Horizontal" 
+design="Horizontal" design="Vertical"
 icon="sap-icon://home" 
 iconColor="Positive" 
 

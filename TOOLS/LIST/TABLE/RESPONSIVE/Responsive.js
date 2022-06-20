@@ -175,6 +175,10 @@ sap.ui.define([
 			return aItems;
 		},
 
+		groupingItems: function(){
+			
+		},
+
         initModel: function () {
 			this.getModel("model").setProperty("/Items", []);
 		},

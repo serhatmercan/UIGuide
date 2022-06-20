@@ -38,6 +38,14 @@
     max-width: 98% !important;
 }
 
+.sapMLabel {
+    margin-top: 0.5rem !important;
+}
+
+.sapMLnk {
+    margin-top: 0.5rem !important;
+}
+
 .sapMTB {
     overflow: visible !important;
 }

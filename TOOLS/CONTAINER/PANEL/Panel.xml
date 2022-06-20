@@ -10,7 +10,7 @@
 		<content></content>
 	</Panel>
 </core:FragmentDefinition>
-<!-- PANEL -->
+<!-- PANEL - ATTRIBUTES -->
 <!-- 
 id="Panel"
 class="sapUiNoContentPadding" class="sapUiTinyMarginBegin panelBorderLine"
@@ -20,5 +20,4 @@ width="100%"
 expanded="true" 
 expandable="false"
 expandAnimation="true"
-
 -->

@@ -1,5 +1,5 @@
-<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" 
-	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" 
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ndc="sap.ndc" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" 
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariants="sap.ui.comp.smartvariants"
 	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable"
 	height="100%">
 	<smartTable:SmartTable entitySet="...Set"/>
@@ -104,13 +104,14 @@ initialized="onInitST"
 <cells>
 	<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }", wrapping="false"/>
 	<Text text="{ path: 'Key', formatter: '.formatter.removeLeadingZeros' }"/>
+	<ndc:BarcodeScannerButton scanSuccess="onSSBarcode" visible="{= ${ID} !== 'X' }"/>
 </cells>
 -->	
 <!-- SMART TABLE - EXAMPLE -->
 <!-- 
 <semantic:FullscreenPage showFooter="false">
 	<VBox fitContainer="true">
-		<smartvariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
+		<smartVariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
 		<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFB"/>
 		<smartTable:SmartTable entitySet="...Set" smartFilterId="SFB" smartVariant="SVM">
 			<ui:Table>

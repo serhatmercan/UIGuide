@@ -126,9 +126,10 @@ sap.ui.define([
 		setIDValue: function (sNumber1, sNumber2) {
 			const oFloatNumberFormat = NumberFormat.getFloatInstance({
 				decimals: 3,
-				decimalSeparator: ",",
+				decimalSeparator: ",",				
 				groupingSeparator: ".",
-				maxFractionDigits: "3"
+				maxFractionDigits: "3",
+				groupingEnabled: true
 			}, sap.ui.getCore().getConfiguration().getLocale());
 
 			return oFloatNumberFormat.format(sNumber1) + " - " + oFloatNumberFormat.format(sNumber2);

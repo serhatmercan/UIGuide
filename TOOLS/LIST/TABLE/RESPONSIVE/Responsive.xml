@@ -44,11 +44,12 @@ TABLE - LAYOUT
 TABLE - ATTRIBUTES
 
 id="Table"
-backgroundDesign="Transparent"
+backgroundDesign="Solid" backgroundDesign="Transparent"  
 busyIndicatorDelay="0"
 class="sapUiResponsiveMargin"
 items="{/...Set}"
 items="{ path: '/...Set', suspended:true }"
+items="{ path: 'model>/Items', group: 'groupingItems' }"
 items="{ path: 'model>/Items', sorter: { path: 'ID', descending: false } }"
 items="{ path: 'model>/Items', sorter: [{ path: 'ID', descending: false }, { path: 'Key', descending: false }] }"
 mode="MultiSelect" mode="SingleSelectLeft" mode="Delete"
@@ -59,6 +60,7 @@ width="auto"
 
 fixedLayout="true"
 growing="true" growingScrollToLoad="true" growingThreshold="10"
+showNoData="false"
 
 delete="onDelete"
 select="onSelect"
@@ -67,7 +69,7 @@ updateFinished="onUpdateFinished"
 
 COLUMN - ATTRIBUTES
 
-hAlign="Center" hAlign="Left"
+hAlign="Center" hAlign="Left" hAlign="Right"
 popinDisplay="Block" 
 
 COLUMN LIST ITEM - ATTRIBUTES
