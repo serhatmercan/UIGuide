@@ -17,6 +17,16 @@ sap.ui.define([
 
 		onSelectionChange: function (oEvent) {
 			const sKey = oEvent.getParameter("item").getKey();
+			let sItemKey = "";
+
+			switch (oEvent.getParameter("item").getKey()) {
+			case "SBIA":
+				sItemKey = "A";
+				break;
+			case "SBIAB":
+				sItemKey = "B";
+				break;
+			}
 		}
 
 	});

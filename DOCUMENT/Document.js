@@ -108,7 +108,7 @@ sap.ui.define([
 				.finally(() => {});
 		},
 
-		onPressUCI: function () {
+		onPressUCI: function (oEvent) {
 			const oContext = this.getView().getBindingContext();
 			const oModel = this.getModel();
 			const sServiceURL = oModel.sServiceUrl;
@@ -163,6 +163,21 @@ sap.ui.define([
 			});
 
 			this.oFrame.open();
+		},
+
+		onShowDocument: function(oEvent){
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
+			const sServiceURL = oModel.sServiceUrl;
+			const sViewPath = this.getView().getBindingContext().getPath();
+			const sPath = oModel.createKey("/...Set", {
+				Doknr: oViewModel.getProperty(sBindingPath + "/Doknr"),
+				Matnr: oModel.getProperty(sViewPath + "/Matnr")
+			});
+			const sDocumentPath = sServiceURL + sPath + "/$value";
+
+			window.open(sDocumentPath, "_blank");
 		},
 
 		onShowDocument: function () {

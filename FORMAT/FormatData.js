@@ -18,8 +18,8 @@ sap.ui.define([
 				sFormattedNo = Formatter.padLeftAlphaNum(sNo, 10),
 				sRemovedZeroNo = Formatter.removeLeading(sNo),
 				sEnglishWords = Formatter.convertToEnglishLocalizedUpperCase(sNo),
-				sUID = Formatter._createUuidX16(),
-				sConvertedData = Formatter._convertToEnglishLocalizedData(sData);
+				sUID = Formatter.createUuidX16(),
+				sConvertedData = Formatter.convertToEnglishLocalizedData(sData);
 		}
 
 	});

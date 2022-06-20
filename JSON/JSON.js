@@ -110,6 +110,20 @@ sap.ui.define([
 			this.getModel("model").refresh();
         },
 
+		convertDataToJSON: function(){
+			const sJSONData = "{\"Family\":[" + 
+												"{\"FirstName\":\"Serhat\",\"LastName\":\"Mercan\" }," + 
+												"{\"FirstName\":\"Elif\",\"LastName\":\"Mercan\" }," +
+												"{\"FirstName\":\"Selim\",\"LastName\":\"Mercan\"}" + 
+											"]}";
+
+			return JSON.parse(sJSONData).Family;
+		},
+		
+		convertDataToJSON: function(){
+			return JSON.stringify(oData);
+		},
+
         getData: function(){
             const aItems = this.getModel("model").getProperty("/Items");
         },

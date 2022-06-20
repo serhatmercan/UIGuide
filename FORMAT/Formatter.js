@@ -5,7 +5,7 @@ sap.ui.define([
 
 	return {
 
-		_createUuidX16: function () {
+		createUuidX16: function () {
 			return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
 				let r = Math.random() * 16 | 0,
 					v = c === "x" ? r : (r & 0x3 | 0x8);
@@ -13,7 +13,7 @@ sap.ui.define([
 			});
 		},
 
-		_convertToEnglishLocalizedData: function (sData) {
+		convertToEnglishLocalizedData: function (sData) {
 			sData = sData.replace(/ö/g, 'o');
 			sData = sData.replace(/ç/g, 'c');
 			sData = sData.replace(/ş/g, 's');
@@ -56,6 +56,14 @@ sap.ui.define([
 				.toLocaleUpperCase("en");
 		},
 
+		generateLink: function(){
+			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
+		},
+
+		generateText: function(sID, sText, sValue){
+			return sID + " / " + sText + " / " + sValue;	
+		},
+
 		getLocalDate: function (sValue) {
 			if (!sValue) {
 				return null;
@@ -75,6 +83,10 @@ sap.ui.define([
 					oTime.getSeconds() * 1000,
 				__edmType: "Edm.Time"
 			};
+		},
+
+		getText: function(){
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
 		},
 
 		padLeftAlphaNum: function (sVal, digit) {

@@ -73,4 +73,8 @@ popinDisplay="Block"
 COLUMN LIST ITEM - ATTRIBUTES
 
 type="Inactive" type="Navigation" 
+
+COLUMN LIST ITEM - CELLS
+
+<ObjectIdentifier title="{model>ID}" text="{model>Text}"/>
 -->

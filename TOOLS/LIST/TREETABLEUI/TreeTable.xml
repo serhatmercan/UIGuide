@@ -1,12 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
-	<t:TreeTable rows="{ path:'model>/Items', parameters:{ arrayNames:['results'] } }">
-		<t:extension>
-			<OverflowToolbar>
-				<Title text="{i18n>treeTable}"/>
-				<ToolbarSpacer/>
-				<Button press="onAddDataToTreeTable"/>
-			</OverflowToolbar>
-		</t:extension>
+	<t:TreeTable rows="{ path:'model>/Items', parameters:{ arrayNames:['Data'] } }">		
 		<t:columns>
 			<t:Column label="{i18n>ID}">
 				<t:template>
@@ -32,4 +25,13 @@ visibleRowCount="5"
 enableSelectAll="false"
 
 toggleOpenState="onTOS"
+
+TREE TABLE - EXTENSION
+<t:extension>
+	<OverflowToolbar>
+	<Title text="{i18n>treeTable}"/>
+	<ToolbarSpacer/>
+	<Button press="onAddDataToTreeTable"/>
+	</OverflowToolbar>
+</t:extension>
 -->

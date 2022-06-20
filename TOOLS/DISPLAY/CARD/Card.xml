@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:l="sap.ui.layout">
+    <f:Card>		
+		<f:content>			
+		</f:content>
+	</f:Card>
+</core:FragmentDefinition>
+<!-- CARD - ATTRIBUTES -->
+<!-- 
+id="Card"
+-->
+
+<!-- CARD. - CONTENT -->
+<!--
+<l:VerticalLayout class="sapUiContentPadding">
+</l:VerticalLayout>    
+-->   
+<!-- CARD. - LAYOUT -->
+<!--
+<f:layoutData>
+    <f:GridContainerItemLayoutData columns="3"/>
+</f:layoutData>	
+-->
+<!-- CARD. - EXAMPLE -->
+<!--
+<f:Card>	
+	<f:layoutData>
+		<f:GridContainerItemLayoutData columns="3"/>
+	</f:layoutData>	
+	<f:content>
+		<l:VerticalLayout class="sapUiContentPadding">
+			<FlexBox alignItems="Start" justifyContent="Start">
+			</FlexBox>
+			<FlexBox alignItems="Start" justifyContent="Start">
+			</FlexBox>
+		</l:VerticalLayout>
+	</f:content>
+</f:Card>
+-->

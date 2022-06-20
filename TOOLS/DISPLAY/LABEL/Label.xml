@@ -2,10 +2,13 @@
 <!-- LABEL ATTRIBUTES -->
 <!--
 
-class="sapUiSmallMarginTop" class="sapUiSmallMarginBegin sapUiSmallMarginTop" class="formLabel"
+class="sapUiSmallMarginBegin sapUiSmallMarginTop" class="sapUiSmallMarginEnd" class="sapUiSmallMarginTop" class="formLabel"
 design="Bold"
 labelFor="IDText"
+text="{/#Main/Text/@sap:label}"
 textAlign="Begin"
+width="10rem"
+
 wrapping="true"
 
 -->

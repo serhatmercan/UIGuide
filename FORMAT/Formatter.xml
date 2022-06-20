@@ -1,1 +1,4 @@
-<Text text="Text" visible="{ path: 'model>/Value', formatter: '.formatter.setDefaultFilter' }"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Text text="Text" visible="{ path: 'model>/Value', formatter: '.formatter.setDefaultFilter' }"/>
+    <Input value="{ parts:[ { path:'ID' }, { path: 'Text' }, { path: 'Value' } ], formatter: '.formatter.generateText' }"/>
+</core:FragmentDefinition>

@@ -1,14 +1,20 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<GenericTag text="{i18n>text}">
-		<ObjectNumber emphasized="true" number="{model>/Value}" unit="Kg" state="Warning"/>
+		<ObjectNumber number="{model>/Value}"/>
 	</GenericTag>
 </core:FragmentDefinition>
-<!-- GENERIC TAG -->
+<!-- GENERIC TAG - ATTRIBUTES -->
 <!--
 class="sapUiTinyMarginBottom" 
 design="StatusIconHidden" 
 status="Information" status="Success" status="Warning"
 text="{/#Main/GT/@sap:label}"
 
+press="onShow"
+
 visible="{model>/Selected}"
+-->
+<!-- GENERIC TAG - CONTENT -->
+<!--
+
 -->

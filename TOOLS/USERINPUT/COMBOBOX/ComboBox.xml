@@ -24,6 +24,7 @@ loadItems="onLoadItemsCB"
 selectionChange="onSelectionChangeCB" 
 
 ITEMS - ATTRIBUTES
+
 <core:Item key="{model>ID}" text="{model>ID}"/>
 <core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
 

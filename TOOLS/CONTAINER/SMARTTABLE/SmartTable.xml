@@ -1,86 +1,121 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:core="sap.ui.core" xmlns:ui="sap.ui.table"
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" 
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" 
 	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable"
 	height="100%">
-	<semantic:FullscreenPage showFooter="false">
-		<VBox busy="{model>/Busy}" fitContainer="true">
-			<smartvariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
-			<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFB"/>
-			<smartTable:SmartTable id="ST" entitySet="...Set" class="sapUiResponsiveContentPadding" header="{i18n>smartTable}"
-				smartFilterId="SFB" smartVariant="SVM" tableBindingPath="Items" tableType="ResponsiveTable" initiallyVisibleFields="ID,Key"
-				ignoredFields="Value" requestAtLeastFields="ID" width="25%" cd:useSmartField="true" demandPopin="true" editable="true"
-				enableAutoBinding="true" showFullScreenButton="true" showRowCount="true" showTablePersonalisation="false" useTablePersonalisation="true"
-				useExportToExcel="false" useVariantManagement="false" beforeRebindTable="onBRT" dataReceived="onDT" fieldChange="onFieldChange"
-				initialized="onInitST">
-				<smartTable:customToolbar>
-					<OverflowToolbar design="Transparent">
-						<ToolbarSpacer/>
-						<Button type="Emphasized" text="{i18n>text}" tooltip="{i18n>text}" press="onShow"/>
-					</OverflowToolbar>
-				</smartTable:customToolbar>
-				<!-- Responsive Table -->
-				<Table id="SmartTable" mode="MultiSelect" growing="true" growingScrollToLoad="true" growingThreshold="100" sticky="ColumnHeaders">
-					<columns>
-						<Column id="idColumnKey">
-							<customData>
-								<core:CustomData key="p13nData"
-									value='\{"columnIndex": "7", "columnKey": "Key", "additionalProperty":"Key", "filterProperty": "Key", "leadingProperty": "Key", "sortProperty": "Key", "type": "numeric"}'/>
-							</customData>
-							<Text text="{i18n>key}"/>
-						</Column>
-					</columns>
-					<items>
-						<ColumnListItem type="Navigation" press="onDetail">
-							<cells>
-								<Text text="{Key}" wrapping="false"/>
-								<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }"/>
-								<Text text="{ path: 'Key', formatter: '.formatter.removeLeadingZeros' }"/>
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
-				<!-- Grid Table -->
-				<ui:Table id="SmartTable" selectionMode="Single" visibleRowCount="15" alternateRowColors="true" enableColumnFreeze="true">
-					<ui:rowSettingsTemplate>
-						<ui:RowSettings highlight="{= ${Statu} === 'X' ? 'Error' : undefined}"/>
-					</ui:rowSettingsTemplate>
-					<ui:Column id="Key" width="10rem">
-						<Label text="{/#SFEntity/Key/@sap:label}"/>
-						<ui:customData>
-							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"1"}'/>
-						</ui:customData>
-						<ui:template>
-							<DatePicker value="{ path:'Date', type:'sap.ui.model.type.Date', formatOptions: {UTC:true} }"/>
-						</ui:template>
-					</ui:Column>
-					<ui:Column id="Value" width="10rem">
-						<Label text="{i18n>column}"/>
-						<ui:customData>
-							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"2"}'/>
-						</ui:customData>
-						<ui:template>
-							<Input value="{Key}" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHR"/>
-						</ui:template>
-						<ui:template>
-							<Link text="{Key}" press="onPressKey"/>
-						</ui:template>
-						<ui:template>
-							<Select items="{model>/Keys}" selectedKey="{Key}" change="onChangeKey">
-								<core:Item key="{model>}" text="{model>}"/>
-							</Select>
-						</ui:template>
-					</ui:Column>
-					<ui:Column>
-						<Label text=""/>
-						<ui:customData>
-							<core:CustomData key="p13nData" value='\{"columnKey": "Key", "columnIndex" : "0"}'/>
-						</ui:customData>
-						<ui:template>
-							<Button icon="sap-icon://display" press="onShowDetail"/>
-						</ui:template>
-					</ui:Column>
-				</ui:Table>
-			</smartTable:SmartTable>
-		</VBox>
-	</semantic:FullscreenPage>
+	<smartTable:SmartTable entitySet="...Set"/>
 </mvc:View>
+<!-- SMART TABLE - ATTRIBUTES -->
+<!-- 
+id="ST"
+class="sapUiResponsiveContentPadding" 
+header="{i18n>smartTable}" header="{/#Main/ST/@sap:label}"
+ignoredFields="Value" initiallyVisibleFields="ID,Key" requestAtLeastFields="ID"
+smartFilterId="SFB" 
+smartVariant="SVM"
+tableBindingPath="Items"
+tableType="ResponsiveTable"
+width="25%"
+
+cd:useSmartField="true"
+demandPopin="true" 
+editable="true"
+enableAutoBinding="true" 
+showFullScreenButton="true" 
+showRowCount="true" 
+showTablePersonalisation="false" 
+useExportToExcel="false" 
+useTablePersonalisation="true"
+useVariantManagement="false" 
+
+beforeRebindTable="onBRT" 
+dataReceived="onDT" 
+fieldChange="onFieldChange"
+initialized="onInitST"
+-->
+<!-- SMART TABLE - LAYOUT -->
+<!--
+<smartTable:customToolbar>
+	<OverflowToolbar design="Transparent">
+		<ToolbarSpacer/>
+		<Button type="Emphasized" text="{i18n>text}" tooltip="{i18n>text}" press="onShow"/>
+	</OverflowToolbar>
+</smartTable:customToolbar>	
+-->
+<!-- SMART TABLE - GRID TABLE -->
+<!--
+<ui:Table id="SmartTable">
+	<ui:Column>
+		<Label text="{/#SFEntity/Key/@sap:label}"/>
+		<ui:customData>
+			<core:CustomData key="p13nData" value='\{"columnKey": "Key", "leadingProperty": "Key", "columnIndex":"1"}'/>
+		</ui:customData>
+		<ui:template>
+			<Text text="{Key}"/>				
+		</ui:template>
+	</ui:Column>
+</ui:Table>
+-->
+<!-- SMART TABLE - GRID TABLE - CONFIGURATION -->
+<!--
+<ui:Table selectionMode="Single" visibleRowCount="15" alternateRowColors="true" enableColumnFreeze="true">
+<ui:rowSettingsTemplate>
+	<ui:RowSettings highlight="{= ${Statu} === 'X' ? 'Error' : undefined}"/>
+</ui:rowSettingsTemplate>
+<ui:Column id="Key" width="10rem">
+	<Label text="{i18n>key}"/>
+</ui:Table>
+<ui:template>
+	<Button icon="sap-icon://display" press="onShowDetail"/>
+	<DatePicker value="{ path:'Date', type:'sap.ui.model.type.Date', formatOptions: { UTC:true } }"/>
+	<Input value="{Key}" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHR"/>
+	<Link text="{Key}" press="onPressKey"/>
+	<Select items="{model>/Keys}" selectedKey="{Key}" change="onChangeKey">
+		<core:Item key="{model>}" text="{model>}"/>
+	</Select>
+</ui:template>
+-->	
+<!-- SMART TABLE - RESPONSIVE TABLE -->
+<!--
+<Table id="SmartTable">
+	<columns>
+		<Column id="Column">
+			<customData>
+				<core:CustomData key="p13nData" value='\{"columnIndex": "7", "columnKey": "Key", "additionalProperty":"Key", "leadingProperty": "Key"}'/>
+			</customData>
+			<Text text="{/#SFEntity/Key/@sap:label}"/>
+		</Column>
+	</columns>
+	<items>
+		<ColumnListItem type="Navigation" press="onDetail">
+			<cells>
+				<Text text="{Key}"/>				
+			</cells>
+		</ColumnListItem>
+	</items>
+</Table>
+-->
+<!-- SMART TABLE - RESPONSIVE TABLE - CONFIGURATION -->
+<!--
+<Table growing="true" growingScrollToLoad="true" growingThreshold="100" mode="MultiSelect" sticky="ColumnHeaders"/>
+<columns>
+	<core:CustomData value='\{"filterProperty": "Key", "sortProperty": "Key", "type": "numeric"}'/>	
+	<Text text="{i18n>key}"/>
+</columns>
+<cells>
+	<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }", wrapping="false"/>
+	<Text text="{ path: 'Key', formatter: '.formatter.removeLeadingZeros' }"/>
+</cells>
+-->	
+<!-- SMART TABLE - EXAMPLE -->
+<!-- 
+<semantic:FullscreenPage showFooter="false">
+	<VBox fitContainer="true">
+		<smartvariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
+		<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFB"/>
+		<smartTable:SmartTable entitySet="...Set" smartFilterId="SFB" smartVariant="SVM">
+			<ui:Table>
+			</ui:Table>				
+		</smartTable:SmartTable>
+	</VBox>
+</semantic:FullscreenPage>
+-->
