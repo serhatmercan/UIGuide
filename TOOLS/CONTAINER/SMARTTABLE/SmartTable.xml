@@ -19,7 +19,8 @@ width="25%"
 cd:useSmartField="true"
 demandPopin="true" 
 editable="true"
-enableAutoBinding="true" 
+enableAutoBinding="true"
+enableAutoColumnWidth="true" 
 showFullScreenButton="true" 
 showRowCount="true" 
 showTablePersonalisation="false" 
@@ -78,7 +79,7 @@ initialized="onInitST"
 <!--
 <Table id="SmartTable">
 	<columns>
-		<Column id="Column">
+		<Column>
 			<customData>
 				<core:CustomData key="p13nData" value='\{"columnIndex": "7", "columnKey": "Key", "additionalProperty":"Key", "leadingProperty": "Key"}'/>
 			</customData>
@@ -98,7 +99,7 @@ initialized="onInitST"
 <!--
 <Table growing="true" growingScrollToLoad="true" growingThreshold="100" mode="MultiSelect" sticky="ColumnHeaders"/>
 <columns>
-	<core:CustomData value='\{"filterProperty": "Key", "sortProperty": "Key", "type": "numeric"}'/>	
+	<core:CustomData value='\{"autoColumnWidth": "true", "filterProperty": "Key", "isCurrency": "false", "maxLength": "10", "sortProperty": "Key", "type": "numeric"}'/>	
 	<Text text="{i18n>key}"/>
 </columns>
 <cells>

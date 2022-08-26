@@ -26,6 +26,7 @@ upperCase="false"
 
 ICON TAB FILTER - ATTRIBUTES
 
+count="{model>/Count}"
 design="Horizontal" design="Vertical"
 icon="sap-icon://home" 
 iconColor="Positive" 

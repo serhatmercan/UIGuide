@@ -9,6 +9,7 @@
 		<semantic:titleMainAction>
 			<semantic:TitleMainAction id="EditAction" text="{i18n>edit}" enabled="{= ${model>/Value}" press="onEdit"/>
 		</semantic:titleMainAction>
+		<semantic:headerContent></semantic:headerContent>
 		<semantic:content></semantic:content>
 		<semantic:footerMainAction>
 			<semantic:FooterMainAction press="onSave"/>

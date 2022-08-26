@@ -166,6 +166,7 @@ sap.ui.define([
 						// const sID = oTextAreaDialog.getParent().getBindingContext().getProperty("ID");
 						// https://openui5.hana.ondemand.com/topic/6c47b2b39db9404582994070ec3d57a2.html#loio6c47b2b39db9404582994070ec3d57a2
 						this.addNote(this.byId("TextArea").getValue());
+						this.addNote(sap.ui.getCore().byId("TextArea").getValue());
 						oTextAreaDialog.close();
 					}
 				}),

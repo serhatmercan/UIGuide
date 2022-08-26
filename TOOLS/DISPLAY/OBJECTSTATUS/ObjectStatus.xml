@@ -1,4 +1,4 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
 	<ObjectStatus text="{i18n>text}"/>
 </mvc:View>
 <!--

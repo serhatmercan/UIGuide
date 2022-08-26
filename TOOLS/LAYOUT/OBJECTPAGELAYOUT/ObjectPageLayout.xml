@@ -1,86 +1,162 @@
-<mvc:View xmlns="sap.uxap" xmlns:m="sap.m" xmlns:form="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield"
+<mvc:View xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:smartField="sap.ui.comp.smartfield"
 	xmlns:smartForm="sap.ui.comp.smartform" xmlns:f="sap.f">
-	<ObjectPageLayout id="OPL" busy="{model>/Busy}" busyIndicatorDelay="0" height="100%" alwaysShowContentHeader="true"
-		preserveHeaderStateOnScroll="true" showFooter="true" showHeaderContent="true" toggleHeaderOnTitleClick="true">
-		<headerTitle>
-			<ObjectPageDynamicHeaderTitle>
-				<heading>
-					<m:Input editable="{= !!${model>/Value} }"/>
-					<m:Title text="Text"/>
-				</heading>
-				<heading>
-					<m:HBox>
-						<f:Avatar backgroundColor="Transparent" displaySize="L" src="sap-icon://activity-individual"/>
-						<m:VBox class="sapUiMediumMarginBegin">
-							<m:Title text="{i18n>ID}:"/>
-							<m:ObjectStatus text="{ID}" class="sapMObjectStatusLarge"/>
-						</m:VBox>
-						<m:VBox class="sapUiMediumMarginBegin">
-							<m:Title text="{i18n>name}:"/>
-							<m:ObjectStatus text="{Name}" class="sapMObjectStatusLarge"/>
-						</m:VBox>
-					</m:HBox>
-				</heading>
-				<expandedContent>
-					<m:Label text="{Label}"/>
-				</expandedContent>
-				<snappedContent>
-					<m:Label text="{Label}"/>
-				</snappedContent>
-				<actions>
-					<m:OverflowToolbarButton press="onPress"/>
-				</actions>
-			</ObjectPageDynamicHeaderTitle>
-		</headerTitle>
-		<headerContent>
-			<f:GridList></f:GridList>
-			<smartForm:SmartForm></smartForm:SmartForm>
-		</headerContent>
+	<ObjectPageLayout>				
 		<sections>
-			<ObjectPageSection id="OPS" showTitle="false" visible="{= !${model>/Value} }">
-				<subSections>
-					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer">
-						<m:MessagePage id="idMessagePage" icon="sap-icon://inspection" description="" text="{i18n>initialMessagePageTitle}" showHeader="false"/>
-					</ObjectPageSubSection>
-				</subSections>
-			</ObjectPageSection>
-			<ObjectPageSection title="{i18n>ops}" titleUppercase="false" showTitle="false" visible="false">
-				<subSections>
-					<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer sapUxAPObjectPageSubSection sapUxAPBlockContainer" title="{i18n>oPSS1}">
-						<blocks>
-							<form:SmartForm>
-								<form:Group>
-									<form:GroupElement>
-										<smartField:SmartField value="{ID}"/>
-									</form:GroupElement>
-								</form:Group>
-								<form:Group>
-									<form:GroupElement>
-										<smartField:SmartField value="{Value}"/>
-									</form:GroupElement>
-								</form:Group>
-							</form:SmartForm>
-						</blocks>
-					</ObjectPageSubSection>
-				</subSections>
-			</ObjectPageSection>
 			<ObjectPageSection>
 				<subSections>
-					<ObjectPageSubSection title="{i18n>oPSS2}">
+					<ObjectPageSubSection title="{i18n>OPS}">
 						<blocks>
 							<core:Fragment type="XML" fragmentName="..."/>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-		</sections>
-		<footer>
-			<m:OverflowToolbar>
-				<m:Button icon="sap-icon://alert" text="{=${message>/}.length}" visible="{=${message>/}.length > 0}" type="Emphasized"
-					press="onMessagePopoverPress"/>
-				<m:ToolbarSpacer/>
-				<m:Button type="Emphasized" text="X" press="onPress"/>
-			</m:OverflowToolbar>
-		</footer>
+		</sections>		
 	</ObjectPageLayout>
 </mvc:View>
+<!-- OBJECT PAGE LAYOUT - ATTRIBUTES -->
+<!--
+id="OPL"	 
+busy="{model>/Busy}" 
+busyIndicatorDelay="0" 
+height="100%" 
+
+alwaysShowContentHeader="true"
+preserveHeaderStateOnScroll="true" 
+showFooter="true" 
+showHeaderContent="true" 
+toggleHeaderOnTitleClick="true"
+upperCaseAnchorBar="false"
+-->
+
+<!-- OBJECT PAGE LAYOUT - LAYOUT -->
+<!--
+<headerTitle>
+	<ObjectPageDynamicHeaderTitle>
+		<heading>
+		</heading>
+		<expandedHeading>		
+		</expandedHeading>
+		<expandedContent>			
+		</expandedContent>
+		<snappedContent>
+		</snappedContent>
+		<actions>
+		</actions>
+	</ObjectPageDynamicHeaderTitle>
+</headerTitle>
+<headerContent>
+	<f:GridList></f:GridList>
+	<smartForm:SmartForm></smartForm:SmartForm>
+</headerContent>
+<sections>
+	<ObjectPageSection>
+		<subSections>
+			<ObjectPageSubSection>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+	<ObjectPageSection>
+		<subSections>
+			<ObjectPageSubSection>
+				<blocks>
+					<core:Fragment type="XML" fragmentName="..."/>
+				</blocks>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+</sections>	
+<footer>
+</footer>
+-->
+<!-- OBJECT PAGE SUB SECTION - ATTRIBUTES -->
+<!--
+id="OPS"
+class="sapUxAPObjectPageSubSectionFitContainer" 
+title="{i18n>OPS}"
+
+showTitle="false"
+visible="{= !${model>/Value} }"	
+-->
+<!-- OBJECT PAGE LAYOUT - EXAMPLE -->
+<!--
+<headerTitle>
+	<ObjectPageDynamicHeaderTitle>
+		<heading>
+			<m:Input editable="{= !!${model>/Value} }"/>
+			<m:Title text="Text"/>
+		</heading>
+		<heading>
+			<m:HBox>
+				<f:Avatar backgroundColor="Transparent" displaySize="L" src="sap-icon://activity-individual"/>
+				<m:VBox class="sapUiMediumMarginBegin">
+					<m:Title text="{i18n>ID}:"/>
+					<m:ObjectStatus text="{ID}" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+				<m:VBox class="sapUiMediumMarginBegin">
+					<m:Title text="{i18n>name}:"/>
+					<m:ObjectStatus text="{Name}" class="sapMObjectStatusLarge"/>
+				</m:VBox>
+			</m:HBox>
+		</heading>
+		<expandedContent>
+			<m:Label text="{Label}"/>
+		</expandedContent>
+		<snappedContent>
+			<m:Label text="{Label}"/>
+		</snappedContent>
+		<actions>
+			<m:OverflowToolbarButton press="onPress"/>
+		</actions>
+	</ObjectPageDynamicHeaderTitle>
+</headerTitle>
+<headerContent>
+	<f:GridList></f:GridList>
+	<smartForm:SmartForm></smartForm:SmartForm>
+</headerContent>
+<sections>
+	<ObjectPageSection id="OPS" showTitle="false" visible="{= !${model>/Value} }">
+		<subSections>
+			<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer">
+				<m:MessagePage id="idMessagePage" icon="sap-icon://inspection" description="" text="{i18n>initialMessagePageTitle}" showHeader="false"/>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+	<ObjectPageSection title="{i18n>ops}" titleUppercase="false" showTitle="false" visible="false">
+		<subSections>
+			<ObjectPageSubSection class="sapUxAPObjectPageSubSectionFitContainer sapUxAPObjectPageSubSection sapUxAPBlockContainer" title="{i18n>oPSS1}">
+				<blocks>
+					<form:SmartForm>
+						<form:Group>
+							<form:GroupElement>
+								<smartField:SmartField value="{ID}"/>
+							</form:GroupElement>
+						</form:Group>
+						<form:Group>
+							<form:GroupElement>
+								<smartField:SmartField value="{Value}"/>
+							</form:GroupElement>
+						</form:Group>
+					</form:SmartForm>
+				</blocks>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+	<ObjectPageSection>
+		<subSections>
+			<ObjectPageSubSection title="{i18n>oPSS2}">
+				<blocks>
+					<core:Fragment type="XML" fragmentName="..."/>
+				</blocks>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+</sections>
+<footer>
+	<m:OverflowToolbar>
+		<m:Button icon="sap-icon://alert" text="{=${message>/}.length}" type="Emphasized" visible="{=${message>/}.length > 0}" press="onMessagePopoverPress"/>
+		<m:ToolbarSpacer/>
+		<m:Button type="Emphasized" text="X" press="onPress"/>
+	</m:OverflowToolbar>
+</footer>
+-->	

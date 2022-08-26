@@ -41,6 +41,7 @@ uploadUrl="/sap/opu/odata/sap/ZMM_SM_SRV/DocumentSet"
 instantUpload="false" 
 multiple="true"
 sameFilenameAllowed="true"
+uploadButtonInvisible="{= !${model>/Enabled}}"
 -->	
 <!-- UPLOAD COLLECTION - TOOLBAR -->
 <!--
@@ -58,4 +59,5 @@ sameFilenameAllowed="true"
 enableDelete="true"
 enableEdit="false" 
 visibleEdit="false"
+visibleDelete="{model>/Enabled}"
 -->	

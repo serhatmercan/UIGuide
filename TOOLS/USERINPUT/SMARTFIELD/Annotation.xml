@@ -5,9 +5,12 @@
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
 		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
 	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="pp009lotrequest.annotations.annotationColorCode.ZXX_SRV">
-			<Annotations Target="Metadata.ID/ID">
+			<Annotations Target="Metadata.ID/ID">				
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
 						<PropertyValue Property="CollectionPath" String="...Set"/>
@@ -21,6 +24,7 @@
 						</PropertyValue>
 					</Record>
 				</Annotation>
+				<Annotation Term="UI.MultiLineText"/>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>

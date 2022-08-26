@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:footerbar="sap.ushell.ui.footerbar">
+    <footerbar:AddBookmarkButton text="Text" title="Title"/>
+</core:FragmentDefinition>
+<!-- BOOKMARK - ATTRIBUTES -->
+<!-- 
+id="Bookmark"
+
+showGroupSelection="true"
+-->
+
+<!-- ... - LAYOUT -->
+<!--
+	
+-->

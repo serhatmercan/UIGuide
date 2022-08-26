@@ -3,6 +3,7 @@
 </core:FragmentDefinition>	
 <!-- OBJECT NUMBER - ATTRIBUTES -->
 <!--
+class="sapMObjectNumberLarge"
 number="{ path : 'Menge', type : 'sap.ui.model.type.Float' }" 
 state="{= ${model>ID} ? 'None' : 'Error' }" state="Information" state="Success" state="Warning"
 textAlign="Right" 

@@ -2,8 +2,23 @@
 	<edmx:Reference Uri="/sap/opu/odata/sap/SERVICE_NAME_SRV/$metadata">
 		<edmx:Include Alias="Metadata" Namespace="SERVICE_NAME_SRV"/>
 	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/vocabularies/Org.OData.Aggregation.V1.xml">
+		<edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
 		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470971/Communication.xml?api=v2">
+		<edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Core.V1.xml">
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+	</edmx:Reference>
+	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Measures.V1.xml">
+		<edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1"/>
 	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
 		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
@@ -88,6 +103,7 @@
 						</Record>
 					</Collection>
 				</Annotation>
+				<Annotation Term="UI.MultiLineText"/>
 				<Annotation Term="UI.PresentationVariant">
 					<Record Type="UI.PresentationVariantType">
 						<PropertyValue Property="RequestAtLeast">
@@ -146,6 +162,18 @@
 				<Annotation Term="UI.HiddenFilter" Bool="true"/>
 				<Annotation Term="UI.MultiLineText" Bool="true"/>
 				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
+			</Annotations>
+			<Annotations Target="Metadata.ZPP_007_GOODS_RCPT_SRV_Entities/SerialNumberSet">
+				<Annotation Term="Capabilities.FilterRestrictions">
+					<Record Type="Capabilities.FilterRestrictionsType">
+						<PropertyValue Property="RequiresFilter"Bool="true"/>
+						<PropertyValue Property="RequiredProperties">
+							<Collection>
+								<PropertyPath>Aufnr</PropertyPath>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>

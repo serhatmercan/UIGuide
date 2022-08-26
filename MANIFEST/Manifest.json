@@ -39,6 +39,14 @@
 		"flexEnabled": false,
 		"handleValidation": true,
 		"models": {
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline"
+				}
+			},
 			"viewModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},

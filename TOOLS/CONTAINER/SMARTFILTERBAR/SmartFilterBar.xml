@@ -1,15 +1,17 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" 
 		xmlns:smartVariants="sap.ui.comp.smartvariants">
-	<smartVariants:SmartVariantManagement id="SVM" persistencyKey="SVM"/>
-	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="SFB"/>
-	<smartTable:SmartTable id="ST" smartFilterId="SFB" beforeRebindTable="onBRT"/>
+	<smartVariants:SmartVariantManagement id="SVM"/>
+	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set"/>
+	<smartTable:SmartTable id="ST" entitySet="...Set" smartFilterId="SFB" beforeRebindTable="onBRT"/>
 </mvc:View>
 <!-- SMART FILTER BAR - ATTRIBUTES -->
 <!-- 
 smartVariant="SVM"
 
 considerSelectionVariants="true"
+filterBarExpanded="true"
 showFilterConfiguration="false"
+useToolbar="true"
 
 initialized="onInitSFB"
 -->
@@ -41,8 +43,11 @@ index="1"
 label="{i18n>SFB}"  
 mandatory="mandatory" 
 		
-preventInitialDataFetchInValueHelpDialog="false" 
+preventInitialDataFetchInValueHelpDialog="false"
+showClearOnFB="true" 
 visibleInAdvancedArea="true" 
+
+filterChange="onFilterChangeSFB"
 -->
 <!-- SMART FILTER BAR - LAYOUT -->
 <!--

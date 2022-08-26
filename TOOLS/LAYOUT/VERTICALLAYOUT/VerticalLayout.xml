@@ -7,6 +7,6 @@
 <!-- VERTICAL LAYOUT ATTRIBUTES -->
 <!--
 id="VL"
-class="sapUiContentPadding" 
+class="sapUiContentPadding" class="sapUiTinyMargin"
 width="100%"
 -->

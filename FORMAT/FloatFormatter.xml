@@ -1,4 +1,5 @@
-<ObjectHeader
-	number="{ path: 'model>/Value', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3, maxFractionDigits: 3 } }"/>
-<Text text="{ path: 'Value', type: 'sap.ui.model.type.Float', formatOptions: {decimalSeparator: '.', maxFractionDigits: '0'} }"/>
-<Text text="{ parts: [ {path: 'Number1'}, {path: 'Number2'} ], formatter: '.formatter.setFloatNumbers'}"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ObjectHeader number="{ path: 'model>/Value', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 3, maxFractionDigits: 3 } }"/>
+	<Text text="{ path: 'Value', type: 'sap.ui.model.type.Float', formatOptions: { decimalSeparator: '.', maxFractionDigits: '0' } }"/>
+	<Text text="{ parts: [ {path: 'Number1'}, {path: 'Number2'} ], formatter: '.formatter.setFloatNumbers'}"/>
+</core:FragmentDefinition>

@@ -20,6 +20,8 @@ sap.ui.define([
 				Documents: [],
 				Value: "",
 			}), "model");
+
+			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
 
 		/* ============== */
@@ -37,13 +39,17 @@ sap.ui.define([
 				new UploadCollectionParameter({
 					name: "slug",
 					value: encodeURIComponent(oEvent.getParameter("fileName")) + "&&" + "X"
-			}));			
+			}));
+
+			oEvent.getParameter("addHeaderParameter")(
+				new UploadCollectionParameter({
+					name: "X-Requested-With",
+					value: "XMLHttpRequest"
+			}));		
 		},
 
 		onCloseDocument: function () {
-			this.oDocument.close();
-			this.oDocument.destroy();
-			this.oDocument = null;
+			this.oDocument.close();			
 		},
 
 		onCUDocument: function (oEvent) {
@@ -73,20 +79,20 @@ sap.ui.define([
 			let aNewDocumentID = [];
 			let aDocumentsIDs = [];
 
-			aOriginDocumentID = aOriginDocuments.map(item => {
+			aOriginDocumentID = aOriginDocuments.map(oOriginDocument => {
 				return {
-					DocumentID: item.getObject("DocumentID")
+					DocumentID: oOriginDocument.getObject("DocumentID")
 				};
 			});
 
-			aNewDocumentID = aNewDocuments.map(item => {
+			aNewDocumentID = aNewDocuments.map(oNewDocument => {
 				return {
-					DocumentID: item.getBindingContext().getProperty("DocumentID")
+					DocumentID: oNewDocument.getBindingContext().getProperty("DocumentID")
 				};
 			});
 
 			aOriginDocumentID.forEach((oOriginDocumentID) => {
-				if (aNewDocumentID.findIndex(x => x.DocumentID === oOriginDocumentID.DocumentID) === -1) {
+				if (aNewDocumentID.findIndex(oNewDocumentID => oNewDocumentID.DocumentID === oOriginDocumentID.DocumentID) === -1) {
 					aDocumentsIDs.push(oOriginDocumentID.DocumentID);
 				}
 			});
@@ -321,9 +327,16 @@ sap.ui.define([
 			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 			const sServiceUrl = this.getUploadUrl();
 
-			oUploadCollection._aFileUploadersForPendingUpload.forEach(function (oPendingUploads) {
+			oUploadCollection._aFileUploadersForPendingUpload.forEach(oPendingUploads => {
 				oPendingUploads.setUploadUrl(sServiceUrl);
 			});
+		},
+
+		viewMatched: function(){
+			if( sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC")){
+				this.oDocument.destroy();
+				this.oDocument = null;
+			}			
 		}
 
 	});

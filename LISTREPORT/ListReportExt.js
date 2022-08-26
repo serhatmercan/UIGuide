@@ -64,6 +64,8 @@
 				if (oBindingParams) {
 					aIDs.forEach(sID => oBindingParams.filters.push(new Filter("ID", FilterOperator.EQ, parseInt(sID))));
 				}
+
+				this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setRequestAtLeastFields("ID,Value");
 			},
 
 			onBeforeRendering: function () {

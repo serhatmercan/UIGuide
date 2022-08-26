@@ -2,7 +2,7 @@
     <Table items="{model>/Items}">	
         <columns>
             <Column>
-                <Text text="{i18n>text}"/>
+                <Label text="{i18n>text}" design="Bold"/>
             </Column>
         </columns>
         <items>
@@ -69,7 +69,9 @@ updateFinished="onUpdateFinished"
 
 COLUMN - ATTRIBUTES
 
-hAlign="Center" hAlign="Left" hAlign="Right"
+demandPopin="true"
+hAlign="Center" hAlign="End" hAlign="Left" hAlign="Right" 
+minScreenWidth="Desktop"
 popinDisplay="Block" 
 
 COLUMN LIST ITEM - ATTRIBUTES

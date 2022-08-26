@@ -9,18 +9,18 @@
 id="Card"
 -->
 
-<!-- CARD. - CONTENT -->
+<!-- CARD - CONTENT -->
 <!--
-<l:VerticalLayout class="sapUiContentPadding">
+<l:VerticalLayout class="sapUiContentPadding" class="sapUiTinyMargin">
 </l:VerticalLayout>    
 -->   
-<!-- CARD. - LAYOUT -->
+<!-- CARD - LAYOUT -->
 <!--
 <f:layoutData>
-    <f:GridContainerItemLayoutData columns="3"/>
+    <f:GridContainerItemLayoutData columns="3" rows="7"/>
 </f:layoutData>	
 -->
-<!-- CARD. - EXAMPLE -->
+<!-- CARD - EXAMPLE -->
 <!--
 <f:Card>	
 	<f:layoutData>

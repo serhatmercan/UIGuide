@@ -7,5 +7,5 @@ HBOX - ATTRIBUTES
 class="sapUiMediumMarginTop"
 alignItems="Start"
 justifyContent="SpaceBetween"
-
+renderType="Bare"
 -->

@@ -32,8 +32,6 @@ sap.ui.define([
 				oModel.attachBatchRequestCompleted(fnRequestReceived);
 				oModel.attachBatchRequestFailed(fnRequestReceived);
 			});
-
-			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 		},
 
 		removeDuplicateMessages: function () {

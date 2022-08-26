@@ -31,6 +31,19 @@ sap.ui.define([
 			oBindingParams.filters.push(oFilter);
 		},
 
+		onFilterChangeSFB: function (oEvent) {
+            const oSFB = oEvent.getSource();
+            const oFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
+            const oFilterData = oSFB.getFilterData();
+            const aFilterItems = oSFB.getAllFilterItems();
+            const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");                        
+
+            if (oFilteredFieldName === "Begda" || oFilteredFieldName === "Endda") {
+                oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);	
+				oBeginDate.getControl().setValueState(oEndDate ? "Error" : "None");
+            }
+        },
+
 		onGetSFBData: function () {
 			const oSFBData = this.byId("SFB").getFilterData();
 			const sID = oSFBData.ID;
@@ -55,6 +68,34 @@ sap.ui.define([
 
 			oSFB.setFilterData(oID);
 			oST.rebindTable();
+		},
+
+		onSetFilter: function () {
+			this.byId("SFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
+				oItem.getControl().setValueHelpOnly(true);
+			});
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		setFilterData: function(){
+			this.byId("SFB").setFilterData({
+				Date: {
+					low: new Date(),
+					high: new Date()
+				},
+				Text: {
+					ranges: [{
+						"exclude": false,
+						"keyField": "Text",
+						"operation": "EQ",						
+						"value1": "X",
+						"value2": null
+					}]
+				}
+			});
 		}
 
 	});

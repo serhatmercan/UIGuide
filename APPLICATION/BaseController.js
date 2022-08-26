@@ -26,6 +26,16 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
+		onClearModel: function () {
+			const oModel = this.getModel("model");
+			const oData = {
+				ItemFound: false
+			};
+
+			oModel.setProperty("/", oData);
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+		},
+
 		onShowMessages: function (oEvent) {
 			let oMessagesButton = oEvent.getSource();
 

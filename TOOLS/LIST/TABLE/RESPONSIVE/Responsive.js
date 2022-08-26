@@ -6,8 +6,9 @@ sap.ui.define([
 	"sap/m/CheckBox",
     "sap/m/Column",
     "sap/m/Input",
-    "sap/m/Label"
-], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, Input, Label) {
+    "sap/m/Label",
+	"sap/ui/model/Sorter"
+], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, Input, Label, Sorter) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -108,6 +109,18 @@ sap.ui.define([
 
 		onSelectionChange: function (oEvent) {
 			const sPath = oEvent.getSource().getSelectedItem().getBindingContext("model").getPath();
+		},
+
+		onSortWithViewSettingsDialog: function(){
+			const oParams = oEvent.getParameters();
+            const aSorters = [
+                new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)
+            ];
+			const xSorters = [
+                new Sorter("ID", true)
+            ];
+
+            this.byId("Table").getBinding("items").sort(aSorters);
 		},
 
         /* ================ */

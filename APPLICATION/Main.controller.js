@@ -24,7 +24,7 @@ sap.ui.define([
 		/* ================ */
 
 		patternMatched: function (oEvent) {
-			sap.ui.getCore().getMessageManager().removeAllMessages();				
+			this.onClearModel();				
 		}
 
 	});

@@ -33,7 +33,6 @@ sap.ui.define([
 			this.byId("ST").getTable()._getSelectAllCheckbox().setVisible(false);
 		},
 
-
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
@@ -67,6 +66,10 @@ sap.ui.define([
 			const oModel = this.getModel();
 			const oRowData = oModel.getProperty(sRowPath);
 			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
+		},
+
+		onClearFilters: function(){
+			this.byId("ST").getTable().getBinding("items").aApplicationFilters = [];
 		},
 
 		onDetail: function (oEvent) {
@@ -108,12 +111,6 @@ sap.ui.define([
 
 		onPressKey: function (oEvent) {
 			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
-		},
-
-		onSetFilter: function () {
-			this.byId("SFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
-				oItem.getControl().setValueHelpOnly(true);
-			});
 		},
 
 		onSetTableContent: function (oTable) {
@@ -188,6 +185,10 @@ sap.ui.define([
 			const iTotal = aSelectedData.reduce((iSum, oCurrent) => iSum + +oCurrent.Amount, 0)
 		},
 
+		getVariant: function(){
+			return this.byId("SmartTable").fetchVariant();
+		},
+
 		refreshTable: function () {
 			this.byId("SmartTable").clearSelection();
 			this.byId("SmartTable").removeSelections();
@@ -227,9 +228,13 @@ sap.ui.define([
 			oTable.getItems().forEach(oItem => {
 				let bFlag = this.getModel().getProperty(oItem.getBindingContextPath() + "/Flag") === "X" ? true : false;
 				let oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
-
+				let oCell = oItem.getCells().find(oCell => oCell.getBinding("text").getPath() === "ID");
+				
 				oRow.setEnabled(!bFlag);
 				oRow.setSelected(bFlag);
+
+				oCell.$().css("background-color", "#4BB543");
+				oCell.$().css("font-weight", "bold");
 			});
 		},
 
@@ -239,7 +244,21 @@ sap.ui.define([
 			for (let i = aColumns.length - 1; i > -1; i--) {
 				aColumns[i].getParent().autoResizeColumn(i);
 			}
-		}		
+		},
+		
+		sortTable: function(){
+			this.byId("SmartTable").applyVariant({
+				sort: {
+					sortItems: [{
+						columnKey: "ID",
+						operation: "Descending"
+					}, {
+						columnKey: "Value",
+						operation: "Ascending"
+					}]
+				}
+			});
+		}
 
 	});
 

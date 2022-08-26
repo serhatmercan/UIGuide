@@ -56,12 +56,16 @@ sap.ui.define([
 				.toLocaleUpperCase("en");
 		},
 
-		generateLink: function(){
+		generateLink: function () {
 			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
 		},
 
-		generateText: function(sID, sText, sValue){
-			return sID + " / " + sText + " / " + sValue;	
+		generateLocalDateTime: function () {
+			sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance().format(new Date(), sap.ui.getCore().getConfiguration().getTimezone());
+		},
+
+		generateText: function (sID, sText, sValue) {
+			return sID + " / " + sText + " / " + sValue;
 		},
 
 		getLocalDate: function (sValue) {
@@ -70,7 +74,7 @@ sap.ui.define([
 			}
 			var sDate = new Date(sValue.valueOf());
 			sDate.setHours((sDate.getTimezoneOffset() / 60) * -1);
-			return sDate;	
+			return sDate;
 		},
 
 		getLocalTime: function (oTime) {
@@ -85,7 +89,7 @@ sap.ui.define([
 			};
 		},
 
-		getText: function(){
+		getText: function () {
 			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
 		},
 
@@ -126,9 +130,13 @@ sap.ui.define([
 		setIDValue: function (sNumber1, sNumber2) {
 			const oFloatNumberFormat = NumberFormat.getFloatInstance({
 				decimals: 3,
-				decimalSeparator: ",",				
+				decimalSeparator: ",",
 				groupingSeparator: ".",
 				maxFractionDigits: "3",
+				groupingEnabled: true
+			}, sap.ui.getCore().getConfiguration().getLocale());
+			const oIntegerNumberFormat = NumberFormat.getIntegerInstance({
+				groupingSeparator: ".",
 				groupingEnabled: true
 			}, sap.ui.getCore().getConfiguration().getLocale());
 

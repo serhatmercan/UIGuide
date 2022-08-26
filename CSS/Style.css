@@ -55,6 +55,10 @@
     padding-bottom: 0rem !important;
 }
 
+.sapMSwtLabel {
+    text-transform: capitalize !important;
+}
+
 .sapUiFormCLContainer {
     padding: 0rem !important;
 }

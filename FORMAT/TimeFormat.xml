@@ -1,1 +1,1 @@
-<Text text="{ path: 'TimeValue/ms', type: 'sap.ui.model.type.Time', formatOptions: {UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss'} }"/>
+<Text text="{ path: 'TimeValue/ms', type: 'sap.ui.model.type.Time', formatOptions: { UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss' } }"/>

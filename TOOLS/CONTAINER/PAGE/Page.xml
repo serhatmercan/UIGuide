@@ -18,6 +18,16 @@ navButtonPress="onNavBack"
 
 <!-- PAGE - LAYOUT -->
 <!--
+<customHeader>
+	<Bar>
+	    <contentLeft>
+		</contentLeft>
+		<contentMiddle>
+		</contentMiddle>
+        <contentRight>
+		</contentRight>
+    </Bar>
+</customHeader>
 <footer>			
     <Toolbar>
 	<ToolbarSpacer/>

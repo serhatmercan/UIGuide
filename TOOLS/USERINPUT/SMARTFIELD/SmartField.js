@@ -137,6 +137,11 @@ sap.ui.define([
 			return this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID");
 		},
 
+		getValue: function(){
+			const oSmartField = this.byId("SmartField");		
+			const sValue = oSmartField.getProperty("value") ? oSmartField.getProperty("value") : oSmartField.getValue();
+		},
+
 		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				this.byId("SimpleForm").bindElement(this.getModel().createEntry("/...Set").getPath());

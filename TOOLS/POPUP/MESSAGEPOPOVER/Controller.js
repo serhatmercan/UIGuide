@@ -68,7 +68,7 @@ sap.ui.define([
 			} else {}
 		},
 
-		onShowMessages: function () {
+		onShowMessages: function (oEvent) {
 			const oMessagesButton = oEvent.getSource();
 
 			if (!this.oMessagePopover) {
