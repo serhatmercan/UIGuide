@@ -1,3 +1,25 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ObjectListItem title="Title" type="Active"/>
+    <ObjectListItem title="{Title}" type="Active"/>
 </core:FragmentDefinition>
+<!-- OBJECT LIST ITEM - ATTRIBUTES -->
+<!--
+intro="{Intro}"	
+number="{Number}" 	
+type="Inactive"
+	
+press="onOLI"
+-->
+<!-- OBJECT LIST ITEM - LAYOUT -->
+<!--
+ <ObjectListItem>
+    <firstStatus>
+	    <ObjectStatus text="{ID}"/>
+	</firstStatus>
+	<secondStatus>
+	    <ObjectStatus text="{Value}"/>
+	</secondStatus>
+	<attributes>
+	    <ObjectAttribute text="{Text}"/>
+	</attributes>
+</ObjectListItem>
+-->

@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController",
-    "sap/ui/model/json/JSONModel",	
+	"sap/ui/model/json/JSONModel",
 ], function (BaseController, JSONModel) {
 	"use strict";
 
@@ -11,15 +11,27 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
-            this.setModel(
+			this.setModel(
 				new JSONModel({
 					Busy: false,
-                    Data: {},
+					Data: {},
 					Items: [],
-                    No: 0,                    
+					No: 0,
 					Value: ""
 				}), "model"
 			);
+
+			this.getModel("model").attachPropertyChange((oEvent) => {
+				const sPath = oEvent.getParameter("path");
+				const sValue = oEvent.getParameter("value");
+
+				switch (sPath) {
+					case "/Data/ID":
+						break;
+					case "Items":
+						break;
+				}
+			});
 
 			this.getRouter().getRoute("JSON").attachPatternMatched(this.patternMatched, this);
 		},
@@ -28,7 +40,7 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onAddRowToArray: function(){
+		onAddRowToArray: function () {
 			const oModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 
@@ -39,7 +51,7 @@ sap.ui.define([
 			oModel.setProperty("/Items", aItems);
 		},
 
-		onAddRowToBetweenRowsInArray: function(){
+		onAddRowToBetweenRowsInArray: function () {
 			const oModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 			const iIndex = this.byId("Table").getSelectedIndices()[0];
@@ -47,13 +59,13 @@ sap.ui.define([
 			let oSelectedData = {};
 			let iID = 1;
 
-			if(aItems.length !== 0){				
-				oSelectedData = aItems[iIndex];	
+			if (aItems.length !== 0) {
+				oSelectedData = aItems[iIndex];
 				iID = +oSelectedData.ID + 1;
-				
+
 				aItems.forEach(oItem => {
-					if(+iID === +oItem.ID){
-						oItem.ID = 	(+oItem.ID + 1).toString;
+					if (+iID === +oItem.ID) {
+						oItem.ID = (+oItem.ID + 1).toString;
 						iID = oItem.ID;
 					}
 				});
@@ -69,7 +81,7 @@ sap.ui.define([
 			this.onSortArray();
 		},
 
-		onDeleteRowsFromArray: function(){
+		onDeleteRowsFromArray: function () {
 			const oModel = this.getModel("model");
 			const oTable = this.byId("Table");
 			const aItems = oModel.getProperty("/Items");
@@ -83,7 +95,7 @@ sap.ui.define([
 			oTable.setSelectedIndex(-1);
 		},
 
-		onSortArray: function(){
+		onSortArray: function () {
 			const oModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 
@@ -98,43 +110,43 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-        clearModel: function(){
-            this.getModel("model").setProperty("/", {
-                Busy: false,
-                Data: {},
+		clearModel: function () {
+			this.getModel("model").setProperty("/", {
+				Busy: false,
+				Data: {},
 				Items: [],
-                No: 0,                    
-				Value: ""        
-            });
+				No: 0,
+				Value: ""
+			});
 
 			this.getModel("model").refresh();
-        },
+		},
 
-		convertDataToJSON: function(){
-			const sJSONData = "{\"Family\":[" + 
-												"{\"FirstName\":\"Serhat\",\"LastName\":\"Mercan\" }," + 
-												"{\"FirstName\":\"Elif\",\"LastName\":\"Mercan\" }," +
-												"{\"FirstName\":\"Selim\",\"LastName\":\"Mercan\"}" + 
-											"]}";
+		convertDataToJSON: function () {
+			const sJSONData = "{\"Family\":[" +
+				"{\"FirstName\":\"Serhat\",\"LastName\":\"Mercan\" }," +
+				"{\"FirstName\":\"Elif\",\"LastName\":\"Mercan\" }," +
+				"{\"FirstName\":\"Selim\",\"LastName\":\"Mercan\"}" +
+				"]}";
 
 			return JSON.parse(sJSONData).Family;
 		},
-		
-		convertDataToJSON: function(){
+
+		convertDataToJSON: function () {
 			return JSON.stringify(oData);
 		},
 
-        getData: function(){
-            const aItems = this.getModel("model").getProperty("/Items");
-        },
-
-		patternMatched: function (oEvent) {
-            this.clearModel();
+		getData: function () {
+			const aItems = this.getModel("model").getProperty("/Items");
 		},
 
-        setData: function(){
-            this.getModel("model").setProperty("/Items", []);
-        }
+		patternMatched: function (oEvent) {
+			this.clearModel();
+		},
+
+		setData: function () {
+			this.getModel("model").setProperty("/Items", []);
+		}
 
 	});
 });

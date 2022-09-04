@@ -17,3 +17,9 @@
 		<StandardListItem description="{Stext}" title="{Pernr}"/>
 	</SelectDialog>
 </core:FragmentDefinition>
+<!-- TABLE SELECT DIALOG - ATTRIBUTES -->
+<!-- 
+multiSelect="false"
+
+liveChange="onLiveChangeTSD"
+-->	

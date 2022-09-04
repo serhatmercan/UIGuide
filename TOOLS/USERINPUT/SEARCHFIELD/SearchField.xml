@@ -1,10 +1,16 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
-	<SearchField liveChange="onLiveChange"/>
+	<SearchField value="{model>/Value}" onSearch="onSearch"/>
 </core:FragmentDefinition>
 <!-- SEARCH FIELD - ATTRIBUTES -->
 <!--
 id="SearchField"
+maxLength="10"
+placeholder="{i18n>SF}"  
 width="100%"
+
+showRefreshButton="true"
+
+liveChange="onLiveChange"
 -->
 <!-- SEARCH FIELD - LAYOUT -->
 <!--

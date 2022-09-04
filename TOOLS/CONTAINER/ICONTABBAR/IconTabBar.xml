@@ -1,20 +1,20 @@
-<IconTabBar select="onSelectITB">
-	<items>
-		<IconTabFilter key="ITFI" text="{i18n>ITFI}">
-			<core:Fragment fragmentName="com.serhatmercan.fragment.fragmentName" type="XML"/>
-		</IconTabFilter>
-		<IconTabSeparator icon="sap-icon://open-command-field"/>
-		<IconTabFilter key="ITFII" text="{i18n>ITFII}"></IconTabFilter>
-	</items>
-</IconTabBar>
-<!--
-
-ICON TAB BAR - ATTRIBUTES 
-
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<IconTabBar select="onSelectITB">
+		<items>
+			<IconTabFilter key="ITFI" text="{i18n>ITFI}">
+				<core:Fragment fragmentName="com.serhatmercan.fragment.fragmentName" type="XML" />
+			</IconTabFilter>
+			<IconTabSeparator icon="sap-icon://open-command-field" />
+			<IconTabFilter key="ITFII" text="{i18n>ITFII}"></IconTabFilter>
+		</items>
+	</IconTabBar>
+</core:FragmentDefinition>
+<!-- ICON TAB BAR - ATTRIBUTES -->
+<!-- 
 id="ITB"
 backgroundDesign="Solid" backgroundDesign="Translucent"
-class="sapUiNoContentPadding" class="sapUiResponsiveContentPadding"
-headerBackgroundDesign="Transparent" headerBackgroundDesign="Translucent"
+class="sapUiNoContentPadding" class="sapUiResponsiveContentPadding" class="sapUiResponsiveContentPadding iconTabBarStyle"
+headerBackgroundDesign="Solid" headerBackgroundDesign="Transparent" headerBackgroundDesign="Translucent"
 headerMode="Inline"
 selectedKey="Header" 
 

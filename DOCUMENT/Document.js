@@ -24,6 +24,14 @@ sap.ui.define([
 			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
 
+
+		onExit: function(){
+			if (this.oDocument) {
+				this.oDocument.destroy();
+				this.oDocument = null;
+			}
+		},
+
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
@@ -87,7 +95,8 @@ sap.ui.define([
 
 			aNewDocumentID = aNewDocuments.map(oNewDocument => {
 				return {
-					DocumentID: oNewDocument.getBindingContext().getProperty("DocumentID")
+					DocumentID: oNewDocument.getBindingContext().getProperty("DocumentID"),
+					DocumentID: oNewDocument.getDocumentId()
 				};
 			});
 

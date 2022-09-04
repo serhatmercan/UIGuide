@@ -6,5 +6,8 @@
 
 <!-- OBJECT HEADER - ATTRIBUTES -->
 <!--
-backgroundDesign="Solid"
+backgroundDesign="Solid" backgroundDesign="Translucent"
+icon="sap-icon://product"
+
+responsive="true" 
 -->

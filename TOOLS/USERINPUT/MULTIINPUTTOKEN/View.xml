@@ -7,8 +7,10 @@
 </mvc:View>
 <!-- MULTIINPUT ATTRIBUTES -->
 <!--
-id="MI" 
+id="MI"
+maxLength="10"
 maxTokens="5"
+placeholder="{i18n>MI}"
 tokens="{ path:'model>/List', templateShareable:true }"
 width="calc(100% - 2rem)"
 

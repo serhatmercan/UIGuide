@@ -23,14 +23,20 @@ sap.ui.define([
 					Values: {
 						Value: {}
 					}
-			}), "model");
+				}), "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onACDialog: function(oEvent){
+		onACConfirmDialog: function () {
+			this.oConfirmDialog.close();
+			this.oConfirmDialog.destroy();
+			this.oConfirmDialog = null;
+		},
+
+		onACDialog: function (oEvent) {
 			this.oDialog.close();
 			this.oDialog.destroy();
 			this.oDialog = null;
@@ -39,7 +45,7 @@ sap.ui.define([
 		},
 
 		onFilterDialogTable: function () {
-			this.oDialog = sap.ui.xmlfragment("Dialog","com.serhatmercan.fragment.Dialog", this);
+			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.fragment.Dialog", this);
 
 			var aFilters = [
 				new Filter("Key", FilterOperator.EQ, "A"),
@@ -57,13 +63,30 @@ sap.ui.define([
 			oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
 		},
 
+		onSaveConfirmDialog: function(){
+			const sExplanation = this.getModel("model").getProperty("/Explanation");
+			
+			this.onACConfirmDialog();
+		},		
+
+		onShowConfirmDialog: function () {
+			this.getModel("model").setProperty("/Explanation", "");
+			this.oConfirmDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.ConfirmDialog", this);
+			this.oConfirmDialog.setModel(this.getModel("i18n"), "i18n");
+			this.oConfirmDialog.setModel(this.getModel("model"), "model");
+			this.getView().addDependent(this.oConfirmDialog);
+			this.oConfirmDialog.open();
+		},
+
 		onShowDialog: function (oEvent) {
 			this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
+			this.oDialog.setModel(this.getModel("i18n"), "i18n");
+			this.oDialog.setModel(this.getModel("model"), "model");
 			this.getView().addDependent(this.oDialog);
 			this.oDialog.open();
-		},	
+		},
 
-		onShowDialogDetail: function(oEvent){
+		onShowDialogDetail: function (oEvent) {
 			const oControl = oEvent.getSource();
 
 			if (!this.oDialog) {
@@ -71,7 +94,7 @@ sap.ui.define([
 				this.oDialog.oDialog._header.addContentRight(new sap.m.Button({
 					icon: "sap-icon://add",
 					tooltip: this.getResourceBundle().getText("save"),
-					type: "Emphasized",				
+					type: "Emphasized",
 					press: this.onSaveButton.bind(this)
 				}));
 
@@ -102,10 +125,10 @@ sap.ui.define([
 				model: "model",
 				path: "model>" + sPath
 			});
-			
+
 			// Set Dialog Height 
 			this.oDialog.setContentHeight("250px");
-			
+
 			// Add Input to Dialog
 			oControl.addDependent(this.oDialog);
 		},
@@ -115,7 +138,7 @@ sap.ui.define([
 			this.openDialog("Dialog", "serhatmercan.Dialog");
 
 			// Default w/ Then
-			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {});
+			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => { });
 
 			// w/ Binding Path
 			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {
@@ -148,16 +171,16 @@ sap.ui.define([
 				type: "Message",
 				content: [
 					new TextArea("TextArea", {
-						liveChange: function (oEvent) {							
+						liveChange: function (oEvent) {
 							oEvent.getSource().getParent().getBeginButton().setEnabled(oEvent.getParameter("value").length > 0);
-						},						
+						},
 						placeholder: oResourceBundle.getText("placeholder"),
 						width: "100%"
 					})
 				],
 				beginButton: new Button({
 					text: "OK",
-					type: ButtonType.Emphasized,					
+					type: ButtonType.Emphasized,
 					enabled: false,
 					press: (oEvent) => {
 						const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();

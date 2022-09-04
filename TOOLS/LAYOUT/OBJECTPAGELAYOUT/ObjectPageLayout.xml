@@ -1,17 +1,16 @@
-<mvc:View xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:smartField="sap.ui.comp.smartfield"
-	xmlns:smartForm="sap.ui.comp.smartform" xmlns:f="sap.f">
-	<ObjectPageLayout>				
+<mvc:View xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform" xmlns:f="sap.f">
+	<ObjectPageLayout>
 		<sections>
 			<ObjectPageSection>
 				<subSections>
 					<ObjectPageSubSection title="{i18n>OPS}">
 						<blocks>
-							<core:Fragment type="XML" fragmentName="..."/>
+							<core:Fragment type="XML" fragmentName="..." />
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-		</sections>		
+		</sections>
 	</ObjectPageLayout>
 </mvc:View>
 <!-- OBJECT PAGE LAYOUT - ATTRIBUTES -->
@@ -22,11 +21,15 @@ busyIndicatorDelay="0"
 height="100%" 
 
 alwaysShowContentHeader="true"
+enableLazyLoading="false"
+isChildPage="false"
 preserveHeaderStateOnScroll="true" 
 showFooter="true" 
 showHeaderContent="true" 
+showTitleInHeaderContent="false"
 toggleHeaderOnTitleClick="true"
 upperCaseAnchorBar="false"
+useIconTabBar="true"
 -->
 
 <!-- OBJECT PAGE LAYOUT - LAYOUT -->
@@ -44,6 +47,8 @@ upperCaseAnchorBar="false"
 		<actions>
 		</actions>
 	</ObjectPageDynamicHeaderTitle>
+	<ObjectPageHeader id="OPH" objectTitle="{i18n>OT}" objectSubtitle="OST" isActionAreaAlwaysVisible="true" isObjectIconAlwaysVisible="false" 
+		isObjectSubtitleAlwaysVisible="true" isObjectTitleAlwaysVisible="true">
 </headerTitle>
 <headerContent>
 	<f:GridList></f:GridList>

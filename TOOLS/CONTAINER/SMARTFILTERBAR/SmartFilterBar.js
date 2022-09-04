@@ -18,7 +18,8 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "model");
-		},
+
+			this.byId("SFB").triggerSearch();
 
 		/* ============== */
 		/* Event Handlers */

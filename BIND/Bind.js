@@ -25,8 +25,8 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);	
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);					
+			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ============== */
@@ -75,21 +75,21 @@ sap.ui.define([
 				let value;
 
 				switch (oProperty.type) {
-				case "Edm.Boolean":
-					value = false;
-					break;
-				case "Edm.DateTime":
-					value = null;
-					break;
-				case "Edm.String":
-					value = "";
-					break;
-				case "Edm.Time":
-					value = {
-						ms: 0,
-						__edmType: "Edm.Time"
-					};
-					break;
+					case "Edm.Boolean":
+						value = false;
+						break;
+					case "Edm.DateTime":
+						value = null;
+						break;
+					case "Edm.String":
+						value = "";
+						break;
+					case "Edm.Time":
+						value = {
+							ms: 0,
+							__edmType: "Edm.Time"
+						};
+						break;
 				}
 
 				oModel.setProperty(this.getView().getBindingContext().getPath() + "/" + oProperty.name, value);
@@ -131,13 +131,13 @@ sap.ui.define([
 			this.getView().addDependent(this.oDialog);
 
 			this.oDialog.bindElement(sPath);
-			
+
 			sap.ui.core.Fragment.byId("Dialog", "SmartForm").bindElement(sPath);
 
 			this.getModel().setProperty(sPath + "/ID", "X");
 
 			this.oDialog.open();
-		},						
+		},
 
 		onRefreshView: function () {
 			this.getView().unbindElement();
@@ -145,15 +145,15 @@ sap.ui.define([
 
 		/* ================ */
 		/* Internal Methods */
-		/* ================ */	
-		
-		attachRequestCompleted: function(){
+		/* ================ */
+
+		attachRequestCompleted: function () {
 			setTimeout(() => {
 				this.byId("ComboBox").fireChange();
 				this.byId("ComboBox").getInnerControls()[0].getBinding("items").filter([
-						new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
+					new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
 				]);
-			}, 500);		
+			}, 500);
 		},
 
 		change: function () {
@@ -167,13 +167,13 @@ sap.ui.define([
 
 			if (oBindingContext) {
 				oView.unbindElement();
-				oModel.deleteCreatedEntry(oBindingContext);				
+				oModel.deleteCreatedEntry(oBindingContext);
 				oModel.resetChanges();
 				oModel.refresh(true, true);
 			}
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
-		},	
+		},
 
 		dataReceived: function () {
 			const aData = this.getView().getElementBinding().getBoundContext().getObject().to_Header.__list;
@@ -182,20 +182,27 @@ sap.ui.define([
 		getMyComponent: function () {
 			const sComponentId = sap.ui.core.Component.getOwnerIdFor(this.getView());
 			return sap.ui.component(sComponentId);
-		},	
+		},
 
-		getPath: function(){
+		getData: function (oEvent) {
+			const oData = this.getView().getBindingContext().getObject();
+			const oDataID = this.getView().getBindingContext().getObject("ID");
+			const oDataX = this.getModel().getProperty(this.getView().getBindingContext().getPath());
+			const oDataXID = this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID");
+		},
+
+		getPath: function () {
 			// From Model
 			let sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 
 			// From Input Model
 			let sValuePath = oEvent.getSource().getBindingInfo("value").binding.getPath();
-			
+
 			// From View I
 			let oView = this.getView(),
 				sBindingPath = oView.getBindingContext().getPath(),
 				sData = oView.getModel().getProperty(sPath + "/Data");
-			
+
 			//  From View II
 			let oObject = this.getView().getBindingContext().getObject();
 		},
@@ -213,7 +220,7 @@ sap.ui.define([
 
 			this.oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
 
-			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") {}
+			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") { }
 
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
 				const oCreateEntry = this.getModel().createEntry("/IDSet");
@@ -249,12 +256,13 @@ sap.ui.define([
 						});
 					},
 					change: this.change.bind(this),
-					dataReceived: this.dataReceived.bind(this)
+					dataReceived: this.dataReceived.bind(this),
+					dataRequested: this.dataRequested.bind(this)
 				}
 			});
 
 			oTable.rebindTable();
-		}			
+		}
 
 	});
 

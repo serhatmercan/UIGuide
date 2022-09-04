@@ -11,3 +11,11 @@ enabled="{= ${model>Value} === 'X' }"
 
 change="onChange"
 -->	
+<!-- SWITCH - LAYOUT -->
+<!--
+<Switch>
+	<layoutData>
+    	<FlexItemData growFactor="1" />
+    </layoutData>
+</Switch>
+-->

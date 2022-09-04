@@ -19,6 +19,7 @@ width="25%"
 cd:useSmartField="true"
 demandPopin="true" 
 editable="true"
+editTogglable="true"
 enableAutoBinding="true"
 enableAutoColumnWidth="true" 
 showFullScreenButton="true" 
@@ -35,12 +36,19 @@ initialized="onInitST"
 -->
 <!-- SMART TABLE - LAYOUT -->
 <!--
+<smartTable:customData>
+	<core:CustomData key="ToggleCD" value="true"/>
+	<core:CustomData key="FieldCD" value="true"/>
+</smartTable:customData>
 <smartTable:customToolbar>
-	<OverflowToolbar design="Transparent">
+	<OverflowToolbar class="sapUiResponsiveMargin" design="Transparent" width="auto">
 		<ToolbarSpacer/>
 		<Button type="Emphasized" text="{i18n>text}" tooltip="{i18n>text}" press="onShow"/>
 	</OverflowToolbar>
-</smartTable:customToolbar>	
+</smartTable:customToolbar>
+<smartTable:layoutData>
+	<FlexItemData baseSize="0%" growFactor="1"/>
+</smartTable:layoutData>	
 -->
 <!-- SMART TABLE - GRID TABLE -->
 <!--

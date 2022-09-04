@@ -1,6 +1,18 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<FlexBox id="FlexBox" alignContent="Center" alignItems="Center" fitContainer="true" height="100%" justifyContent="Center" width="100%"
-		wrap="Wrap">
-		<Title text="{Title}"/>
+	<FlexBox>
+		<Title text="{Title}" />
 	</FlexBox>
 </core:FragmentDefinition>
+<!-- FLEX BOX - ATTRIBUTES -->
+<!--
+id="FlexBox" 
+alignContent="Center" 
+alignItems="Center" alignItems="End"
+class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding"
+height="100%" 
+justifyContent="Center" justifyContent="End" 
+width="100%" 
+wrap="Wrap"
+
+fitContainer="true"
+-->

@@ -98,6 +98,13 @@ sap.ui.define([
 			oModel.setProperty("/Items", aItems);
 		},
 
+		onDownloadExcel: function(){
+			const sDownloadUrl = this.byId("Table").getBinding("items").getDownloadUrl();
+			const sUrlParameters = "$format=xlsx&$select=ID,Value,Text";
+				
+			window.open(sDownloadUrl + "&" + sUrlParameters);
+		},
+
 		onPress: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContextPath();
 			const sID = oEvent.getSource().getBindingContext("model").getProperty("ID");
@@ -108,6 +115,7 @@ sap.ui.define([
 		},
 
 		onSelectionChange: function (oEvent) {
+			const oData = oEvent.getParameter("listItem").getBindingContext().getObject();
 			const sPath = oEvent.getSource().getSelectedItem().getBindingContext("model").getPath();
 		},
 

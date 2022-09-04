@@ -8,3 +8,12 @@
 		</semantic:content>
 	</semantic:MasterPage>
 </mvc:View>
+<!-- SEMANGTIC - MASTER PAGE - LAYOUT -->
+<!--
+<semantic:MasterPage
+	<semantic:customHeaderContent>
+		<Button icon="sap-icon://refresh" press="onRefresh"/>
+		<Button icon="sap-icon://settings" press="onSettings"/>
+	</semantic:customHeaderContent>
+</semantic:MasterPage>
+-->

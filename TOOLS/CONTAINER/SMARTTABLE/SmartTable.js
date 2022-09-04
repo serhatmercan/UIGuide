@@ -19,7 +19,7 @@ sap.ui.define([
 					Data: [],
 					Statu: false
 				}), "model");
-			
+
 			// Grid Table		
 			this.byId("ST").getTable().attachRowSelectionChange((oEvent) => {
 				this.getModel("model").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
@@ -52,12 +52,32 @@ sap.ui.define([
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilterPeriod = new Filter("ID", FilterOperator.EQ, "X");
 			const oTable = oEvent.getSource().getTable();
+			const oSFB = this.byId("SFB");
+			var oComboBoxFilter = oSFB.getControlByKey("ComboBox");
 
 			oBindingParams.filters.push(oFilterPeriod);
 
 			this.onBeforeRebindTableWithResizing(oEvent);
 			this.onSetFilter();
 			this.onSetTableContent(oTable);
+
+			if (oSFB instanceof sap.ui.comp.smartfilterbar.SmartFilterBar) {
+				if (oComboBoxFilter instanceof sap.m.ComboBox) {
+					switch (oComboBoxFilter.getSelectedKey()) {
+						case "1":
+							oBindingParams.filters.push(new Filter("ID", "EQ", "1"));
+							break;
+						case "2":
+							oBindingParams.filters.push(new Filter("ID", "EQ", "2"));
+							break;
+						case "3":
+							oBindingParams.filters.push(new Filter("ID", "EQ", "3"));
+							break;
+						default:
+							break;
+					}
+				}
+			}
 		},
 
 		onChangeKey: function (oEvent) {
@@ -68,7 +88,7 @@ sap.ui.define([
 			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
 		},
 
-		onClearFilters: function(){
+		onClearFilters: function () {
 			this.byId("ST").getTable().getBinding("items").aApplicationFilters = [];
 		},
 
@@ -88,7 +108,7 @@ sap.ui.define([
 			}
 		},
 
-		onFieldChange: function(oEvent){},
+		onFieldChange: function (oEvent) { },
 
 		onInitST: function () {
 			const oSmartFilter = this.byId("SFB");
@@ -119,7 +139,7 @@ sap.ui.define([
 					setTimeout(() => this.setTableContent(oTable));
 				}
 			};
-		},						
+		},
 
 		onShow: function (oEvent) {
 			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
@@ -130,7 +150,7 @@ sap.ui.define([
 			aTableContexts.forEach((oContext) => {
 				aIDs.push(this.getModel().getProperty(oContext.getPath() + "/ID"));
 			});
-		},		
+		},
 
 		onShowDetail: function (oEvent) {
 			const oContext = oEvent.getSource().getBindingContext();
@@ -144,7 +164,7 @@ sap.ui.define([
 			});
 		},
 
-		onSSBarcode: function (oEvent) {			
+		onSSBarcode: function (oEvent) {
 			this.getModel().setProperty(oEvent.getSource().getBindingContext().getPath() + "/ID", oEvent.getParameter("text"));
 		},
 
@@ -155,7 +175,7 @@ sap.ui.define([
 		dataReceived: function () {
 			const aData = this.getView().getElementBinding().getBoundContext().getObject().Items.__list;
 		},
-		
+
 		getData: function () {
 			const oModel = this.getModel();
 			const oContext = this.getView().getBindingContext();
@@ -171,13 +191,13 @@ sap.ui.define([
 
 		getSelectedDataFromGridST: function () {
 			const oTable = this.byId("SmartTable").getTable();
-			
+
 			return oTable.getSelectedIndices().map(iIndex => oTable.getContextByIndex(iIndex).getObject());
 		},
 
 		getSelectedDataFromResponsiveST: function () {
 			return this.byId("ST").getTable().getSelectedContexts().map(oContext => this.getModel().getProperty(oContext.getPath() + "/"));
-		},		
+		},
 
 		getTotalCount: function () {
 			const oTable = this.byId("SmartTable").getTable();
@@ -185,7 +205,7 @@ sap.ui.define([
 			const iTotal = aSelectedData.reduce((iSum, oCurrent) => iSum + +oCurrent.Amount, 0)
 		},
 
-		getVariant: function(){
+		getVariant: function () {
 			return this.byId("SmartTable").fetchVariant();
 		},
 
@@ -229,7 +249,7 @@ sap.ui.define([
 				let bFlag = this.getModel().getProperty(oItem.getBindingContextPath() + "/Flag") === "X" ? true : false;
 				let oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
 				let oCell = oItem.getCells().find(oCell => oCell.getBinding("text").getPath() === "ID");
-				
+
 				oRow.setEnabled(!bFlag);
 				oRow.setSelected(bFlag);
 
@@ -245,8 +265,8 @@ sap.ui.define([
 				aColumns[i].getParent().autoResizeColumn(i);
 			}
 		},
-		
-		sortTable: function(){
+
+		sortTable: function () {
 			this.byId("SmartTable").applyVariant({
 				sort: {
 					sortItems: [{

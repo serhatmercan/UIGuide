@@ -25,6 +25,15 @@ sap.ui.define([
 			this.byId("List").removeSelections();
 		},
 
+		onAfterRendering: function() {
+			this.byId("List").getBinding("items").attachDataRequested((oEvent) => {
+
+			});			
+			this.byId("List").getBinding("items").attachDataReceived((oEvent) => {
+
+			});
+		},	
+
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
@@ -36,7 +45,7 @@ sap.ui.define([
 			const sIndex = aIndexes[aIndexes.length - 1];
 			const oModel = this.getModel("model");
 			let sModelPath;
-			let	aResults;
+			let aResults;
 
 			aIndexes.pop();
 			sModelPath = aIndexes.join("/");
@@ -54,10 +63,19 @@ sap.ui.define([
 			const aItems = this.byId("List").getBinding("items");
 
 			aItems.filter([new Filter("ID", FilterOperator.Contains, sValue)]);
-		},		
+		},
+
+		onOLI: function (oEvent) {
+			const sID = oEvent.getParameter("listItem").getBindingContext().getProperty("ID");
+		},
 
 		onPress: function (oEvent) {
 			const oData = oEvent.getSource().getBindingContext("model").getObject();
+		},
+
+		onSelectionChange: function(oEvent){
+			const oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+			const sID = oItem.getBindingContext().getProperty("ID");
 		}
 
 	});

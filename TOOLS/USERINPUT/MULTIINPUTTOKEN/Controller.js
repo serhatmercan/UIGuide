@@ -33,7 +33,7 @@ sap.ui.define([
 		onCancelSD: function () {
 			this.oDialog.destroy();
 			this.oDialog = null;
-		},	
+		},
 
 		onCancelTSD: function () {
 			this.oDialog.destroy();
@@ -49,11 +49,11 @@ sap.ui.define([
 			const oObj = {};
 
 			oObj[sKeyField] = formatter.validField(sValue) ? formatter.padLeft(sValue, oEvent.getSource().getMaxLength()) : sValue.toUpperCase();
-			
+
 			aList.push(oObj);
-			
+
 			this.getModel(sModel).setProperty(sPath, aList);
-			
+
 			oEvent.getSource().setValue("");
 		},
 
@@ -77,8 +77,12 @@ sap.ui.define([
 			});
 
 			this.getModel("viewModel").setProperty("/List", aItems);
-			
+
 			this.onCancelTSD();
+		},
+
+		onLiveChangeTSD: function (oEvent) {
+			const sValue = oEvent.getParameter("value");;
 		},
 
 		onSearchSD: function (oEvent) {
@@ -105,7 +109,7 @@ sap.ui.define([
 				const sPath = "/" + aParts[1];
 				const oModel = this.getModel("model");
 				const sIndex = oModel.getProperty(sPath).map((oData) => {
-					return oData[sKeyField];		
+					return oData[sKeyField];
 				}).indexOf(sKey);
 
 				oModel.getProperty(sPath).splice(sIndex, 1);

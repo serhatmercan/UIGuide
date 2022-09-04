@@ -1,13 +1,15 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Input value="{model>/Value}"/>
-</core:FragmentDefinition>
-<!--
+	<Input value="{model>/Value}" />
+</core:FragmentDefinition><!--
 INPUT - LAYOUT 
 
-<Input value="{model>/Value}">
+<Input value="{model>/Value}" suggestionItems="{/InputVHSet}">
 	<layoutData>
 		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
 	</layoutData>
+	<suggestionItems>
+		<core:Item text="{Value}" />
+	</suggestionItems>
 </Input>
 
 INPUT - ATTRIBUTES 

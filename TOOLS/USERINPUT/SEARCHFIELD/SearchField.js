@@ -6,6 +6,10 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
+		/* ================= */
+        /* Lifecycle Methods */
+        /* ================= */
+
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
@@ -15,8 +19,16 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
+		/* ============== */
+        /* Event Handlers */
+        /* ============== */
+
 		onLiveChange: function (oEvent) {
 			const sValue = oEvent.getParameter("newValue");
+		},
+
+		onSearch: function(oEvent){
+
 		}
 
 	});

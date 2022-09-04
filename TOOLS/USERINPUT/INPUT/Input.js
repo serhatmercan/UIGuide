@@ -14,11 +14,11 @@ sap.ui.define([
 
 		onInit: function () {
 			this.setModel(
-				new JSONModel({					
+				new JSONModel({
 					Integer: 1,
 					Unit: "",
 					Value: ""
-			}), "model");
+				}), "model");
 
 			this.byId("Input").focus();
 			this.byId("Input").setValue("");
@@ -35,12 +35,12 @@ sap.ui.define([
 			this.sPath = "";
 		},
 
-		onBRT: function (oEvent) {			
+		onBRT: function (oEvent) {
 			const oFilterPeriod = new Filter("Key", FilterOperator.EQ, "X");
 			const oFilterPeriodX = new Filter("Key", FilterOperator.CP, "*");
 
 			oEvent.getParameter("bindingParams").filters.push(oFilterPeriod);
-		},	
+		},
 
 		onCancel: function () {
 			this.oVHDialog.destroy();
@@ -102,7 +102,7 @@ sap.ui.define([
 			this.onACVH();
 		},
 
-		onVHR: function(oEvent){
+		onVHR: function (oEvent) {
 			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
 
 			this.oVHDialog = sap.ui.xmlfragment("VH", "com.serhatmercan.SmartSearchHelp", this);
@@ -116,13 +116,13 @@ sap.ui.define([
 
 		onVHR: function () {
 			if (!this.oVHDialog) {
-				this.oVHDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.InputSHList", this);				
-				this.getView().addDependent(this.oVHDialog);			
+				this.oVHDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.InputSHList", this);
+				this.getView().addDependent(this.oVHDialog);
 			}
 
 			this.oVHDialog.open();
 		},
-		
+
 		onVHR: function () {
 			const aFilters = [
 				new Filter("Value", FilterOperator.Contains, "X")
@@ -137,17 +137,24 @@ sap.ui.define([
 			this.oVHDialog._oDialog.attachBeforeOpen((oEvent) => {
 				const aFilters = [
 					new Filter("Value", FilterOperator.EQ, this.getModel("model").getProperty("/Value"))
-				];	
+				];
 
 				this.byId("SD").getBinding("items").filter(aFilters);
 			});
 
 			sap.ui.core.Fragment.byId(this.getView().getId(), "SD").getBinding("items").filter(aFilters);
-		},	
+		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
+
+		getSuggestionItems: function () {
+			const oInput = this.byId("Input");
+			const aSuggestionItems = oInput.getSuggestionItems();
+			const sKey = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Key;  
+			const sText = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Text;  
+		},
 
 		validateField: function (oEvent) {
 			const iValue = +oEvent.getParameter("value");

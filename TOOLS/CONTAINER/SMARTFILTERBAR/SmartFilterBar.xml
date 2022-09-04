@@ -1,10 +1,9 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" 
-		xmlns:smartVariants="sap.ui.comp.smartvariants">
-	<smartVariants:SmartVariantManagement id="SVM"/>
-	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set"/>
-	<smartTable:SmartTable id="ST" entitySet="...Set" smartFilterId="SFB" beforeRebindTable="onBRT"/>
-</mvc:View>
-<!-- SMART FILTER BAR - ATTRIBUTES -->
+	xmlns:smartVariants="sap.ui.comp.smartvariants">
+	<smartVariants:SmartVariantManagement id="SVM" />
+	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" />
+	<smartTable:SmartTable id="ST" entitySet="...Set" smartFilterId="SFB" beforeRebindTable="onBRT" />
+</mvc:View><!-- SMART FILTER BAR - ATTRIBUTES -->
 <!-- 
 smartVariant="SVM"
 
@@ -31,6 +30,15 @@ initialized="onInitSFB"
 	<smartFilterBar:ControlConfiguration key="CB">
 		<smartFilterBar:customControl>
 			<CheckBox id="CB" selected="true"/>
+		</smartFilterBar:customControl>
+	</smartFilterBar:ControlConfiguration>
+	<smartFilterBar:ControlConfiguration key="CBB" groupId="_BASIC" index="10" label="{i18n>statu}">
+		<smartFilterBar:customControl>
+			<ComboBox id="ComboBox" change="onChangeCB">
+				<core:Item key="1" text="{i18n>free}"/>
+				<core:Item key="2" text="{i18n>presold}"/>
+				<core:Item key="3" text="{i18n>sold}"/>
+			</ComboBox>
 		</smartFilterBar:customControl>
 	</smartFilterBar:ControlConfiguration>
 </smartFilterBar:controlConfiguration>

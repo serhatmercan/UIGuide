@@ -1,6 +1,7 @@
 sap.ui.define([
+	"sap/ui/core/format/DateFormat",
 	"sap/ui/core/format/NumberFormat"
-], function (NumberFormat) {
+], function (DateFormat, NumberFormat) {
 	"use strict";
 
 	return {
@@ -56,6 +57,21 @@ sap.ui.define([
 				.toLocaleUpperCase("en");
 		},
 
+		generateDate: function () {
+			const oDateFormat = DateFormat.getDateTimeInstance({ style: "medium" });
+
+			return oDateFormat.format(new Date());
+		},
+
+		generateDateWithFormat: function () {
+			const oDateFormat = DateFormat.getDateInstance({
+				pattern: "dd/MM/yyyy",
+				pattern: "dd-MM-YYYY"
+			});
+
+			oDateFormat.format(new Date());
+		},
+
 		generateLink: function () {
 			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
 		},
@@ -66,6 +82,20 @@ sap.ui.define([
 
 		generateText: function (sID, sText, sValue) {
 			return sID + " / " + sText + " / " + sValue;
+		},
+
+		generateTimestamp: function (dCreatedDate, tCreatedTime) {
+			if (!dCreatedDate || !tCreatedTime) {
+				return;
+			}
+
+			const dCreatedTime = new Date(tCreatedTime.ms);
+
+			dCreatedDate.setHours(dCreatedTime.getHours());
+			dCreatedDate.setMinutes(dCreatedTime.getMinutes());
+			dCreatedDate.setSeconds(dCreatedTime.getSeconds());
+
+			return dCreatedDate;
 		},
 
 		getLocalDate: function (sValue) {
@@ -153,6 +183,12 @@ sap.ui.define([
 			} else {
 				return "None";
 			}
+		},
+
+		validateMail: function (sValue) {
+			const oRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			
+			return oRegExp.test(sValue);
 		}
 
 	};

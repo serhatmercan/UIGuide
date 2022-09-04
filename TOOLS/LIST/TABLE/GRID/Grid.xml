@@ -63,7 +63,7 @@ TABLE - ATTRIBUTES
 
 id="Table"
 ariaLabelledBy="{i18n>title}"
-class="sapUiResponsiveMargin" class="sapUiTinyMargin"
+class="sapUiResponsiveMargin" class="sapUiSizeCompact" class="sapUiTinyMargin"
 columns="{ path:'model>/Columns', factory:'factory' }"
 fixedColumnCount="1"
 growing="true" growingScrollToLoad="true" growingThreshold="10"
