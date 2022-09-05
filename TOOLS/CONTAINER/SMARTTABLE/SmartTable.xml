@@ -13,7 +13,7 @@ ignoredFields="Value" initiallyVisibleFields="ID,Key" requestAtLeastFields="ID"
 smartFilterId="SFB" 
 smartVariant="SVM"
 tableBindingPath="Items"
-tableType="ResponsiveTable"
+tableType="AnalyticalTable" tableType="ResponsiveTable"
 width="25%"
 
 cd:useSmartField="true"

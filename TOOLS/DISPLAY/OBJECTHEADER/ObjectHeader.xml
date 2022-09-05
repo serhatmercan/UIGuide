@@ -8,6 +8,7 @@
 <!--
 backgroundDesign="Solid" backgroundDesign="Translucent"
 icon="sap-icon://product"
+numberState="Success"
 
 responsive="true" 
 -->

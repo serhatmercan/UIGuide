@@ -12,6 +12,9 @@ filterBarExpanded="true"
 showFilterConfiguration="false"
 useToolbar="true"
 
+afterVariantLoad="onAVL"
+beforeVariantFetch="onBVF"
+beforeVariantSave="onBVS" 
 initialized="onInitSFB"
 -->
 

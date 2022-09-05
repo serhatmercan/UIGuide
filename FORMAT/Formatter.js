@@ -72,6 +72,22 @@ sap.ui.define([
 			oDateFormat.format(new Date());
 		},
 
+		generateFileSize: function (sValue) {
+			return sap.ui.core.format.FileSizeFormat.getInstance({
+				binaryFilesize: false,
+				maxFractionDigits: 1,
+				maxIntegerDigits: 3
+			}).format(sValue);
+		},
+
+		generateGUID: function(){
+			function getID() {
+				return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+			}
+			
+			return getID() + getID() + '-' + getID() + '-' + getID() + '-' + getID() + '-' + getID() + getID() + getID();
+		},
+
 		generateLink: function () {
 			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
 		},
@@ -96,6 +112,15 @@ sap.ui.define([
 			dCreatedDate.setSeconds(dCreatedTime.getSeconds());
 
 			return dCreatedDate;
+		},
+
+		generateURL: function (oContext) {
+			const oModel = this.getModel();
+
+			return oModel.sServiceUrl + oModel.createKey("/DocumentSet", {
+				ID: oContext.ID,
+				DocumentID: oContext.DocumentID
+			}) + "/$value";
 		},
 
 		getLocalDate: function (sValue) {
@@ -187,7 +212,7 @@ sap.ui.define([
 
 		validateMail: function (sValue) {
 			const oRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			
+
 			return oRegExp.test(sValue);
 		}
 

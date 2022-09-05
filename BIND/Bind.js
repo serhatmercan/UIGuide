@@ -124,7 +124,8 @@ sap.ui.define([
 		},
 
 		onShowDialog: function () {
-			const sPath = this.getModel().createEntry("/DialogSet").getPath();
+			const oModel = this.getModel();
+			const sPath = oModel.createEntry("/DialogSet").getPath();
 
 			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.view.fragment.Dialog", this);
 
@@ -134,7 +135,7 @@ sap.ui.define([
 
 			sap.ui.core.Fragment.byId("Dialog", "SmartForm").bindElement(sPath);
 
-			this.getModel().setProperty(sPath + "/ID", "X");
+			oModel.setProperty(sPath + "/ID", "X");
 
 			this.oDialog.open();
 		},
@@ -222,7 +223,7 @@ sap.ui.define([
 
 			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") { }
 
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
+			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
 				const oCreateEntry = this.getModel().createEntry("/IDSet");
 
 				this.byId("SimpleForm").bindElement(oCreateEntry.getPath());
@@ -233,7 +234,7 @@ sap.ui.define([
 					__edmType: "Edm.Time",
 					ms: new Date().getTime()
 				});
-			}.bind(this));
+			});
 
 			const sPath = oModel.createKey("/SFSet", {
 				ID: "X"

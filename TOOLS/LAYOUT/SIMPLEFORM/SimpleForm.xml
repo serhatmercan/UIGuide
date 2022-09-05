@@ -1,29 +1,21 @@
-<mvc:View controllerName="com.serhatmercan.SimpleForm" xmlns="sap.m" xmlns:form="sap.ui.layout.form"  xmlns:mvc="sap.ui.core.mvc"
-	xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core">
-	<form:SimpleForm     >
-		<form:toolbar>
-			<OverflowToolbar>
-				<Title text="{i18n>title}"/>
-				<ToolbarSpacer/>
-				<Button text="Button" icon="sap-icon://list" press="onPressButton"/>
-			</OverflowToolbar>
-		</form:toolbar>
-		<form:content>
-			<core:Title text="{i18n>title}"/>
-			<Label text="{i18n>label}" required="true"/>
-			<Input value="{model>/Value}" editable="false" showSuggestion="false" showValueHelp="true" valueHelpOnly="true"
-				valueHelpRequest="onShowVHValue">
-				<layoutData>
-					<layout:GridData span="L12 M12 S12" indent="L1 M1 S1"/>
-				</layoutData>
-			</Input>
-			<core:Title/>
-		</form:content>
-	</form:SimpleForm>
+<mvc:View controllerName="com.serhatmercan.SimpleForm" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core">
+    <f:SimpleForm>
+        <f:content>
+            <core:Title text="{i18n>title}" />
+            <Label text="{i18n>label}" required="true" />
+            <Input value="{model>/Value}" editable="false" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowVHValue">
+                <layoutData>
+                    <layout:GridData span="L12 M12 S12" indent="L1 M1 S1" />
+                </layoutData>
+            </Input>
+            <core:Title />
+        </f:content>
+    </f:SimpleForm>
 </mvc:View>
+<!-- SIMPLE FORM - ATTRIBUTES -->
 <!--
 id="SimpleForm"	
-class="editableForm" class="sapUiResponsiveMargin" 
+class="editableForm" class="sapUiSmallMarginTop" class="sapUiResponsiveMargin" 
 columnsXL="2" columnsL="1" columnsM="1" columnsS="1"
 emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" 
 labelSpanXL="12" labelSpanL="12" labelSpanM="12" labelSpanS="12"
@@ -36,4 +28,24 @@ width="auto"
 adjustLabelSpan="false" 
 editable="true"
 singleContainerFullSize="true"
+-->
+<!-- SIMPLE FORM - LAYOUT -->
+<!--
+<f:SimpleForm>
+	<f:layout>
+    	<f:ResponsiveGridLayout />
+    </f:layout>
+	<f:title>
+        <core:Title text="{i18n>Employee}" />
+    </f:title>
+	<f:toolbar>
+        <OverflowToolbar>
+        	<Title text="{i18n>title}" />
+            <ToolbarSpacer />
+            <Button text="Button" icon="sap-icon://list" press="onPressButton" />
+        </OverflowToolbar>
+    </f:toolbar>
+    <f:content>
+    </f:content>
+</f:SimpleForm>	
 -->

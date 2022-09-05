@@ -8,6 +8,8 @@ sap.ui.define([
 
 		onInit: function() {			
 			const oModel = new JSONModel({
+				MaxDate: new Date(),
+				MinDate: new Date(),
 				Value: new Date()	
 			});
 			

@@ -26,22 +26,28 @@ sap.ui.define([
 				}), "model");
 		},
 
+		onExit: function () {
+			if (this.oConfirmDialog) {
+				this.oConfirmDialog.destroy();
+				this.oConfirmDialog = null;
+			}
+
+			if (this.oDialog) {
+				this.oDialog.destroy();
+				this.oDialog = null;
+			}
+		},
+
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
 		onACConfirmDialog: function () {
 			this.oConfirmDialog.close();
-			this.oConfirmDialog.destroy();
-			this.oConfirmDialog = null;
 		},
 
 		onACDialog: function (oEvent) {
 			this.oDialog.close();
-			this.oDialog.destroy();
-			this.oDialog = null;
-
-			oEvent.getSource().destroy();
 		},
 
 		onFilterDialogTable: function () {
@@ -63,31 +69,42 @@ sap.ui.define([
 			oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
 		},
 
-		onSaveConfirmDialog: function(){
+		onSaveConfirmDialog: function () {
 			const sExplanation = this.getModel("model").getProperty("/Explanation");
-			
+
 			this.onACConfirmDialog();
-		},		
+		},
 
 		onShowConfirmDialog: function () {
 			this.getModel("model").setProperty("/Explanation", "");
-			this.oConfirmDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.ConfirmDialog", this);
-			this.oConfirmDialog.setModel(this.getModel("i18n"), "i18n");
-			this.oConfirmDialog.setModel(this.getModel("model"), "model");
-			this.getView().addDependent(this.oConfirmDialog);
+
+			if (!this.oConfirmDialog) {
+				this.oConfirmDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.ConfirmDialog", this);
+				this.oConfirmDialog.setModel(this.getModel("i18n"), "i18n");
+				this.oConfirmDialog.setModel(this.getModel("model"), "model");
+				this.getView().addDependent(this.oConfirmDialog);
+			}
+
 			this.oConfirmDialog.open();
 		},
 
 		onShowDialog: function (oEvent) {
-			this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
-			this.oDialog.setModel(this.getModel("i18n"), "i18n");
-			this.oDialog.setModel(this.getModel("model"), "model");
-			this.getView().addDependent(this.oDialog);
+			if (!this.oDialog) {
+				this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
+				this.oDialog.setModel(this.getModel("i18n"), "i18n");
+				this.oDialog.setModel(this.getModel("model"), "model");
+				this.getView().addDependent(this.oDialog);
+			}
+
 			this.oDialog.open();
 		},
 
 		onShowDialogDetail: function (oEvent) {
 			const oControl = oEvent.getSource();
+			const sDialogPath = this.getModel().createEntry("/...Set").getPath();
+			const oKey = this.getModel().createKey("/...Set", {
+				ID: "X"
+			});
 
 			if (!this.oDialog) {
 				// Add Button To Dialog
@@ -114,6 +131,8 @@ sap.ui.define([
 			});
 
 			// Bind Model to Dialog
+			this.oDialog.bindElement(sDialogPath);
+
 			this.oDialog.bindElement({
 				path: "model>/Values"
 			});
@@ -124,6 +143,19 @@ sap.ui.define([
 			this.oDialog.bindElement({
 				model: "model",
 				path: "model>" + sPath
+			});
+
+			// Bind Model w/ Path Events to Dialog
+			this._oDialog1.bindElement({ 
+				path: oKey,
+				events: {
+					dataRequested: () => {
+
+					},
+					dataReceived: () => {
+
+					}
+				}
 			});
 
 			// Set Dialog Height 

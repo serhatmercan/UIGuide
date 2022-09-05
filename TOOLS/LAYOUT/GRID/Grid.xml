@@ -1,5 +1,11 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core">
-	<l:content>
-		<l:Grid hSpacing="1" vSpacing="1" defaultSpan="L6 M6 S12"></l:Grid>
-	</l:content>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <l:content>
+        <l:Grid hSpacing="1" vSpacing="1" defaultSpan="L6 M6 S12">
+            <l:content>
+                <StandardListItem title="{i18n>titleI}" info="{model>/ValueI}" icon="sap-icon://initiative" />
+                <StandardListItem title="{i18n>titleII}" info="{model>/ValueII}" icon="sap-icon://initiative" />
+                <StandardListItem title="{i18n>titleIII}" info="{model>/ValueIII}" icon="sap-icon://initiative" />
+            </l:content>
+        </l:Grid>
+    </l:content>
 </core:FragmentDefinition>

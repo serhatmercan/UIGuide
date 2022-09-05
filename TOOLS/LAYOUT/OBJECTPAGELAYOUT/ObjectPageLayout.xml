@@ -1,17 +1,17 @@
-<mvc:View xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform" xmlns:f="sap.f">
-	<ObjectPageLayout>
-		<sections>
-			<ObjectPageSection>
-				<subSections>
-					<ObjectPageSubSection title="{i18n>OPS}">
-						<blocks>
-							<core:Fragment type="XML" fragmentName="..." />
-						</blocks>
-					</ObjectPageSubSection>
-				</subSections>
-			</ObjectPageSection>
-		</sections>
-	</ObjectPageLayout>
+<mvc:View xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:m="sap.m" xmlns:l="sap.ui.layout" xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform">
+    <ObjectPageLayout>
+        <sections>
+            <ObjectPageSection>
+                <subSections>
+                    <ObjectPageSubSection title="{i18n>OPS}">
+                        <blocks>
+                            <core:Fragment type="XML" fragmentName="..." />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
 </mvc:View>
 <!-- OBJECT PAGE LAYOUT - ATTRIBUTES -->
 <!--
@@ -31,7 +31,6 @@ toggleHeaderOnTitleClick="true"
 upperCaseAnchorBar="false"
 useIconTabBar="true"
 -->
-
 <!-- OBJECT PAGE LAYOUT - LAYOUT -->
 <!--
 <headerTitle>
@@ -52,6 +51,7 @@ useIconTabBar="true"
 </headerTitle>
 <headerContent>
 	<f:GridList></f:GridList>
+	<l:VerticalLayout></l:VerticalLayout>
 	<smartForm:SmartForm></smartForm:SmartForm>
 </headerContent>
 <sections>
@@ -164,4 +164,4 @@ visible="{= !${model>/Value} }"
 		<m:Button type="Emphasized" text="X" press="onPress"/>
 	</m:OverflowToolbar>
 </footer>
--->	
+-->

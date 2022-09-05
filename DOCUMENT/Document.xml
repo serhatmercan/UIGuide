@@ -1,21 +1,19 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument">
-		<content>
-			<UploadCollection id="DocumentUC" items="{/DocumentSet}" uploadUrl="{model/DocumentUrl}" 
-				beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" selectionChange="onSCDocument">				
-				<items>
-					<UploadCollectionItem documentId="{DocumentID}" fileName="{Filename}" mimeType="{Mimetype}" url="{Url}" press="onPressUCI"/>
-				</items>
-			</UploadCollection>			
-		</content>
-		<Toolbar>
-			<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup"
-				press="onShowMessages"/>
-			<ToolbarSpacer/>
-			<Button text="{i18n>ok}" type="Emphasized" press="onCUDocument"/>
-			<Button text="{i18n>close}" press="onCloseDocument"/>
-		</Toolbar>
-	</Dialog>
+    <Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument">
+        <content>
+            <UploadCollection id="DocumentUC" items="{/DocumentSet}" uploadUrl="{model/DocumentUrl}" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" selectionChange="onSCDocument">
+                <items>
+                    <UploadCollectionItem documentId="{DocumentID}" fileName="{Filename}" mimeType="{Mimetype}" url="{Url}" press="onPressUCI" />
+                </items>
+            </UploadCollection>
+        </content>
+        <Toolbar>
+            <Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup" press="onShowMessages" />
+            <ToolbarSpacer />
+            <Button text="{i18n>ok}" type="Emphasized" press="onCUDocument" />
+            <Button text="{i18n>close}" press="onCloseDocument" />
+        </Toolbar>
+    </Dialog>
 </core:FragmentDefinition>
 <!-- DOCUMENT - CONTENT -->
 <!--
@@ -34,7 +32,8 @@
 <!--
 items="{ path: '/DocumentSet', suspended: true }"	 
 maximumFilenameLength="55" 
-maximumFileSize="10" 
+maximumFileSize="10"
+mode="None" 
 noDataDescription="{i18n>noAttach}"	
 uploadUrl="/sap/opu/odata/sap/ZMM_SM_SRV/DocumentSet"
 
@@ -42,7 +41,7 @@ instantUpload="false"
 multiple="true"
 sameFilenameAllowed="true"
 uploadButtonInvisible="{= !${model>/Enabled}}"
--->	
+-->
 <!-- UPLOAD COLLECTION - TOOLBAR -->
 <!--
 <toolbar>
@@ -53,11 +52,21 @@ uploadButtonInvisible="{= !${model>/Enabled}}"
 		<UploadCollectionToolbarPlaceholder/>
 	</OverflowToolbar>
 </toolbar>
--->	
+-->
 <!-- UPLOAD COLLECTION ITEM -->
 <!--
 enableDelete="true"
 enableEdit="false" 
 visibleEdit="false"
 visibleDelete="{model>/Enabled}"
--->	
+-->
+<!-- UPLOAD COLLECTION ITEM -  LAYOUT -->
+<!--
+<UploadCollectionItem url="{ path: '', formatter: '.formatter.generateURL' }">
+	<attributes>
+		<ObjectAttribute title="{i18n>uploadedBy}" text="{ path: 'CreatedBy' }"/>
+		<ObjectAttribute title="{i18n>uploadedTime}" text="{ path: 'CreatedTime', type: 'sap.ui.model.type.DateTime' }"/>
+		<ObjectAttribute title="{i18n>fileSize}" text="{ path: 'Filesize', formatter: '.formatter.generateFileSize' }"/>
+	</attributes>
+</UploadCollectionItem>
+-->

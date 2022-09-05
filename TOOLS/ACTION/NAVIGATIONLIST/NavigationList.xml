@@ -1,0 +1,32 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt">
+    <OverflowToolbar>
+        <Button icon="sap-icon://menu2" press="onCollapseExpand" />
+    </OverflowToolbar>
+    <tnt:NavigationList>
+        <tnt:NavigationListItem text="{i18n>NLI}">
+            <tnt:NavigationListItem text="{i18n>NLIX}" />
+            <tnt:NavigationListItem text="{i18n>NLIY}" />
+            <tnt:NavigationListItem text="{i18n>NLIZ}" />
+        </tnt:NavigationListItem>
+        <tnt:NavigationListItem text="{i18n>NLII}">
+            <tnt:NavigationListItem text="Sub Item 1" />
+        </tnt:NavigationListItem>
+    </tnt:NavigationList>
+</mvc:View>
+<!-- NAVIGATION LIST - ATTRIBUTES -->
+<!--
+id="NavigationList"     
+selectedKey="NLI"    
+width="320px"
+-->
+<!-- NAVIGATION LIST - LAYOUT -->
+<!--
+	
+-->
+<!-- NAVIGATION LIST ITEM - ATTRIBUTES -->
+<!--
+key="NLI"    
+icon="sap-icon://employee"
+
+select="onSelectNLI"
+-->

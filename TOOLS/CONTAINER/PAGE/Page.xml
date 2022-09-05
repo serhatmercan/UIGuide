@@ -8,7 +8,9 @@
 </core:FragmentDefinition>
 <!-- PAGE - ATTRIBUTES -->
 <!-- 
-class="sapUiResponsiveContentPadding"    
+class="sapUiFioriObjectPage" class="sapUiResponsiveContentPadding"
+
+enableScrolling="false"
 floatingFooter="false"
 showHeader="false"   
 showNavButton="false" 

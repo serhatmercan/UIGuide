@@ -1,23 +1,22 @@
 <mvc:View controllerName="serhatmercan.controller.List" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
-	<headerToolbar>
-		<OverflowToolbar>
-			<content>
-				<SearchField liveChange="onLiveChange" width="100%" />
-				<ToolbarSpacer />
-			</content>
-		</OverflowToolbar>
-	</headerToolbar>
-	<List items="{model>/Values}">
-		<headerToolbar>
-			<Toolbar>
-				<Text text="{i18n>toolbar}" />
-				<ToolbarSpacer />
-			</Toolbar>
-		</headerToolbar>
-		<StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" 
-			infoState="{= ${model>Value} ? 'Error' : 'None' }" title="{model>Id}" type="Active" press="onPress" />
-	</List>
-</mvc:View> 
+    <headerToolbar>
+        <OverflowToolbar>
+            <content>
+                <SearchField liveChange="onLiveChange" width="100%" />
+                <ToolbarSpacer />
+            </content>
+        </OverflowToolbar>
+    </headerToolbar>
+    <List items="{model>/Values}">
+        <headerToolbar>
+            <Toolbar>
+                <Text text="{i18n>toolbar}" />
+                <ToolbarSpacer />
+            </Toolbar>
+        </headerToolbar>
+        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" title="{model>Id}" type="Active" press="onPress" />
+    </List>
+</mvc:View>
 <!-- LIST - ATTRIBUTES -->
 <!--
 id="List"
@@ -60,6 +59,9 @@ selectionChange="onSelectionChange"
 								</content>
 							</Panel>
 						</CustomListItem>
+						<DisplayListItem label="{i18n>ID}" value="{ID}"/>
+						<DisplayListItem label="{i18n>Key}" value="{Key}"/>
+						<DisplayListItem class="listBorderStyle" highlight="Information" label="{i18n>Value}" value="{Value}"/>
 						<ObjectListItem title="{ValueX}" type="Active" press="onOLI">
 							<firstStatus>
 								<ObjectStatus text="{ID}"/>
