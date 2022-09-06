@@ -52,6 +52,10 @@
     max-width: 98% !important;
 }
 
+.sapMMultiInput .sapMTokenizer {
+    max-width: 100%;
+}
+
 .sapMITBContent {
     border-bottom: 0.125rem solid #ebebeb;
 }
@@ -63,6 +67,16 @@
 
 .sapMLabel {
     margin-top: 0.5rem !important;
+}
+
+.sapMList .sapMLIB.sapMGHLI {
+    background: #f7f7f7;
+    border-bottom: 1px solid rgba(0, 73, 144, 0.33);
+    color: #004990;
+    font-size: 0.875rem;
+    font-weight: normal;
+    height: 2rem;
+    line-height: 2rem;
 }
 
 .sapMLnk {
@@ -80,6 +94,11 @@
 
 .sapMTB {
     overflow: visible !important;
+}
+
+.sapUiCompFilterBar {
+    background-color: transparent !important;
+    border-bottom: 0 !important;
 }
 
 .sapUiFormCLContainer {
@@ -110,12 +129,20 @@
     margin-top: 0rem !important;
 }
 
+.sapUiSizeCompact .sapMTokenText {
+    max-width: calc(100% - 1.25rem);
+}
+
 .sapUiSizeCompact .sapUxAPObjectPageLayout-Std-Desktop .sapUxAPBlockContainer {
     padding: 0rem !important;
 }
 
 .sapUiTableCell .sapMObjStatus {
     white-space: pre-wrap !important;
+}
+
+.sapUiFormTitleH6 {
+    display: none;
 }
 
 .sapUxAPBlockContainer .sapMMessagePageInner {

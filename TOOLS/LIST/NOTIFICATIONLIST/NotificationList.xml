@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <NotificationList>
+        <NotificationListItem title="{model>/Title}" description="{model>/Description}">
+            <buttons>
+                <Button text="{i18n>OK}" press="onAcceptNLI" />
+                <Button text="{i18n>reject}" press="onRejectNLI" />
+            </buttons>
+        </NotificationListItem>
+    </NotificationList>
+</core:FragmentDefinition>
+<!-- NOTIFICATION LIST - LAYOUT -->
+<!--
+<NotificationList>
+    <layoutData>
+		<FlexItemData maxWidth="600px" />
+	</layoutData>
+    <NotificationListItem>
+        <buttons>
+        </buttons>
+    </NotificationListItem>
+</NotificationList>	
+-->
+<!-- NOTIFICATION LIST ITEM - ATTRIBUTES -->
+<!-- 
+authorName="{model>/Author}"
+authorPicture="{model>/PictureURL}"
+datetime="{model>/DateTime}" datetime="10 Days"
+priority="High" priority="Low" priority="Medium" priority="None" 
+
+showCloseButton="true"
+unread="true"
+
+close="onCloseNLI"
+press="onPressNLI"
+-->

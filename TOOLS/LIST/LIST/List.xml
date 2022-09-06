@@ -22,8 +22,10 @@
 id="List"
 headerText="{i18n>list}"
 items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
+items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
 growingThreshold="10"
 mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
+showSeparators="All"
 
 enableBusyIndicator="true"
 growing="true"
@@ -79,6 +81,12 @@ selectionChange="onSelectionChange"
 								<Button icon="sap-icon://write-new" tooltip="{i18n>description}" press="onShowDescription"/>
 							</HBox>
 						</InputListItem>
+						<NotificationListItem title="{Title}" description="{Description}">
+							<buttons>
+                                <Button text="{i18n>OK}" type="Accept" press="onAcceptNLI"/>
+                                <Button text="{i18n>detail}" type="Emphasized" press="onDetailNLI"/>
+                            </buttons>
+                        </NotificationListItem> 
 					</items>
 				</List>
 			</content>

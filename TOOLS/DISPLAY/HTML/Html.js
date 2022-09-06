@@ -22,6 +22,11 @@ sap.ui.define([
 
 		onExit: function () {
 			sap.ui.getCore().getEventBus().unsubscribe("com.serhatmercan", "PDFLoaded", this._onPDFLoaded);
+
+			if (this._oPDFViewer) {
+				this._oPDFViewer.destroy();
+				this._oPDFViewer = null;
+			}
 		},
 
 		onShowIFrame: function () {

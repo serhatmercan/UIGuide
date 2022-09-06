@@ -1,8 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Input value="{model>/Value}" />
-</core:FragmentDefinition><!--
-INPUT - LAYOUT 
-
+    <Input value="{model>/Value}" />
+</core:FragmentDefinition>
+<!-- INPUT - LAYOUT -->
+<!--
 <Input value="{model>/Value}" suggestionItems="{/InputVHSet}">
 	<layoutData>
 		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
@@ -22,7 +22,7 @@ name="Input"
 placeholder="{i18n>input}" 
 textAlign="End"
 textDirection="RTL"
-type="Number" type="Tel"
+type="Number" type=“Password” type="Tel" 
 value="{Value}"
 value="{ path: 'model>/Value', constraints: { minimum: '1', maximum: '99' } }"
 value="{ path: 'model>/Value', type:'sap.ui.model.type.Float' }"

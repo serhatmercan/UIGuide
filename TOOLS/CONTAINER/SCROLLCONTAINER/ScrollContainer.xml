@@ -1,8 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ScrollContainer>
-    </ScrollContainer>
+    <ScrollContainer />
 </core:FragmentDefinition>
-
 <!-- SCROLL CONTAINER - ATTRIBUTES -->
 <!--
 
@@ -12,5 +10,6 @@ width="100%"
 
 horizontal="true" 
 focusable="true"
+vertical="true"
 
 -->

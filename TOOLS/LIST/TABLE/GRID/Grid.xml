@@ -1,13 +1,13 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:t="sap.ui.table">
     <t:Table rows="{model>/Items}">
         <t:columns>
-			<t:Column>
-				<Label text="{i18n>ID}"/>
-				<t:template>
-					<ObjectIdentifier title="{model>ID}"/>
-				</t:template>
-			</t:Column>
-		</t:columns>
+            <t:Column>
+                <Label text="{i18n>ID}" />
+                <t:template>
+                    <ObjectIdentifier title="{model>ID}" />
+                </t:template>
+            </t:Column>
+        </t:columns>
     </t:Table>
 </core:FragmentDefinition>
 <!--
@@ -39,6 +39,35 @@ TABLE - LAYOUT
 		    <Text text="{model>Value}"/>
 		</t:template>
 	</t:Column>
+	<t:Column>
+		<t:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLII}"/>
+			<Label text="{i18n>MLIII}"/>
+		</t:multiLabels>
+		<t:template>
+			<Text text="{model>ValueI}"/>
+		</t:template>
+	</t:Column>
+	<t:Column>
+		<t:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLII}"/>
+			<Label text="{i18n>MLA}"/>
+		</t:multiLabels>
+		<t:template>
+			<Text text="{model>ValueII}"/>
+		</t:template>
+	</t:Column>
+	<t:Column>
+		<t:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLB}"/>
+		</t:multiLabels>
+		<t:template>
+			<Text text="{model>ValueII}"/>
+		</t:template>
+	</t:Column>				
 </t:columns>
 <t:rowActionTemplate>
     <t:RowAction>
@@ -84,12 +113,16 @@ columnHeaderVisible="false"
 enableColumnFreeze="true" 
 enableColumnReordering="false"
 enableSelectAll="false"
+showColumnVisibilityMenu="true"
 
 rowSelectionChange="oRSC"
 
 COLUMN - ATTRIBUTES
 
+filterProperty="ID"
 hAlign="Center"
+headerSpan="2" headerSpan="3,2"
+sortProperty="ID"
 width="10rem"
 
 -->

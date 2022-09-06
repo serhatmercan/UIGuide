@@ -1,14 +1,14 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Table items="{model>/Items}">	
+    <Table items="{model>/Items}">
         <columns>
             <Column>
-                <Label text="{i18n>text}" design="Bold"/>
+                <Label text="{i18n>text}" design="Bold" />
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text text="{model>Value}"/>
+                    <Text text="{model>Value}" />
                 </cells>
             </ColumnListItem>
         </items>
@@ -57,7 +57,7 @@ noDataText="{i18n>noData}"
 sticky="ColumnHeaders"
 width="auto"
 
-
+enableBusyIndicator="true"
 fixedLayout="true"
 growing="true" growingScrollToLoad="true" growingThreshold="10"
 showNoData="false"

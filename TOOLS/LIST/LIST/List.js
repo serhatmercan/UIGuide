@@ -1,9 +1,10 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/GroupHeaderListItem",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, Filter, FilterOperator, JSONModel) {
+], function (BaseController, GroupHeaderListItem, Filter, FilterOperator, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -22,21 +23,31 @@ sap.ui.define([
 				}), "model"
 			);
 
+			this.byId("List").attachEventOnce("updateFinished", () => {
+
+			});
+
 			this.byId("List").removeSelections();
 		},
 
-		onAfterRendering: function() {
+		onAfterRendering: function () {
 			this.byId("List").getBinding("items").attachDataRequested((oEvent) => {
 
-			});			
+			});
 			this.byId("List").getBinding("items").attachDataReceived((oEvent) => {
 
 			});
-		},	
+		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
+
+		onAcceptNLI: function (oEvent) {
+			const oItem = oEvent.getSource().getParent().getParent();
+			const sPath = oItem.getBindingContextPath();
+			const oContext = this.getModel().getObject(sPath);
+		},
 
 		onDelete: function (oEvent) {
 			const sPath = oEvent.getParameter("listItem").getBindingContextPath();
@@ -52,6 +63,10 @@ sap.ui.define([
 			aResults = oModel.getProperty(sModelPath);
 			aResults.splice(parseInt(sIndex), 1);
 			oModel.setProperty(sModelPath, aResults);
+		},
+
+		onDetailNLI: function (oEvent) {
+			const oItem = oEvent.getSource().getParent().getBindingContext().getObject();
 		},
 
 		onItemPress: function (oEvent) {
@@ -73,9 +88,20 @@ sap.ui.define([
 			const oData = oEvent.getSource().getBindingContext("model").getObject();
 		},
 
-		onSelectionChange: function(oEvent){
+		onSelectionChange: function (oEvent) {
 			const oItem = oEvent.getParameter("listItem") || oEvent.getSource();
 			const sID = oItem.getBindingContext().getProperty("ID");
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		createGroupHeader: function (oGroup) {
+			return new GroupHeaderListItem({
+				title: oGroup.text,
+				upperCase: false
+			});
 		}
 
 	});
