@@ -8,6 +8,7 @@ text="{i18n>text}"
 valueState="Information" 
 width="auto"
 
+enabled="false"
 selected="true"
 visible="false"
 -->
