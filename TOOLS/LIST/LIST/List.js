@@ -54,7 +54,7 @@ sap.ui.define([
 			const sPathItem = oEvent.getParameter("listItem").getBindingContext("model").getPath();
 			const aIndexes = sPath.split("/");
 			const sIndex = aIndexes[aIndexes.length - 1];
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			let sModelPath;
 			let aResults;
 
@@ -62,7 +62,7 @@ sap.ui.define([
 			sModelPath = aIndexes.join("/");
 			aResults = oModel.getProperty(sModelPath);
 			aResults.splice(parseInt(sIndex), 1);
-			oModel.setProperty(sModelPath, aResults);
+			oViewModel.setProperty(sModelPath, aResults);
 		},
 
 		onDetailNLI: function (oEvent) {

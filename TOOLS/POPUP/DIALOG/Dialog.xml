@@ -1,10 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<Dialog afterClose="onACDialog">		
-		<content>			
-		</content>
+	<Dialog afterClose="onACDialog">
+		<content></content>
 	</Dialog>
-</core:FragmentDefinition>
-<!-- DIALOG LAYOUT -->
+</core:FragmentDefinition> <!-- DIALOG LAYOUT -->
 <!--
 <content>	
 	<customHeader>
@@ -49,4 +47,6 @@ showHeader="true"
 stretch="true" stretch="{= ${device>/system/phone} }"
 stretchOnPhone="true" 
 verticalScrolling="false"
+
+beforeOpen="onBODialog"
 -->

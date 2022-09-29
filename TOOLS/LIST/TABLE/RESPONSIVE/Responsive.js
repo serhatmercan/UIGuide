@@ -4,32 +4,36 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/m/CheckBox",
-    "sap/m/Column",
-    "sap/m/Input",
-    "sap/m/Label",
+	"sap/m/Column",
+	"sap/m/Input",
+	"sap/m/Label",
 	"sap/ui/model/Sorter"
 ], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, Input, Label, Sorter) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-        /* ================= */
-        /* Lifecycle Methods */
-        /* ================= */
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-        onInit: function () {
+		onInit: function () {
 			this.setModel(
-                new JSONModel({
-				    Items: []
-			    }), "model");
-                
-            this.byId("Table")._getSelectAllCheckbox().setVisible(false);
+				new JSONModel({
+					Items: []
+				}), "model");
+
+			this.byId("Table")._getSelectAllCheckbox().setVisible(false);
+
+			this.byId("Table").attachSelectionChange((oEvent) => {
+				this.getModel("model").setProperty("/Statu", !!oEvent.getSource().getSelectedContextPaths().length);
+			});
 
 			this.byId("Table").onAttachUpdateFinished = function (oEvent) {
 				oEvent.getSource().getAggregation("items").forEach((oItem) => oItem.setType("Navigation"));
 			}.bind(this);
 
-            this.byId("Table").onRowsUpdated = function () {
+			this.byId("Table").onRowsUpdated = function () {
 				this.byId("Table").getRows().forEach(oRow => {
 					if (oRow.getBindingContext("model") &&
 						this.getModel("model").getProperty(oRow.getBindingContext("model").getPath() + "/ID") === "X") {
@@ -39,26 +43,26 @@ sap.ui.define([
 			}.bind(this);
 
 			this.byId("Table").getBinding("items").refresh(true);
-			this.byId("Table").removeSelections();			
+			this.byId("Table").removeSelections();
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-        /* ============== */
-        /* Event Handlers */
-        /* ============== */
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-        onAddColumn: function () {
+		onAddColumn: function () {
 			this.initTable("Table", "CLI", 2);
 			this.initModel();
 			this.setTableColumn();
 		},
 
-		onCellClick: function (oEvent) {			
+		onCellClick: function (oEvent) {
 			const oRow = this.getModel("model").getProperty(oEvent.getSource().getParent().getBindingContext("model").getPath());
 		},
 
-		onChangeCB: function (oEvent) {						
+		onChangeCB: function (oEvent) {
 			const sID = this.getModel("model").getProperty(oEvent.getSource().getSelectedItem().getBindingContext("model").getPath() + "/ID");
 			const aRows = this.byId("Table").getItems();
 			const aFilters = [
@@ -80,28 +84,28 @@ sap.ui.define([
 
 		onDelete: function (oEvent) {
 			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 
 			aItems.splice(iIndex, 1);
 
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 		},
 
 		onDeleteRow: function () {
 			const aPaths = oEvent.getSource().getBindingContext("model").getPath().split("/");
 			const iIndex = aPaths[aPaths.length - 1];
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 
 			aItems.splice(iIndex, 1);
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 		},
 
-		onDownloadExcel: function(){
+		onDownloadExcel: function () {
 			const sDownloadUrl = this.byId("Table").getBinding("items").getDownloadUrl();
 			const sUrlParameters = "$format=xlsx&$select=ID,Value,Text";
-				
+
 			window.open(sDownloadUrl + "&" + sUrlParameters);
 		},
 
@@ -119,28 +123,28 @@ sap.ui.define([
 			const sPath = oEvent.getSource().getSelectedItem().getBindingContext("model").getPath();
 		},
 
-		onSortWithViewSettingsDialog: function(){
+		onSortWithViewSettingsDialog: function () {
 			const oParams = oEvent.getParameters();
-            const aSorters = [
-                new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)
-            ];
+			const aSorters = [
+				new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)
+			];
 			const xSorters = [
-                new Sorter("ID", true)
-            ];
+				new Sorter("ID", true)
+			];
 
-            this.byId("Table").getBinding("items").sort(aSorters);
+			this.byId("Table").getBinding("items").sort(aSorters);
 		},
 
-        /* ================ */
-        /* Internal Methods */
-        /* ================ */
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
-        addColumnToTable: function (sTableID, sCLIID, aColumnIDs, sPath, sModel) {
+		addColumnToTable: function (sTableID, sCLIID, aColumnIDs, sPath, sModel) {
 			const oTable = sap.ui.core.Fragment.byId(this.getView().getId(), sTableID);
 			const oCLI = sap.ui.core.Fragment.byId(this.getView().getId(), sCLIID);
 			const fnChange = (oEvent) => {
-                this.setData();           
-            };        
+				this.setData();
+			};
 
 			aColumnIDs.forEach((sColumnID) => {
 				oTable.addColumn(new Column({
@@ -159,9 +163,9 @@ sap.ui.define([
 
 				// Input
 				oCLI.addCell(new Input({
-					type: "Number",					
+					type: "Number",
 					value: "{" + sModel + ">" + sColumnID + "}",
-                    valueState: "{= +${" + sModel + ">" + sColumnID + "} > 0 ? 'Success' : 'Error' }",
+					valueState: "{= +${" + sModel + ">" + sColumnID + "} > 0 ? 'Success' : 'Error' }",
 					valueLiveUpdate: true,
 					change: fnChange
 				}));
@@ -170,22 +174,22 @@ sap.ui.define([
 			oTable.bindItems(sPath, oCLI);
 		},
 
-        getBindingContext: function(){            
-            const oModel = this.getModel();
+		getBindingContext: function () {
+			const oModel = this.getModel();
 			let aItems = [];
 
-            aItems = oModel.getProperty(this.getView().getBindingContext().getPath() + "/Items").map(sPath => {
+			aItems = oModel.getProperty(this.getView().getBindingContext().getPath() + "/Items").map(sPath => {
 				return oModel.getProperty("/" + sPath);
 			});
 
-            return aItems;
-        },
+			return aItems;
+		},
 
-        getSelectedContexts: function(){
-            return this.byId("Table").getSelectedContexts();
-        },
+		getSelectedContexts: function () {
+			return this.byId("Table").getSelectedContexts();
+		},
 
-		getSelectedData: function(){
+		getSelectedData: function () {
 			const oModel = this.getModel();
 			let aItems = [];
 
@@ -196,15 +200,15 @@ sap.ui.define([
 			return aItems;
 		},
 
-		groupingItems: function(){
-			
+		groupingItems: function () {
+
 		},
 
-        initModel: function () {
+		initModel: function () {
 			this.getModel("model").setProperty("/Items", []);
 		},
 
-        initTable: function (sId, sCLIID, iStaticColumn) {
+		initTable: function (sId, sCLIID, iStaticColumn) {
 			const oTable = this.byId(sId);
 			const oCLI = sap.ui.core.Fragment.byId(this.getView().getId(), sCLIID);
 
@@ -217,9 +221,9 @@ sap.ui.define([
 		patternMatched: function (oEvent) {
 			const oBindingContext = this.getView().getBindingContext();
 
-            if (oBindingContext) {
+			if (oBindingContext) {
 				this.getModel().deleteCreatedEntry(oBindingContext);
-			}			
+			}
 		},
 
 		selectRow: function () {
@@ -228,15 +232,15 @@ sap.ui.define([
 			});
 		},
 
-		setFilter: function(){
-            let aFilters = [
-                new Filter("Value", FilterOperator.EQ, "X")
-            ];
+		setFilter: function () {
+			let aFilters = [
+				new Filter("Value", FilterOperator.EQ, "X")
+			];
 
-            this.byId("Table").getBinding("items").filter(aFilters);
-        },
+			this.byId("Table").getBinding("items").filter(aFilters);
+		},
 
-        setTableColumn: function () {			
+		setTableColumn: function () {
 			const iNumber = 5;
 			const aColumnIDs = [];
 
@@ -248,16 +252,16 @@ sap.ui.define([
 			this.setTableData(this.getModel("model"), iNumber, sStatu);
 		},
 
-        setTableData: function (oModel, iNumber, sStatu) {
-            const aItems = oModel.getProperty("/Items");
+		setTableData: function (oViewModel, iNumber, sStatu) {
+			const aItems = oViewModel.getProperty("/Items");
 
 			aItems.forEach((oItem) => {
-                for (let i = 0; i < iNumber; i++) {
-                    oItem("P" + iNumber) = sStatu === "BO" ? false : 100;                   
-                }				
+				for (let i = 0; i < iNumber; i++) {
+					oItem("P" + iNumber) = sStatu === "BO" ? false : 100;
+				}
 			});
 
-            oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 		}
 
 	});

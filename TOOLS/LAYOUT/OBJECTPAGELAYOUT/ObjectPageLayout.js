@@ -40,7 +40,7 @@ sap.ui.define([
 		},
 
 		_getRequestPath: function () {
-			return this.getView().getModel().createKey("/...Set", {
+			return this.getModel().createKey("/...Set", {
 				Id: this._sId,
 				Value: this._sValue
 			});

@@ -14,9 +14,9 @@ sap.ui.define([
 
 		onInit: function () {
 			this.setModel(
-				new JSONModel({					
+				new JSONModel({
 					Items: [],
-                    ItemSelected: false,
+					ItemSelected: false,
 					Layout: "2-3-1",
 					Layouts: [{
 						"Key": "1",
@@ -29,7 +29,7 @@ sap.ui.define([
 						"ID": "GCIII"
 					}],
 					Value: ""
-			}), "model");
+				}), "model");
 
 			const oGC = this.byId("GC");
 
@@ -47,17 +47,17 @@ sap.ui.define([
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-        /* ============== */
-        /* Event Handlers */
-        /* ============== */
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
 		onDropGC: function (oInfo) {
 			const oDragged = oInfo.getParameter("draggedControl");
 			const oDropped = oInfo.getParameter("droppedControl");
 			const sInsertPosition = oInfo.getParameter("dropPosition");
 			const oGC = oDragged.getParent();
-			let	iDragPosition = oGC.indexOfItem(oDragged);
-			let	iDropPosition = oGC.indexOfItem(oDropped);
+			let iDragPosition = oGC.indexOfItem(oDragged);
+			let iDropPosition = oGC.indexOfItem(oDropped);
 
 			oGC.removeItem(oDragged);
 
@@ -72,14 +72,14 @@ sap.ui.define([
 			oGC.insertItem(oDragged, iDropPosition);
 		},
 
-        /* ================ */
-        /* Internal Methods */
-        /* ================ */
-		
-		generateGC: function(){
-			const oModel = this.getModel("model");
-			const aLayouts = oModel.getProperty("/Layouts");
-			const sLayout = oModel.getProperty("/Layout");
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		generateGC: function () {
+			const oViewModel = this.getModel("model");
+			const aLayouts = oViewModel.getProperty("/Layouts");
+			const sLayout = oViewModel.getProperty("/Layout");
 
 			if (sLayout) {
 				sLayout.split("-").forEach((sKey, iIndex) => {
@@ -92,10 +92,10 @@ sap.ui.define([
 			}
 		},
 
-		saveLayout: function(){
-			const oModel = this.getModel("model");
+		saveLayout: function () {
+			const oViewModel = this.getModel("model");
 			const aKeys = [];
-			const aLayouts = oModel.getProperty("/Layouts");
+			const aLayouts = oViewModel.getProperty("/Layouts");
 			let sLayout = "";
 
 			this.byId("GC").getItems().forEach(oItem => {
@@ -104,13 +104,13 @@ sap.ui.define([
 
 			sLayout = aKeys.join("-");
 
-			oModel.setProperty("/Layout", sLayout);
+			oViewModel.setProperty("/Layout", sLayout);
 		},
 
 		patternMatched: function (oEvent) {
-							
+
 		}
 
-    });
+	});
 
 });

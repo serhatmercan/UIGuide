@@ -18,6 +18,12 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 		},
 
+		getText: function (sText, iNumber) {
+			const oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+
+			return iNumber ? oResourceBundle.getText(sText, iNumber) : oResourceBundle.getText(sText);
+		},
+
 		setModel: function (oModel, sName) {
 			return this.getView().setModel(oModel, sName);
 		},
@@ -27,12 +33,12 @@ sap.ui.define([
 		/* ============== */
 
 		onClearModel: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const oData = {
 				ItemFound: false
 			};
 
-			oModel.setProperty("/", oData);
+			oViewModel.setProperty("/", oData);
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 
@@ -60,6 +66,17 @@ sap.ui.define([
 		/* ==== */
 		/* CRUD */
 		/* ==== */
+
+		/*
+		* onCallFunction: OData Call Function Method
+		*
+		* @param{String|sEntity}: 			Entity Name  
+		* @param{String|sMethod}: 			Method: GET / POST  
+		* @param{Object|oModel}:  			Default Binding Model  
+		* @param{Object|oURLParameters}:  	Call Function Import / Export Parameters
+		*
+		* @return{Promise}:					Promise Operation
+		*/
 
 		onCallFunction: function (sEntity, sMethod, oModel, oURLParameters) {
 			return new Promise((fnResolve, fnReject) => {

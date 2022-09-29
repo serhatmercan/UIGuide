@@ -63,6 +63,7 @@ sap.ui.define([
 			const oID = {};
 
 			oEvent.getSource().getAllFilterItems().filter(oFilter => oFilter.getName() === "ID")[0].setVisible(false);
+			oEvent.getSource().setFilterContainerWidth("15rem");
 			oSFB.getAllFilterItems().filter(oFilter => oFilter.getName() === "ID")[0].setVisible(false);
 
 			oID.ID = "X";

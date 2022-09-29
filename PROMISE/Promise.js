@@ -40,8 +40,8 @@ sap.ui.define([
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onCallFunction: function () {
@@ -54,12 +54,13 @@ sap.ui.define([
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onRunMultiPromise: function () {
-			const oModel = this.getModel("model");
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -67,31 +68,24 @@ sap.ui.define([
 				"$expand": "Main,List"
 			};
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
 			Promise.all([
-					this.readMultiTable("/...Set", aFilters, oExpand, this.getModel())
+				this.readMultiTable("/...Set", aFilters, oExpand, oModel)
 					.then((oData) => {
 						// oData.results[0];
 						// oData.results[0].Main.results
 						// oData.results[0].List.results,
 					})
-					.catch(() => {})
-					.finally(() => {
-						oModel.setProperty("/Busy", false);
-					}),
-					this.readMultiData("/...Set", aFilters, this.getModel())
+					.catch(() => { })
+					.finally(() => { }),
+				this.readMultiData("/...Set", aFilters, oModel)
 					.then((oData) => {
 						// oData.results[0];
 					})
-					.catch(() => {})
-					.finally(() => {
-						oModel.setProperty("/Busy", false);
-					})
-				])
-				.catch(() => {})
+					.catch(() => { })
+					.finally(() => { })
+			])
+				.catch(() => { })
 				.finally(() => {
-					oModel.setProperty("/Busy", false);
 				});
 		},
 
@@ -102,18 +96,12 @@ sap.ui.define([
 				ID: "X"
 			});
 
-			oViewModel.setProperty("/Busy", true);
-
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
 			this.deleteSingleData(oKey, oModel)
 				.then(() => {
 					sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				})
-				.catch(() => {})
-				.finally(() => {
-					oViewModel.setProperty("/Busy", false);
-				});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onGetAssociationData: function () {
@@ -130,8 +118,8 @@ sap.ui.define([
 					const aItems = oData.Items.results;
 					const aValues = oData.Values.results;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onGetSingleData: function () {
@@ -141,13 +129,13 @@ sap.ui.define([
 			});
 
 			this.readSingleData(oKey, oModel)
-				.then((oData) => {})
-				.catch(() => {})
-				.finally(() => {});
+				.then((oData) => { })
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onGetMultiData: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X"),
 			];
@@ -159,22 +147,16 @@ sap.ui.define([
 				and: false
 			});
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
-			oModel.setProperty("/Busy", true);
-
 			this.readMultiData("/...Set", aFilters, this.getModel())
 				.then((oData) => {
 					// oData.results[0];
 				})
-				.catch(() => {})
-				.finally(() => {
-					oModel.setProperty("/Busy", false);
-				});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onGetMultiTable: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -182,20 +164,14 @@ sap.ui.define([
 				"$expand": "Main,List"
 			};
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
-			oModel.setProperty("/Busy", true);
-
 			this.readMultiTable("/...Set", aFilters, oExpand, this.getModel())
 				.then((oData) => {
 					// oData.results[0];
 					// oData.results[0].Main.results
 					// oData.results[0].List.results,
 				})
-				.catch(() => {})
-				.finally(() => {
-					oModel.setProperty("/Busy", false);
-				});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onUpdateData: function () {
@@ -206,9 +182,9 @@ sap.ui.define([
 			});
 
 			this.updateData(oKey, oData, oModel)
-				.then((oData) => {})
-				.catch(() => {})
-				.finally(() => {});
+				.then((oData) => { })
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onSendMultiData: function (oEvent) {
@@ -252,9 +228,6 @@ sap.ui.define([
 				styleClass: this.getOwnerComponent().getContentDensityClass(),
 				onClose: (sAction) => {
 					if (sAction === MessageBox.Action.OK) {
-						sap.ui.getCore().getMessageManager().removeAllMessages();
-						oViewModel.setProperty("/Busy", true);
-
 						this.sendMultiData("/...Set", oData, this.getModel())
 							.then((oResponse) => {
 								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
@@ -264,7 +237,7 @@ sap.ui.define([
 								if (aMessages.some(oMessage => oMessage.type === "Error")) {
 									MessageToast.show(this.getResourceBundle().getText("errorOccured"));
 									return;
-								} else {}
+								} else { }
 
 								oResponse.results.forEach(oResult => {
 									sap.ui.getCore().getMessageManager().addMessages(
@@ -276,17 +249,15 @@ sap.ui.define([
 									);
 								});
 							})
-							.catch(() => {})
-							.finally(() => {
-								oViewModel.setProperty("/Busy", false);
-							});
+							.catch(() => { })
+							.finally(() => { });
 					}
 				}
 			});
 		},
 
 		onSubmitChange: function () {
-			const oResourceBundle = this.getResourceBundle();			
+			const oResourceBundle = this.getResourceBundle();
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 
@@ -297,17 +268,12 @@ sap.ui.define([
 					styleClass: this.getOwnerComponent().getContentDensityClass(),
 					onClose: (sAction) => {
 						if (sAction === MessageBox.Action.OK) {
-							sap.ui.getCore().getMessageManager().removeAllMessages();
-							oViewModel.setProperty("/Busy", true);
-
 							this.submitChange()
 								.then(() => {
 									oModel.resetChanges();
 								})
-								.catch(() => {})
-								.finally(() => {
-									oViewModel.setProperty("/Busy", false);
-								});
+								.catch(() => { })
+								.finally(() => { });
 						}
 					}
 				});

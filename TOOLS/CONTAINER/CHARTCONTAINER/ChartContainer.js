@@ -88,7 +88,7 @@ sap.ui.define([
 		},
 
 		getTotalChartData: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aChart = [];
 			const oChart = {
 				Brgew: 250,
@@ -97,7 +97,7 @@ sap.ui.define([
 			};
 
 			aChart.push(oChart);
-			oModel.setProperty("/Chart", oChart);
+			oViewModel.setProperty("/Chart", oChart);
 		}
 
 	});

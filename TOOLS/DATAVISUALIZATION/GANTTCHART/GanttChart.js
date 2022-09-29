@@ -29,7 +29,7 @@ sap.ui.define([
 
 		onGCShapeDrop: function (oEvent) {
 			const oDraggedShapeDates = oEvent.getParameter("draggedShapeDates");
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const sShapeId = oEvent.getParameter("lastDraggedShapeUid");
 			const oShapeInfo = Utility.parseUid(sShapeId);
 			const sPath = oShapeInfo.shapeDataName;
@@ -37,8 +37,8 @@ sap.ui.define([
 			const oOldTimes = oDraggedShapeDates[sShapeId];
 			const iTimeDiff = oNewDateTime.getTime() - oOldTimes.time.getTime();
 
-			oModel.setProperty(sPath + "/StartTime", new Date(oOldTimes.time.getTime() + iTimeDiff));
-			oModel.setProperty(sPath + "/EndTime", new Date(oOldTimes.endTime.getTime() + iTimeDiff));
+			oViewModel.setProperty(sPath + "/StartTime", new Date(oOldTimes.time.getTime() + iTimeDiff));
+			oViewModel.setProperty(sPath + "/EndTime", new Date(oOldTimes.endTime.getTime() + iTimeDiff));
 		},
 
 		onGCShapeResize: function (oEvent) {
@@ -71,7 +71,7 @@ sap.ui.define([
 		/* ================ */
 
 		setGanttChartData: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aHeader = oData.to_Top.results;
 			const aDetail = oData.to_Detail.results;
 			const oGanttData = {
@@ -153,7 +153,7 @@ sap.ui.define([
 				}
 			});
 
-			oModel.setProperty("/GanttData", oGanttData);
+			oViewModel.setProperty("/GanttData", oGanttData);
 
 			this.byId("GCTable").setWidth("auto");
 		}

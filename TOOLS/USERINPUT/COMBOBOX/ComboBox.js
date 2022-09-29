@@ -17,8 +17,8 @@ sap.ui.define([
 				new JSONModel({
 					Items,
 					Value: ""
-			}), "model");
-			
+				}), "model");
+
 			this.byId("ComboBox").fireSelectionChange({
 				selectedItem: sID
 			});
@@ -33,15 +33,15 @@ sap.ui.define([
 		onChangeCB: function (oEvent) {
 			const oComboBox = oEvent.getSource();
 			const oItem = oEvent.getSource().getSelectedItem();
-			const oModel = this.getModel("model");			
+			const oViewModel = this.getModel("model");
 			const oObject = oItem.getBindingContext().getObject();
 			const sAdditionalText = oItem.getProperty("additionalText");
 			const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 			const sValue = this.getModel("model").getProperty("/Value");
 			const sText = oItem.getProperty("text");
-			let aFilters = [];					
+			let aFilters = [];
 
-			oModel.setProperty(sPath + "/Value", sText);
+			oViewModel.setProperty(sPath + "/Value", sText);
 
 			aFilters = [
 				new Filter("Value", FilterOperator.EQ, sValue)
@@ -63,7 +63,7 @@ sap.ui.define([
 			const oSource = oEvent.getSource();
 			const oItem = oSource.getSelectedItem();
 			const iIndex = oSource.getParent().getBindingContext("model").getPath().slice(-1);
-			let aFilters = [];		
+			let aFilters = [];
 
 			if (oSource) {
 				aFilters = [
@@ -90,18 +90,18 @@ sap.ui.define([
 			const sKey = oItem.getKey();
 			const sValue = oItem.getValue();
 		},
-		
+
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		attachRequestCompleted: function(){
+		attachRequestCompleted: function () {
 			setTimeout(() => {
 				this.byId("ComboBox").fireChange();
 				this.byId("ComboBox").getInnerControls()[0].getBinding("items").filter([
 					new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
 				]);
-			}, 500);		
+			}, 500);
 		}
 
 	});

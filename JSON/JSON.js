@@ -41,19 +41,19 @@ sap.ui.define([
 		/* ============== */
 
 		onAddRowToArray: function () {
-			const oModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const oViewModel = this.getModel("model");
+			const aItems = oViewModel.getProperty("/Items");
 
 			aItems.push({
 				Value: "X"
 			});
 
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 		},
 
 		onAddRowToBetweenRowsInArray: function () {
-			const oModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const oViewModel = this.getModel("model");
+			const aItems = oViewModel.getProperty("/Items");
 			const iIndex = this.byId("Table").getSelectedIndices()[0];
 			let oData = {};
 			let oSelectedData = {};
@@ -77,33 +77,33 @@ sap.ui.define([
 			};
 
 			aItems.push(oData);
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 			this.onSortArray();
 		},
 
 		onDeleteRowsFromArray: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const oTable = this.byId("Table");
-			const aItems = oModel.getProperty("/Items");
+			const aItems = oViewModel.getProperty("/Items");
 			const aReverseIndices = [].concat(oTable.getSelectedIndices()).reverse();
 
 			aReverseIndices.forEach(iIndex => {
 				aItems.splice(iIndex, 1);
 			});
 
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 			oTable.setSelectedIndex(-1);
 		},
 
 		onSortArray: function () {
-			const oModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const oViewModel = this.getModel("model");
+			const aItems = oViewModel.getProperty("/Items");
 
 			aItems.sort((a, b) => {
 				return a.ID - b.ID;
 			});
 
-			oModel.setProperty("/Items", aItems);
+			oViewModel.setProperty("/Items", aItems);
 		},
 
 		/* ================ */

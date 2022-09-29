@@ -21,7 +21,7 @@ sap.ui.define([
 		onGenerateCarousel: function () {
 			const oCarousel = this.byId("Carousel");
 
-			this.getView().getModel("model").getProperty("/Items").forEach(oItem => {
+			this.getModel("model").getProperty("/Items").forEach(oItem => {
 				oCarousel.addPage(new sap.m.Image({
 					src: oItem
 				}));

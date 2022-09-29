@@ -22,7 +22,7 @@ sap.ui.define([
 		},
 
 		onPressGT: function (oEvent) {
-			const sPath = this.getView().getModel("model").getProperty(oEvent.getSource().getBindingContext("model").getPath() + "/URL");
+			const sPath = this.getModel("model").getProperty(oEvent.getSource().getBindingContext("model").getPath() + "/URL");
 
 			if (sPath) {
 				window.open(sPath, "_blank");

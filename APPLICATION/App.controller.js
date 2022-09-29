@@ -1,6 +1,7 @@
 sap.ui.define([
-	"./BaseController"
-], function (BaseController) {
+	"./BaseController",
+	"sap/ui/core/BusyIndicator"
+], function (BaseController, BusyIndicator) {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.App", {
@@ -13,13 +14,13 @@ sap.ui.define([
 		attachBusy: function () {
 			const oModel = this.getOwnerComponent().getModel();
 			const fnRequestSent = function () {
-				sap.ui.core.BusyIndicator.show();
+				BusyIndicator.show();
 				sap.ui.getCore().getMessageManager().removeAllMessages();
 			};
 			const fnRequestReceived = function () {
 				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				this.removeDuplicateMessages();
-				sap.ui.core.BusyIndicator.hide();
+				BusyIndicator.hide();
 			}.bind(this);
 
 			oModel.attachMetadataFailed(fnRequestReceived);

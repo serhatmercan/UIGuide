@@ -107,13 +107,13 @@ sap.ui.define([
 				const sKeyField = oToken.getBindingInfo("key").parts[0].path;
 				const aParts = oToken.getBindingInfo("key").binding.getContext().getPath().split("/");
 				const sPath = "/" + aParts[1];
-				const oModel = this.getModel("model");
+				const oViewModel = this.getModel("model");
 				const sIndex = oModel.getProperty(sPath).map((oData) => {
 					return oData[sKeyField];
 				}).indexOf(sKey);
 
-				oModel.getProperty(sPath).splice(sIndex, 1);
-				oModel.setProperty(sPath, oModel.getProperty(sPath));
+				oViewModel.getProperty(sPath).splice(sIndex, 1);
+				oViewModel.setProperty(sPath, oViewModel.getProperty(sPath));
 			}
 		},
 
@@ -122,9 +122,9 @@ sap.ui.define([
 			const iDeletedTokenRow = oSource.getParent().getIndex();
 			const aTokens = oSource.getTokens();
 			const aRemovedTokens = oEvent.getParameters("removedTokens").removedTokens;
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 
-			oModel.setProperty("/List", oModel.getProperty("/List").filter(oToken => oToken.ID !== oEvent.getParameter("removedTokens")[0].getKey()));
+			oViewModel.setProperty("/List", oViewModel.getProperty("/List").filter(oToken => oToken.ID !== oEvent.getParameter("removedTokens")[0].getKey()));
 		},
 
 		onVHR: function (oEvent) {

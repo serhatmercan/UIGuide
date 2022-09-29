@@ -146,7 +146,7 @@ sap.ui.define([
 			});
 
 			// Bind Model w/ Path Events to Dialog
-			this._oDialog1.bindElement({ 
+			this._oDialog1.bindElement({
 				path: oKey,
 				events: {
 					dataRequested: () => {

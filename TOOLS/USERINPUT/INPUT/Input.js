@@ -93,11 +93,11 @@ sap.ui.define([
 		onSelect: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContextPath();
 			const sID = this.getModel().getProperty(sPath + "/ID");
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 
-			oModel.setProperty("/Value", sID);
-			oModel.setProperty(this.sPath + "/Value", sID);
-			oModel.setProperty(this.sPath + "/ID", this.getModel().getProperty(oEvent.getSource().getBindingContextPath() + "/ID"));
+			oViewModel.setProperty("/Value", sID);
+			oViewModel.setProperty(this.sPath + "/Value", sID);
+			oViewModel.setProperty(this.sPath + "/ID", this.getModel().getProperty(oEvent.getSource().getBindingContextPath() + "/ID"));
 
 			this.onACVH();
 		},
@@ -152,8 +152,8 @@ sap.ui.define([
 		getSuggestionItems: function () {
 			const oInput = this.byId("Input");
 			const aSuggestionItems = oInput.getSuggestionItems();
-			const sKey = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Key;  
-			const sText = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Text;  
+			const sKey = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Key;
+			const sText = aSuggestionItems.find(oSuggestionItem => oSuggestionItem.getKey() === "X").Text;
 		},
 
 		validateField: function (oEvent) {

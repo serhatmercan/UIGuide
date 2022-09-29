@@ -19,7 +19,7 @@ sap.ui.define([
 		onGenerateFB: function () {
 			const oFlexBox = this.byId("FlexBox");
 
-			this.getView().getModel("model").getProperty("/Items").forEach(oSkill => {
+			this.getModel("model").getProperty("/Items").forEach(oSkill => {
 				oFlexBox.addItem(new sap.m.GenericTag({
 					design: "StatusIconHidden",
 					text: oSkill.Skill,

@@ -15,7 +15,7 @@ sap.ui.define([
 		},
 
 		onAsyncFunction: async function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
@@ -30,7 +30,7 @@ sap.ui.define([
 		},
 
 		onCallFunction: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
@@ -114,12 +114,13 @@ sap.ui.define([
 		},
 
 		onDelete: function () {
-			const oModel = this.getModel("model");
-			const oKey = this.getModel().createKey("/...Set", {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
 			});
 
-			this.onDelete(oKey, this.getModel())
+			this.onDelete(oKey, oModel)
 				.then(() => {})
 				.catch(() => {})
 				.finally(() => {});
@@ -156,7 +157,7 @@ sap.ui.define([
 		},
 
 		onReadExpanded: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -175,7 +176,7 @@ sap.ui.define([
 		},
 
 		onReadQuery: function () {
-			const oModel = this.getModel("model");
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X"),
 			];
@@ -196,7 +197,8 @@ sap.ui.define([
 		},
 
 		onRunMultiPromise: function () {
-			const oModel = this.getModel("model");
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -205,7 +207,7 @@ sap.ui.define([
 			};
 
 			Promise.all([
-					this.onReadExpanded("/...Set", aFilters, oExpand, this.getModel())
+					this.onReadExpanded("/...Set", aFilters, oExpand, oModel)
 					.then((oData) => {
 						// oData.results[0];
 						// oData.results[0].Items.results
@@ -213,7 +215,7 @@ sap.ui.define([
 					})
 					.catch(() => {})
 					.finally(() => {}),
-					this.onReadQuery("/...Set", aFilters, this.getModel())
+					this.onReadQuery("/...Set", aFilters, oModel)
 					.then((oData) => {
 						// oData.results[0];
 					})
