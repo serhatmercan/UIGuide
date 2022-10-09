@@ -1,15 +1,15 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Page>
-        <content>
-        </content>
-        <footer>			
-		</footer>
-    </Page>
-</core:FragmentDefinition>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:footerbar="sap.ushell.ui.footerbar">
+	<Page>
+		<content></content>
+		<footer></footer>
+	</Page>
+</core:FragmentDefinition> <!-- -->
 <!-- PAGE - ATTRIBUTES -->
 <!-- 
 class="sapUiFioriObjectPage" class="sapUiResponsiveContentPadding"
 
+
+backgroundDesign="Solid"
 enableScrolling="false"
 floatingFooter="false"
 showHeader="false"   
@@ -27,6 +27,7 @@ navButtonPress="onNavBack"
 		<contentMiddle>
 		</contentMiddle>
         <contentRight>
+			<footerbar:AddBookmarkButton title="{i18n>appTitle}" showGroupSelection="true" />
 		</contentRight>
     </Bar>
 </customHeader>
@@ -35,5 +36,4 @@ navButtonPress="onNavBack"
 	<ToolbarSpacer/>
 	</Toolbar>
 </footer>    
-	    
 -->

@@ -31,6 +31,8 @@ sap.ui.define([
 			});
 
 			this.byId("ST").getTable()._getSelectAllCheckbox().setVisible(false);
+
+			this.getRouter().getRoute("SmartTable").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ============== */
@@ -109,6 +111,15 @@ sap.ui.define([
 		},
 
 		onFieldChange: function (oEvent) { },
+
+		onFilter: function () {
+			const aFilters = [
+				new Filter("Statu", FilterOperator.EQ, "X")
+			];
+
+			this.byId("ST").getTable().getBinding("items").filter(aFilters); // Grid
+			this.byId("ST").getTable().getBinding("rows").filter(aFilters);	// Responsive
+		},
 
 		onInitST: function () {
 			const oSmartFilter = this.byId("SFB");
@@ -207,6 +218,11 @@ sap.ui.define([
 
 		getVariant: function () {
 			return this.byId("SmartTable").fetchVariant();
+		},
+
+		patternMatched: function () {
+			this.getModel().resetChanges();
+			this.byId("ST").rebindTable();
 		},
 
 		refreshTable: function () {

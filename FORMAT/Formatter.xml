@@ -1,5 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Input value="{ parts:[ { path:'ID' }, { path: 'Text' }, { path: 'Value' } ], formatter: '.formatter.generateText' }"/>
-    <Text text="{ path: '', formatter: '.formatter.generateURL' }"/>
-    <Text text="Text" visible="{ path: 'model>/Value', formatter: '.formatter.setDefaultFilter' }"/>
+    <DatePicker value="{ path:'model>DateValue', type:'sap.ui.model.type.Date', formatOptions: { UTC:true } }" />
+    <Input value="{ parts:[ { path:'ID' }, { path: 'Text' }, { path: 'Value' } ], formatter: '.formatter.generateText' }" />
+    <ObjectHeader number="{ path: 'model>/Value', type: 'sap.ui.model.type.Float', formatOptions: { decimalSeparator: '.', minFractionDigits: 3, maxFractionDigits: 3 } }" />
+    <ObjectNumber number="{ path: 'model>/Value', type: 'sap.ui.model.type.Integer', formatOptions: { groupingEnabled: true } }" />
+    <ObjectStatus icon="{ path: 'model>Decision', formatter: '.formatter.getDecisionIcon' }" state="{ path: 'model>Decision', formatter: '.formatter.getDecisionState' }" />
+    <Text text="{ path: '', formatter: '.formatter.generateURL' }" />
+    <Text text="{ path: 'model>ID', formatter: '.formatter.generateID' }" />
+    <Text text="{ path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' } }" />
+    <Text text="{ path: 'TimeValue/ms', type: 'sap.ui.model.type.Time', formatOptions: { UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss' } }" />
+    <TimePicker displayFormat="HH:mm:ss" value="{ path:'model>TimeValue', type: 'sap.ui.model.odata.type.Time' }" />
 </core:FragmentDefinition>

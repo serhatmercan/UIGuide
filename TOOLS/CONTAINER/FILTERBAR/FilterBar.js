@@ -7,12 +7,11 @@ sap.ui.define([
 
 		onInit: function () {
 
-			var oModel = new JSONModel({
+			const oModel = new JSONModel({
 				Value: ""
 			});
 
 			this.setModel(oModel, "model");
-
 		},
 
 		onSearch: function () {

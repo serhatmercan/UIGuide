@@ -1,8 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/Filter",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, Filter, JSONModel) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/json/JSONModel",
+], function (BaseController, Filter, FilterOperator, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -20,10 +21,11 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 
 			this.byId("SFB").triggerSearch();
+		},
 
 		/* ============== */
 		/* Event Handlers */
-		/* ============== */	
+		/* ============== */
 
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
@@ -33,17 +35,17 @@ sap.ui.define([
 		},
 
 		onFilterChangeSFB: function (oEvent) {
-            const oSFB = oEvent.getSource();
-            const oFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
-            const oFilterData = oSFB.getFilterData();
-            const aFilterItems = oSFB.getAllFilterItems();
-            const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");                        
+			const oSFB = oEvent.getSource();
+			const oFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
+			const oFilterData = oSFB.getFilterData();
+			const aFilterItems = oSFB.getAllFilterItems();
+			const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");
 
-            if (oFilteredFieldName === "Begda" || oFilteredFieldName === "Endda") {
-                oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);	
+			if (oFilteredFieldName === "Begda" || oFilteredFieldName === "Endda") {
+				oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);
 				oBeginDate.getControl().setValueState(oEndDate ? "Error" : "None");
-            }
-        },
+			}
+		},
 
 		onGetSFBData: function () {
 			const oSFBData = this.byId("SFB").getFilterData();
@@ -72,6 +74,39 @@ sap.ui.define([
 			oST.rebindTable();
 		},
 
+		onSearchSFB: function () {
+			const oComboBox = this.byId("ComboBox");
+			const oFilterData = this.byId("SFB").getFilterData();
+			const oViewModel = this.getModel("model");
+			const aFilters = [];
+
+			if (oFilterData.ID) {
+				oFilterData.ID.items.forEach(oID => {
+					aFilters.push(new Filter("ID", FilterOperator.EQ, oID.key));
+				});
+				oFilterData.ID.ranges.forEach(oID => {
+					aFilters.push(new Filter("ID", FilterOperator.EQ, oID.value1));
+				});
+			}
+
+			if (oFilterData.Text) {
+				oFilterData.Text.ranges.forEach(oText => {
+					aFilters.push(new Filter("Text", FilterOperator.EQ, oText.value1));
+				});
+			}
+
+			if (oComboBox && oComboBox.getSelectedKey() && oComboBox.getSelectedKey() !== "") {
+				aFilters.push(new Filter("Value", FilterOperator.EQ, oComboBox.getSelectedKey() === "Yes" ? "X" : ""));
+			}
+
+			this.onReadQuery("/...Set", aFilters, this.getModel())
+				.then((oData) => {
+					oViewModel.setProperty("/Items", oData.results);
+				})
+				.catch(() => { })
+				.finally(() => { });
+		},
+
 		onSetFilter: function () {
 			this.byId("SFB").getAllFilterItems().filter(oFilter => oFilter.getName() === "ID").forEach(oItem => {
 				oItem.getControl().setValueHelpOnly(true);
@@ -82,7 +117,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		setFilterData: function(){
+		setFilterData: function () {
 			this.byId("SFB").setFilterData({
 				Date: {
 					low: new Date(),
@@ -92,7 +127,7 @@ sap.ui.define([
 					ranges: [{
 						"exclude": false,
 						"keyField": "Text",
-						"operation": "EQ",						
+						"operation": "EQ",
 						"value1": "X",
 						"value2": null
 					}]

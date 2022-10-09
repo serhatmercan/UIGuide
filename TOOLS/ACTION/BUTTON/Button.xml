@@ -1,10 +1,8 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <Button text="{i18n>button}" tooltip="{i18n>buttonTooltip}" type="Emphasized" icon="sap-icon://add" press="onPress"/>
-</core:FragmentDefinition>
+    <Button text="{i18n>button}" tooltip="{i18n>buttonTooltip}" type="Emphasized" icon="sap-icon://add" press="onPress" />
+</core:FragmentDefinition> <!-- -->
+<!-- BUTTON - ATTRIBUTES -->
 <!--
-
-BUTTON - ATTRIBUTES
-
 id="Button" 
 class="sapUiSmallMarginTop sapUiSmallMarginBegin"
 iconFirst="true"
@@ -13,4 +11,12 @@ type="Accept" type="Reject"
 visible=true
 
 press="onSendParameter('P', $event)"
+-->
+<!-- BUTTON - LAYOUT -->
+<!--
+<Button icon="sap-icon://attachment" tooltip="{i18n>document}" type="Emphasized" press="onShowDocument">
+	<customData>
+		<BadgeCustomData key="badge" value="{= +${DocCount} }" visible="{= ${DocCount} &amp;&amp; +${DocCount} !== 0 }" />
+	</customData>
+</Button>
 -->

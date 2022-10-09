@@ -1,34 +1,34 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 	<edmx:Reference Uri="/sap/opu/odata/sap/SERVICE_NAME_SRV/$metadata">
-		<edmx:Include Alias="Metadata" Namespace="SERVICE_NAME_SRV"/>
+		<edmx:Include Alias="Metadata" Namespace="SERVICE_NAME_SRV" />
 	</edmx:Reference>
 	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata-data-aggregation-ext/v4.0/cs02/vocabularies/Org.OData.Aggregation.V1.xml">
-		<edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+		<edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Capabilities.V1.xml">
-		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
-		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470971/Communication.xml?api=v2">
-		<edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1"/>
+		<edmx:Include Alias="vCard" Namespace="com.sap.vocabularies.Communication.v1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Core.V1.xml">
-		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+		<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Measures.V1.xml">
-		<edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1"/>
+		<edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1" />
 	</edmx:Reference>
 	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
-		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
 	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="APP_PATH.ANNOTATION_NAME.SERVICE_NAME_SRV">
 			<Annotations Target="SERVICE_NAME_SRV.SERVICE_NAME_SRV_Entities/ListSet">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record Type="Capabilities.FilterRestrictionsType">
-						<PropertyValue Property="RequiresFilter" Bool="true"/>
+						<PropertyValue Property="RequiresFilter" Bool="true" />
 						<PropertyValue Property="RequiredProperties">
 							<Collection>
 								<PropertyPath>ID</PropertyPath>
@@ -44,16 +44,16 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.List">
-				<Annotation Term="UI.Criticality" Path="Condition"/>
+				<Annotation Term="UI.Criticality" Path="Condition" />
 				<Annotation Term="UI.Facets">
 					<Collection>
 						<Record Type="UI.CollectionFacet">
-							<PropertyValue Property="Label" String="{@i18n&gt;general}"/>
+							<PropertyValue Property="Label" String="{@i18n&gt;general}" />
 							<PropertyValue Property="Facets">
 								<Collection>
 									<Record Type="UI.ReferenceFacet">
-										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#general"/>
-										<PropertyValue Property="Label" String="{@i18n&gt;generalData}"/>
+										<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#general" />
+										<PropertyValue Property="Label" String="{@i18n&gt;generalData}" />
 									</Record>
 								</Collection>
 							</PropertyValue>
@@ -63,7 +63,7 @@
 								<PropertyValue Property="Data">
 									<Collection>
 										<Record Type="UI.DataField">
-											<PropertyValue Property="Value" Path="Eqtyp"/>
+											<PropertyValue Property="Value" Path="Eqtyp" />
 										</Record>
 									</Collection>
 								</PropertyValue>
@@ -72,7 +72,7 @@
 						<Annotation Term="UI.HeaderFacets">
 							<Collection>
 								<Record Type="UI.ReferenceFacet">
-									<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header"/>
+									<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header" />
 								</Record>
 							</Collection>
 						</Annotation>
@@ -80,10 +80,20 @@
 				</Annotation>
 				<Annotation Term="UI.HeaderInfo">
 					<Record Type="UI.HeaderInfoType">
-						<PropertyValue Property="Title" Path="@UI.LineItem"/>
-						<PropertyValue Property="TypeName" String="{@i18n&gt;information}"/>
-						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;informations}"/>
+						<PropertyValue Property="Title" Path="@UI.LineItem" />
+						<PropertyValue Property="TypeName" String="{@i18n&gt;information}" />
+						<PropertyValue Property="TypeNamePlural" String="{@i18n&gt;informations}" />
 					</Record>
+				</Annotation>
+				<Annotation Term="UI.Identification">
+					<Collection>
+						<Record Type="UI.DataFieldForAction">
+							<PropertyValue Property="Action" String="SERVICE_NAME_SRV.SERVICE_NAME_SRV_Entities/ChangeStatus" />
+							<PropertyValue Property="Label" String="{@i18n&gt;changeStatus}" />
+							<Annotation Term="UI.Hidden" Path="Statu" />
+							<Annotation Term="UI.Hidden" Bool="true" />
+						</Record>
+					</Collection>
 				</Annotation>
 				<Annotation Term="UI.SelectionFields">
 					<Collection>
@@ -93,17 +103,17 @@
 				<Annotation Term="UI.LineItem">
 					<Collection>
 						<Record Type="UI.DataField">
-							<PropertyValue Property="Value" Path="Field"/>
-							<PropertyValue Property="Label" String="{i18n&gt;field}"/>
+							<PropertyValue Property="Value" Path="Field" />
+							<PropertyValue Property="Label" String="{i18n&gt;field}" />
 						</Record>
 						<Record Type="UI.DataFieldWithIntentBasedNavigation">
-							<PropertyValue Property="SemanticObject" String="SemanticObjectName"/>
-							<PropertyValue Property="Action" String="Data"/>
-							<PropertyValue Property="Value" Path="Field"/>
+							<PropertyValue Property="SemanticObject" String="SemanticObjectName" />
+							<PropertyValue Property="Action" String="Data" />
+							<PropertyValue Property="Value" Path="Field" />
 						</Record>
 					</Collection>
 				</Annotation>
-				<Annotation Term="UI.MultiLineText"/>
+				<Annotation Term="UI.MultiLineText" />
 				<Annotation Term="UI.PresentationVariant">
 					<Record Type="UI.PresentationVariantType">
 						<PropertyValue Property="RequestAtLeast">
@@ -115,38 +125,38 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.List/Field">
-				<Annotation Term="Common.SemanticObject" String="SemanticObjectName"/>
+				<Annotation Term="Common.SemanticObject" String="SemanticObjectName" />
 				<Annotation Term="Common.SemanticObjectMapping">
 					<Collection>
 						<Record Type="Common.SemanticObjectMappingType">
-							<PropertyValue Property="LocalProperty" PropertyPath="Field"/>
-							<PropertyValue Property="SemanticObjectProperty" String="Data"/>
+							<PropertyValue Property="LocalProperty" PropertyPath="Field" />
+							<PropertyValue Property="SemanticObjectProperty" String="Data" />
 						</Record>
 					</Collection>
 				</Annotation>
-				<Annotation Term="Common.Text" Path="Field"/>
-				<Annotation Term="Common.ValueListWithFixedValues" Bool="true"/>
-				<Annotation Term="Common.FilterDefaultValue" String="ABC"/>
-				<Annotation Term="Common.Label" String="{@i18n&gt;field}"/>
+				<Annotation Term="Common.Text" Path="Field" />
+				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
+				<Annotation Term="Common.FilterDefaultValue" String="ABC" />
+				<Annotation Term="Common.Label" String="{@i18n&gt;field}" />
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
-						<PropertyValue Property="CollectionPath" String="FieldVHSet"/>
-						<PropertyValue Property="SearchSupported" Bool="false"/>
+						<PropertyValue Property="CollectionPath" String="FieldVHSet" />
+						<PropertyValue Property="SearchSupported" Bool="false" />
 						<PropertyValue Property="Parameters">
 							<Collection>
 								<Record Type="Common.ValueListParameterInOut">
-									<PropertyValue Property="ValueListProperty" String="Field"/>
-									<PropertyValue Property="LocalDataProperty" PropertyPath="Field"/>
+									<PropertyValue Property="ValueListProperty" String="Field" />
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Field" />
 								</Record>
 								<Record Type="Common.ValueListParameterOut">
-									<PropertyValue Property="ValueListProperty" String="Title"/>
-									<PropertyValue Property="LocalDataProperty" PropertyPath="Title"/>
+									<PropertyValue Property="ValueListProperty" String="Title" />
+									<PropertyValue Property="LocalDataProperty" PropertyPath="Title" />
 								</Record>
 								<Record Type="Common.ValueListParameterDisplayOnly">
-									<PropertyValue Property="ValueListProperty" String="Description"/>
+									<PropertyValue Property="ValueListProperty" String="Description" />
 								</Record>
 								<Record Type="Common.ValueListParameterFilterOnly">
-									<PropertyValue Property="ValueListProperty" String="Data"/>
+									<PropertyValue Property="ValueListProperty" String="Data" />
 								</Record>
 							</Collection>
 						</PropertyValue>
@@ -154,19 +164,19 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.FieldVH/Title">
-				<Annotation Term="Common.Text" Path="Description"/>
-				<Annotation Term="Common.Label" String="{@i18n&gt;description}"/>
-				<Annotation Term="Measures.ISOCurrency" Path="Unit"/>
-				<Annotation Term="Measures.Unit" Path="Unit"/>
-				<Annotation Term="UI.Hidden" Bool="true"/>
-				<Annotation Term="UI.HiddenFilter" Bool="true"/>
-				<Annotation Term="UI.MultiLineText" Bool="true"/>
-				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast"/>
+				<Annotation Term="Common.Text" Path="Description" />
+				<Annotation Term="Common.Label" String="{@i18n&gt;description}" />
+				<Annotation Term="Measures.ISOCurrency" Path="Unit" />
+				<Annotation Term="Measures.Unit" Path="Unit" />
+				<Annotation Term="UI.Hidden" Bool="true" />
+				<Annotation Term="UI.HiddenFilter" Bool="true" />
+				<Annotation Term="UI.MultiLineText" Bool="true" />
+				<Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast" />
 			</Annotations>
 			<Annotations Target="Metadata.ZPP_007_GOODS_RCPT_SRV_Entities/SerialNumberSet">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record Type="Capabilities.FilterRestrictionsType">
-						<PropertyValue Property="RequiresFilter"Bool="true"/>
+						<PropertyValue Property="RequiresFilter" Bool="true" />
 						<PropertyValue Property="RequiredProperties">
 							<Collection>
 								<PropertyPath>Aufnr</PropertyPath>

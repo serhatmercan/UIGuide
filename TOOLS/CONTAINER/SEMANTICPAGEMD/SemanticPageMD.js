@@ -9,7 +9,7 @@ sap.ui.define([
 
 		onInit: function () {
 
-			var oModel = new JSONModel(jQuery.sap.getModulePath("com.serhatmercan.model", "/Menu.json"));
+			const oModel = new JSONModel(jQuery.sap.getModulePath("com.serhatmercan.model", "/Menu.json"));
 
 			this.getView().setModel(oModel);
 

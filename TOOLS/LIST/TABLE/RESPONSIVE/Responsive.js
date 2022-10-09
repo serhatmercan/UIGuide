@@ -43,7 +43,7 @@ sap.ui.define([
 			}.bind(this);
 
 			this.byId("Table").getBinding("items").refresh(true);
-			this.byId("Table").removeSelections();
+			this.byId("Table").removeSelections(true);
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
@@ -90,6 +90,21 @@ sap.ui.define([
 			aItems.splice(iIndex, 1);
 
 			oViewModel.setProperty("/Items", aItems);
+		},
+
+		onDeleteSelectedRows: function () {
+			const oViewModel = this.getModel("model");
+			const oTable = this.byId("Table");
+			const aItems = oViewModel.getProperty("/Items");
+			const aReverseSelectedRowsPaths = [].concat(oTable.getSelectedContextPaths()).reverse();
+
+			aReverseSelectedRowsPaths.forEach(sReverseSelectedRowPath => {
+				aItems.splice(+sReverseSelectedRowPath.split("/")[sReverseSelectedRowPath.split("/").length - 1], 1);
+			});
+
+			oViewModel.setProperty("/Items", aItems);
+
+			oTable.removeSelections(true);
 		},
 
 		onDeleteRow: function () {

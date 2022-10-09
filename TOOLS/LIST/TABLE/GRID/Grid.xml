@@ -1,95 +1,17 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:t="sap.ui.table">
-    <t:Table rows="{model>/Items}">
-        <t:columns>
-            <t:Column>
-                <Label text="{i18n>ID}" />
-                <t:template>
-                    <ObjectIdentifier title="{model>ID}" />
-                </t:template>
-            </t:Column>
-        </t:columns>
-    </t:Table>
-</core:FragmentDefinition>
-<!--
-
-TABLE - LAYOUT
-
-<t:rowSettingsTemplate>
-    <t:RowSettings highlight="{model>Value}"/>
-</t:rowSettingsTemplate>
-<t:rowActionTemplate>
-    <t:RowAction>
-	    <t:RowActionItem icon="sap-icon://search" type="Custom" press="onPressRAI" visible="true"/>
-	</t:RowAction>
-</t:rowActionTemplate>
-<t:extension>
-    <OverflowToolbar>
-	    <Title text="{i18n>table}"/>
-		<ToolbarSpacer/>
-		<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddColumn"/>
-		<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddRow"/>
-		<Button type="Reject" icon="sap-icon://less" tooltip="{i18n>deleteRow}" press="onDeleteRow"/>
-		<Button type="Accept" icon="sap-icon://accept" tooltip="{i18n>save}" press="onSave"/>
-	</OverflowToolbar>
-</t:extension>
-<t:columns>
-    <t:Column>
-	    <Label text="{i18n>value}"/>
-	    <t:template>
-		    <Text text="{model>Value}"/>
-		</t:template>
-	</t:Column>
-	<t:Column>
-		<t:multiLabels>
-			<Label text="{i18n>MLI}"/>
-			<Label text="{i18n>MLII}"/>
-			<Label text="{i18n>MLIII}"/>
-		</t:multiLabels>
-		<t:template>
-			<Text text="{model>ValueI}"/>
-		</t:template>
-	</t:Column>
-	<t:Column>
-		<t:multiLabels>
-			<Label text="{i18n>MLI}"/>
-			<Label text="{i18n>MLII}"/>
-			<Label text="{i18n>MLA}"/>
-		</t:multiLabels>
-		<t:template>
-			<Text text="{model>ValueII}"/>
-		</t:template>
-	</t:Column>
-	<t:Column>
-		<t:multiLabels>
-			<Label text="{i18n>MLI}"/>
-			<Label text="{i18n>MLB}"/>
-		</t:multiLabels>
-		<t:template>
-			<Text text="{model>ValueII}"/>
-		</t:template>
-	</t:Column>				
-</t:columns>
-<t:rowActionTemplate>
-    <t:RowAction>
-	    <t:items>
-		    <t:RowActionItem type="Navigation" press="onShow"/>
-		</t:items>
-	</t:RowAction>
-</t:rowActionTemplate>
-<t:footer>
-    <Toolbar>
-        <Label text="{i18n>footer}"/>
-        <Text text="{model>/footer}"/>
-	</Toolbar>
-</t:footer>
-<dragDropConfig>
-	<dnd:DragInfo groupName="DGN1" sourceAggregation="rows" dragStart="onDragStart"/>
-	<dnd:DropInfo dropPosition="Between" groupName="DGN2" targetAggregation="rows" drop="onDrop"/>
-	<dnd:DragDropInfo dropPosition="Between" sourceAggregation="rows" targetAggregation="rows" drop="onDrop" dragStart="onDragStart"/>
-</dragDropConfig>
-
-TABLE - ATTRIBUTES
-
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:ui="sap.ui.table">
+	<ui:Table rows="{model>/Items}">
+		<ui:columns>
+			<ui:Column>
+				<Label text="{i18n>ID}" />
+				<ui:template>
+					<ObjectIdentifier title="{model>ID}" />
+				</ui:template>
+			</ui:Column>
+		</ui:columns>
+	</ui:Table>
+</core:FragmentDefinition> <!-- -->
+<!-- TABLE - ATTRIBUTES -->
+<!-- 
 id="Table"
 ariaLabelledBy="{i18n>title}"
 class="sapUiResponsiveMargin" class="sapUiSizeCompact" class="sapUiTinyMargin"
@@ -102,7 +24,7 @@ rowHeight="50px"
 rows="{ path:'model>/Items', sorter: { path: 'ID', descending: true } }"
 rows="{/...Set}"
 selectionBehavior="RowOnly"
-selectionMode="None" selectionMode="MultiSelect" selectionMode="MultiToggle" selectionMode="Single"
+selectionMode="None" selectionMode="MultiToggle" selectionMode="Single"
 title="{i18n>title}"
 visibleRowCount="{= ${model>/Items}.length }" visibleRowCount="10" 
 visibleRowCountMode="Auto" visibleRowCountMode="Fixed" 
@@ -124,5 +46,80 @@ hAlign="Center"
 headerSpan="2" headerSpan="3,2"
 sortProperty="ID"
 width="10rem"
-
+-->
+<!-- TABLE - LAYOUT -->
+<!-- 
+<ui:rowSettingsTemplate>
+    <ui:RowSettings highlight="{model>Value}"/>
+</ui:rowSettingsTemplate>
+<ui:rowActionTemplate>
+    <ui:RowAction>
+	    <ui:RowActionItem icon="sap-icon://search" type="Custom" press="onPressRAI" visible="true"/>
+	</ui:RowAction>
+</ui:rowActionTemplate>
+<ui:extension>
+    <OverflowToolbar>
+	    <Title text="{i18n>table}"/>
+		<ToolbarSpacer/>
+		<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddColumn"/>
+		<Button type="Emphasized" icon="sap-icon://add" tooltip="{i18n>addRow}" press="onAddRow"/>
+		<Button type="Reject" icon="sap-icon://less" tooltip="{i18n>deleteRow}" press="onDeleteRow"/>
+		<Button type="Accept" icon="sap-icon://accept" tooltip="{i18n>save}" press="onSave"/>
+	</OverflowToolbar>
+</ui:extension>
+<ui:columns>
+    <ui:Column>
+	    <Label text="{i18n>value}"/>
+	    <ui:template>
+		    <Text text="{model>Value}"/>
+		</ui:template>
+	</ui:Column>
+	<ui:Column>
+		<ui:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLII}"/>
+			<Label text="{i18n>MLIII}"/>
+		</ui:multiLabels>
+		<ui:template>
+			<Text text="{model>ValueI}"/>
+		</ui:template>
+	</ui:Column>
+	<ui:Column>
+		<ui:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLII}"/>
+			<Label text="{i18n>MLA}"/>
+		</ui:multiLabels>
+		<ui:template>
+			<Text text="{model>ValueII}"/>
+		</ui:template>
+	</ui:Column>
+	<ui:Column>
+		<ui:multiLabels>
+			<Label text="{i18n>MLI}"/>
+			<Label text="{i18n>MLB}"/>
+		</ui:multiLabels>
+		<ui:template>
+			<Text text="{model>ValueII}"/>
+		</ui:template>
+	</ui:Column>				
+</ui:columns>
+<ui:rowActionTemplate>
+    <ui:RowAction>
+	    <ui:items>
+		    <ui:RowActionItem type="Navigation" press="onShow"/>
+		</ui:items>
+	</ui:RowAction>
+</ui:rowActionTemplate>
+<ui:footer>
+    <Toolbar>
+        <Label text="{i18n>footer}"/>
+        <Text text="{model>/footer}"/>
+	</Toolbar>
+</ui:footer>
+<dragDropConfig>
+	<dnd:DragInfo groupName="DGN1" sourceAggregation="rows" dragStart="onDragStart"/>
+	<dnd:DropInfo dropPosition="Between" groupName="DGN2" targetAggregation="rows" drop="onDrop"/>
+	<dnd:DragDropInfo dropPosition="Between" sourceAggregation="rows" targetAggregation="rows" drop="onDrop" dragStart="onDragStart"/>
+</dragDropConfig>
 -->

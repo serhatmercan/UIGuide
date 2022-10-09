@@ -1,8 +1,20 @@
 <mvc:View controllerName="sun.mm.createset.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<MessagePage description="{i18n>description}" icon="sap-icon://multiple-radar-chart" text="{i18n>text}" enableFormattedText="true" showHeader="false">
+	<MessagePage description="{i18n>description}" icon="sap-icon://multiple-radar-chart" text="{i18n>text}">
 		<buttons>
-			<Button text="{i18n>okay}" press="onOkay"/>
-			<Button text="{i18n>cancel}" press="onCancel"/>
+			<Button text="{i18n>okay}" press="onOkay" />
+			<Button text="{i18n>cancel}" press="onCancel" />
 		</buttons>
 	</MessagePage>
-</mvc:View>
+</mvc:View> <!-- -->
+<!-- ... - ATTRIBUTES -->
+<!-- 
+class="sapUiNoMargin" 
+	
+enableFormattedText="true" 
+showHeader="false"
+-->
+
+<!-- ... - LAYOUT -->
+<!--
+	
+-->

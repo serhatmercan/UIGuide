@@ -1,11 +1,14 @@
-<HBox id="HBox"></HBox>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <HBox id="HBox"></HBox>
+</core:FragmentDefinition> <!-- -->
+<!-- HBOX - ATTRIBUTES -->
 <!-- 
-Description: Setting One Or More Than Tools Horizontally in One Line 
-
-HBOX - ATTRIBUTES
-
-class="sapUiMediumMarginTop"
+class="sapUiMediumMarginTop" class="sapUiTinyMarginBottom"
 alignItems="Start"
 justifyContent="SpaceBetween"
 renderType="Bare"
+-->
+<!-- HBOX - LAYOUT -->
+<!--
+	
 -->

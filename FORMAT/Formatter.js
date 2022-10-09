@@ -6,10 +6,49 @@ sap.ui.define([
 
 	return {
 
+		calculateBetweenTwoDates: function (dBeginDate, dEndDate) {
+			const iOneDay = 1000 * 60 * 60 * 24;
+			const iBeginDate = Date.UTC(dBeginDate.getFullYear(), dBeginDate.getMonth(), dBeginDate.getDate());
+			const iEndDate = Date.UTC(dEndDate.getFullYear(), dEndDate.getMonth(), dEndDate.getDate());
+
+			return (iEndDate - iBeginDate) / iOneDay;
+		},
+
+		checkTwoDates: function (dOpenDate, dCloseDate) {
+			if (!dOpenDate || !dCloseDate) {
+				return "None";
+			}
+
+			const dCloseUTCDate = new Date(Date.UTC(dCloseDate.getFullYear(), dCloseDate.getMonth(), dCloseDate.getDate()));
+			const dOpenUTCDate = new Date(Date.UTC(dOpenDate.getFullYear(), dOpenDate.getMonth(), dOpenDate.getDate()));
+
+			return dOpenUTCDate > dCloseUTCDate ? "Error" : "None";
+		},
+
+		checkTwoDateTimes: function (dOpenDate, tOpenTime, dCloseDate, tCloseTime) {
+			if (!dOpenDate || !tOpenTime || !dCloseDate || !tCloseTime) {
+				return "None";
+			}
+
+			const dCloseUTCDate = new Date(Date.UTC(dCloseDate.getFullYear(), dCloseDate.getMonth(), dCloseDate.getDate()));
+			const dOpenUTCDate = new Date(Date.UTC(dOpenDate.getFullYear(), dOpenDate.getMonth(), dOpenDate.getDate()));
+
+			if (dOpenUTCDate > dCloseUTCDate) {
+				return "Error";
+			}
+
+			if (dOpenUTCDate < dCloseUTCDate) {
+				return "None";
+			}
+
+			return tOpenTime.ms > tCloseTime.ms ? "Error" : "None";
+		},
+
 		createUuidX16: function () {
-			return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-				let r = Math.random() * 16 | 0,
-					v = c === "x" ? r : (r & 0x3 | 0x8);
+			return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+				const r = Math.random() * 16 | 0;
+				const v = c === "x" ? r : (r & 0x3 | 0x8);
+
 				return v.toString(16);
 			});
 		},
@@ -57,6 +96,18 @@ sap.ui.define([
 				.toLocaleUpperCase("en");
 		},
 
+		convertMiliSecondsToHoursMinutesSeconds: function (iMiliSeconds) {
+			const iSeconds = Math.floor((iMiliSeconds / 1000) % 60);
+			const iMinutes = Math.floor((iMiliSeconds / 1000 / 60) % 60);
+			const iHours = Math.floor(iMiliSeconds / 1000 / 60 / 60);
+
+			return [
+				iHours.toString().padStart(2, "0"),
+				iMinutes.toString().padStart(2, "0"),
+				iSeconds.toString().padStart(2, "0")
+			].join(":");
+		},
+
 		generateDate: function () {
 			const oDateFormat = DateFormat.getDateTimeInstance({ style: "medium" });
 
@@ -80,11 +131,11 @@ sap.ui.define([
 			}).format(sValue);
 		},
 
-		generateGUID: function(){
+		generateGUID: function () {
 			function getID() {
 				return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
 			}
-			
+
 			return getID() + getID() + '-' + getID() + '-' + getID() + '-' + getID() + '-' + getID() + getID() + getID();
 		},
 
@@ -92,8 +143,29 @@ sap.ui.define([
 			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
 		},
 
+		generateLocalDate: function (sValue) {
+			if (!sValue) {
+				return null;
+			}
+
+			return new Date(sValue.valueOf()).setHours((sDate.getTimezoneOffset() / 60) * -1);
+		},
+
 		generateLocalDateTime: function () {
 			sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance().format(new Date(), sap.ui.getCore().getConfiguration().getTimezone());
+		},
+
+		generateLocalTime: function (oTime) {
+			if (!oTime) {
+				return null;
+			}
+
+			return {
+				ms: oTime.getHours() * 60 * 60 * 1000 +
+					oTime.getMinutes() * 60 * 1000 +
+					oTime.getSeconds() * 1000,
+				__edmType: "Edm.Time"
+			};
 		},
 
 		generateText: function (sID, sText, sValue) {
@@ -114,6 +186,19 @@ sap.ui.define([
 			return dCreatedDate;
 		},
 
+		/*
+		* Generate Timestamp w/ Formatted Date & Formatted Time 
+		*
+		* @param{String|sDate}: 09.10.2022 
+		* @param{String|sTime}: 16:12:28  
+		*
+		* @return{Timestamp}:	Timestamp Object
+		*/
+
+		generateTimestampWithFormat: function (sDate, sTime) {
+			return new Date(sDate + "T" + sTime);
+		},
+
 		generateURL: function (oContext) {
 			const oModel = this.getModel();
 
@@ -121,27 +206,6 @@ sap.ui.define([
 				ID: oContext.ID,
 				DocumentID: oContext.DocumentID
 			}) + "/$value";
-		},
-
-		getLocalDate: function (sValue) {
-			if (!sValue) {
-				return null;
-			}
-			var sDate = new Date(sValue.valueOf());
-			sDate.setHours((sDate.getTimezoneOffset() / 60) * -1);
-			return sDate;
-		},
-
-		getLocalTime: function (oTime) {
-			if (!oTime) {
-				return null;
-			}
-			return {
-				ms: oTime.getHours() * 60 * 60 * 1000 +
-					oTime.getMinutes() * 60 * 1000 +
-					oTime.getSeconds() * 1000,
-				__edmType: "Edm.Time"
-			};
 		},
 
 		getText: function () {

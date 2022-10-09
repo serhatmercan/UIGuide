@@ -6,14 +6,17 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function() {
-			
-			var oModel = new JSONModel({
-				Value: new Date()	
+		onInit: function () {
+			const oModel = new JSONModel({
+				Value: new Date()
 			});
-			
+
 			this.setModel(oModel, "model");
-			
+
+			oModel.setProperty(sPath + "/Value", {
+				__edmType: "Edm.Time",
+				ms: new Date().getTime()
+			});
 		}
 
 	});

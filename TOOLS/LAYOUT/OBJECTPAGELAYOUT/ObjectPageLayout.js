@@ -8,7 +8,7 @@ sap.ui.define([
 
 		onInit: function () {
 
-			var oModel = new JSONModel({
+			const oModel = new JSONModel({
 				Busy: false,
 				Value: ""
 			});

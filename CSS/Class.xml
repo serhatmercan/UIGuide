@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core"></core:FragmentDefinition> <!-- -->
+<!-- CLASS - ATTRIBUTES -->
+<!--
+class="editableForm"    
+class="formLabel" 
+class="listBorderStyle"
+
+class="sapMObjectNumberLarge
+class="sapUiContentPadding"
+class="sapUiDSCExplored sapUiContentPadding"
+class="sapUiFioriObjectPage"
+
+class="sapUiMediumMarginBegin"
+class="sapUiMediumMarginBottom"
+class="sapUiMediumMarginEnd sapUiSmallMarginBottom" 
+class="sapUiMediumMarginTop"
+
+class="sapUiNoContentPadding"
+class="sapUiNoMargin" 
+
+class="sapUiResponsiveContentPadding"
+class="sapUiResponsiveContentPadding iconTabBarStyle"
+class="sapUiResponsiveContentPadding sapUiResponsivePadding--header"
+
+class="sapUiResponsiveMargin"
+class="sapUiResponsivePadding--header sapUiResponsivePadding--content" 
+class="sapUiSizeCompact"
+
+class="sapUiSmallMargin"
+class="sapUiSmallMarginBegin"
+class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"
+class="sapUiSmallMarginBegin sapUiSmallMarginTop" 
+class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+class="sapUiSmallMarginBeginTop sapUiSmallMarginEnd" 
+class="sapUiSmallMarginEnd" 
+class="sapUiSmallMarginTop"  
+class="sapUiSmallMarginTop sapUiSmallMarginBegin"
+class="sapUiSmallMarginTopBottom"
+
+class="sapUiTinyMargin"
+class="sapUiTinyMarginBegin panelBorderLine"
+class="sapUiTinyMarginBegin sapUiTinyMarginBottom"
+class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
+class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+class="sapUiTinyMarginBottom"
+class="sapUiTinyMarginEnd"
+class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding"
+class="sapUiTinyMarginTopBottom"
+
+class="sapUxAPObjectPageSubSectionFitContainer" 
+class="toolbarBorder"
+-->

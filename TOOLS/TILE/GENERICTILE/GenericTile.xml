@@ -1,18 +1,18 @@
 <mvc:View xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
 	<GenericTile>
 		<TileContent>
-			<ImageContent src="sap-icon://add-activity"/>
+			<ImageContent src="sap-icon://add-activity" />
 		</TileContent>
-	</GenericTile>	
-</mvc:View>
+	</GenericTile>
+</mvc:View> <!--  -->
 <!-- GENERIC TILE - ATTRIBUTES -->
 <!--
- id="GTI" 
- class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
- header="{i18n>GTI}" 
+id="GTI" 
+class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+header="{i18n>GTI}" 
  
- press="onGoToObject"
--->	 
+press="onGoToObject" press="onGoToPage('GT', $event)"
+-->
 <!-- GENERIC TILE - LAYOUT -->
 <!--
 <layoutData>
@@ -20,7 +20,7 @@
 </layoutData>
 -->
 <!-- GENERIC TILE - EXAMPLE -->
- <!--
+<!--
 <Page>
 	<content>
 		<Panel>
@@ -46,7 +46,7 @@
 							<ImageContent src="sap-icon://show-edit"/>
 						</TileContent>
 					</GenericTile>
-					<GenericTile id="GTIV" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTIV}">
+					<GenericTile id="GTIV" class="sapUiSmallMarginEnd" header="{i18n>GTIV}">
 						<TileContent>
 							<NumericContent icon="sap-icon://product" value="{model>/Value}" valueColor="Good"/>
 						</TileContent>

@@ -1,9 +1,9 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" 
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable"
 	xmlns:smartVariants="sap.ui.comp.smartvariants">
 	<smartVariants:SmartVariantManagement id="SVM" />
 	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" />
 	<smartTable:SmartTable id="ST" entitySet="...Set" smartFilterId="SFB" beforeRebindTable="onBRT" />
-</mvc:View><!-- SMART FILTER BAR - ATTRIBUTES -->
+</mvc:View> <!-- SMART FILTER BAR - ATTRIBUTES -->
 <!-- 
 smartVariant="SVM"
 
@@ -16,6 +16,7 @@ afterVariantLoad="onAVL"
 beforeVariantFetch="onBVF"
 beforeVariantSave="onBVS" 
 initialized="onInitSFB"
+search="onSearchSFB"
 -->
 
 <!-- SMART FILTER BAR - CONTROL CONFIGURATION -->

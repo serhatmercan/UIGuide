@@ -223,7 +223,7 @@ sap.ui.define([
 
 			if (this.oStartupParameters.ID && this.oStartupParameters.ID !== "") { }
 
-			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
+			this.getOwnerComponent().getModel().metadataLoaded().then(async () => {
 				const oCreateEntry = this.getModel().createEntry("/IDSet");
 
 				this.byId("SimpleForm").bindElement(oCreateEntry.getPath());

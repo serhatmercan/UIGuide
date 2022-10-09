@@ -11,7 +11,7 @@ sap.ui.define([
 		/* ================= */
 		/* Lifecycle Methods */
 		/* ================= */
-	
+
 		onInit: function () {
 			const oModel = new JSONModel({
 				Busy: false,
@@ -38,6 +38,30 @@ sap.ui.define([
 			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));
 		},
 
+
+		onChangeIDWithDescription: async function (oEvent) {
+			const oModel = this.getModel();
+			const sID = oEvent.getParameter("newValue");
+			const sPath = this.getView().getBindingContext().getPath();
+
+			oModel.setProperty(sPath + "/Description", "");
+
+			if (sID !== "") {
+				const oIDVHKey = oModel.createKey("/IDVHSet", {
+					Matnr: sID
+				});
+
+				await this.onRead(oIDVHKey, oModel)
+					.then((oData) => {
+						oModel.setProperty(sPath + "/Description", oData.Description);
+					})
+					.catch(() => { })
+					.finally(() => {
+						sap.ui.getCore().getMessageManager().removeAllMessages();
+					});
+			}
+		},
+
 		onFilterDDL: function () {
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -56,7 +80,7 @@ sap.ui.define([
 		onVLC: function (oEvent) {
 			const sPath = oEvent.getSource().getBindingContext().getPath();
 			const oData = this.getModel().getProperty(sPath);
-		},		
+		},
 
 		/* ================ */
 		/* Internal Methods */
@@ -133,12 +157,12 @@ sap.ui.define([
 			}
 		},
 
-		getData: function(){
+		getData: function () {
 			return this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID");
 		},
 
-		getValue: function(){
-			const oSmartField = this.byId("SmartField");		
+		getValue: function () {
+			const oSmartField = this.byId("SmartField");
 			const sValue = oSmartField.getProperty("value") ? oSmartField.getProperty("value") : oSmartField.getValue();
 		},
 
