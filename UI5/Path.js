@@ -6,5 +6,5 @@ var sPath = oEvent.getSource().getBindingInfo("value").binding.getPath();
 var sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 // From View
 var oView = this.getView();
-var	sBindingPath = oView.getBindingContext().getPath();
-var	sData = oView.getModel().getProperty(sPath + "/Data");
+var sBindingPath = oView.getBindingContext().getPath();
+var sData = oView.getModel().getProperty(sPath + "/Data");

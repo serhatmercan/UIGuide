@@ -277,6 +277,12 @@ sap.ui.define([
 			});
 
 			oViewModel.setProperty("/Items", aItems);
+		},
+
+		setValueTextColor: function (iValue) {
+			iValue > 0 ? this.addStyleClass("green") : this.addStyleClass("red");
+
+			return iValue;
 		}
 
 	});

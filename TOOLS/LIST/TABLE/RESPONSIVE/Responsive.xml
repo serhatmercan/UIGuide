@@ -13,10 +13,9 @@
             </ColumnListItem>
         </items>
     </Table>
-</core:FragmentDefinition>
-<!--
-TABLE - LAYOUT
-
+</core:FragmentDefinition> <!-- -->
+<!-- TABLE - LAYOUT -->
+<!-- 
 <headerToolbar>
     <Toolbar>
 	    <ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
@@ -81,4 +80,5 @@ type="Inactive" type="Navigation"
 COLUMN LIST ITEM - CELLS
 
 <ObjectIdentifier title="{model>ID}" text="{model>Text}"/>
+<ObjectNumber number="{ path: 'Value', formatter: '.formatter.setValueTextColor' }" />
 -->

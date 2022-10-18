@@ -87,6 +87,9 @@ sap.ui.define([
 				oFilterData.ID.ranges.forEach(oID => {
 					aFilters.push(new Filter("ID", FilterOperator.EQ, oID.value1));
 				});
+				if (oFilterData.ID.value !== "") {
+					aFilters.push(new Filter("ID", FilterOperator.EQ, oFilterData.ID.value));
+				}
 			}
 
 			if (oFilterData.Text) {

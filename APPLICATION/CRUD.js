@@ -25,8 +25,8 @@ sap.ui.define([
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onCallFunction: function () {
@@ -40,8 +40,8 @@ sap.ui.define([
 				.then((oData) => {
 					const sID = oData.GetData.ID;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onCreate: function (oEvent) {
@@ -94,7 +94,7 @@ sap.ui.define([
 								if (aMessages.some(oMessage => oMessage.type === "Error")) {
 									MessageToast.show(this.getResourceBundle().getText("errorOccured"));
 									return;
-								} else {}
+								} else { }
 
 								oResponse.results.forEach(oResult => {
 									sap.ui.getCore().getMessageManager().addMessages(
@@ -106,8 +106,8 @@ sap.ui.define([
 									);
 								});
 							})
-							.catch(() => {})
-							.finally(() => {});
+							.catch(() => { })
+							.finally(() => { });
 					}
 				}
 			});
@@ -121,9 +121,9 @@ sap.ui.define([
 			});
 
 			this.onDelete(oKey, oModel)
-				.then(() => {})
-				.catch(() => {})
-				.finally(() => {});
+				.then(() => { })
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onRead: function () {
@@ -133,9 +133,9 @@ sap.ui.define([
 			});
 
 			this.onRead(oKey, oModel)
-				.then((oData) => {})
-				.catch(() => {})
-				.finally(() => {});
+				.then((oData) => { })
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onReadAssociation: function () {
@@ -152,8 +152,8 @@ sap.ui.define([
 					const aItems = oData.Items.results;
 					const aValues = oData.Values.results;
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onReadExpanded: function () {
@@ -171,8 +171,8 @@ sap.ui.define([
 					// oData.results[0].Items.results
 					// oData.results[0].Values.results,
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onReadQuery: function () {
@@ -192,8 +192,8 @@ sap.ui.define([
 				.then((oData) => {
 					// oData.results[0];
 				})
-				.catch(() => {})
-				.finally(() => {});
+				.catch(() => { })
+				.finally(() => { });
 		},
 
 		onRunMultiPromise: function () {
@@ -207,23 +207,27 @@ sap.ui.define([
 			};
 
 			Promise.all([
-					this.onReadExpanded("/...Set", aFilters, oExpand, oModel)
+				this.onReadExpanded("/...Set", aFilters, oExpand, oModel)
 					.then((oData) => {
 						// oData.results[0];
 						// oData.results[0].Items.results
 						// oData.results[0].Values.results,
 					})
-					.catch(() => {})
-					.finally(() => {}),
-					this.onReadQuery("/...Set", aFilters, oModel)
+					.catch(() => { })
+					.finally(() => { }),
+				this.onReadQuery("/...Set", aFilters, oModel)
 					.then((oData) => {
 						// oData.results[0];
 					})
-					.catch(() => {})
-					.finally(() => {})
-				])
-				.catch(() => {})
-				.finally(() => {});
+					.catch(() => { })
+					.finally(() => { })
+			]).catch(() => { }).finally(() => { });
+
+			this.onReadExpanded()
+				.then(() => { })
+				.then(() => { })
+				.catch(() => { })
+				.then(() => { });
 		},
 
 		onSubmitChanges: function () {
@@ -241,8 +245,8 @@ sap.ui.define([
 								.then(() => {
 									oModel.resetChanges();
 								})
-								.catch(() => {})
-								.finally(() => {});
+								.catch(() => { })
+								.finally(() => { });
 						}
 					}
 				});
@@ -257,9 +261,9 @@ sap.ui.define([
 			});
 
 			this.onUpdate(oKey, oData, oModel)
-				.then((oData) => {})
-				.catch(() => {})
-				.finally(() => {});
+				.then((oData) => { })
+				.catch(() => { })
+				.finally(() => { });
 		}
 
 	});

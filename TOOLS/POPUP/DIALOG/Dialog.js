@@ -61,6 +61,10 @@ sap.ui.define([
 			sap.ui.core.Fragment.byId("Dialog", "Table").getBinding("items").filter(aFilters);
 		},
 
+		onGetToolWithID: function () {
+			return sap.ui.core.Fragment.byId("Dialog", "Table");
+		},
+
 		onPressContinue: function (oEvent) {
 			const sPath = this.byId("Dialog").getBindingContext("model").getPath();
 			const oData = this.getModel("model").getProperty(sPath);

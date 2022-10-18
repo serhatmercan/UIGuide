@@ -8,4 +8,7 @@ sap.ushell.Container.getService("UserInfo").getId();
 sap.ushell.Container.getLogonSystem().getName();
 
 // System Version
-sap.ui.version
+sap.ui.version;
+
+// Tool ID
+sap.ui.getCore().getElementById("ID");

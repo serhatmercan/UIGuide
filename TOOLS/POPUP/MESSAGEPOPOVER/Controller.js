@@ -8,19 +8,28 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit: function () {
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			const oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
+			const oMessagePO = this.byId("MessagePO");
 
 			sap.ui.getCore().getMessageManager().removeAllMessages();
+
+			oMessageModel.bindList("/", undefined, []).attachChange((oEvent) => {
+				if (oMessageModel.getData().length) {
+					oMessagePO.firePress();
+				}
+			}, this);
+
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
 		addDialog: function () {
 			this.oDialog.setModel(this.getModel("message"), "message");
 		},
 
-		addMessages: function(){
+		addMessages: function () {
 			const oModel = this.getModel();
 			const sMessage = this.getResourceBundle().getText("sMessage");
-			let aMessages = [];	
+			const aMessages = [];
 
 			aMessages.push(
 				new sap.ui.core.message.Message({
@@ -35,13 +44,13 @@ sap.ui.define([
 			MessageToast.show(that.getResourceBundle().getText("errorOccurred"));
 		},
 
-		addRequestMessages: function(oError){
+		addRequestMessages: function (oError) {
 			const aErrorMessages = JSON.parse(oError.responseText).error.innererror.errordetails;
 			const oModel = this.getModel();
-			let aMessages = [];	
+			let aMessages = [];
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();	
-			
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
 			aErrorMessages.forEach(oErrorMessage => {
 				aMessages.push(
 					new sap.ui.core.message.Message({
@@ -58,6 +67,14 @@ sap.ui.define([
 			MessageToast.show(that.getResourceBundle().getText("errorOccurred"));
 		},
 
+		autoShowMessages: function () {
+			if (this.getOwnerComponent().getModel("message").getData().length) {
+				setTimeout(() => {
+					this.byId("MessagePO").firePress();
+				}, 100);
+			}
+		},
+
 		onCheckMessages: function () {
 			const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
@@ -65,7 +82,7 @@ sap.ui.define([
 
 			if (aMessages.some(oMessage => oMessage.type === "Error")) {
 				MessageToast.show(this.getResourceBundle().getText("errorOccured"));
-			} else {}
+			} else { }
 		},
 
 		onShowMessages: function (oEvent) {
@@ -88,7 +105,7 @@ sap.ui.define([
 
 			this.oMessagePopover.toggle(oMessagesButton);
 		}
-		
+
 	});
 
 });

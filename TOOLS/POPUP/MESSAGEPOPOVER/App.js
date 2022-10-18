@@ -1,29 +1,44 @@
-sap.ui.define([], function () {
+sap.ui.define([
+	"./BaseController",
+	"sap/ui/core/BusyIndicator"
+], function (BaseController, BusyIndicator) {
 	"use strict";
 
-	return BaseController.extend("serhatmercan.App", {
-
+	return BaseController.extend("xxx.controller.App", {
 		onInit: function () {
-			const oComponent = this.getOwnerComponent();
-			const oModel = oComponent.getModel();
-			const oViewModel = oComponent.getModel("viewModel");
-			const oMessageManager = sap.ui.getCore().getMessageManager();
-
-			this.getOwnerComponent().setModel(oMessageManager.getMessageModel(), "message");
-
-			const fnSetAppNotBusy = () => {
-				oViewModel.setProperty("/Busy", false);
-			};
-
-			oModel.metadataLoaded().then(fnSetAppNotBusy);
-			oModel.attachMetadataFailed(fnSetAppNotBusy);
-			oModel.attachRequestFailed(this._removeDuplicateMessages);
+			this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
+			this.attachBusy();
+			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
 		},
 
-		_removeDuplicateMessages: function () {
-			const oMessageManager = sap.ui.getCore().getMessageManager();
-			const oMessages = oMessageManager.getMessageModel().getData();
-			let aMessageTexts = oMessages.map(oItem => oItem.message),
+		attachBusy: function () {
+			const oModel = this.getOwnerComponent().getModel();
+			const fnRequestSent = function () {
+				BusyIndicator.show();
+				sap.ui.getCore().getMessageManager().removeAllMessages();
+			};
+			const fnRequestReceived = function () {
+				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
+				this.removeDuplicateMessages();
+				BusyIndicator.hide();
+			}.bind(this);
+
+			oModel.attachMetadataFailed(fnRequestReceived);
+
+			oModel.metadataLoaded().then(function () {
+				oModel.attachRequestSent(fnRequestSent);
+				oModel.attachRequestCompleted(fnRequestReceived);
+				oModel.attachRequestFailed(fnRequestReceived);
+				oModel.attachBatchRequestSent(fnRequestSent);
+				oModel.attachBatchRequestCompleted(fnRequestReceived);
+				oModel.attachBatchRequestFailed(fnRequestReceived);
+			});
+		},
+
+		removeDuplicateMessages: function () {
+			let oMessageManager = sap.ui.getCore().getMessageManager(),
+				oMessages = oMessageManager.getMessageModel().getData(),
+				aMessageTexts = oMessages.map(oItem => oItem.message),
 				aMessages = [];
 
 			aMessageTexts = [...new Set(aMessageTexts)];
@@ -40,7 +55,5 @@ sap.ui.define([], function () {
 			aMessages = oMessages.filter(fnFilterDuplicates);
 			oMessageManager.getMessageModel().setData(aMessages);
 		}
-
 	});
-
 });

@@ -47,7 +47,11 @@ sap.ui.define([
 		},
 
 		_setInitialSubSection: function () {
-			this.getView().byId("OPL").setSelectedSection(this.getView().byId("OPS").getId());
+			this.byId("OPL").setSelectedSection(this.byId("OPS").getId());
+		},
+
+		_triggerExpandButton: function () {
+			this.byId("OPL")._handleExpandButtonPress();
 		}
 
 	});

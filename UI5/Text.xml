@@ -1,2 +1,0 @@
-<!-- Positions: Entiyty Name , PositTxt: Property -->
-<Text text="{/#Positions/PositTxt/@sap:label}" />

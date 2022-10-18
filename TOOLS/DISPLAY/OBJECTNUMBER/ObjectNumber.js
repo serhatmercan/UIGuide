@@ -1,17 +1,22 @@
 sap.ui.define([
-	"./BaseController",
-	"../model/formatter",
-	"sap/m/MessageBox"
-], function (BaseController, Formatter, MessageBox) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
-	return BaseController.extend("xxx.controller.Main", {
+	return BaseController.extend("com.serhatmercan.Controller", {
 
 		/* ================= */
 		/* Lifecycle Methods */
 		/* ================= */
 
 		onInit: function () {
+			this.setModel(
+				new JSONModel({
+					Items: [],
+					Value: ""
+				}), "model");
+
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -24,9 +29,15 @@ sap.ui.define([
 		/* ================ */
 
 		patternMatched: function (oEvent) {
-			this.onClearModel();
-			this.onFireToShowMessages();
+
+		},
+
+		setValueTextColor: function (iValue) {
+			iValue > 0 ? this.addStyleClass("green") : this.addStyleClass("red");
+
+			return iValue;
 		}
 
 	});
+
 });

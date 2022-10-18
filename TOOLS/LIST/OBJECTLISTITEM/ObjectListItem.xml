@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <ObjectListItem title="{Title}" type="Active"/>
-</core:FragmentDefinition>
+	<ObjectListItem title="{Title}" type="Active" />
+</core:FragmentDefinition> <!-- -->
 <!-- OBJECT LIST ITEM - ATTRIBUTES -->
 <!--
 intro="{Intro}"	
@@ -21,5 +21,17 @@ press="onOLI"
 	<attributes>
 	    <ObjectAttribute text="{Text}"/>
 	</attributes>
+	<customData>
+  		<core:CustomData key="OLI" writeToDom="true" value="X" />
+	</customData>
 </ObjectListItem>
+-->
+<!-- OBJECT LIST ITEM - CSS -->
+<!--
+[data-OLI=''] {
+  color: blue !important; 
+}
+[data-OLI='X']{
+  color: red !important;
+}
 -->

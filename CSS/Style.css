@@ -3,6 +3,14 @@
     display: none;
 }
 
+[data-generictag='X']>.sapMGenericTagWrap {
+    border-color: #58AC0E !important;
+}
+
+[data-generictagtext='X'] {
+    color: #58AC0E !important;
+}
+
 .buttonBorder {
     background-color: #fabd64;
     border: 1px solid #fabd64 !important;
@@ -33,6 +41,10 @@
     background-color: transparent !important;
 }
 
+.objectnumber>.sapMObjectNumberText {
+    font-size: 2.25rem !important;
+}
+
 .panelBorderLine {
     border-style: solid !important;
     border-color: #b0bec5 !important;
@@ -48,12 +60,16 @@
     padding-bottom: 0rem !important;
 }
 
+.sapMCb .sapMLabel {
+    margin-top: 0rem !important;
+}
+
 .sapMDialog {
     max-width: 98% !important;
 }
 
-.sapMMultiInput .sapMTokenizer {
-    max-width: 100%;
+.sapMIBar.sapMTB .sapMBarChild {
+    margin-top: 0rem !important;
 }
 
 .sapMITBContent {
@@ -63,6 +79,10 @@
 .sapMITH {
     border-bottom: 0;
     box-shadow: inset 0 -0.25rem 0 -0.125rem #ebebeb;
+}
+
+.sapMMultiInput .sapMTokenizer {
+    max-width: 100%;
 }
 
 .sapMLabel {

@@ -42,6 +42,14 @@ sap.ui.define([
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 
+		onFireToShowMessages: function () {
+			if (this.getOwnerComponent().getModel("message").getData().length) {
+				setTimeout(() => {
+					this.byId("MessagePO").firePress();
+				}, 100);
+			}
+		},
+
 		onShowMessages: function (oEvent) {
 			let oMessagesButton = oEvent.getSource();
 
