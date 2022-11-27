@@ -1,12 +1,12 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <FeedInput post="onPostFI"/>
-    <List items="{model>/Items}">
-			<FeedListItem icon="{model>Icon}" info="{model>Info}" sender="{model>User}" text="{model>Text}"
-                timestamp="{path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' } }">
-				<FeedListItemAction icon="sap-icon://delete" press="onDeleteFLI"/>
-			</FeedListItem>
-		</List>
-</core:FragmentDefinition>
+	<FeedInput value="{model>/Value}" post="onPostFI" />
+	<List items="{model>/Items}">
+		<FeedListItem icon="{model>Icon}" info="{model>Info}" sender="{model>User}" text="{model>Text}"
+			timestamp="{path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' } }">
+			<FeedListItemAction icon="sap-icon://delete" press="onDeleteFLI" />
+		</FeedListItem>
+	</List>
+</core:FragmentDefinition> <!-- -->
 <!-- FEED INPUT - ATTRIBUTES -->
 <!-- 
 id="FeedInput"

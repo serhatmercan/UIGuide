@@ -5,6 +5,7 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("xxx.controller.App", {
+
 		onInit: function () {
 			this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
 			this.attachBusy();
@@ -55,5 +56,6 @@ sap.ui.define([
 			aMessages = oMessages.filter(fnFilterDuplicates);
 			oMessageManager.getMessageModel().setData(aMessages);
 		}
+
 	});
 });

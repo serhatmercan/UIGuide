@@ -18,8 +18,18 @@
 				"uri": "/sap/opu/odata/sap/XXX_SRV/",
 				"type": "OData",
 				"settings": {
+					"annotations": [
+						"annotation"
+					],
 					"odataVersion": "2.0",
 					"localUri": "localService/metadata.xml"
+				}
+			},
+			"annotation": {
+				"type": "ODataAnnotation",
+				"uri": "model/annotation.xml",
+				"settings": {
+					"localUri": "model/annotation.xml"
 				}
 			}
 		}
@@ -84,9 +94,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -98,13 +110,15 @@
 				"controlId": "App",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "main",
-				"target": [
-					"Main"
-				]
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "main",
+					"target": [
+						"Main"
+					]
+				}
+			],
 			"targets": {
 				"main": {
 					"viewName": "Main",

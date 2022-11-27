@@ -58,12 +58,15 @@
 								</Collection>
 							</PropertyValue>
 						</Record>
-						<Annotation Term="UI.FieldGroup" Qualifier="header">
+						<Annotation Term="UI.FieldGroup" Qualifier="Material">
 							<Record Type="UI.FieldGroupType">
 								<PropertyValue Property="Data">
 									<Collection>
 										<Record Type="UI.DataField">
-											<PropertyValue Property="Value" Path="Eqtyp" />
+											<PropertyValue Property="Value" Path="Matnr" />
+										</Record>
+										<Record Type="UI.DataField">
+											<PropertyValue Property="Value" Path="Maktx" />
 										</Record>
 									</Collection>
 								</PropertyValue>
@@ -106,6 +109,11 @@
 							<PropertyValue Property="Value" Path="Field" />
 							<PropertyValue Property="Label" String="{i18n&gt;field}" />
 						</Record>
+						<Record Type="UI.DataFieldForAnnotation">
+							<PropertyValue Property="Label" String="{@i18n>material}" />
+							<PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#Material" />
+							<Annotation Term="UI.Importance" EnumMember="UI.ImportanceType/High" />
+						</Record>
 						<Record Type="UI.DataFieldWithIntentBasedNavigation">
 							<PropertyValue Property="SemanticObject" String="SemanticObjectName" />
 							<PropertyValue Property="Action" String="Data" />
@@ -138,6 +146,7 @@
 				<Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
 				<Annotation Term="Common.FilterDefaultValue" String="ABC" />
 				<Annotation Term="Common.Label" String="{@i18n&gt;field}" />
+				<Annotation Term="Common.Label" String="{@i18n>field}" />
 				<Annotation Term="Common.ValueList">
 					<Record Type="Common.ValueListType">
 						<PropertyValue Property="CollectionPath" String="FieldVHSet" />

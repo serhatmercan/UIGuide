@@ -17,6 +17,8 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
+			this.resetSmartFormElementsValueStates("SmartForm");
+
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -65,7 +67,7 @@ sap.ui.define([
 			if (this.byId("SmartField").check().length) {
 				return;
 			}
-		},	
+		},
 
 		getData: function () {
 			const oSFData = this.byId("SmartForm").getBindingContext().getProperty();
@@ -78,7 +80,17 @@ sap.ui.define([
 				this.byId("SmartForm").bindElement(sPath);
 				this.getModel().setProperty(sPath + "/Value", "X");
 			}.bind(this));
-		},		
+		},
+
+		resetSmartFormElementsValueStates: function (sSmartFormID) {
+			this.byId(sSmartFormID).getGroups().forEach(oSFGroup => {
+				oSFGroup.getGroupElements().forEach(oSFGroupElement => {
+					oSFGroupElement.getElements().forEach(oSmartField => {
+						oSmartField.setValueState("None");
+					});
+				});
+			});
+		},
 
 		setData: function () {
 			this.getModel().setProperty(this.byId("SmartForm").getBindingContext().getPath() + "/ID", "X");

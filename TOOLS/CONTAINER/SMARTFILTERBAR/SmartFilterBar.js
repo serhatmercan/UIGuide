@@ -30,6 +30,7 @@ sap.ui.define([
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilter = new Filter("Value", FilterOperator.EQ, this.byId("CB").getSelected());
+			const sKey = this.byId("ITB").getSelectedKey();
 
 			oBindingParams.filters.push(oFilter);
 		},
@@ -72,6 +73,10 @@ sap.ui.define([
 
 			oSFB.setFilterData(oID);
 			oST.rebindTable();
+		},
+
+		onSelectITB: function (oEvent) {
+			this.byId("SFB").triggerSearch();
 		},
 
 		onSearchSFB: function () {
