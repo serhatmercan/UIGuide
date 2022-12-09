@@ -24,7 +24,6 @@ sap.ui.define([
 			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
 
-
 		onExit: function () {
 			if (this.oDocument) {
 				this.oDocument.destroy();

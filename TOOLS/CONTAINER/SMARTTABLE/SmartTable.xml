@@ -2,7 +2,7 @@
 	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariants="sap.ui.comp.smartvariants"
 	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable"
 	height="100%">
-	<smartTable:SmartTable entitySet="...Set" />
+	<smartTable:SmartTable persistencyKey="STKey" entitySet="...Set" />
 </mvc:View> <!-- -->
 <!-- SMART TABLE - ATTRIBUTES -->
 <!-- 

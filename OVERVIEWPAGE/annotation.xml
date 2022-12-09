@@ -1,22 +1,13 @@
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
-	<edmx:Reference Uri="/sap/opu/odata/ittr/PMM_EQUI_DASH_SRV/$metadata">
-		<edmx:Include Alias="Metadata" Namespace="ITTR.PMM_EQUI_DASH_SRV"/>
-	</edmx:Reference>
-	<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
-		<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
-	</edmx:Reference>
-	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470974/Common.xml?api=v2">
-		<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
-	</edmx:Reference>
-	<edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
-		<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+	<edmx:Reference Uri="/sap/opu/odata/sap/ZSM_SRV/$metadata">
+		<edmx:Include Namespace="ZSM_SRV" Alias="Metadata" />
 	</edmx:Reference>
 	<edmx:DataServices>
 		<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="com.serhatmercan.sm.SM_OVP_DASH_SRV">
 			<Annotations Target="Metadata.SM_OVP_DASH_SRV_Entities/OVPFilterSet">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record Type="Capabilities.FilterRestrictionsType">
-						<PropertyValue Property="RequiresFilter" Bool="true"/>
+						<PropertyValue Property="RequiresFilter" Bool="true" />
 						<PropertyValue Property="RequiredProperties">
 							<Collection>
 								<PropertyPath>Type</PropertyPath>
@@ -27,12 +18,12 @@
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.OVPFilter/Type">
-				<Annotation Term="Common.Label" String="{@i18n&gt;Type}"/>
+				<Annotation Term="Common.Label" String="{@i18n&gt;Type}" />
 			</Annotations>
 			<Annotations Target="Metadata.GetOVPI">
 				<Annotation Term="UI.Chart" Qualifier="stackedColumnChartBreakDown">
 					<Record Type="UI.ChartDefinitionType">
-						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked"/>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked" />
 						<PropertyValue Property="Measures">
 							<Collection>
 								<PropertyPath>Count</PropertyPath>
@@ -46,26 +37,27 @@
 						<PropertyValue Property="MeasureAttributes">
 							<Collection>
 								<Record Type="UI.ChartMeasureAttributeType">
-									<PropertyValue Property="Measure" PropertyPath="Count"/>
-									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+									<PropertyValue Property="Measure" PropertyPath="Count" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
 								</Record>
 							</Collection>
 						</PropertyValue>
 						<PropertyValue Property="DimensionAttributes">
 							<Collection>
 								<Record Type="UI.ChartDimensionAttributeType">
-									<PropertyValue Property="Dimension" PropertyPath="Type"/>
-									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+									<PropertyValue Property="Dimension" PropertyPath="Type" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
 								</Record>
 							</Collection>
 						</PropertyValue>
+						<PropertyValue Property="Title" String="{@i18n&gt;title}" />
 					</Record>
 				</Annotation>
 			</Annotations>
 			<Annotations Target="Metadata.GetOVPII">
 				<Annotation Term="UI.Chart" Qualifier="stackedColumnChartTimeBreakdown">
 					<Record Type="UI.ChartDefinitionType">
-						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked"/>
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/ColumnStacked" />
 						<PropertyValue Property="Measures">
 							<Collection>
 								<PropertyPath>Count</PropertyPath>
@@ -80,25 +72,68 @@
 						<PropertyValue Property="MeasureAttributes">
 							<Collection>
 								<Record Type="UI.ChartMeasureAttributeType">
-									<PropertyValue Property="Measure" PropertyPath="Count"/>
-									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1"/>
+									<PropertyValue Property="Measure" PropertyPath="Count" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
 								</Record>
 							</Collection>
 						</PropertyValue>
 						<PropertyValue Property="DimensionAttributes">
 							<Collection>
 								<Record Type="UI.ChartDimensionAttributeType">
-									<PropertyValue Property="Dimension" PropertyPath="Type"/>
-									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category"/>
+									<PropertyValue Property="Dimension" PropertyPath="Type" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
 								</Record>
 								<Record Type="UI.ChartDimensionAttributeType">
-									<PropertyValue Property="Dimension" PropertyPath="Date"/>
-									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Series"/>
+									<PropertyValue Property="Dimension" PropertyPath="Date" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Series" />
 								</Record>
 							</Collection>
 						</PropertyValue>
+						<PropertyValue Property="Title" String="{@i18n&gt;title}" />
 					</Record>
 				</Annotation>
+				<Annotations Target="Metadata.Production">
+					<Annotation Term="UI.Chart" Qualifier="Production">
+						<Record Type="UI.ChartDefinitionType">
+							<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column" />
+							<PropertyValue Property="Measures">
+								<Collection>
+									<PropertyPath>ValueI</PropertyPath>
+									<PropertyPath>ValueII</PropertyPath>
+								</Collection>
+							</PropertyValue>
+							<PropertyValue Property="MeasureAttributes">
+								<Collection>
+									<Record Type="UI.ChartMeasureAttributeType">
+										<PropertyValue Property="Measure" PropertyPath="ValueI" />
+										<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+									</Record>
+									<Record Type="UI.ChartMeasureAttributeType">
+										<PropertyValue Property="Measure" PropertyPath="ValueII" />
+										<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis2" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+							<PropertyValue Property="Dimensions">
+								<Collection>
+									<PropertyPath>Text</PropertyPath>
+								</Collection>
+							</PropertyValue>
+							<PropertyValue Property="DimensionAttributes">
+								<Collection>
+									<Record Type="UI.ChartDimensionAttributeType">
+										<PropertyValue Property="Dimension" PropertyPath="Text" />
+										<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+									</Record>
+								</Collection>
+							</PropertyValue>
+							<PropertyValue Property="Title" String="{@i18n&gt;value}" />
+						</Record>
+					</Annotation>
+				</Annotations>
+				<Annotations Target="Metadata.Production/Werks">
+					<Annotation Term="Common.Label" String="{@i18n&gt;pp}" />
+				</Annotations>
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>

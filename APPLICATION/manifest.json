@@ -113,14 +113,14 @@
 			"routes": [
 				{
 					"pattern": "",
-					"name": "main",
+					"name": "Main",
 					"target": [
 						"Main"
 					]
 				}
 			],
 			"targets": {
-				"main": {
+				"Main": {
 					"viewName": "Main",
 					"viewId": "Main"
 				}

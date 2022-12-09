@@ -1,4 +1,5 @@
-<mvc:View controllerName="xxx.controller.Main" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic">
+<mvc:View controllerName="xxx.controller.Main" xmlns="sap.m" xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic">
 	<semantic:SemanticPage showFooter="{model>/ItemFound}">
 		<semantic:titleHeading>
 			<core:Fragment fragmentName="xxx.fragment.main.Title" type="XML" />
@@ -10,7 +11,7 @@
 			<core:Fragment fragmentName="xxx.fragment.main.Content" type="XML" />
 		</semantic:content>
 		<semantic:messagesIndicator>
-			<semantic:MessagesIndicator press="onShowMessages" />
+			<semantic:MessagesIndicator id="MessagePO" press="onShowMessages" />
 		</semantic:messagesIndicator>
 		<semantic:footerCustomActions>
 			<core:Fragment fragmentName="xxx.fragment.main.Footer" type="XML" />

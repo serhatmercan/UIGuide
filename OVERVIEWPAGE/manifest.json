@@ -22,14 +22,14 @@
 		}
 	},
 	"sap.ovp": {
-		"globalFilterModel": "SM_OVP_DASH",
+		"globalFilterModel": "mainModel",
 		"globalFilterEntityType": "OVPFilter",
 		"containerLayout": "resizable",
 		"considerAnalyticalParameters": true,
 		"enableLiveFilter": false,
 		"cards": {
 			"card01": {
-				"model": "SM_OVP_DASH",
+				"model": "mainModel",
 				"template": "sap.ovp.cards.charts.analytical",
 				"settings": {
 					"title": "{{Title1}}",
@@ -42,7 +42,7 @@
 				}
 			},
 			"card02": {
-				"model": "SM_OVP_DASH",
+				"model": "mainModel",
 				"template": "sap.ovp.cards.charts.analytical",
 				"settings": {
 					"title": "{{Title2}}",
@@ -50,6 +50,19 @@
 					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#stackedColumnChartOpenWork",
 					"defaultSpan": {
 						"cols": 2,
+						"rows": 10
+					}
+				}
+			},
+			"Production": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{productionCard}}",
+					"entitySet": "ProductionSet",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Production",
+					"defaultSpan": {
+						"cols": 3,
 						"rows": 10
 					}
 				}

@@ -12,7 +12,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ============== */

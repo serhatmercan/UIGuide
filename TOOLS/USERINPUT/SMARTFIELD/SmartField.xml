@@ -31,7 +31,7 @@ valueListChanged="onVLC"
 <f:SimpleForm id="SimpleForm">
 	<smartField:smartfield value="{ID}">
 		<smartField:layoutData>
-			<l:GridData spanL="3" spanM="3" spanS="3"/>
+			<l:GridData spanXL="3" spanL="3" spanM="3" spanS="3"/>
 		</smartField:layoutData>
 		<smartField:configuration>
 			<smartField:Configuration displayBehaviour="descriptionAndId"/>

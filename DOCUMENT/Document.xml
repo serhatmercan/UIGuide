@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
     <Dialog title="{i18n>uploadFile}" afterClose="onCloseDocument">
         <content>
-            <UploadCollection id="DocumentUC" items="{/DocumentSet}" uploadUrl="{model/DocumentUrl}" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" selectionChange="onSCDocument">
+            <UploadCollection id="DocumentUC" items="{/DocumentSet}" uploadUrl="{model>/DocumentUrl}" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDDocument" selectionChange="onSCDocument">
                 <items>
                     <UploadCollectionItem documentId="{DocumentID}" fileName="{Filename}" mimeType="{Mimetype}" url="{Url}" press="onPressUCI" />
                 </items>
@@ -14,8 +14,7 @@
             <Button text="{i18n>close}" press="onCloseDocument" />
         </Toolbar>
     </Dialog>
-</core:FragmentDefinition>
-<!-- DOCUMENT - CONTENT -->
+</core:FragmentDefinition><!-- DOCUMENT - CONTENT -->
 <!--
 <List items="{model>/Documents}">
 	<StandardListItem description="{model>Filename}" info="{model>MimeType}" title="{model>Doknr}" type="Active" press="onShowDocument"/>
