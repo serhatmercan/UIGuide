@@ -1,0 +1,65 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:viz="sap.viz.ui5.controls" xmlns:viz.data="sap.viz.ui5.data" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:common="sap.suite.ui.commons">
+    <common:ChartContainer title="{i18n>title}" showFullScreen="true" showZoom="false">
+        <common:content>
+            <common:ChartContainerContent>
+                <common:content>
+                    <viz:Popover id="PopOver" />
+                    <viz:VizFrame id="VizFrame" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: { text: 'Viz Frame' } }" vizType="column">
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{model>/Chart}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="ID" value="{model>ID}" />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Gross Amount M" value="{model>BrgewMt}" />
+                                    <viz.data:MeasureDefinition name="Gross Amount K" value="{model>Brgew}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <viz.feeds:FeedItem id='valueAxisFeed' uid="valueAxis" type="Measure" values="Gross Amount M,Gross Amount K" />
+                            <viz.feeds:FeedItem id='categoryAxisFeed' uid="categoryAxis" type="Dimension" values="ID" />
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </common:content>
+            </common:ChartContainerContent>
+        </common:content>
+    </common:ChartContainer>
+</core:FragmentDefinition>
+<!-- VİZ FRAME - ATTRIBUTES -->
+<!--
+vizType="donut"
+
+selectData="onSelectData" 
+deselectData="onDeselectData"
+-->
+<!-- VİZ FRAME - CHART CONTAINER CONTENT -->
+<!--
+<common:ChartContainerContent icon="sap-icon://table-view" title="Table">
+    <common:content>
+        <Table items="{model>/Chart}">
+            <columns>
+                <Column>
+                    <Text text="{i18n>ID}" />
+                </Column>
+
+                <Column hAlign="Right">
+                    <Text text="{i18n>GrossAmountM}" />
+                </Column>
+                <Column hAlign="Right">
+                    <Text text="{i18n>GrossAmountK}" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem>
+                    <cells>
+                        <ObjectIdentifier title="{model>ID}" />
+                        <Text text="{ path: 'model>BrgewMt', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 0 } }" />
+                        <Text text="{ path: 'model>Brgew', type: 'sap.ui.model.type.Float', formatOptions: { decimals: 0 } }" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </common:content>
+</common:ChartContainerContent>
+-->

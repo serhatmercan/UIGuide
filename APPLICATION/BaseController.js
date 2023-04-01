@@ -10,10 +10,6 @@ sap.ui.define([
 			return this.getView().getModel(sName);
 		},
 
-		getResourceBundle: function () {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle();
-		},
-
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
@@ -74,17 +70,6 @@ sap.ui.define([
 		/* ==== */
 		/* CRUD */
 		/* ==== */
-
-		/*
-		* onCallFunction: OData Call Function Method
-		*
-		* @param{String|sEntity}: 			Entity Name  
-		* @param{String|sMethod}: 			Method: GET / POST  
-		* @param{Object|oModel}:  			Default Binding Model  
-		* @param{Object|oURLParameters}:  	Call Function Import / Export Parameters
-		*
-		* @return{Promise}:					Promise Operation
-		*/
 
 		onCallFunction: function (sEntity, sMethod, oModel, oURLParameters) {
 			return new Promise((fnResolve, fnReject) => {

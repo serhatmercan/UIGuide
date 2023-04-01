@@ -1,0 +1,70 @@
+<mvc:View xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout">
+    <GenericTile>
+        <TileContent>
+            <ImageContent src="sap-icon://add-activity" />
+        </TileContent>
+    </GenericTile>
+</mvc:View>
+<!-- GENERIC TILE - ATTRIBUTES -->
+<!--
+id="GTI" 
+class="sapUiSmallMarginEnd sapUiSmallMarginTop" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+header="{i18n>GTI}" 
+subheader="{i18n>GTSH}" 
+
+press="onGoToObject" press="onGoToPage('GT', $event)"
+-->
+<!-- GENERIC TILE - LAYOUT -->
+<!--
+<layoutData>
+	<f:GridContainerItemLayoutData columns="2" minRows="2"/>
+</layoutData>
+-->
+<!-- GENERIC TILE - EXAMPLE - I -->
+<!--
+<Page>
+	<content>
+		<Panel>
+			<FlexBox height="100px" alignItems="Center" justifyContent="Center">
+				<Text class="maintxt" text="{i18n>title}"/>
+			</FlexBox>
+		</Panel>
+		<Panel>
+			<FlexBox height="100%" width="100%" alignContent="Center" alignItems="Center" justifyContent="Center">
+				<items>
+					<GenericTile id="GTI" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTI}" press="onGoToObject">
+						<TileContent>
+							<ImageContent src="sap-icon://add-activity"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile id="GTII" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTII}" press="onGoToObject">
+						<TileContent>
+							<ImageContent src="sap-icon://add-activity"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile id="GTIII" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTIII}" press="onGoToObject">
+						<TileContent>
+							<ImageContent src="sap-icon://show-edit"/>
+						</TileContent>
+					</GenericTile>
+					<GenericTile id="GTIV" class="sapUiSmallMarginEnd" header="{i18n>GTIV}">
+						<TileContent>
+							<NumericContent icon="sap-icon://product" value="{model>/Value}" valueColor="Good"/>
+						</TileContent>
+					</GenericTile>
+				</items>
+			</FlexBox>	
+		</Panel>
+	</content>
+</Page>
+-->
+<!-- GENERIC TILE - EXAMPLE - I -->
+<!--
+<l:HorizontalLayout content="{model>/Certifications}" class="sapUiTinyMarginTopBottom" allowWrapping="true">
+	<GenericTile header="{model>Certification}" subheader="{model>Date}" class="sapUiSmallMarginEnd sapUiSmallMarginTop" press="onShowCertification">
+		<TileContent>
+			<ImageContent src="{model>Logo}" />
+		</TileContent>
+	</GenericTile>
+</l:HorizontalLayout>
+-->

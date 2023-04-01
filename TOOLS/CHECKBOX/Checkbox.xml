@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+    <CheckBox selected="{model>/Value}" />
+</core:FragmentDefinition>
+<!-- CHECKBOX ATTRIBUTES -->
+<!-- 
+id="CheckBox"
+text="{i18n>text}"
+valueState="Information" 
+width="auto"
+
+enabled="false"
+selected="true"
+visible="false"
+-->
+<!-- CHECKBOX LAYOUT -->
+<!-- 
+<CheckBox selected="{model>/Value}">
+	<layoutData>
+	    <l:GridData span="L4 M4 S4"/>
+	</layoutData>
+</CheckBox>
+-->

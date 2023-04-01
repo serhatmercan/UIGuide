@@ -14,15 +14,15 @@ sap.ui.define([
 
 		attachBusy: function () {
 			const oModel = this.getOwnerComponent().getModel();
-			const fnRequestSent = function () {
+			const fnRequestSent = () => {
 				BusyIndicator.show();
 				sap.ui.getCore().getMessageManager().removeAllMessages();
 			};
-			const fnRequestReceived = function () {
+			const fnRequestReceived = () => {
 				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
 				this.removeDuplicateMessages();
 				BusyIndicator.hide();
-			}.bind(this);
+			};
 
 			oModel.attachMetadataFailed(fnRequestReceived);
 

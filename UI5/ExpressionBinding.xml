@@ -9,3 +9,9 @@
     <Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }" />
     <Text visible="{= ${model>/Data} || ${model>/Value} }" />
 </core:FragmentDefinition>
+
+
+<Text text="{ sValue === 'X' && iValue === 10 ? 'ABC' : sValue === 'Y' || iValue === 20 ? 'DEF' : 'XYZ' }" />
+<Text text="{= ${sValue} === "X" && ${iValue} === 10 ? "ABC" : ${sValue} === "Y" || ${iValue} === 20 ? "DEF" : "XYZ" }" />
+<Text text="{= ${sValue} === 'X' &amp;&amp; ${iValue} === 10 ? 'ABC' : ${sValue} === 'Y' || ${iValue} === 20 ? 'DEF' : 'XYZ' }" />
+<Text text="{= ${sValue} === "X" &amp;&amp; ${iValue} === 10 ? "ABC" : ${sValue} === "Y" || ${iValue} === 20 ? "DEF" : "XYZ" }" />

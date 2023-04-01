@@ -1,11 +1,12 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageBox",
+	"sap/ui/core/message/Message",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/FilterType",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, Filter, FilterOperator, FilterType, JSONModel) {
+], function (BaseController, MessageBox, Message, Filter, FilterOperator, FilterType, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -102,7 +103,7 @@ sap.ui.define([
 
 								oResponse.results.forEach(oResult => {
 									sap.ui.getCore().getMessageManager().addMessages(
-										new sap.ui.core.message.Message({
+										new Message({
 											message: oResult.Message,
 											type: oResult.Type,
 											persistent: false

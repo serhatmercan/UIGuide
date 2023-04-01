@@ -1,0 +1,42 @@
+// CDS Name: ZSM_CDS_ALP
+// Entity Name: SalesAnalysisSet
+// OData Name: ZSM_CDS_ALP_CDS
+
+@AbapCatalog.sqlViewName: 'ZSM_SQL_ALP'
+@AbapCatalog.compiler.compareFilter: true
+@AbapCatalog.preserveKey: true
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Analytical List Page'
+@OData.entitySet.name: 'SalesAnalysisSet'
+@OData.publish: true
+define view ZSM_CDS_ALP as 
+select from vbak as vh 
+inner join vbap as vp on vh.vbeln = vp.vbeln 
+{
+    key vh.vkorg as SalesOrg,
+    key vp.posnr as SalesItem,
+        vp.werks as Plant,
+        vh.spart as Division,
+        vh.vtweg as DistChannel,                
+        vp.brgew as GrossWeight,
+                
+        @DefaultAggregation: #SUM
+        vp.netwr as NetValue,
+        vp.waerk as Currency,
+        vh.audat as DocumentDate,
+        case substring(vh.audat, 5, 2)
+            when '01' then concat('JAN-', substring(vh.audat, 1, 4))
+            when '02' then concat('FEB-', substring(vh.audat, 1, 4))
+            when '03' then concat('MAR-', substring(vh.audat, 1, 4))
+            when '04' then concat('APR-', substring(vh.audat, 1, 4))
+            when '05' then concat('MAY-', substring(vh.audat, 1, 4))
+            when '06' then concat('JUN-', substring(vh.audat, 1, 4))
+            when '07' then concat('JUL-', substring(vh.audat, 1, 4))
+            when '08' then concat('AUG-', substring(vh.audat, 1, 4))
+            when '09' then concat('SEP-', substring(vh.audat, 1, 4))
+            when '10' then concat('OCT-', substring(vh.audat, 1, 4))
+            when '11' then concat('NOV-', substring(vh.audat, 1, 4))
+            when '12' then concat('DEC-', substring(vh.audat, 1, 4))
+            else 'Dummy'
+        end as MonYear
+}

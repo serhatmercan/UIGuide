@@ -123,6 +123,18 @@ sap.ui.define([
 			});
 		},
 
+		onRefreshRebindView: function () {
+			const oView = this.getView();
+			const sPath = this.getModel().createKey("/SFSet", {
+				ID: "X"
+			});
+
+			oView.unbindElement();
+			oView.bindElement({
+				path: sPath
+			});
+		},
+
 		onShowDialog: function () {
 			const oModel = this.getModel();
 			const sPath = oModel.createEntry("/DialogSet").getPath();
@@ -138,10 +150,6 @@ sap.ui.define([
 			oModel.setProperty(sPath + "/ID", "X");
 
 			this.oDialog.open();
-		},
-
-		onRefreshView: function () {
-			this.getView().unbindElement();
 		},
 
 		/* ================ */
@@ -258,7 +266,13 @@ sap.ui.define([
 					},
 					change: this.change.bind(this),
 					dataReceived: this.dataReceived.bind(this),
-					dataRequested: this.dataRequested.bind(this)
+					dataReceived: () => {
+						sap.ui.core.BusyIndicator.hide();
+					},
+					dataRequested: this.dataRequested.bind(this),
+					dataRequested: () => {
+						sap.ui.core.BusyIndicator.show();
+					}
 				}
 			});
 

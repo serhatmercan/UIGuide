@@ -11,6 +11,14 @@
 						"annotation"
 					]
 				}
+			},
+			"subService": {
+				"uri": "/sap/opu/odata/sap/ZSM_SUB_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml"
+				}
 			}
 		}
 	},
@@ -47,17 +55,27 @@
 					"defaultCountMode": "Inline"
 				}
 			},
-			"viewModel": {
+			"ss": {
+				"dataSource": "subService",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline"
+				}
+			},
+			"model": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {},
-				"uri": "./model/viewModel.json",
+				"uri": "./model/model.json",
 				"preload": true
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		}
 	}
 }

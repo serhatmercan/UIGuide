@@ -80,8 +80,10 @@ sap.ui.define([
 		},
 
 		onFDDocument: function (oEvent) {
-			const aOriginDocuments = oEvent.getSource().getBinding("items").getCurrentContexts();
-			const aNewDocuments = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").getItems();
+			const oDocumentUC = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
+			const oUC = oEvent.getSource();
+			const aOriginDocuments = oDocumentUC.getBinding("items").getCurrentContexts();
+			const aNewDocuments = oDocumentUC.getItems();
 			let aOriginDocumentID = [];
 			let aNewDocumentID = [];
 			let aDocumentsIDs = [];
@@ -106,6 +108,8 @@ sap.ui.define([
 			});
 
 			this.deleteDocuments(aDocumentsIDs);
+
+			this.getModel("model").setProperty("/DeletedDocuments", aDocumentsIDs);
 		},
 
 		onFDSingleDocument: function () {
@@ -137,6 +141,27 @@ sap.ui.define([
 
 		onSCDocument: function () {
 			this.byId("DownloadButton").setEnabled(this.byId("DocumentUC").getSelectedItems().length > 0);
+		},
+
+		onSendDocuments: async function () {
+			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
+			const oViewModel = this.getModel("model");
+			const aDeletedDocuments = oViewModel.getProperty("/DeletedDocuments");
+			let oData = {};
+
+			if (oUploadCollection) {
+				await oUploadCollection.fireFileDeleted();
+			}
+
+			oData.Documents = aDeletedDocuments.length ? aDeletedDocuments : [];
+
+			await this.uploadDocument(oResponse.ID);
+
+			if (oUploadCollection) {
+				this.oDocument.destroy();
+				this.oDocument = null;
+				oViewModel.setProperty("/Documents", []);
+			}
 		},
 
 		onShowIFrame: function (oEvent) {

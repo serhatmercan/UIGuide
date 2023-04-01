@@ -117,7 +117,8 @@ sap.ui.define([
 		generateDateWithFormat: function () {
 			const oDateFormat = DateFormat.getDateInstance({
 				pattern: "dd/MM/yyyy",
-				pattern: "dd-MM-YYYY"
+				pattern: "dd-MM-YYYY",
+				pattern: "yyyy-MM-ddTKK:mm:ss"
 			});
 
 			oDateFormat.format(new Date());
@@ -186,6 +187,59 @@ sap.ui.define([
 			return dCreatedDate;
 		},
 
+		getStatuIcon: function (sStatu) {
+			let sStatuIcon = "";
+
+			switch (sStatu) {
+				case "I":
+					sStatuIcon = "sap-icon://accept";
+					break;
+				case "II":
+					sStatuIcon = "sap-icon://journey-arrive";
+					break;
+				case "III":
+					sStatuIcon = "sap-icon://measurement-document";
+					break;
+				case "IV":
+					sStatuIcon = "sap-icon://detail-view";
+					break;
+				case "V":
+					sStatuIcon = "sap-icon://detail-view";
+					break;
+				case "VI":
+					sStatuIcon = "sap-icon://decline";
+					break;
+				case "VII":
+					sStatuIcon = "sap-icon://save";
+					break;
+				case "VIII":
+					sStatuIcon = "sap-icon://pending";
+					break;
+				default:
+					sStatuIcon = "";
+			}
+
+			return sStatuIcon;
+		},
+
+		getStatuState: function (sStatu) {
+			let sStatuState = "";
+
+			switch (sStatu) {
+				case "A":
+					sStatuState = "Success";
+					break;
+				case "B":
+					sStatuState = "Error";
+					break;
+				default:
+					sStatuState = "Warning";
+					break;
+			}
+
+			return sStatuState;
+		},
+
 		/*
 		* Generate Timestamp w/ Formatted Date & Formatted Time 
 		*
@@ -194,6 +248,10 @@ sap.ui.define([
 		*
 		* @return{Timestamp}:	Timestamp Object
 		*/
+
+		getText: function () {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
+		},
 
 		generateTimestampWithFormat: function (sDate, sTime) {
 			return new Date(sDate + "T" + sTime);
@@ -206,10 +264,6 @@ sap.ui.define([
 				ID: oContext.ID,
 				DocumentID: oContext.DocumentID
 			}) + "/$value";
-		},
-
-		getText: function () {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
 		},
 
 		padLeftAlphaNum: function (sVal, digit) {

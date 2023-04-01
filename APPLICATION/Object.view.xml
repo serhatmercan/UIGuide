@@ -1,0 +1,24 @@
+<mvc:View xmlns="sap.uxap" xmlns:m="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="com.sm.application.controller.Object">
+    <ObjectPageLayout showFooter="{model>/ObjectFooterVisible}">
+        <headerTitle>
+            <core:Fragment fragmentName="com.sm.application.fragment.view.Object.HeaderTitle" type="XML" />
+        </headerTitle>
+        <headerContent>
+            <core:Fragment fragmentName="com.sm.application.fragment.view.Object.HeaderContent" type="XML" />
+        </headerContent>
+        <sections>
+            <ObjectPageSection showTitle="true" titleUppercase="false">
+                <subSections>
+                    <ObjectPageSubSection title="{i18n>information}" titleUppercase="false">
+                        <blocks>
+                            <core:Fragment fragmentName="com.sm.application.fragment.view.Object.Information" type="XML" />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+            <core:Fragment fragmentName="com.sm.application.fragment.view.Object.Footer" type="XML" />
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

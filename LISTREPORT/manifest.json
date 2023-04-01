@@ -75,12 +75,42 @@
 					"name": "sap.suite.ui.generic.template.ListReport",
 					"list": true,
 					"settings": {
+						"condensedTableLayout": true,
+						"enableTableFilterInPageVariant": true,
+						"filterSettings": {
+							"dateSettings": {
+								"useDateRange": true
+							}
+						},
 						"tableSettings": {
 							"multiSelect": true,
 							"selectAll": true,
 							"smartVariantManagement": true,
-							"type": "GridTable"
-						}
+							"type": "GridTable",
+							"quickVariantSelectionX": {
+								"enableAutoBinding": false,
+								"showCounts": false,
+								"variants": {
+									"0": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Main",
+										"entitySet": "MainSet",
+										"key": "ID"
+									},
+									"1": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Detail",
+										"entitySet": "DetailSet",
+										"key": "Text"
+									},
+									"2": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Item",
+										"entitySet": "ItemSet",
+										"key": "Value"
+									}
+								}
+							}
+						},
+						"smartVariantManagement": true,
+						"variantManagementHidden": true
 					}
 				},
 				"pages": {

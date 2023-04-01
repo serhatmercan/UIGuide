@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Image src="/sap/opu/odata/sap/ZXX_SRV/DocumentSet(Value='{model>Value}')/$value" />
+    <Image src="{ path: '', formatter: '.formatter.getImage' }" tooltip="X" />
+</core:FragmentDefinition>
+<!-- IMAGE ATTRIBUTES -->
+<!-- 
+height="100px"
+width="150px"
+					 
+densityAware="false"
+visible="false"
+-->

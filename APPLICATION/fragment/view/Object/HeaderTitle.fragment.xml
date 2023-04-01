@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.uxap" xmlns:core="sap.ui.core" xmlns:m="sap.m">
+    <ObjectPageDynamicHeaderTitle>
+        <expandedHeading>
+            <m:HBox>
+                <m:Title text="{model>/Title}" />
+                <m:Link text="{model>/Title}" emphasized="true" press="onShowDetail" />
+            </m:HBox>
+        </expandedHeading>
+        <snappedHeading>
+            <m:HBox>
+                <m:Title text="{model>/Title}" />
+                <m:Link text="{model>/Title}" emphasized="true" press="onShowDetail" />
+            </m:HBox>
+            <m:FlexBox fitContainer="true" alignItems="Center">
+                <m:Avatar src="sap-icon://collections-insight" backgroundColor="Accent10" class="sapUiTinyMarginEnd" displaySize="S" />
+                <m:HBox>
+                    <m:Title text="{model>/Title}" />
+                    <m:Link text="{model>/Title}" emphasized="true" press="onShowDetail" />
+                </m:HBox>
+            </m:FlexBox>
+        </snappedHeading>
+        <actions>
+            <m:Button icon="sap-icon://attachment" tooltip="{i18n>document}" type="Emphasized" press="onShowDocument">
+                <m:customData>
+                    <m:BadgeCustomData key="badge" value="{= +${DocumentCount} }" visible="{= ${DocumentCount} &amp;&amp; +${DocumentCount} !== 0 }" />
+                </m:customData>
+            </m:Button>
+            <m:Button icon="sap-icon://print" tooltip="{i18n>form}" type="Emphasized" press="onPrintForm" />
+        </actions>
+    </ObjectPageDynamicHeaderTitle>
+</core:FragmentDefinition>

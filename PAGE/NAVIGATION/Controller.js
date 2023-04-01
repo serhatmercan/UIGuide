@@ -17,24 +17,27 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onGoToExternalApplication: function (oEvent, oController) {
+		onGoToExternalApplication: function () {
 			const oParams = {};
 			const oTarget = {
-				action: "manage", // display
+				action: "manage",
 				semanticObject: "ZApplication"
 			};
 			const oProperties = {
 				params: oParams,
-				target: oTarget				
+				target: oTarget
 			};
 
 			oParams["ID"] = ["X"];
 			oParams["Value"] = ["ABC"];
 
+			oTarget.action = "display";
+			oTarget.action = "manage&/ZApplication/" + "ABC" + "/9999999999";
+
 			sap.ushell.Container.getService("CrossApplicationNavigation").toExternal(oProperties);
 		},
 
-		onGoToExternalApplicationInNewTab: function(){
+		onGoToExternalApplicationInNewTab: function () {
 			const oHrefForExternal = sap.ushell.Container.getService("CrossApplicationNavigation").hrefForExternal({
 				target: {
 					action: "display",
@@ -49,8 +52,8 @@ sap.ui.define([
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
-		
-		getMyComponent: function () {			
+
+		getMyComponent: function () {
 			return sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
 		},
 
@@ -61,8 +64,8 @@ sap.ui.define([
 		},
 
 		patternMatched: function (oEvent) {
-			const sID = oEvent.getParameter("arguments").ID;	
-			
+			const sID = oEvent.getParameter("arguments").ID;
+
 			this.getStartupParameters();
 		}
 

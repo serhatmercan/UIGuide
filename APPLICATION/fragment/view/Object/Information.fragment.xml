@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform">
+    <smartForm:SmartForm id="InformationSF" editable="{model>/Edit}">
+        <smartForm:Group label="">
+            <smartForm:GroupElement>
+                <smartField:SmartField value="{Value}">
+                    <smartField:configuration>
+                        <smartField:Configuration displayBehaviour="descriptionAndId" />
+                    </smartField:configuration>
+                </smartField:SmartField>
+            </smartForm:GroupElement>
+        </smartForm:Group>
+    </smartForm:SmartForm>
+</core:FragmentDefinition>

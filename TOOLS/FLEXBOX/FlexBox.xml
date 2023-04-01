@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <FlexBox>
+        <Title text="{Title}" />
+    </FlexBox>
+</core:FragmentDefinition>
+<!-- FLEX BOX - ATTRIBUTES -->
+<!--
+id="FlexBox" 
+alignContent="Center" 
+alignItems="Center" alignItems="End" alignContent="SpaceAround"
+class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding"
+height="100%" 
+justifyContent="Center" justifyContent="End" justifyContent="SpaceAround"	  
+width="100%" 
+wrap="Wrap"
+
+fitContainer="true"
+-->
+<!-- FLEX BOX - EXAMPLE -->
+<!--
+<FlexBox id="FlexBox" alignContent="SpaceAround" justifyContent="SpaceAround"></FlexBox>	
+-->

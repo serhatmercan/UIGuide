@@ -1,3 +1,33 @@
+/* Class */
+.class {
+    color: gray;
+}
+
+/* Color: https://coolors.co/ */
+.color {
+    background: red;
+    background-color: rgb(59, 138, 131);
+    color: rgba(0, 255, 98, 0.601);
+    color: #888;
+    color: #859442;
+}
+
+/* ID */
+#first {
+    color: aquamarine;
+}
+
+/* Inner Element */
+p span {
+    text-transform: uppercase !important;
+}
+
+/* Multi Element */
+h1,
+h2 {
+    color: blue;
+}
+
 /* Custom Data Button Display*/
 [data-btn="X"]>.sapMLIBSelectD {
     display: none;
