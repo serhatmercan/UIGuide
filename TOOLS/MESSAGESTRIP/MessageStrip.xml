@@ -10,5 +10,5 @@ type="Warning"
 enableFormattedText="true" 
 showCloseButton="true" 
 showIcon="true"
-visible="{model>/Visibility}"
+visible="{model>/Visibility}" visible="{= !${model>/IDSelected}}"
 -->

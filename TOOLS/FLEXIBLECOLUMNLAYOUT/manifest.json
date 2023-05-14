@@ -1,0 +1,65 @@
+{
+  "sap.ui5": {
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.sm.application.view",
+        "controlAggregation": "beginColumnPages",
+        "controlId": "Layout",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "Main",
+          "target": [
+            "Main"
+          ]
+        },
+        {
+          "pattern": "Detail/{ID}",
+          "name": "Detail",
+          "target": [
+            "Main",
+            "Detail"
+          ]
+        },
+        {
+          "pattern": "DetailX/{ID},{Key}",
+          "name": "DetailX",
+          "target": [
+            "Main",
+            "Detail",
+            "DetailX"
+          ]
+        }
+      ],
+      "targets": {
+        "Main": {
+          "viewName": "Main",
+          "viewId": "Main"
+        },
+        "Detail": {
+          "viewName": "Detail",
+          "viewId": "Detail",
+          "viewLevel": 1,
+          "controlAggregation": "midColumnPages"
+        },
+        "DetailX": {
+          "viewType": "XML",
+          "viewName": "DetailX",
+          "viewLevel": 1,
+          "controlAggregation": "endColumnPages"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "com.sm.application.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

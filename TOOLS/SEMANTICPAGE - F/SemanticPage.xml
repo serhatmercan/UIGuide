@@ -1,6 +1,9 @@
-<mvc:View controllerName="serhatmercan.controller.ControllerName" xmlns="sap.m" xmlns:semantic="sap.f.semantic">
+<mvc:View controllerName="serhatmercan.controller.ControllerName"
+	xmlns="sap.m"
+	xmlns:semantic="sap.f.semantic">
 	<semantic:SemanticPage id="Page" busy="{model>/Busy}" title="{i18n>title}" showFooter="{=${message>/}.length > 0}">
 		<semantic:titleHeading>
+			<core:Fragment fragmentName="com.sm.application.fragments.view.object.TitleHeading" type="XML" />
 			<Title text="{i18n>text}" level="H2"/>
 		</semantic:titleHeading>
 		<semantic:titleExpandedContent>
@@ -9,8 +12,18 @@
 		<semantic:titleMainAction>
 			<semantic:TitleMainAction id="EditAction" text="{i18n>edit}" enabled="{= ${model>/Value}" press="onEdit"/>
 		</semantic:titleMainAction>
-		<semantic:headerContent></semantic:headerContent>
-		<semantic:content></semantic:content>
+		<semantic:headerContent>
+			<core:Fragment fragmentName="com.sm.application.fragments.view.object.HeaderContent" type="XML" />
+		</semantic:headerContent>
+		<semantic:content>
+			<core:Fragment fragmentName="com.sm.application.fragments.view.object.List" type="XML" />
+		</semantic:content>
+		<semantic:positiveAction>
+			<semantic:PositiveAction press="onProcess('AP', $event)" />
+		</semantic:positiveAction>
+		<semantic:negativeAction>
+			<semantic:NegativeAction press="onProcess('RJ', $event)" />
+		</semantic:negativeAction>
 		<semantic:footerMainAction>
 			<semantic:FooterMainAction press="onSave"/>
 		</semantic:footerMainAction>

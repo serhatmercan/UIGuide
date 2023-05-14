@@ -32,6 +32,8 @@ value="{ path: 'model>/Value', type:'sap.ui.model.type.Float', formatOptions: { 
 value="{ path: 'model>/Value', type:'sap.ui.model.type.Float', formatOptions: { precision:2, parseAsString: true } }"
 value="{ path: 'model>/Value', type:'sap.ui.model.type.Integer' }"
 value="{ path: 'model>/Value', type:'sap.ui.model.type.String' }"
+valueState="{= (${model>Value} &amp;&amp; +${model>Value} &lt;= 0) ? 'Error' : 'None' }"
+valueStateText="{i18n>text}"
 width="25%"
 
 editable="false"

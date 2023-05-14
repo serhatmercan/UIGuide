@@ -19,6 +19,7 @@
 <headerToolbar>
     <Toolbar>
 	    <ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+        <Button icon="sap-icon://add" text="{i18n>add}" tooltip="{i18n>add}" type="Emphasized" visible="{model>/Edit}" press="onShowItem('A', $event)" />
     </Toolbar>
 </headerToolbar>
 <infoToolbar>

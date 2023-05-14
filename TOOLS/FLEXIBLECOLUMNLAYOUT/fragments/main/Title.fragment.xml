@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartVariants="sap.ui.comp.smartvariants">
+    <smartVariants:SmartVariantManagement id="...SVM" />
+</core:FragmentDefinition>

@@ -5,6 +5,7 @@
 <!--
 id="idTitle"
 
+class="sapUiTinyMarginBottom"
 level="H4"
 text="{ path : 'model>Value', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence: true, maxLength: 3 }} {i18n>text}"/>
 titleStyle="H3" titleStyle="H4"

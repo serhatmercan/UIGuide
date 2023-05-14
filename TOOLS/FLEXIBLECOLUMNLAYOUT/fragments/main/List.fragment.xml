@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:smartTable="sap.ui.comp.smarttable">
+    <smartTable:SmartTable id="...ST" entitySet="...Set" smartFilterId="...SFB" smartVariant="...SVM" header="{i18n>...s}" requestAtLeastFields="ID" demandPopin="true" enableAutoBinding="true" enableAutoColumnWidth="true" 
+        showRowCount="true" useVariantManagement="true">
+        <Table growing="true" growingScrollToLoad="true" growingThreshold="100" mode="MultiSelect">
+            <items>
+                <ColumnListItem type="Navigation" press="onGoToDetail" />
+            </items>
+        </Table>
+    </smartTable:SmartTable>
+</core:FragmentDefinition>

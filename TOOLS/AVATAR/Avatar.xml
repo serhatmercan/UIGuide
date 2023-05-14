@@ -3,9 +3,12 @@
 </mvc:View>
 <!-- AVATAR - ATTRIBUTES -->
 <!-- 
-class="sapUiMediumMarginEnd sapUiSmallMarginBottom" 
+backgroundColor="Accent10"	
+class="sapUiMediumMarginEnd sapUiSmallMarginBottom" sapUiTinyMarginEnd
 displayShape="Square"
+displaySize="S" displaySize="XL"
 initials="SM"
+src="{= !${Pernr} || ${Pernr} === '' ? 'sap-icon://add-contact' : 'sap-icon://business-card' }"
 -->
 
 <!-- AVATAR - LAYOUT -->

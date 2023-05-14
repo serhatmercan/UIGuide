@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:upload="sap.m.upload">
+    <Dialog title="{i18n>document}">
+        <content>
+            <upload:UploadSet id="DocumentUS" items="{model>/Documents}" instantUpload="false" beforeUploadStarts="onBUSDocument">
+                <upload:items>
+                    <upload:UploadSetItem fileName="{model>Filename}" mediaType="{model>Mimetype}" url="{model>Url}"/>
+                </upload:items>
+            </upload:UploadSet>
+        </content>
+        <Toolbar>
+            <ToolbarSpacer />
+            <Button text="{i18n>OK}" type="Emphasized" press="onCloseDocument" />
+        </Toolbar>
+    </Dialog>
+</core:FragmentDefinition>
+<!-- UPLOAD COLLECTION - ATTRIBUTES -->
+<!--
+uploadButtonInvisible="true"    
+uploadEnabled="{model>/DocumentEdit}"    
+-->
+<!-- UPLOAD COLLECTION - TOOLBAR -->
+<!--
+-->
+<!-- UPLOAD COLLECTION ITEM - ATTRIBUTES -->
+<!--
+enabledEdit="{model>Editable}" 
+enabledRemove="{model>Editable}"
+visibleEdit="false"    
+visibleRemove="false"    
+-->
+<!-- UPLOAD COLLECTION ITEM -  LAYOUT -->
+<!--
+-->

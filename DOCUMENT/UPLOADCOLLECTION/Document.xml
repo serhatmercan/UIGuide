@@ -14,7 +14,8 @@
             <Button text="{i18n>close}" press="onCloseDocument" />
         </Toolbar>
     </Dialog>
-</core:FragmentDefinition><!-- DOCUMENT - CONTENT -->
+</core:FragmentDefinition>
+<!-- DOCUMENT - CONTENT -->
 <!--
 <List items="{model>/Documents}">
 	<StandardListItem description="{model>Filename}" info="{model>MimeType}" title="{model>Doknr}" type="Active" press="onShowDocument"/>
@@ -25,7 +26,6 @@
 		<UploadCollectionItem documentId="{model>DocumentID}" fileName="{model>FileName}" mimeType="{model>Mimetype}" url="{model>Url}"/>
 	</items>
 </UploadCollection>
-			
 -->
 <!-- UPLOAD COLLECTION - ATTRIBUTES -->
 <!--

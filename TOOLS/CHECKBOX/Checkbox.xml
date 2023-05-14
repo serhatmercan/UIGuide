@@ -8,8 +8,10 @@ text="{i18n>text}"
 valueState="Information" 
 width="auto"
 
+editable="false"
 enabled="false"
 selected="true"
+wrapping="true"
 visible="false"
 -->
 <!-- CHECKBOX LAYOUT -->
@@ -19,4 +21,12 @@ visible="false"
 	    <l:GridData span="L4 M4 S4"/>
 	</layoutData>
 </CheckBox>
+-->
+<!-- CHECKBOX - EXAMPLE -->
+<!--
+<HBox justifyContent="SpaceBetween">
+	<CheckBox selected="{X}" text="{i18n>x}" wrapping="true"/>
+    <CheckBox selected="{Y}" text="{i18n>y}" wrapping="true"/>
+    <CheckBox selected="{Z}" text="{i18n>z}" wrapping="true"/>
+</HBox>	
 -->

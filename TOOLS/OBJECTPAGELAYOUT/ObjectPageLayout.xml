@@ -5,7 +5,7 @@
                 <subSections>
                     <ObjectPageSubSection title="{i18n>OPS}">
                         <blocks>
-                            <core:Fragment type="XML" fragmentName="..." />
+                            <core:Fragment type="XML" fragmentName="com.sm.fragments.view.main.OPSS" />
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
@@ -38,15 +38,18 @@ useIconTabBar="true"
 <!-- OBJECT PAGE LAYOUT - LAYOUT -->
 <!--
 <headerTitle>
+	<core:Fragment fragmentName="com.sm.fragments.view.main.HeaderTitle" type="XML" />
 	<ObjectPageDynamicHeaderTitle>
 		<heading>
 		</heading>
-		<expandedHeading>		
-		</expandedHeading>
+		<expandedHeading>
+            <core:Fragment fragmentName="com.sm.application.fragments.view.main.HeaderToolbar" type="XML" />
+        </expandedHeading>
 		<expandedContent>			
 		</expandedContent>
-		<snappedContent>
-		</snappedContent>
+		<snappedHeading>
+            <core:Fragment fragmentName="com.sm.application.fragments.view.main.HeaderToolbar" type="XML" />
+        </snappedHeading>
 		<actions>
 		</actions>
 	</ObjectPageDynamicHeaderTitle>
@@ -54,6 +57,7 @@ useIconTabBar="true"
 		isObjectSubtitleAlwaysVisible="true" isObjectTitleAlwaysVisible="true" showPlaceholder="false">
 </headerTitle>
 <headerContent>
+	<core:Fragment fragmentName="com.sm.fragments.view.main.HeaderContent" type="XML" />
 	<f:GridList></f:GridList>
 	<l:VerticalLayout></l:VerticalLayout>
 	<smartForm:SmartForm></smartForm:SmartForm>
@@ -69,13 +73,14 @@ useIconTabBar="true"
 		<subSections>
 			<ObjectPageSubSection>
 				<blocks>
-					<core:Fragment type="XML" fragmentName="..."/>
+					<core:Fragment fragmentName="com.sm.fragments.view.main.OPSS" type="XML" />
 				</blocks>
 			</ObjectPageSubSection>
 		</subSections>
 	</ObjectPageSection>
 </sections>	
 <footer>
+	<core:Fragment fragmentName="com.sm.fragments.view.main.Footer" type="XML" />
 </footer>
 -->
 <!-- OBJECT PAGE SUB SECTION - ATTRIBUTES -->

@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Table items="{model>/DetailXs}" mode="None">
+        <columns>
+            <Column minScreenWidth="Desktop">
+                <Label text="{/#DetailX/ID/@sap:label}" design="Bold" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <ObjectIdentifier title="{model>ID}" text="{model>Name}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

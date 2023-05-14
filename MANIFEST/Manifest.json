@@ -52,7 +52,8 @@
 				"preload": true,
 				"settings": {
 					"defaultBindingMode": "TwoWay",
-					"defaultCountMode": "Inline"
+					"defaultCountMode": "Inline",
+					"_comment": "Count Modes: Inline / InlineRepeat / None / Request"
 				}
 			},
 			"ss": {
@@ -68,6 +69,16 @@
 				"settings": {},
 				"uri": "./model/model.json",
 				"preload": true
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.sm.application.i18n.i18n"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
 			}
 		},
 		"resources": {

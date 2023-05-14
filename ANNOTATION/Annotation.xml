@@ -32,7 +32,7 @@
                             <Collection>
                                 <Record>
                                     <PropertyValue Property="Property" PropertyPath="Gjahr" />
-                                    <PropertyValue Property="AllowedExpressions" String="ID" />
+                                    <PropertyValue Property="AllowedExpressions" String="SingleValue" />
                                 </Record>
                             </Collection>
                         </PropertyValue>
@@ -107,17 +107,17 @@
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.PresentationVariant">
-					<Record Type="UI.PresentationVariantType">
-						<PropertyValue Property="SortOrder">
-							<Collection>
-								<Record Type="Common.SortOrderType">
-									<PropertyValue Property="Property" PropertyPath="ID"/>
-									<PropertyValue Property="Descending" Bool="true"/>
-								</Record>
-							</Collection>
-						</PropertyValue>
-					</Record>
-				</Annotation>
+                    <Record Type="UI.PresentationVariantType">
+                        <PropertyValue Property="SortOrder">
+                            <Collection>
+                                <Record Type="Common.SortOrderType">
+                                    <PropertyValue Property="Property" PropertyPath="ID"/>
+                                    <PropertyValue Property="Descending" Bool="true"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
                 <Annotation Term="UI.SelectionFields">
                     <Collection>
                         <PropertyPath>Field</PropertyPath>

@@ -8,6 +8,7 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		showMessage: function () {
+			const oResourceBundle = this.getResourceBundle();			
 
 			MessageToast.show("Message");
 

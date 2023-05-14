@@ -45,7 +45,7 @@ sap.ui.define([
 
 				await this.onRead(oKey, oModel)
 					.then((oData) => {
-						const sIDTxt = oData.IDTxt;
+						const sTxt = oData.Txt;
 					})
 					.catch(() => { })
 					.finally(() => {
@@ -212,6 +212,14 @@ sap.ui.define([
 				parameters: {
 					expand: "Header,Items"
 				}
+			});
+
+			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
+				setTimeout(() => {
+					this.byId("SmartField").getInnerControls()[0].getBinding("items").filter([
+						new Filter("Value", FilterOperator.EQ, "X")
+					]);
+				}, 200);
 			});
 		},
 

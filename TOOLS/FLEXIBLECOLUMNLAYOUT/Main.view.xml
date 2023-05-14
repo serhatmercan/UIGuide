@@ -1,0 +1,26 @@
+<mvc:View controllerName="com.sm.application.controller.Main"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic">
+    <semantic:SemanticPage showFooter="{model>/ApprovementStatu}">
+        <semantic:titleHeading>
+            <core:Fragment fragmentName="com.sm.application.fragments.main.Title" type="XML" />
+        </semantic:titleHeading>
+        <semantic:headerContent>
+            <core:Fragment fragmentName="com.sm.application.fragments.main.Filter" type="XML" />
+        </semantic:headerContent>
+        <semantic:content>
+            <core:Fragment fragmentName="com.sm.application.fragments.main.List" type="XML" />
+        </semantic:content>
+        <semantic:messagesIndicator>
+            <semantic:MessagesIndicator press="onShowMessages" />
+        </semantic:messagesIndicator>
+        <semantic:positiveAction>
+            <semantic:PositiveAction press="onProcess('AP', $event)" />
+        </semantic:positiveAction>
+        <semantic:negativeAction>
+            <semantic:NegativeAction press="onProcess('RJ', $event)" />
+        </semantic:negativeAction>
+    </semantic:SemanticPage>
+</mvc:View>

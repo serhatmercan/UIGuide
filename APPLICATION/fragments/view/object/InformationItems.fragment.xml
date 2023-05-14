@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Table id="InformationItems" items="{model>/InformationItems}" mode="{= ${model>/Edit} ? 'MultiSelect' : 'None' }" noDataText="{i18n>checkItem}">
+        <headerToolbar>
+            <OverflowToolbar>
+                <content>
+                    <ToolbarSpacer />
+                    <Button icon="sap-icon://add" text="{i18n>add}" tooltip="{i18n>addItem}" type="Emphasized" visible="{model>/Edit}" press="onShowInformationItem('A', $event)" />
+                </content>
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column minScreenWidth="Desktop" width="15rem">
+                <Label text="{i18n>ID}" design="Bold" />
+            </Column>
+            <Column minScreenWidth="Desktop" width="15rem" demandPopin="true">
+                <Label text="{i18n>value}" design="Bold" />
+            </Column>
+            <Column minScreenWidth="Desktop" hAlign="End" demandPopin="true" visible="{model>/Edit}">
+                <Label />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem type="Navigation" press="onShowInformationItem('U', $event)">
+                <cells>
+                    <ObjectIdentifier title="{model>ID}" text="{model>Name}" />
+                    <Text text="{model>Value}" />
+                    <Button icon="sap-icon://decline" tooltip="{i18n>delete}" press="onDeleteItem" visible="{model>/Edit}"/>
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>

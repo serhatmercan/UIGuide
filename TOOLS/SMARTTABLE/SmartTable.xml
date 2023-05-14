@@ -1,30 +1,21 @@
-<mvc:View
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:ndc="sap.ndc"
-    xmlns:ui="sap.ui.table"
-    xmlns:semantic="sap.m.semantic"
-    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
-    xmlns:smartTable="sap.ui.comp.smarttable"
-    xmlns:smartVariants="sap.ui.comp.smartvariants"
-    xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-    controllerName="com.serhatmercan.controller.SmartTable"
-    height="100%"
->
-    <smartTable:SmartTable persistencyKey="STKey" entitySet="...Set" />
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ndc="sap.ndc" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariants="sap.ui.comp.smartvariants" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable" >
+    <smartVariants:SmartVariantManagement id="...SVM" />
+	<smartFilterBar:SmartFilterBar id="...SFB" entitySet="...Set" smartVariant="...SVM"/>
+	<smartTable:SmartTable entitySet="...Set" smartFilterId="...SFB" smartVariant="...SVM"/>
 </mvc:View>
 <!-- SMART TABLE - ATTRIBUTES -->
 <!-- 
 id="ST"
 class="sapUiResponsiveContentPadding" 
-header="{i18n>smartTable}" header="{/#Main/ST/@sap:label}"
+header="{i18n>smartTable}" header="{/#Main/ST/@sap:label}" w/ showRowCount="true" 
 ignoredFields="Value" 
 initiallyVisibleFields="ID,Key" 
+persistencyKey="STKey"
 requestAtLeastFields="ID"
 smartFilterId="SFB" 
 smartVariant="SVM"
-tableBindingPath="Items"
+tableBindingPath="Items" Ex: entitySet="...Set" tableBindingPath="to_Size"
 tableType="AnalyticalTable" tableType="ResponsiveTable"
 width="25%"
 
@@ -120,15 +111,16 @@ initialized="onInitST"
 <!-- SMART TABLE - RESPONSIVE TABLE - CONFIGURATION -->
 <!--
 <Table growing="true" growingScrollToLoad="true" growingThreshold="100" mode="MultiSelect" sticky="ColumnHeaders"/>
-<columns>
-	<core:CustomData value='\{"autoColumnWidth": "true", "filterProperty": "Key", "isCurrency": "false", "maxLength": "10", "sortProperty": "Key", "type": "numeric"}'/>	
-	<Text text="{i18n>key}"/>
-</columns>
-<cells>
-	<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }", wrapping="false"/>
-	<Text text="{ path: 'Key', formatter: '.formatter.removeLeadingZeros' }"/>
-	<ndc:BarcodeScannerButton scanSuccess="onSSBarcode" visible="{= ${ID} !== 'X' }"/>
-</cells>
+	<columns>
+		<core:CustomData value='\{"autoColumnWidth": "true", "filterProperty": "Key", "isCurrency": "false", "maxLength": "10", "sortProperty": "Key", "type": "numeric"}'/>	
+		<Text text="{i18n>key}"/>
+	</columns>
+	<cells>
+		<Text text="{ path: 'Key', type: 'sap.ui.model.type.Integer' }", wrapping="false"/>
+		<Text text="{ path: 'Key', formatter: '.formatter.removeLeadingZeros' }"/>
+		<ndc:BarcodeScannerButton scanSuccess="onSSBarcode" visible="{= ${ID} !== 'X' }"/>
+	</cells>
+</Table>
 -->
 <!-- SMART TABLE - EXAMPLE -->
 <!-- 

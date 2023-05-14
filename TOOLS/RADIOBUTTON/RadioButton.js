@@ -24,7 +24,16 @@ sap.ui.define([
 		/* ============== */
 
 		onSelectRBG: function (oEvent) {
-			
+			const iIndex = oEvent.getSource().getSelectedIndex();
+
+			switch (oEvent.getSource().getSelectedIndex()) {
+				case 0:
+					break;
+				case 1:
+					break;
+				case 2:
+					break;
+			}
 		},
 
 		/* ================ */
@@ -34,7 +43,7 @@ sap.ui.define([
 		getSelectedIndex: () => {
 			return this.byId("idRBG").getSelectedIndex();
 		}
-		
+
 
 	});
 

@@ -7,6 +7,14 @@
 			<Annotations Target="Metadata.SM_OVP_DASH_SRV_Entities/OVPFilterSet">
 				<Annotation Term="Capabilities.FilterRestrictions">
 					<Record Type="Capabilities.FilterRestrictionsType">
+						<PropertyValue Property="FilterExpressionRestrictions">
+							<Collection>
+								<Record>
+									<PropertyValue Property="Property" PropertyPath="ID" />
+									<PropertyValue Property="AllowedExpressions" String="SingleValue" />
+								</Record>
+							</Collection>
+						</PropertyValue>
 						<PropertyValue Property="RequiresFilter" Bool="true" />
 						<PropertyValue Property="RequiredProperties">
 							<Collection>

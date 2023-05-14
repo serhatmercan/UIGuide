@@ -12,11 +12,6 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onExit: function () {
-			this.getModel().resetChanges();
-			this.byId("SmartTable").rebindTable();
-		},
-
 		onInit: function () {
 			const oModel = new JSONModel({
 				Items: [],
@@ -27,6 +22,11 @@ sap.ui.define([
 
 			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+		},
+
+		onExit: function () {
+			this.getModel().resetChanges();
+			this.byId("SmartTable").rebindTable();
 		},
 
 		/* ============== */
@@ -277,6 +277,29 @@ sap.ui.define([
 			});
 
 			oTable.rebindTable();
+		},
+
+		viewBind: function () {
+			const oModel = this.getModel();
+			const oView = this.getView();
+			const oBindingContext = oView.getBindingContext();
+			const sPath = oModel.createKey("/...Set", {
+				ID: "X"
+			});
+
+			if (oBindingContext) {
+				oView.unbindElement();
+				oModel.refresh(true, true);
+			}
+
+			oView.bindElement({
+				path: sPath,
+				events: {
+					dataReceived: (oEvent) => {
+						const oData = oEvent.getSource().getBoundContext().getObject();
+					}
+				}
+			});
 		}
 
 	});

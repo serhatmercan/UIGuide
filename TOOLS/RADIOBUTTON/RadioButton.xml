@@ -4,3 +4,15 @@
 		<RadioButton id="RBInternal" groupName="GroupA" text="{i18n>internalRepair}" selected="{model>/RBInternal}"/>		
 	</RadioButtonGroup>
 </core:FragmentDefinition>
+<!-- RADIO BUTTON - ATTRIBUTES -->
+<!-- 
+text="{/#Main/ID/@sap:label}"
+-->
+<!-- RADIO BUTTON - LAYOUT -->
+<!--
+	
+-->
+<!-- RADIO BUTTON - EXAMPLE -->
+<!--
+	
+-->

@@ -103,7 +103,7 @@ sap.ui.define([
 
 		onDeleteRow: function () {
 			const aPaths = oEvent.getSource().getBindingContext("model").getPath().split("/");
-			const iIndex = aPaths[aPaths.length - 1];
+			const iIndex = +aPaths[aPaths.length - 1];
 			const oViewModel = this.getModel("model");
 			const aItems = oModel.getProperty("/Items");
 

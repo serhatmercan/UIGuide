@@ -103,6 +103,31 @@ sap.ui.define([
 			this.oDialog.open();
 		},
 
+		onShowSFDialog: function (sType, oEvent) {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const sPath = oModel.createEntry("/...Set").getPath();
+			let oData = {};
+			let sBindingPath = "";
+
+			this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.sm.application.fragments.dialog.Dialog", this);
+			this.oDialog.setModel(this.getModel("i18n"), "i18n");
+			this.oDialog.setModel(oViewModel, "model");
+
+			this.getView().addDependent(this.oDialog);
+
+			this.oDialog.bindElement(sPath);
+
+			if (sType === "U") {
+				sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
+				oData = oViewModel.getProperty(sBindingPath);
+
+				oModel.setProperty(sPath + "/Value", oData.Value);
+			}
+
+			this.oDialog.open();
+		},
+
 		onShowDialogDetail: function (oEvent) {
 			const oControl = oEvent.getSource();
 			const sDialogPath = this.getModel().createEntry("/...Set").getPath();
@@ -221,17 +246,21 @@ sap.ui.define([
 					press: (oEvent) => {
 						const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
 						const oContext = this.getModel().createEntry(sPath);
+						const oTextArea = sap.ui.getCore().byId("TextArea");
+						const soTextAreaValue = oTextArea.getValue();
 						// const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
 						// const sID = oTextAreaDialog.getParent().getBindingContext().getProperty("ID");
 						// https://openui5.hana.ondemand.com/topic/6c47b2b39db9404582994070ec3d57a2.html#loio6c47b2b39db9404582994070ec3d57a2
 						this.addNote(this.byId("TextArea").getValue());
 						this.addNote(sap.ui.getCore().byId("TextArea").getValue());
+						oTextArea.setValue("");
 						oTextAreaDialog.close();
 					}
 				}),
 				endButton: new Button({
 					text: "Cancel",
 					press: () => {
+						sap.ui.getCore().byId("TextArea").setValue("");
 						oTextAreaDialog.close();
 					}
 				}),

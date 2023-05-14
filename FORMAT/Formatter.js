@@ -14,6 +14,62 @@ sap.ui.define([
 			return (iEndDate - iBeginDate) / iOneDay;
 		},
 
+		checkDateValidation: function (xDate) {
+			return xDate instanceof Date && !isNaN(xDate);
+		},
+
+		/*
+		calculateDifferenceBetweenTwoDateTimesWithYYMMDD(): Calculate Difference Between Two Date Times w/ .. yıl .. ay .. gün
+		@dBeginDate: Mon Dec 26 1994 00:00:00 GMT+0200 (GMT+03:00) 
+		@dEndDate: Sun Apr 16 2023 12:34:10 GMT+0300 (GMT+03:00)
+		return: "28 yıl 3 ay 21 gün"
+		*/
+
+		calculateDifferenceBetweenTwoDateTimesWithYYMMDD: function (dBeginDate, dEndDate) {
+			const dDifferenceDate = new Date(dEndDate.getTime() - dBeginDate.getTime());
+			const iPassedDays = Number(Math.abs(dDifferenceDate.getDate()) - 1);
+			const iPassedMonths = Number(Math.abs(dDifferenceDate.getMonth() + 1) - 1);
+			const iPassedYears = Number(Math.abs(dDifferenceDate.getFullYear()) - 1970);
+
+			return (iPassedYears > 0 ? iPassedYears + " " + "yıl" + " " : "") + (iPassedMonths > 0 ? iPassedMonths + " " + "ay" + " " : "") + (iPassedDays > 0 ? iPassedDays + " " + "gün" : "");
+		},
+
+		/*
+		calculateDifferenceBetweenTwoDateTimesWithDaysAndYYMMDD(): Calculate Difference Between Two Date Times w/ Days + .. year(s) .. month(s) .. day(s)
+		@sFirstDate: First Date in the format MM-DD-YYYY / new Date()
+		@sSecondDate: Second Date in the format MM-DD-YYYY / new Date("12/26/1994")
+		return: {TotalDays: 10332.251, DifferenceResult: '28 years 3 months 21 days'}
+		*/
+
+		calculateDifferenceBetweenTwoDateTimesWithDaysAndYYMMDD: function (sFirstDate, sSecondDate) {
+			const aYearsText = ["year", "years"];
+			const aMonthsText = ["month", "months"];
+			const aDaysText = ["day", "days"];
+			const dFirstDateTime = new Date(sFirstDate).getTime();
+			const dSecondDateTime = new Date(sSecondDate).getTime();
+			const dDifferenceDate = dFirstDateTime > dSecondDateTime ? new Date(dFirstDateTime - dSecondDateTime) : new Date(dSecondDateTime - dFirstDateTime);
+			const iPassedDays = Number(Math.abs(dDifferenceDate.getDate()) - 1);
+			const iPassedMonths = Number(Math.abs(dDifferenceDate.getMonth() + 1) - 1);
+			const iPassedYears = Number(Math.abs(dDifferenceDate.getFullYear()) - 1970);
+			const iTotalDays = (iPassedYears * 365) + (iPassedMonths * 30.417) + iPassedDays;
+			const sDifference =
+				((iPassedYears === 1) ? iPassedYears + " " + aYearsText[0] + " " : (iPassedYears > 1) ? iPassedYears + " " + aYearsText[1] + " " : "") +
+				((iPassedMonths === 1) ? iPassedMonths + " " + aMonthsText[0] : (iPassedMonths > 1) ? iPassedMonths + " " + aMonthsText[1] + " " : "") +
+				((iPassedDays === 1) ? iPassedDays + " " + aDaysText[0] : (iPassedDays > 1) ? iPassedDays + " " + aDaysText[1] : "");
+
+			return {
+				"TotalDays": Math.round(iTotalDays),
+				"DifferenceResult": sDifference.trim()
+			};
+		},
+
+		/*
+		checkTwoDates(): Compare Open Date & Close Date -> If Open Date > Close Date ? "Error" : "None" (For Date Picker's Value State)
+		@dOpenDate: Type: sap.ui.model.type.Date / new Date()
+		@dCloseDate: Type: sap.ui.model.type.Date / new Date()
+		return: "Error" / "None"
+		*/
+
 		checkTwoDates: function (dOpenDate, dCloseDate) {
 			if (!dOpenDate || !dCloseDate) {
 				return "None";
@@ -24,6 +80,15 @@ sap.ui.define([
 
 			return dOpenUTCDate > dCloseUTCDate ? "Error" : "None";
 		},
+
+		/*
+		checkTwoDateTimes(): Compare Open Date Time & Close Date Time -> If Open Date Time > Close Date Time ? "Error" : "None" (For Time Picker's Value State)
+		@dOpenDate: Type: sap.ui.model.type.Date / new Date()
+		@tOpenTime: Type: sap.ui.model.type.Time / new Date()
+		@dCloseDate: Type: sap.ui.model.type.Date / new Date()
+		@tCloseTime: Type: sap.ui.model.type.Time / new Date()
+		return: "Error" / "None"
+		*/
 
 		checkTwoDateTimes: function (dOpenDate, tOpenTime, dCloseDate, tCloseTime) {
 			if (!dOpenDate || !tOpenTime || !dCloseDate || !tCloseTime) {
@@ -124,6 +189,11 @@ sap.ui.define([
 			oDateFormat.format(new Date());
 		},
 
+		generateDateWithOData: function () {
+			const dDateI = "datetime'1995 - 02 - 28T00: 00: 00'";
+			const dDateII = '" + encodeURIComponent(1995 - 02 - 28T00: 00: 00) + "';
+		},
+
 		generateFileSize: function (sValue) {
 			return sap.ui.core.format.FileSizeFormat.getInstance({
 				binaryFilesize: false,
@@ -144,27 +214,41 @@ sap.ui.define([
 			return jQuery.sap.getModulePath("com.serhatmercan.assets") + "/xxx.png";
 		},
 
-		generateLocalDate: function (sValue) {
-			if (!sValue) {
+		/*
+		generateLocalDate(): Generate Local Date 
+		@oDate: new Date()
+		return: TimeStamp -> 1683938246024
+		*/
+
+		generateLocalDate: function (oDate) {
+			if (!oDate) {
 				return null;
 			}
 
-			return new Date(sValue.valueOf()).setHours((sDate.getTimezoneOffset() / 60) * -1);
+			const xDate = new Date(oDate.valueOf());
+
+			return xDate.setHours((xDate.getTimezoneOffset() / 60) * -1);
 		},
 
 		generateLocalDateTime: function () {
 			sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance().format(new Date(), sap.ui.getCore().getConfiguration().getTimezone());
 		},
 
-		generateLocalTime: function (oTime) {
-			if (!oTime) {
+		/*
+		generateLocalTime(): Generate Local Time 
+		@oDate: new Date()
+		return: {ms: 63549000, __edmType: 'Edm.Time'}
+		*/
+
+		generateLocalTime: function (oDate) {
+			if (!oDate) {
 				return null;
 			}
 
 			return {
-				ms: oTime.getHours() * 60 * 60 * 1000 +
-					oTime.getMinutes() * 60 * 1000 +
-					oTime.getSeconds() * 1000,
+				ms: oDate.getHours() * 60 * 60 * 1000 +
+					oDate.getMinutes() * 60 * 1000 +
+					oDate.getSeconds() * 1000,
 				__edmType: "Edm.Time"
 			};
 		},
@@ -172,6 +256,13 @@ sap.ui.define([
 		generateText: function (sID, sText, sValue) {
 			return sID + " / " + sText + " / " + sValue;
 		},
+
+		/*
+		generateTimestamp(): Generate Timestamp 
+		@dCreatedDate: Type: sap.ui.model.type.Date / Sun May 14 2023 15:12:49 GMT+0300 (GMT+03:00)
+		@tCreatedTime: Type: sap.ui.model.type.Time / {ms: 63549000, __edmType: 'Edm.Time'}
+		return: DateTime
+		*/
 
 		generateTimestamp: function (dCreatedDate, tCreatedTime) {
 			if (!dCreatedDate || !tCreatedTime) {
@@ -240,6 +331,10 @@ sap.ui.define([
 			return sStatuState;
 		},
 
+		getText: function () {
+			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
+		},
+
 		/*
 		* Generate Timestamp w/ Formatted Date & Formatted Time 
 		*
@@ -248,10 +343,6 @@ sap.ui.define([
 		*
 		* @return{Timestamp}:	Timestamp Object
 		*/
-
-		getText: function () {
-			return this.getOwnerComponent().getModel("i18n").getResourceBundle().getText("text");
-		},
 
 		generateTimestampWithFormat: function (sDate, sTime) {
 			return new Date(sDate + "T" + sTime);

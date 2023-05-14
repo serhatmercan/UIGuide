@@ -15,6 +15,26 @@ sap.ui.define([
 			jQuery.extend(true, {}, oData);
 		},
 
+		onGetSetMessages: function () {
+			const oViewModel = this.getModel("model");
+
+			oViewModel.setProperty("/Messages", sap.ui.getCore().getMessageManager().getMessageModel().getData());
+
+			oViewModel.getProperty("/Messages").forEach(oMessage => {
+				sap.ui.getCore().getMessageManager().addMessages(
+					new Message({
+						message: oMessage.message,
+						type: oMessage.type,
+						persistent: true
+					})
+				);
+			});
+
+			this.onFireToShowMessages();
+
+			oViewModel.setProperty("/Messages", []);
+		},
+
 		onAsyncFunction: async function () {
 			const oViewModel = this.getModel("model");
 			const sMethod = "GET";

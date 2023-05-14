@@ -1,9 +1,0 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-    <OverflowToolbar>
-        <Button id="MessagePO" icon="sap-icon://alert" text="{=${message>/}.length}" type="Emphasized" visible="{=${message>/}.length > 0}" press="onShowMessages" />
-        <ToolbarSpacer />
-        <Button icon="sap-icon://accept" text="{i18n>approve}" type="Accept" visible="{model>/ApproverStatus}" press="onSend('AP', $event)" />
-        <Button icon="sap-icon://cancel" text="{i18n>reject}" type="Reject" visible="{model>/ApproverStatus}" press="onSend('RJ', $event)" />
-        <Button icon="sap-icon://save" text="{i18n>save}" type="Emphasized" visible="{= !${model>/ApproverStatus} &amp;&amp; ${model>/Edit}}" press="onProcess('SV', $event)" />
-    </OverflowToolbar>
-</core:FragmentDefinition>

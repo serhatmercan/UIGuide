@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <OverflowToolbar>
+        <Button id="MessagePO" icon="sap-icon://alert" text="{=${message>/}.length}" type="Emphasized" visible="{=${message>/}.length > 0}" press="onShowMessages" />
+        <ToolbarSpacer />
+        <Button icon="sap-icon://complete" text="{i18n>approvementComplete}" type="Emphasized" press="onApprovementComplete" />
+    </OverflowToolbar>
+</core:FragmentDefinition>

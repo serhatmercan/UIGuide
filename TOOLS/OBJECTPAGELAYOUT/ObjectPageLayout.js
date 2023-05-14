@@ -36,6 +36,14 @@ sap.ui.define([
 				} else {
 					this.getView().bindElement(this._getRequestPath());
 				}
+
+				setTimeout(() => {
+					const oOPL = this.byId("OPL"); // preserveHeaderStateOnScroll="true"
+
+					oOPL.setSelectedSection(oOPL.getSections()[0].getId());
+					oOPL._handleExpandButtonPress();
+					oOPL._scrollTo(0);
+				}, 200);
 			}.bind(this));
 		},
 
