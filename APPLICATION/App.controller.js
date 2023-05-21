@@ -50,7 +50,7 @@ sap.ui.define([
 					return oMessage;
 				} else {
 					return false;
-				}
+				}	
 			};
 
 			aMessages = oMessages.filter(fnFilterDuplicates);

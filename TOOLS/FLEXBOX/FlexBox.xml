@@ -18,7 +18,18 @@ wrap="Wrap"
 
 fitContainer="true"
 -->
-<!-- FLEX BOX - EXAMPLE -->
+<!-- FLEX BOX - EXAMPLE I-->
 <!--
 <FlexBox id="FlexBox" alignContent="SpaceAround" justifyContent="SpaceAround"></FlexBox>	
+-->
+<!-- FLEX BOX - EXAMPLE II-->
+<!--
+<FlexBox direction="Column" wrap="Wrap">
+    <FlexBox class="sapUiTinyMarginTopBottom" justifyContent="SpaceAround">	
+    </FlexBox>
+    <FlexBox class="sapUiTinyMarginTopBottom" justifyContent="Center">
+    </FlexBox>
+    <Panel height="500px">
+    </Panel>
+</FlexBox>
 -->

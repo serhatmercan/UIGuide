@@ -1,18 +1,32 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<RadioButtonGroup id="RBG" columns="3" valueState="Information" select="onSelectRBG">
-		<RadioButton id="RBExternal" groupName="GroupA" text="{i18n>externalRepair}" selected="{model>/RBExternal}"/>
-		<RadioButton id="RBInternal" groupName="GroupA" text="{i18n>internalRepair}" selected="{model>/RBInternal}"/>		
+	<RadioButtonGroup id="RBG" columns="2" valueState="Information" select="onSelectRBG">
+		<RadioButton id="RBX" groupName="GroupA" text="{i18n>x}" selected="{model>/x}"/>
+		<RadioButton id="RBY" groupName="GroupA" text="{i18n>y}" selected="{model>/y}"/>		
 	</RadioButtonGroup>
 </core:FragmentDefinition>
 <!-- RADIO BUTTON - ATTRIBUTES -->
 <!-- 
 text="{/#Main/ID/@sap:label}"
 -->
+
 <!-- RADIO BUTTON - LAYOUT -->
 <!--
 	
 -->
+
 <!-- RADIO BUTTON - EXAMPLE -->
 <!--
-	
+<VBox class="sapUiLargeMarginEnd sapUiSmallMarginTop">
+    <Label text="{i18n>rbg}" design="Bold" />
+    <RadioButtonGroup id="RBG" columns="3" valueState="Success" select="onSelectFilter">
+        <RadioButton groupName="GroupA" text="{i18n>a}" />
+        <RadioButton groupName="GroupA" text="{i18n>b}" />
+        <RadioButton groupName="GroupA" text="{i18n>c}" />
+    </RadioButtonGroup>
+</VBox>	
+-->
+
+<!-- RADIO BUTTON GROUP - ATTRIBUTES -->
+<!-- 
+valueState="Information" valueState="Success"
 -->

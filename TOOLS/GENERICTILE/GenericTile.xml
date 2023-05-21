@@ -8,9 +8,11 @@
 <!-- GENERIC TILE - ATTRIBUTES -->
 <!--
 id="GTI" 
-class="sapUiSmallMarginEnd sapUiSmallMarginTop" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" 
+class="sapUiSmallMarginEnd sapUiSmallMarginTop" class="sapUiLargeMarginEnd sapUiSmallMarginTop" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+frameType="OneByHalf"
 header="{i18n>GTI}" 
-subheader="{i18n>GTSH}" 
+subheader="{i18n>GTSH}"
+width="10rem"
 
 press="onGoToObject" press="onGoToPage('GT', $event)"
 -->
@@ -49,7 +51,7 @@ press="onGoToObject" press="onGoToPage('GT', $event)"
 					</GenericTile>
 					<GenericTile id="GTIV" class="sapUiSmallMarginEnd" header="{i18n>GTIV}">
 						<TileContent>
-							<NumericContent icon="sap-icon://product" value="{model>/Value}" valueColor="Good"/>
+							<NumericContent icon="sap-icon://product" value="{model>/Value}" valueColor="Good" withMargin="false"/>
 						</TileContent>
 					</GenericTile>
 				</items>

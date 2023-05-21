@@ -54,6 +54,8 @@ uploadButtonInvisible="{= !${model>/Enabled}}"
 -->
 <!-- UPLOAD COLLECTION ITEM -->
 <!--
+deletePress="onDeleteItem"
+
 enableDelete="true"
 enableEdit="false" 
 visibleEdit="false"

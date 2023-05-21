@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:microchart="sap.suite.ui.microchart">
+    <microchart:ColumnMicroChart allowColumnLabels="true">
+        <microchart:columns>
+            <microchart:ColumnMicroChartData value="{model>/TotalI}" color="Critical" label="Total I"/>
+            <microchart:ColumnMicroChartData value="{model>/TotalII}" color="#1b90ff" label="Total II" />
+        </microchart:columns>
+    </microchart:ColumnMicroChart>
+</core:FragmentDefinition>
+<!-- MICRO CHART COLUMN - ATTRIBUTES -->
+<!-- 
+class="sapUiLargeMarginEnd sapUiSmallMarginTop" 
+size="L"
+width="9rem"  
+-->
+<!-- MICRO CHART COLUMN - LAYOUT -->
+<!--
+	
+-->
+<!-- MICRO CHART COLUMN - EXAMPLE -->
+<!--
+	
+-->

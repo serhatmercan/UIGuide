@@ -6,7 +6,6 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-
 ], function (BaseController, MessageToast, PDFViewer, Item, Filter, FilterOperator, JSONModel) {
 	"use strict";
 
@@ -36,6 +35,8 @@ sap.ui.define([
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
+
+		onAIR: function (oEvent) { },
 
 		onBUSDocument: function (oEvent) {
 			const oModel = this.getModel();

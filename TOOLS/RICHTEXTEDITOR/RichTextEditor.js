@@ -15,6 +15,7 @@ sap.ui.define([
 		onInit: function () {
 			this.setModel(
 				new JSONModel({
+					Edit: true,
 					Items: [],
 					Value: ""
 				}), "model");
@@ -50,7 +51,13 @@ sap.ui.define([
 
 		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
-				this.addRTEToSmartForm("RTESF");
+				const oMessageRTE = sap.ui.getCore().byId("MessageRTE");
+
+				if (oMessageRTE) {
+					oMessageRTE.setVisible(false);
+				} else {
+					this.addRTEToSmartForm("RTESF");
+				}
 			});
 		}
 

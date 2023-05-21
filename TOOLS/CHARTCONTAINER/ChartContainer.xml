@@ -3,7 +3,7 @@
         <common:content>
             <common:ChartContainerContent>
                 <common:content>
-                    <viz:Popover id="PopOver" />
+                    <viz:Popover id="Popover" />
                     <viz:VizFrame id="VizFrame" uiConfig="{applicationSet:'fiori'}" vizProperties="{ title: { text: 'Viz Frame' } }" vizType="column">
                         <viz:dataset>
                             <viz.data:FlattenedDataset data="{model>/Chart}">
@@ -26,14 +26,27 @@
         </common:content>
     </common:ChartContainer>
 </core:FragmentDefinition>
-<!-- VİZ FRAME - ATTRIBUTES -->
+<!-- CHART CONTAINER - ATTRIBUTES -->
+<!--
+autoAdjustHeight="true" 
+showFullScreen="true" 
+showPersonalization="false"
+-->
+
+<!-- CHART CONTAINER CONTENT - ATTRIBUTES -->
+<!--
+icon="sap-icon://line-chart" 
+title="Line Chart"
+-->
+
+<!-- VIZ FRAME - ATTRIBUTES -->
 <!--
 vizType="donut"
 
 selectData="onSelectData" 
 deselectData="onDeselectData"
 -->
-<!-- VİZ FRAME - CHART CONTAINER CONTENT -->
+<!-- VIZ FRAME - CHART CONTAINER CONTENT -->
 <!--
 <common:ChartContainerContent icon="sap-icon://table-view" title="Table">
     <common:content>
@@ -62,4 +75,37 @@ deselectData="onDeselectData"
         </Table>
     </common:content>
 </common:ChartContainerContent>
+-->
+
+<!-- VIZ FRAME - EXAMPLE - COLUMN -->
+<!--
+<Panel height="500px">
+    <common:ChartContainer id="ColumnChartContainer">
+        <common:content>
+            <common:ChartContainerContent>
+                <common:content>
+                    <viz:Popover id="ColumnPopover"/>
+                    <viz:VizFrame id="ColumnVizFrame" uiConfig="{ applicationSet:'fiori' }" height='100%' width="100%" vizType="column">
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{model>/Data}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="Level" value="{model>Level}" />
+                                    <viz.data:DimensionDefinition name="Year" value="{model>Year}" />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Count" value="{model>Count}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <viz.feeds:FeedItem uid="color" type="Dimension" values="Year" />
+                            <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Level" />
+                            <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Count" />                                                    
+                        </viz:feeds>
+                    </viz:VizFrame>
+                </common:content>
+            </common:ChartContainerContent>
+        </common:content>
+    </common:ChartContainer>
+</Panel>
 -->

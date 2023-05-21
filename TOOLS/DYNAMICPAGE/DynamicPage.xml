@@ -1,5 +1,4 @@
-<mvc:View controllerName="serhatmercan.Controller" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc"
-	xmlns:f="sap.f">
+<mvc:View controllerName="serhatmercan.Controller" displayBlock="true" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f">
 	<f:DynamicPage stickySubheaderProvider="iconTabBar" showFooter="{= ${message>/}.length > 0 }">
 		<f:title>
 			<f:DynamicPageTitle>
@@ -23,3 +22,15 @@
 		<f:footer></f:footer>
 	</f:DynamicPage>
 </mvc:View>
+<!-- DYNAMIC PAGE - ATTRIBUTES -->
+<!-- 
+class="sapUiNoContentPadding"
+-->
+<!-- DYNAMIC PAGE - LAYOUT -->
+<!--
+	
+-->
+<!-- DYNAMIC PAGE - EXAMPLE -->
+<!--
+	
+-->

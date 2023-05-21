@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:ng="sap.suite.ui.commons.networkgraph"
+    xmlns:ngl="sap.suite.ui.commons.networkgraph.layout">
+    <ng:Graph id="NetworkGraph" nodes="{model>/Organization/Nodes}" lines="{model>/Organization/Lines}" orientation="TopBottom" enableWheelZoom="false" search="onSearch" searchSuggest="onSearchSuggest">
+        <ng:layoutAlgorithm>
+            <ngl:LayeredLayout mergeEdges="true" nodePlacement="Simple" nodeSpacing="50"/>
+        </ng:layoutAlgorithm>
+        <ng:nodes>
+            <ng:Node key="{model>ID}" description="{model>Title}" title="{model>Level}" attributes="{model>Attributes}" collapsed="{model>Collapsed}" descriptionLineSize="2" shape="Box" width="100">
+                <ng:attributes>
+                    <ng:ElementAttribute label="{model>Label}" value="{model>Value}"/>
+                </ng:attributes>
+                <ng:image>
+                    <ng:NodeImage src="{model>Src}" width="80" height="100"/>
+                </ng:image>
+            </ng:Node>
+        </ng:nodes>
+        <ng:lines>
+            <ng:Line from="{model>From}" to="{model>To}" arrowOrientation="ParentOf" press="onPressLine" />
+        </ng:lines>
+    </ng:Graph>
+</core:FragmentDefinition>
+<!-- NETWORK GRAPH - ATTRIBUTES -->
+<!-- 
+-->
+<!-- NETWORK GRAPH - LAYOUT -->
+<!--
+	
+-->
+<!-- NETWORK GRAPH - EXAMPLE -->
+<!--
+	
+-->
+<!-- NETWORK GRAPH - NODE - ATTRIBUTES -->
+<!-- 
+showActionLinksButton="false" 
+showDetailButton="false"
+-->

@@ -28,7 +28,10 @@ snapToRow="true"
 -->
 <!-- GRID CONTAINER - LAYOUT -->
 <!--
-<f:layout>
-    <f:GridContainerSettings rowSize="1rem"/>
-</f:layout>	
+<f:GridContainer id="GC" class="sapUiSmallMargin" snapToRow="true">    
+    <f:layout>
+        <f:GridContainerSettings rowSize="1rem"/>
+    </f:layout>	
+    <core:Fragment fragmentName="com.sm.application.fragments.dialog.GCI" type="XML" />
+</f:GridContainer>
 -->

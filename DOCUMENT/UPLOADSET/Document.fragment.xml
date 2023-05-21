@@ -17,12 +17,16 @@
 <!--
 uploadButtonInvisible="true"    
 uploadEnabled="{model>/DocumentEdit}"    
+
+afterItemRemoved="onAIR"
 -->
 <!-- UPLOAD COLLECTION - TOOLBAR -->
 <!--
 -->
 <!-- UPLOAD COLLECTION ITEM - ATTRIBUTES -->
 <!--
+removePressed="onRemoveItem"
+
 enabledEdit="{model>Editable}" 
 enabledRemove="{model>Editable}"
 visibleEdit="false"    

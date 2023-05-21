@@ -3,6 +3,8 @@
 </core:FragmentDefinition>
 <!-- LINK ATTRIBUTES -->
 <!--
+class="sapUiSmallMarginEnd"
+
 emphasized="true" 
 visible="{= ( ${Url} &amp;&amp; ${Url} !== '' ) ? true : false }"
 

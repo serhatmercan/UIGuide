@@ -12,7 +12,7 @@ editable="false"
 enabled="false"
 selected="true"
 wrapping="true"
-visible="false"
+visible="false" visible="{= ${model>/PartSelected} &amp;&amp; ${model>/Part/Edit} }"
 -->
 <!-- CHECKBOX LAYOUT -->
 <!-- 

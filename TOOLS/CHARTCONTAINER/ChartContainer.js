@@ -12,6 +12,23 @@ sap.ui.define([
 			const oModel = new JSONModel({
 				Busy: false,
 				Chart: [],
+				Data: [
+					{
+						"Count": 5,
+						"Level": "L0",
+						"Year": "2022"
+					},
+					{
+						"Count": 10,
+						"Level": "L1",
+						"Year": "2022"
+					},
+					{
+						"Count": 23,
+						"Level": "L2",
+						"Year": "2023"
+					}
+				],
 				Value: ""
 			});
 
@@ -48,6 +65,10 @@ sap.ui.define([
 			});
 		},
 
+		onAfterRendering: function () {
+			this.setVizProperties();
+		},
+
 		onDeselectData: function (oEvent) {
 
 		},
@@ -70,21 +91,46 @@ sap.ui.define([
 
 		setVizProperties: function () {
 			const oVizFrame = this.byId("VizFrame");
-			const oPopOver = this.byId("PopOver");
+			const oPopover = this.byId("Popover");
 
 			oVizFrame.setAutoAdjustHeight(true);
 			oVizFrame.setShowFullScreen(true);
 
 			oVizFrame.setVizProperties({
-				title: {
-					visible: false
-				},
 				dataLabel: {
+					visible: true
+				},
+				plotArea: {
+					dataPointStyle: {
+						"rules": [
+							{
+								"dataContext": {
+									"Year": "2022"
+								},
+								"displayName": "2022",
+								"properties": {
+									"color": "#e76500"
+								}
+							},
+							{
+								"dataContext": {
+									"Year": "2023"
+								},
+								"displayName": "2023",
+								"properties": {
+									"color": "#1b90ff"
+								}
+							}
+						]
+					}
+				},
+				title: {
+					text: "Organization",
 					visible: true
 				}
 			});
 
-			oPopOver.connect(oVizFrame.getVizUid());
+			oPopover.connect(oVizFrame.getVizUid());
 		},
 
 		getTotalChartData: function () {
