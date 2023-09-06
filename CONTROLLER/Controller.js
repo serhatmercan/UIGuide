@@ -57,7 +57,7 @@ sap.ui.define([
             const sAppIdentifier = "com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
             const oSmartFilter = this.byId(sAppIdentifier + "::MainSet--listReportFilter");
 
-            oSmartFilter.attachInitialise(function () {
+            oSmartFilter.attachInitialise(() => {
                 oSmartFilter.setFilterData(oDefaultFilter);
             });
         },
@@ -88,6 +88,8 @@ sap.ui.define([
 
         patternMatched: function (oEvent) {
             this.onClearModel();
+
+            this.getView().rerender();
 
             this.getOwnerComponent().getModel().metadataLoaded().then(async () => { });
         }

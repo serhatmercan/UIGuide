@@ -222,7 +222,6 @@ sap.ui.define([
 			this.byId("Table").getBinding("rows").filter(aFilters);
 		}
 
-
 	});
 
 });

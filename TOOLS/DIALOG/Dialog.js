@@ -50,6 +50,10 @@ sap.ui.define([
 			this.oDialog.close();
 		},
 
+		onEHDialog: function (oEvent) {
+			oEvent.reject();
+		},
+
 		onFilterDialogTable: function () {
 			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.fragment.Dialog", this);
 
@@ -157,6 +161,11 @@ sap.ui.define([
 			// Before Show Dialog
 			this.oDialog.attachBeforeOpen((oEvent) => {
 				// Read Function OR Filter => getData | onFilter
+			});
+
+			// Escape Handler
+			this.oDialog.setEscapeHandler((oEvent) => {
+				oEvent.reject();
 			});
 
 			// Bind Model to Dialog

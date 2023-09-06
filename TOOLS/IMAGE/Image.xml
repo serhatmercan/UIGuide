@@ -5,8 +5,8 @@
 </core:FragmentDefinition>
 <!-- IMAGE ATTRIBUTES -->
 <!-- 
-height="100px"
-width="150px"
+height="100px" height="100%"
+width="150px" width="100%" 
 					 
 densityAware="false"
 visible="false"

@@ -28,6 +28,8 @@ sap.ui.define([
 				target: oTarget
 			};
 
+			oParams["ID"] = "X";
+			oParams["Value"] = "ABC";
 			oParams["ID"] = ["X"];
 			oParams["Value"] = ["ABC"];
 
@@ -60,6 +62,7 @@ sap.ui.define([
 		getStartupParameters: function () {
 			const oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
 			const sID = oStartupParameters.ID;
+			const sIDx = oStartupParameters.ID.toString();
 			const sValue = oStartupParameters.Value;
 		},
 

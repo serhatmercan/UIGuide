@@ -107,57 +107,58 @@ sap.ui.define([
 			const oGC = this.byId("GC");
 
 			this.getModel("model").getProperty("/Educations").forEach(oEducation => {
-				oGC.addItem(new Card({
-					layoutData: new GridContainerItemLayoutData({
-						columns: 4
-					}),
-					header: new Header({
-						title: oEducation.Company,
-						subtitle: oEducation.Type
-					}),
-					content: new SimpleForm({
-						content: [
-							new Label({
-								text: "Course",
-								class: "sapUiSmallMarginEnd",
-								design: "Bold",
-								width: "8rem"
-							}),
-							new Link({
-								text: oEducation.Course,
-								emphasized: true,
-								press: this.onShowCourseDetail.bind(this)
-							}),
-							new Label({
-								text: "Format",
-								class: "sapUiSmallMarginEnd",
-								design: "Bold",
-								width: "8rem"
-							}),
-							new Text({
-								text: oEducation.Format
-							}),
-							new Label({
-								text: "Time",
-								class: "sapUiSmallMarginEnd",
-								design: "Bold",
-								width: "8rem"
-							}),
-							new Text({
-								text: oEducation.Time
-							}),
-							new Label({
-								text: "Educator",
-								class: "sapUiSmallMarginEnd",
-								design: "Bold",
-								width: "8rem"
-							}),
-							new Text({
-								text: oEducation.Educator
-							})
-						]
-					})
-				}));
+				oGC.addItem(
+					new Card({
+						layoutData: new GridContainerItemLayoutData({
+							columns: 4
+						}),
+						header: new Header({
+							title: oEducation.Company,
+							subtitle: oEducation.Type
+						}),
+						content: new SimpleForm({
+							content: [
+								new Label({
+									text: "Course",
+									class: "sapUiSmallMarginEnd",
+									design: "Bold",
+									width: "8rem"
+								}),
+								new Link({
+									text: oEducation.Course,
+									emphasized: true,
+									press: this.onShowCourseDetail.bind(this)
+								}),
+								new Label({
+									text: "Format",
+									class: "sapUiSmallMarginEnd",
+									design: "Bold",
+									width: "8rem"
+								}),
+								new Text({
+									text: oEducation.Format
+								}),
+								new Label({
+									text: "Time",
+									class: "sapUiSmallMarginEnd",
+									design: "Bold",
+									width: "8rem"
+								}),
+								new Text({
+									text: oEducation.Time
+								}),
+								new Label({
+									text: "Educator",
+									class: "sapUiSmallMarginEnd",
+									design: "Bold",
+									width: "8rem"
+								}),
+								new Text({
+									text: oEducation.Educator
+								})
+							]
+						})
+					}));
 			});
 		},
 
@@ -197,6 +198,7 @@ sap.ui.define([
 		},
 
 		patternMatched: function (oEvent) {
+			this.byId("GC").destroyItems();
 			this.onGenerateGC();
 		}
 

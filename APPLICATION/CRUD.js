@@ -1,12 +1,13 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageBox",
+	"sap/m/MessageToast",
 	"sap/ui/core/message/Message",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/FilterType",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, MessageBox, Message, Filter, FilterOperator, FilterType, JSONModel) {
+], function (BaseController, MessageBox, MessageToast, Message, Filter, FilterOperator, FilterType, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {

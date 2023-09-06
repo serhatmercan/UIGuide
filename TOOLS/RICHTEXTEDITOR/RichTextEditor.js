@@ -35,7 +35,6 @@ sap.ui.define([
 			if (!this.byId("MessageRTE")) {
 				this.byId(sSmartFormID).getGroups()[0].getGroupElements()[0].addElement(
 					new RichTextEditor("MessageRTE", {
-						value: "{Mesaj}",
 						editorType: library.EditorType.TinyMCE6,
 						height: "10rem",
 						width: "100%",
@@ -49,6 +48,11 @@ sap.ui.define([
 			}
 		},
 
+		getValue: function () {
+			const sMessageX = sap.ui.getCore().byId("MessageRTE").getValue();
+			const sMessageY = this.byId("MessageRTE").getValue();
+		},
+
 		patternMatched: function (oEvent) {
 			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
 				const oMessageRTE = sap.ui.getCore().byId("MessageRTE");
@@ -59,6 +63,11 @@ sap.ui.define([
 					this.addRTEToSmartForm("RTESF");
 				}
 			});
+		},
+
+		setValue: function () {
+			sap.ui.getCore().byId("MessageRTE").setValue("");
+			this.byId("MessageRTE").setValue("");
 		}
 
 	});

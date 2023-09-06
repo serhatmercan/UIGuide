@@ -8,7 +8,7 @@
 </core:FragmentDefinition>
 <!-- MICRO CHART COLUMN - ATTRIBUTES -->
 <!-- 
-class="sapUiLargeMarginEnd sapUiSmallMarginTop" 
+class="sapUiLargeMarginEnd sapUiSmallMarginTop" class="sapUiSmallMargin" 
 size="L"
 width="9rem"  
 -->
@@ -18,5 +18,24 @@ width="9rem"
 -->
 <!-- MICRO CHART COLUMN - EXAMPLE -->
 <!--
-	
+<microchart:ColumnMicroChart>
+    <microchart:leftTopLabel>
+        <microchart:ColumnMicroChartLabel label="0M" color="Good"/>
+    </microchart:leftTopLabel>
+    <microchart:rightTopLabel>
+        <microchart:ColumnMicroChartLabel label="80M" color="Critical"/>
+    </microchart:rightTopLabel>
+    <microchart:leftBottomLabel>
+        <microchart:ColumnMicroChartLabel label="June 1"/>
+    </microchart:leftBottomLabel>
+    <microchart:rightBottomLabel>
+        <microchart:ColumnMicroChartLabel label="June 30"/>
+    </microchart:rightBottomLabel>
+    <microchart:columns>
+        <microchart:ColumnMicroChartData value="-6" color="Error" label="L1"/>
+        <microchart:ColumnMicroChartData value="-4" color="Critical" label="L2"/>
+        <microchart:ColumnMicroChartData value="-17" color="Error" label="L3"/>
+        <microchart:ColumnMicroChartData value="-3" color="Critical" label="L4"/>
+    </microchart:columns>
+</microchart:ColumnMicroChart>		
 -->

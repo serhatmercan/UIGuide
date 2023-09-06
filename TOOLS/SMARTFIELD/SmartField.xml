@@ -7,6 +7,7 @@
 id="SmartField"
 app:multiLineSettings="{cols: 50, rows: 20}"
 busy="{model>/Busy}"
+class="sapUiTinyMarginEnd"
 entitySet="...Set"
 placeholder="{i18n>ID}"
 textInEditModeSource="ValueList" 

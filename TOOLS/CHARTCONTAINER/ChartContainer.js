@@ -2,8 +2,12 @@ sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, Filter, FilterOperator, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/viz/ui5/controls/common/feeds/FeedItem",
+	"sap/viz/ui5/data/DimensionDefinition",
+	"sap/viz/ui5/data/FlattenedDataset",
+	"sap/viz/ui5/data/MeasureDefinition"
+], function (BaseController, Filter, FilterOperator, JSONModel, FeedItem, DimensionDefinition, FlattenedDataset, MeasureDefinition) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -29,6 +33,22 @@ sap.ui.define([
 						"Year": "2023"
 					}
 				],
+				PieChart: [{
+					Cause: "Salary",
+					Value: 13
+				}, {
+					Cause: "Freelance",
+					Value: 5
+				}, {
+					Cause: "Lack of Management",
+					Value: 3
+				}, {
+					Cause: "Moving Abroad",
+					Value: 5
+				}, {
+					Cause: "Performance",
+					Value: 4
+				}],
 				Value: ""
 			});
 
@@ -66,6 +86,7 @@ sap.ui.define([
 		},
 
 		onAfterRendering: function () {
+			this.setPieVizProperties();
 			this.setVizProperties();
 		},
 
@@ -87,6 +108,56 @@ sap.ui.define([
 			];
 
 			this.byId("VizFrame").getDataset().getBinding("data").filter(aFilters);
+		},
+
+		setPieVizProperties: function () {
+			const oPieVizFrame = this.byId("PieVizFrame");
+			const oFlattenedDataset = new FlattenedDataset({
+				data: "{model>/PieChart}"
+			});
+			const oDimension = new DimensionDefinition({
+				name: "Cause",
+				value: "{model>Cause}"
+			});
+			const oMeasure = new MeasureDefinition({
+				name: "Value",
+				value: "{model>Value}"
+			});
+			const oFeedItemI = new FeedItem({
+				uid: "size",
+				type: "Measure",
+				values: ["Value"]
+			});
+			const oFeedItemII = new FeedItem({
+				uid: "color",
+				type: "Dimension",
+				values: ["Cause"]
+			});
+
+			oFlattenedDataset.addDimension(oDimension);
+			oFlattenedDataset.addMeasure(oMeasure);
+
+			oPieVizFrame.destroyDataset();
+			oPieVizFrame.destroyFeeds();
+			oPieVizFrame.setVizProperties({
+				legend: {
+					title: {
+						visible: false
+					}
+				},
+				plotArea: {
+					dataLabel: {
+						visible: true
+					}
+				},
+				title: {
+					visible: false
+				}
+			});
+			oPieVizFrame.setModel(this.getModel("model"));
+			oPieVizFrame.setDataset(oFlattenedDataset);
+			oPieVizFrame.addFeed(oFeedItemI);
+			oPieVizFrame.addFeed(oFeedItemII);
 		},
 
 		setVizProperties: function () {

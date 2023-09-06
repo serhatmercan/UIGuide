@@ -40,12 +40,22 @@ sap.ui.define([
 			const oFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
 			const oFilterData = oSFB.getFilterData();
 			const aFilterItems = oSFB.getAllFilterItems();
+			const aCategoryFilterData = oFilterData.Category;
 			const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");
+			const oSubCategory = aFilterItems.find(oFilter => oFilter.getName() === "SubCat");
 
 			if (oFilteredFieldName === "Begda" || oFilteredFieldName === "Endda") {
 				oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);
 				oBeginDate.getControl().setValueState(oEndDate ? "Error" : "None");
 			}
+
+			if (aCategoryFilterData) {
+				aCategoryFilterData.items.forEach(oCategory => {
+					aSubCategoryFilters.push(new Filter("Cat", FilterOperator.EQ, oCategory.key));
+				});
+			}
+
+			oSubCategory.getControl().getBinding("items").filter(aSubCategoryFilters);
 		},
 
 		onGetSFBData: function () {

@@ -9,6 +9,12 @@ await $.getJSON('https://geolocation-db.com/json/').done((oLocation) => {
 Intl.DateTimeFormat().resolvedOptions().locale;	  // "tr"
 Intl.DateTimeFormat().resolvedOptions().timeZone; // "Europe/Istanbul"
 
+// Device Information
+sap.ui.Device.system
+sap.ui.Device.system.desktop    // => true | false
+sap.ui.Device.system.phone      // => true | false
+sap.ui.Device.system.tablet     // => true | false
+
 // Service Information
 sap.ushell.Container.getService("UserInfo");
 

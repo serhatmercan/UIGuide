@@ -109,3 +109,7 @@ deselectData="onDeselectData"
     </common:ChartContainer>
 </Panel>
 -->
+<!-- VIZ FRAME - EXAMPLE - PIE -->
+<!--
+<viz:VizFrame id="PieVizFrame" uiConfig="{ applicationSet: 'fiori' }" height="200px" vizType="pie" width="600px"/>
+-->    

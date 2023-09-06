@@ -59,6 +59,10 @@ h2 {
     width: 100% !important;
 }
 
+.green-card-header {
+    background-color: #256f3a !important;
+}
+
 .hideArea h4 {
     display: none !important;
 }

@@ -39,6 +39,17 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
+		onBeforeExport: function (oEvent) {
+			const oExportSettings = oEvent.getParameter("exportSettings");
+			const oBeginDate = oExportSettings.workbook?.columns?.find(oColumn => oColumn.property === "BeginDate");
+
+			oExportSettings.fileName = "Excel Test";
+
+			if (oBeginDate) {
+				oBeginDate.type = "Date";
+			}
+		},
+
 		onBeforeRebindTableWithResizing: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oTable = oEvent.getSource();

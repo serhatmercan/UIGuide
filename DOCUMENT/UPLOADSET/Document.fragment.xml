@@ -7,10 +7,9 @@
                 </upload:items>
             </upload:UploadSet>
         </content>
-        <Toolbar>
-            <ToolbarSpacer />
+        <endButton>
             <Button text="{i18n>OK}" type="Emphasized" press="onCloseDocument" />
-        </Toolbar>
+        </endButton>
     </Dialog>
 </core:FragmentDefinition>
 <!-- UPLOAD COLLECTION - ATTRIBUTES -->
