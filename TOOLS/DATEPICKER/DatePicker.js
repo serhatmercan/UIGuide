@@ -6,14 +6,18 @@ sap.ui.define([
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function() {			
+		onInit: function () {
 			const oModel = new JSONModel({
 				MaxDate: new Date(),
 				MinDate: new Date(),
-				Value: new Date()	
+				Value: new Date()
 			});
-			
-			this.setModel(oModel, "model");			
+
+			this.setModel(oModel, "model");
+		},
+
+		checkIsValidDate: function () {
+			return this.byId("DatePicker").isValidValue(); // => True / False
 		}
 
 	});

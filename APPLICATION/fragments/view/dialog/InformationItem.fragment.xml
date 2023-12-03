@@ -10,7 +10,8 @@
             </smartForm:SmartForm>
         </content>
         <beginButton>
-            <Button icon="{= ${model>/InformationItemType} === 'A' ? 'sap-icon://add' : 'sap-icon://synchronize' }" text="{= ${model>/InformationItemType} === 'A' ? ${i18n>add} : ${i18n>update} }" type="Emphasized" visible="{model>/Edit}" press="onAddInformationItem" />
+            <Button icon="{= ${model>/InformationItemType} === 'A' ? 'sap-icon://add' : 'sap-icon://synchronize' }" text="{= ${model>/InformationItemType} === 'A' ? ${i18n>add} : ${i18n>update} }" type="Emphasized" 
+                visible="{model>/Edit}" press="onAddInformationItem" />
         </beginButton>
         <endButton>
             <Button text="{= ${model>/Edit} ? ${i18n>cancel} : ${i18n>close} }" visible="{= ${model>/Edit} }" press="onACInformationItemDialog" />

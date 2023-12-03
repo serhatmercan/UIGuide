@@ -12,13 +12,9 @@
 					]
 				}
 			},
-			"subService": {
-				"uri": "/sap/opu/odata/sap/ZSM_SUB_SRV/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0",
-					"localUri": "localService/metadata.xml"
-				}
+			"util": {
+				"uri": "/sap/opu/odata/ittr/PMM_UTIL_SRV/",
+				"type": "OData"
 			}
 		}
 	},
@@ -56,8 +52,8 @@
 					"_comment": "Count Modes: Inline / InlineRepeat / None / Request"
 				}
 			},
-			"ss": {
-				"dataSource": "subService",
+			"util": {
+				"dataSource": "util",
 				"preload": true,
 				"settings": {
 					"defaultBindingMode": "TwoWay",

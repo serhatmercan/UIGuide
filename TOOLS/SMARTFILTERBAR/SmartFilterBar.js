@@ -36,15 +36,21 @@ sap.ui.define([
 		},
 
 		onFilterChangeSFB: function (oEvent) {
+			const sFilteredFieldID = oEvent.getParameters().getParameter("id");
 			const oSFB = oEvent.getSource();
-			const oFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
+			const sFilteredFieldName = oEvent.getParameters().getParameter("filterChangeReason");
 			const oFilterData = oSFB.getFilterData();
 			const aFilterItems = oSFB.getAllFilterItems();
 			const aCategoryFilterData = oFilterData.Category;
 			const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");
 			const oSubCategory = aFilterItems.find(oFilter => oFilter.getName() === "SubCat");
 
-			if (oFilteredFieldName === "Begda" || oFilteredFieldName === "Endda") {
+			if (sFilteredFieldName === "Begda" || sFilteredFieldName === "Endda") {
+				oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);
+				oBeginDate.getControl().setValueState(oEndDate ? "Error" : "None");
+			}
+
+			if (sFilteredFieldID.includes("Begda")) {
 				oBeginDate.setProperty("mandatory", oFilterData.Endda ? true : false);
 				oBeginDate.getControl().setValueState(oEndDate ? "Error" : "None");
 			}
@@ -73,16 +79,22 @@ sap.ui.define([
 		onInitSFB: function (oEvent) {
 			const oSFB = this.byId("SFB");
 			const oST = this.byId("ST");
-			const oID = {};
+			const oFilter = {};
 
 			oEvent.getSource().getAllFilterItems().filter(oFilter => oFilter.getName() === "ID")[0].setVisible(false);
 			oEvent.getSource().setFilterContainerWidth("15rem");
 			oSFB.getAllFilterItems().filter(oFilter => oFilter.getName() === "ID")[0].setVisible(false);
 			oSFB.getControlByKey("ID").setEnabled(false);
 
-			oID.ID = "X";
+			oFilter.ID = "X";
+			oFilter.Key = {
+				items: [{
+					key: "X",
+					text: "X Description"
+				}]
+			};
 
-			oSFB.setFilterData(oID);
+			oSFB.setFilterData(oFilter);
 			oST.rebindTable();
 		},
 

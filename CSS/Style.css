@@ -12,6 +12,14 @@
     color: #859442;
 }
 
+/* Standard RGBW */
+/*
+Blue: 	 #0070f2
+Green: 	 #30914c
+Red:	 #f53232
+Warning: #e76500
+*/
+
 /* ID */
 #first {
     color: aquamarine;
@@ -214,4 +222,36 @@ h2 {
 .sapUxAPObjectPageSubSection {
     padding-bottom: 0;
     box-sizing: border-box;
+}
+
+.smarttable .critical>.sapMBtnTransparent>.sapMBtnIcon {
+    color: #E78C07 !important;
+}
+
+.smarttable .critical>.sapMBtnText {
+    color: #E78C07 !important;
+}
+
+.smarttable .information>.sapMBtnTransparent>.sapMBtnIcon {
+    color: #427cac !important;
+}
+
+.smarttable .information>.sapMBtnText {
+    color: #427cac !important;
+}
+
+.smarttable .negative>.sapMBtnTransparent>.sapMBtnIcon {
+    color: #BB0000 !important;
+}
+
+.smarttable .negative>.sapMBtnText {
+    color: #BB0000 !important;
+}
+
+.smarttable .positive>.sapMBtnTransparent>.sapMBtnIcon {
+    color: #2B7D2B !important;
+}
+
+.smarttable .positive>.sapMBtnText {
+    color: #2B7D2B !important;
 }

@@ -1,13 +1,13 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
+    "com/serhatmercan/controller/BaseController",
+    "sap/ui/model/json/JSONModel"
 ], function (BaseController, JSONModel) {
-	"use strict";
+    "use strict";
 
-	return BaseController.extend("com.serhatmercan.Controller", {
+    return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			// Change Cell Style
+        onInit: function () {
+            // Change Cell Style
             this.byId("Table").getTable().getSelectedItem().getCells()[0].$().addClass("cell_color_green");
 
             // Change Selected Row Style
@@ -15,15 +15,18 @@ sap.ui.define([
 
             // Change Selected Rows Style
             this.byId("Table").getTable().getSelectedItems().forEach(oItem => {
-                oItem.addStyleClass("row_color_red");   
+                oItem.addStyleClass("row_color_red");
             });
 
             // Change All Rows Style
             this.byId("Table").getTable().getRows().forEach(oItem => {
-                oItem.addStyleClass("row_color_red");   
+                oItem.addStyleClass("row_color_red");
             });
-		}
 
-	});
+            // Remove CSS Style
+            oEvent.getSource().removeStyleClass("row_color_red");
+        }
+
+    });
 
 });

@@ -2,9 +2,11 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"com/serhatmercan/formatter",
+	"sap/m/Token",
+	"sap/m/Tokenizer",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, formatter, Filter, FilterOperator) {
+], function (BaseController, formatter, Token, Tokenizer, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -23,6 +25,7 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
+			this.byId("MI").setEnableMultiLineMode(sap.ui.Device.system.phone);
 			this.byId("MI").setValueState("Error");
 		},
 
@@ -55,6 +58,10 @@ sap.ui.define([
 			this.getModel(sModel).setProperty(sPath, aList);
 
 			oEvent.getSource().setValue("");
+		},
+
+		onClearMI: function () {
+			this.byId("MI").destroyTokens();
 		},
 
 		onConfirmSD: function () {
@@ -131,11 +138,32 @@ sap.ui.define([
 			this.oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
 			this.getView().addDependent(this.oDialog);
 			this.oDialog.open();
-		}
+		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
+
+		getTokens: function () {
+			const aTokens = this.byId("MI").getTokens();
+			const aKeys = aTokens.map(oToken => {
+				return oToken.getKey();
+			});
+
+			return aKeys;
+		},
+
+		setTokens: function () {
+			const oTokenizer = new Tokenizer();
+			const oToken = new Token({
+				key: "X",
+				text: "Value"
+			});
+
+			oTokenizer.addToken(oToken);
+
+			this.byId("MI").setTokens(oTokenizer.getTokens());
+		}
 
 	});
 

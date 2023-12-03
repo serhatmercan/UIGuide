@@ -40,6 +40,8 @@ useIconTabBar="true"
 <headerTitle>
 	<core:Fragment fragmentName="com.sm.fragments.view.main.HeaderTitle" type="XML" />
 	<ObjectPageDynamicHeaderTitle>
+		<breadcrumbs>
+		</breadcrumbs>
 		<heading>
 		</heading>
 		<expandedHeading>
@@ -51,6 +53,7 @@ useIconTabBar="true"
             <core:Fragment fragmentName="com.sm.application.fragments.view.main.HeaderToolbar" type="XML" />
         </snappedHeading>
 		<actions>
+			<m:Button icon="sap-icon://picture" tooltip="{i18n>info}" type="Emphasized" press="onShowInfo" />
 		</actions>
 	</ObjectPageDynamicHeaderTitle>
 	<ObjectPageHeader id="OPH" objectTitle="{i18n>OT}" objectSubtitle="OST" isActionAreaAlwaysVisible="true" isObjectIconAlwaysVisible="false" 
@@ -96,6 +99,13 @@ visible="{= !${model>/Value} }"
 <!--
 <headerTitle>
 	<ObjectPageDynamicHeaderTitle>
+		<breadcrumbs>
+			<m:Breadcrumbs>
+				<m:Link text="{LinkI}"/>
+				<m:Link text="{LinkII}"/>
+				<m:Link text="{LinkIII}"/>
+			</m:Breadcrumbs>
+		</breadcrumbs>
 		<heading>
 			<m:Input editable="{= !!${model>/Value} }"/>
 			<m:Title text="Text"/>

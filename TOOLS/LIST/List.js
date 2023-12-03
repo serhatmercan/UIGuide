@@ -86,6 +86,7 @@ sap.ui.define([
 
 		onPress: function (oEvent) {
 			const oData = oEvent.getSource().getBindingContext("model").getObject();
+			const sValue = oEvent.getSource().getBindingContext().getProperty("Value");
 		},
 
 		onSelectionChange: function (oEvent) {

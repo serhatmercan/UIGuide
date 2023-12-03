@@ -4,10 +4,13 @@
 <!-- BUTTON - ATTRIBUTES -->
 <!--
 id="Button" 
-class="sapUiSmallMarginTop sapUiSmallMarginBegin"
-iconFirst="true"
-type="Accept" type="Reject"
+class="sapUiSmallMarginTop sapUiSmallMarginBegin" class="sapUiTinyMarginEnd"
+icon="sap-icon://status-critical" icon="sap-icon://status-inactive" icon="sap-icon://status-negative" icon="sap-icon://status-positive"
+text="{ path: 'Count', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence : true, maxLength : 10 } }"
+type="Accept" type="Reject" type="Transparent"
 
+enabled="{= ${Count} === '0' ? false : true }"
+iconFirst="true"
 visible=true
 
 press="onSendParameter('P', $event)"

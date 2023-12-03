@@ -111,12 +111,25 @@
 					"target": [
 						"Main"
 					]
+				},
+				{
+					"name": "Object",
+					"pattern": "Object",
+					"target": "Object"
 				}
 			],
 			"targets": {
 				"Main": {
 					"viewName": "Main",
 					"viewId": "Main"
+				},
+				"Object": {
+					"clearAggregation": true,
+					"transition": "slide",
+					"viewName": "Object",
+					"viewId": "Object",
+					"viewLevel": 2,
+					"viewType": "XML"
 				}
 			}
 		},

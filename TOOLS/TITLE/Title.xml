@@ -5,9 +5,11 @@
 <!--
 id="idTitle"
 
-class="sapUiTinyMarginBottom"
+class="sapUiTinyMarginBottom" class="sapUiTinyMarginEnd sapUiTinyMarginTop"
 level="H4"
 text="{ path : 'model>Value', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence: true, maxLength: 3 }} {i18n>text}"/>
 text="{ parts:[ { path:'model>/ID' }, { path: 'model>/Key' }, { path: 'model>/Value' } ], formatter: '.formatter.generateTitle' }"
 titleStyle="H3" titleStyle="H4"
+
+wrapping="true"
 -->

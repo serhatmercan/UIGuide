@@ -33,6 +33,9 @@ sap.ui.define([
 			oParams["ID"] = ["X"];
 			oParams["Value"] = ["ABC"];
 
+			// Parameter Contains / Character
+			oParams["Value"] = oParams["Value"].replace("/", "%%");
+
 			oTarget.action = "display";
 			oTarget.action = "manage&/ZApplication/" + "ABC" + "/9999999999";
 
@@ -49,6 +52,7 @@ sap.ui.define([
 			});
 
 			sap.m.URLHelper.redirect(window.location.href.split("#")[0] + oHrefForExternal, true);
+			sap.m.URLHelper.redirect("#ZSM_APP-manage&/Candidate/" + "TR33273" + "/" + "A8", true);
 		},
 
 		/* ================ */

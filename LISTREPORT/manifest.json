@@ -50,6 +50,7 @@
 										"GoToExternalPage": {
 											"id": "ExternalPage",
 											"text": "{@i18n>externalPage}",
+											"requiresSelection": true,
 											"press": "onGoToExternalPage"
 										}
 									}

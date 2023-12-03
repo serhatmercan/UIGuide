@@ -7,7 +7,7 @@
 <!-- SMART TABLE - ATTRIBUTES -->
 <!-- 
 id="ST"
-class="sapUiResponsiveContentPadding" 
+class="sapUiResponsiveContentPadding" class="smarttable sapUiResponsiveContentPadding"
 header="{i18n>smartTable}" header="{/#Main/ST/@sap:label}" w/ showRowCount="true" 
 ignoredFields="Value" 
 initiallyVisibleFields="ID,Key" 
@@ -103,7 +103,11 @@ initialized="onInitST"
 			<cells>
 				<Text text="{Key}"/>
 				<ObjectNumber number="{ path:'Wrbtr', type: 'sap.ui.model.type.Float' }" unit="{Waers}" state="Success" />
-				<ObjectStatus text="{StatuT}" icon="{path: 'Statu', formatter: '.formatter.getStatuIcon'}" state="{ path: 'Statu', formatter: '.formatter.getStatuState' }" />				
+				<ObjectStatus text="{StatuT}" icon="{path: 'Statu', formatter: '.formatter.getStatuIcon'}" state="{ path: 'Statu', formatter: '.formatter.getStatuState' }" />
+				<Button class="critical" />
+				<Button class="information" />
+				<Button class="negative" />
+				<Button class="positive" />
 			</cells>
 		</ColumnListItem>
 	</items>

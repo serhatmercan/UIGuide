@@ -15,14 +15,16 @@ textLabel="{i18n>ID}"
 value="{ path: 'Value', type: 'sap.ui.model.type.Integer' }
 value="{ path: 'Date',
 type:'sap.ui.model.type.Date', formatOptions: { UTC: true } }"   
-width="18rem"			  
+width="18rem" width="{= ${model>/Desktop} ? '17.5rem' : '100%'}" width="{= ${model>/Desktop} ? '46rem' : '100%'}"			   
 
 editable="false"
 enabled="false"
 mandatory="true" mandatory="{= ${ID} === 'X' }" 
 showLabel="false"
 showSuggestion="false"
-visible="false"	visible="{= ${ID} === 'X' &amp;&amp; !${model>/Edit} }" 
+uomEditable="false"
+visible="false"	visible="{= ${ID} === 'X' &amp;&amp; !${model>/Edit} }"
+
 change="onChangeID" change="onChangeIDWithDescription"
 innerControlsCreated="onICC"
 valueListChanged="onVLC"
@@ -46,7 +48,6 @@ valueListChanged="onVLC"
 <!-- SMART FIELD - CONFIGURATION -->
 <!--
 controlType="dropDownList" controlType="selection"	
-displayBehaviour="idAndDescription"
-displayBehaviour="descriptionOnly"
+displayBehaviour="descriptionOnly" displayBehaviour="idAndDescription"
 preventInitialDataFetchInValueHelpDialog="true"
 -->

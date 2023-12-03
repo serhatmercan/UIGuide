@@ -17,6 +17,7 @@ useToolbar="true"
 afterVariantLoad="onAVL"
 beforeVariantFetch="onBVF"
 beforeVariantSave="onBVS" 
+filterChange="onFilterChangeSFB"
 initialized="onInitSFB"
 search="onSearchSFB"
 -->
@@ -59,8 +60,6 @@ mandatory="mandatory"
 		
 preventInitialDataFetchInValueHelpDialog="false"
 visibleInAdvancedArea="true" 
-
-filterChange="onFilterChangeSFB"
 -->
 <!-- SMART FILTER BAR - LAYOUT -->
 <!--

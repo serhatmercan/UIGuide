@@ -19,7 +19,7 @@ editable="true"
 <!-- 
 <smartForm:layout>	
 	<smartForm:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
-	<smartForm:Layout labelSpanL="3"/>
+	<smartForm:Layout labelSpanXL="2" labelSpanL="2" labelSpanM="2"/>
 </smartForm:layout>	
 -->
 

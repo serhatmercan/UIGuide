@@ -4,6 +4,7 @@
 <!--
 DATE PICKER - ATTRIBUTES
 
+id="DatePicker"
 class="sapUiSmallMarginBottom"
 displayFormat="dd.MM.yyyy"
 maxDate="{model>/MaxDate}"
@@ -18,4 +19,6 @@ valueStateText="{i18n>text}"
 
 editable="false"
 enabled="{model>Enable}"
+showCurrentDateButton="true"
+showFooter="true"
 -->

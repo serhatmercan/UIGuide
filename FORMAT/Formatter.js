@@ -179,6 +179,23 @@ sap.ui.define([
 			return oDateFormat.format(new Date());
 		},
 
+		/*
+		generateDateTime(): Generate Date Time 
+		@oDate: Type: sap.ui.model.type.Date / Sun May 14 2023 15:12:49 GMT+0300 (GMT+03:00)
+		@oTime: Type: sap.ui.model.type.Time / {ms: 63549000, __edmType: 'Edm.Time'}
+		return: DateTime
+		*/
+
+		generateDateTime: function (oDate, oTime) {
+			let oDateTime;
+
+			oDate.setHours(0, 0, 0, 0);
+			oDateTime = new Date(oDate.valueOf());
+			oDateTime.setTime(oDateTime.getTime() + oTime.ms);
+
+			return oDateTime;
+		},
+
 		generateDateWithFormat: function () {
 			const oDateFormat = DateFormat.getDateInstance({
 				pattern: "dd/MM/yyyy",
@@ -227,7 +244,9 @@ sap.ui.define([
 
 			const xDate = new Date(oDate.valueOf());
 
-			return xDate.setHours((xDate.getTimezoneOffset() / 60) * -1);
+			xDate.setHours((xDate.getTimezoneOffset() / 60) * -1);
+
+			return xDate;
 		},
 
 		generateLocalDateTime: function () {
@@ -259,23 +278,23 @@ sap.ui.define([
 
 		/*
 		generateTimestamp(): Generate Timestamp 
-		@dCreatedDate: Type: sap.ui.model.type.Date / Sun May 14 2023 15:12:49 GMT+0300 (GMT+03:00)
-		@tCreatedTime: Type: sap.ui.model.type.Time / {ms: 63549000, __edmType: 'Edm.Time'}
+		@oCreatedDate: Type: sap.ui.model.type.Date / Sun May 14 2023 15:12:49 GMT+0300 (GMT+03:00)
+		@oCreatedTime: Type: sap.ui.model.type.Time / {ms: 63549000, __edmType: 'Edm.Time'}
 		return: DateTime
 		*/
 
-		generateTimestamp: function (dCreatedDate, tCreatedTime) {
-			if (!dCreatedDate || !tCreatedTime) {
+		generateTimestamp: function (oCreatedDate, oCreatedTime) {
+			if (!oCreatedDate || !oCreatedTime) {
 				return;
 			}
 
-			const dCreatedTime = new Date(tCreatedTime.ms);
+			const dCreatedTime = new Date(oCreatedTime.ms);
 
-			dCreatedDate.setHours(dCreatedTime.getHours());
-			dCreatedDate.setMinutes(dCreatedTime.getMinutes());
-			dCreatedDate.setSeconds(dCreatedTime.getSeconds());
+			oCreatedDate.setHours(dCreatedTime.getHours());
+			oCreatedDate.setMinutes(dCreatedTime.getMinutes());
+			oCreatedDate.setSeconds(dCreatedTime.getSeconds());
 
-			return dCreatedDate;
+			return oCreatedDate;
 		},
 
 		getStatuIcon: function (sStatu) {

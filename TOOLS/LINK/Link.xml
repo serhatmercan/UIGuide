@@ -5,6 +5,8 @@
 <!--
 class="sapUiSmallMarginEnd"
 
+text="{ path : 'Link', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence: true, maxLength: 10 }}"
+
 emphasized="true" 
 visible="{= ( ${Url} &amp;&amp; ${Url} !== '' ) ? true : false }"
 

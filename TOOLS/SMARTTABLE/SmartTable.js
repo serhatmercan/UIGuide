@@ -50,17 +50,6 @@ sap.ui.define([
 			}
 		},
 
-		onBeforeRebindTableWithResizing: function (oEvent) {
-			const oBindingParams = oEvent.getParameter("bindingParams");
-			const oTable = oEvent.getSource();
-
-			oBindingParams.events = {
-				"dataReceived": () => {
-					setTimeout(() => this.setTableWithResizing(oTable));
-				}
-			};
-		},
-
 		onBRT: function (oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilterPeriod = new Filter("ID", FilterOperator.EQ, "X");
@@ -70,7 +59,7 @@ sap.ui.define([
 
 			oBindingParams.filters.push(oFilterPeriod);
 
-			this.onBeforeRebindTableWithResizing(oEvent);
+			this.onBRTDataReceived(oEvent);
 			this.onSetFilter();
 			this.onSetTableContent(oTable);
 
@@ -91,6 +80,20 @@ sap.ui.define([
 					}
 				}
 			}
+		},
+
+		onBRTDataReceived: function (oEvent) {
+			const oBindingParams = oEvent.getParameter("bindingParams");
+			const oTable = oEvent.getSource();
+
+			oBindingParams.events = {
+				"dataReceived": () => {
+					setTimeout(() => {
+						this.setTableColor(oTable);
+						this.setTableWithResizing(oTable);
+					});
+				}
+			};
 		},
 
 		onChangeKey: function (oEvent) {
@@ -276,6 +279,30 @@ sap.ui.define([
 
 				oSmartTable.rebindTable();
 			}
+		},
+
+		setTableColor: function (oTable) {
+			const oModel = this.getModel();
+
+			oTable.getRows().forEach(oRow => {
+				const sStatu = oModel.getProperty(oRow.getBindingContext().getPath() + "/Statu");
+				let sBackgroundColor = "";
+
+				switch (sStatu) {
+					case "CM":
+						sBackgroundColor = "#30914c";
+						break;
+					case "PR":
+						sBackgroundColor = "#e76500";
+						break;
+					default:
+						sBackgroundColor = "#fff";
+						break;
+				}
+
+				oRow.$().css("background-color", sBackgroundColor);
+				$("#" + oRow.getId()).css("background-color", sBackgroundColor);
+			});
 		},
 
 		setTableContent: function (oTable) {

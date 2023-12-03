@@ -1,19 +1,19 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="xxx.controller.Main">
 	<semantic:SemanticPage showFooter="{model>/ItemFound}">
 		<semantic:titleHeading>
-			<core:Fragment fragmentName="xxx.fragment.main.Title" type="XML" />
+			<core:Fragment fragmentName="xxx.fragments.main.Title" type="XML" />
 		</semantic:titleHeading>
 		<semantic:headerContent>
-			<core:Fragment fragmentName="xxx.fragment.main.Filter" type="XML" />
+			<core:Fragment fragmentName="xxx.fragments.main.Filter" type="XML" />
 		</semantic:headerContent>
 		<semantic:content>
-			<core:Fragment fragmentName="xxx.fragment.main.Content" type="XML" />
+			<core:Fragment fragmentName="xxx.fragments.main.Content" type="XML" />
 		</semantic:content>
 		<semantic:messagesIndicator>
 			<semantic:MessagesIndicator id="MessagePO" press="onShowMessages" />
 		</semantic:messagesIndicator>
 		<semantic:footerCustomActions>
-			<core:Fragment fragmentName="xxx.fragment.main.Footer" type="XML" />
+			<core:Fragment fragmentName="xxx.fragments.main.Footer" type="XML" />
 		</semantic:footerCustomActions>
 	</semantic:SemanticPage>
 </mvc:View>

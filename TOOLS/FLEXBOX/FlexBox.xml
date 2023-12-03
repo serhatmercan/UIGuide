@@ -9,11 +9,11 @@
 <!--
 id="FlexBox" 
 alignContent="Center" 
-alignItems="Center" alignItems="End" alignContent="SpaceAround"
-class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding"
+alignItems="Center" alignItems="End" alignContent="SpaceAround" alignItems="Stretch"
+class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding" class="sapUiLargeMarginBegin sapUiSmallMarginTop"
 height="100%" 
 justifyContent="Center" justifyContent="End" justifyContent="SpaceAround"	  
-width="100%" 
+width="100%" width="{= ${model>/Desktop} ? '57.5rem' : '100%'}" 
 wrap="Wrap"
 
 fitContainer="true"
@@ -33,3 +33,4 @@ fitContainer="true"
     </Panel>
 </FlexBox>
 -->
+

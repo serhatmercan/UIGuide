@@ -94,6 +94,12 @@ sap.ui.define([
 			}
 		},
 
+		onFilterContent: function () {
+			const oFilter = new Filter("Statu", FilterOperator.EQ, sValue);
+
+			this.byId("SmartField").getContent().getBindingInfo("items").binding.filter(oFilter);
+		},
+
 		onFilterDDL: function () {
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -196,6 +202,7 @@ sap.ui.define([
 		getValue: function () {
 			const oSmartField = this.byId("SmartField");
 			const sValue = oSmartField.getProperty("value") ? oSmartField.getProperty("value") : oSmartField.getValue();
+			const sText = oSmartField.getContent().getSelectedItem().getProperty("text");
 		},
 
 		patternMatched: function (oEvent) {

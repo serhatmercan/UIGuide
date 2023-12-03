@@ -1,8 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/routing/History"
-], function (BaseController, JSONModel, History) {
+	"sap/ui/model/json/JSONModel"
+], function (BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -25,22 +24,12 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onGoToPage: function (sType, oEvent) {
-			const oRouter = this.getRouter();
+		onGetSMIData: function () {
+			const aSMIData = [];
 
-			switch (sType) {
-				case "GTI":
-					oRouter.navTo("GTI");
-					break;
-			}
-		},
-
-		onNavBack: function () {
-			if (History.getInstance().getPreviousHash() !== undefined) {
-				window.history.go(-1);
-			} else {
-				this.getRouter().navTo("Main", {}, true);
-			}
+			this.byId("SmartMultiInput").getTokens().forEach((oToken) => {
+				aSMIData.push(oToken.getProperty("key"));
+			});
 		},
 
 		/* ================ */
@@ -49,12 +38,6 @@ sap.ui.define([
 
 		patternMatched: function (oEvent) {
 
-		},
-
-		setInitialPage: function () {
-			setTimeout(() => {
-				this.byId("Page").scrollTo(0, 0);
-			}, 250);
 		}
 
 	});

@@ -5,11 +5,13 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
 	"sap/m/CheckBox",
 	"sap/m/Column",
+	"sap/m/ColumnListItem",
 	"sap/m/Input",
 	"sap/m/Label",
 	'sap/m/library',
+	"sap/m/Text",
 	"sap/ui/model/Sorter"
-], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, Input, Label, MobileLibrary, Sorter) {
+], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Text, Sorter) {
 	"use strict";
 
 	const URLHelper = MobileLibrary.URLHelper;
@@ -32,11 +34,27 @@ sap.ui.define([
 				this.getModel("model").setProperty("/Statu", !!oEvent.getSource().getSelectedContextPaths().length);
 			});
 
-			this.byId("Table").onAttachUpdateFinished = function (oEvent) {
+			this.byId("Table").onAttachUpdateFinished((oEvent) => {
 				oEvent.getSource().getAggregation("items").forEach((oItem) => oItem.setType("Navigation"));
-			}.bind(this);
+			});
+
+			this.byId("Table").attachUpdateFinished((oEvent) => {
+				oEvent.getSource().getItems().forEach(oItem => {
+					const sBindingPath = oItem.getBindingContext("model").getPath();
+					const oViewModel = this.getModel("model");
+
+					if (oItem.getBindingContext("model") && oViewModel.getProperty(sBindingPath + "/Statu") === "G") {
+						oItem.$().css("background-color", "#30914c");
+					} else if (oItem.getBindingContext("model") && oViewModel.getProperty(sBindingPath + "/Statu") === "W") {
+						oItem.$().css("background-color", "#e76500");
+					} else {
+						oItem.$().css("background-color", "##fff");
+					}
+				});
+			});
 
 			this.byId("Table").getBinding("items").refresh(true);
+			this.byId("Table").removeAllItems();
 			this.byId("Table").removeSelections(true);
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
@@ -50,6 +68,35 @@ sap.ui.define([
 			this.initTable("Table", "CLI", 2);
 			this.initModel();
 			this.setTableColumn();
+		},
+
+		onBindItems: function () {
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+
+			this.byId("Table").bindItems({
+				path: "/TableSet",
+				template: new ColumnListItem({
+					cells: [
+						new Text({
+							text: "{ID}"
+						}),
+						new Text({
+							text: {
+								parts: [{
+									path: "Date"
+								}],
+								formatter: this.formatter.convertDate
+							}
+						})
+					]
+				}),
+				filters: aFilters,
+				events: {
+					dataReceived: (oEvent) => { }
+				}
+			});
 		},
 
 		onCellClick: function (oEvent) {
@@ -113,9 +160,10 @@ sap.ui.define([
 
 		onDownloadExcel: function () {
 			const sDownloadUrl = this.byId("Table").getBinding("items").getDownloadUrl();
+			const sFilter = "?$filter=ID eq 'X'";
 			const sUrlParameters = "$format=xlsx&$select=ID,Value,Text";
 
-			window.open(sDownloadUrl + "&" + sUrlParameters);
+			window.open(sDownloadUrl + sFilter + "&" + sUrlParameters);
 		},
 
 		onDownloadExcelII: function () {
@@ -204,6 +252,10 @@ sap.ui.define([
 			return aItems;
 		},
 
+		getSelectedContextProperty: function (sProperty) {
+			return this.byId("Table").getSelectedContexts()[0].getProperty(sProperty);
+		},
+
 		getSelectedContexts: function () {
 			return this.byId("Table").getSelectedContexts();
 		},
@@ -252,7 +304,7 @@ sap.ui.define([
 		},
 
 		setFilter: function () {
-			let aFilters = [
+			const aFilters = [
 				new Filter("Value", FilterOperator.EQ, "X")
 			];
 

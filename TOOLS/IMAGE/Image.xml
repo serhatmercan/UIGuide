@@ -4,10 +4,15 @@
     <Image src="{ path: '', formatter: '.formatter.getImage' }" tooltip="X" />
 </core:FragmentDefinition>
 <!-- IMAGE ATTRIBUTES -->
-<!-- 
+<!--
+class="sapUiTinyMarginTop sapUiTinyMarginEnd"     
 height="100px" height="100%"
+tooltip="{model>Tooltip}"
 width="150px" width="100%" 
-					 
+
+decorative="false"					 
 densityAware="false"
 visible="false"
+
+press="onShowImage"
 -->

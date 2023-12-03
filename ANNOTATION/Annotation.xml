@@ -208,6 +208,10 @@
                 <Annotation Term="UI.MultiLineText" Bool="true" />
                 <Annotation Term="UI.TextArrangement" EnumMember="UI.TextArrangementType/TextLast" />
             </Annotations>
+            <Annotations Target="Metadata.Main/Items">
+                <Annotation Term="Common.DerivedNavigation" Path="Values" />
+                <Annotation Term="Common.Insertable" Bool="true" />
+            </Annotations>
             <Annotations Target="Metadata.ZSM_SRV_Entities/ReportSet">
                 <Annotation Term="Capabilities.FilterRestrictions">
                     <Record Type="Capabilities.FilterRestrictionsType">

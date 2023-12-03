@@ -14,7 +14,8 @@
                 <ToolbarSpacer />
             </Toolbar>
         </headerToolbar>
-        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" title="{model>Id}" type="Active" press="onPress" />
+        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" 
+			title="{model>Id}" type="Active" press="onPress" />
     </List>
 </mvc:View>
 <!-- LIST - ATTRIBUTES -->
@@ -22,6 +23,7 @@
 id="List"
 headerText="{i18n>list}"
 items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
+items="{ path: '/MainSHSet', suspended: true }"
 items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
 growingThreshold="10"
 mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
@@ -98,6 +100,8 @@ selectionChange="onSelectionChange"
 <!--
 
 counter="{model>Counter}"
+title="{ID} - {Value}" 
+type="Navigation"
 
 <StandardListItem>
 	<customData>

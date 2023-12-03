@@ -16,6 +16,10 @@ sap.ui.define([
 			});
 
 			this.setModel(oModel, "model");
+		},
+
+		onShowImage: function(){
+			
 		}
 
 	});

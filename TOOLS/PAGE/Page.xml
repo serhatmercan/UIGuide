@@ -7,7 +7,7 @@
 <!-- PAGE - ATTRIBUTES -->
 <!-- 
 class="sapUiFioriObjectPage" class="sapUiResponsiveContentPadding"
-
+id="Page"
 
 backgroundDesign="Solid"
 enableScrolling="false"
@@ -34,6 +34,9 @@ navButtonPress="onNavBack"
 	<Toolbar>
 	</Toolbar>
 </subHeader>
+<headerContent>
+    <Text text="Header Content"/>
+</headerContent>
 <content>
 </content>
 <dependents>

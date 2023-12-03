@@ -26,7 +26,27 @@ this.getRouter().navTo("manifest/sap.ui5/routing/targets/...", { // manifest/sap
 // Go To The Not Found Page
 this.getRouter().getTargets().display("objectNotFound");
 
+// Parameter Contains / Character
+sValue.replace("/", "%%");
+
 // Go To Launchpad - 1
+"sap/m/MessageBox"
+MessageBox
+
+MessageBox.error(this.getResourceBundle().getText("checkAuthorization"), {
+	actions: [MessageBox.Action.CLOSE],
+	emphasizedAction: MessageBox.Action.CLOSE,
+	onClose: () => {
+		sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
+			target: {
+				semanticObject: "#"
+			}
+		});
+	}
+});
+return;
+
+// Go To Launchpad - 2
 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
 this.oCrossAppNavigator.toExternal({
@@ -35,7 +55,7 @@ this.oCrossAppNavigator.toExternal({
 	}
 });
 
-// Go To Launchpad - 2
+// Go To Launchpad - 3
 var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
 this.oCrossAppNavigator.toExternal({
