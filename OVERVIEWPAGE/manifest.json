@@ -1,0 +1,72 @@
+{
+	"sap.app": {
+		"dataSources": {
+			"PMM_EQUI_DASH": {
+				"uri": "/sap/opu/odata/sm/SM_OVP_DASH_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/SM_OVP_DASH/metadata.xml",
+					"annotations": [
+						"annotation"
+					]
+				}
+			},
+			"annotation": {
+				"type": "ODataAnnotation",
+				"uri": "annotation.xml",
+				"settings": {
+					"localUri": "annotation.xml"
+				}
+			}
+		}
+	},
+	"sap.ovp": {
+		"globalFilterModel": "mainModel",
+		"globalFilterEntityType": "OVPFilter",
+		"containerLayout": "resizable",
+		"considerAnalyticalParameters": true,
+		"enableLiveFilter": false,
+		"cards": {
+			"card01": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{Title1}}",
+					"entitySet": "GetOVPISet",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#stackedColumnChartBreakDown",
+					"defaultSpan": {
+						"cols": 2,
+						"rows": 10
+					}
+				}
+			},
+			"card02": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{Title2}}",
+					"entitySet": "GetOVPIISet",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#stackedColumnChartOpenWork",
+					"defaultSpan": {
+						"cols": 2,
+						"rows": 10
+					}
+				}
+			},
+			"Production": {
+				"model": "mainModel",
+				"template": "sap.ovp.cards.charts.analytical",
+				"settings": {
+					"title": "{{productionCard}}",
+					"entitySet": "ProductionSet",
+					"chartAnnotationPath": "com.sap.vocabularies.UI.v1.Chart#Production",
+					"defaultSpan": {
+						"cols": 3,
+						"rows": 10
+					}
+				}
+			}
+		}
+	}
+}

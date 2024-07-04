@@ -1,0 +1,22 @@
+<mvc:View controllerName="com.sm.application.controller.DetailX"
+    xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc">
+    <ObjectPageLayout>
+        <headerTitle>
+            <core:Fragment fragmentName="com.sm.application.fragments.detailx.Title" type="XML" />
+        </headerTitle>
+        <sections>
+            <ObjectPageSection showTitle="true" titleUppercase="false">
+                <subSections>
+                    <ObjectPageSubSection title="{i18n>documents}" titleUppercase="false">
+                        <blocks>
+                            <core:Fragment fragmentName="com.sm.application.fragments.detailx.List" type="XML" />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>
+

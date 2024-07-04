@@ -1,0 +1,63 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog afterClose="onACDialog">
+		<content></content>
+	</Dialog>
+</core:FragmentDefinition> 
+<!-- DIALOG - ATTRIBUTES -->
+<!-- 
+id="idDialog" 
+busyIndicatorDelay="0"
+class="sapUiContentPadding" 	
+contentHeight="auto"
+contentWidth="100rem"
+title="{i18n>title}"
+
+busy="false"
+horizontalScrolling="false"
+showHeader="true" 
+stretch="true" stretch="{= ${device>/system/phone} }"
+stretchOnPhone="true" 
+verticalScrolling="false"
+
+beforeOpen="onBODialog"
+escapeHandler=".onEHDialog"
+-->
+<!-- DIALOG - LAYOUT -->
+<!--
+Library: xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform"
+
+<customHeader>
+	<Toolbar>
+		<ToolbarSpacer/>
+		<Title text="{i18n>title}"/>
+		<ToolbarSpacer/>
+		<Button press="onPress"/>
+	</Toolbar>
+</customHeader>
+<content>	
+	<smartForm:SmartForm id="InformationItemSF" editable="{model>/Edit}">
+		<smartForm:Group label="">                    
+			<smartForm:GroupElement>
+				<smartField:SmartField value="{Value}" />
+			</smartForm:GroupElement>                    
+		</smartForm:Group>
+	</smartForm:SmartForm>
+</content>	
+<buttons>
+	<Button text="{i18n>buttonI}" press="onPressButtonI"/>
+	<Button text="{i18n>buttonII}" press="onPressButtonII"/>
+	<Button text="{i18n>buttonIII}" press="onPressButtonIII"/>
+</buttons>
+<Toolbar>
+	<Button visible="{=${message>/}.length > 0}" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup" press="onShowMessages"/>
+	<ToolbarSpacer/>
+	<Button text="{i18n>buttonIV}" press="onPressButtonIV"/>
+	<Button text="{i18n>buttonV}" press="onPressButtonV"/>
+</Toolbar>
+<beginButton>
+	<Button text="{i18n>continue}" press="onPressContinue"/>
+</beginButton>
+<endButton>
+	<Button text="{i18n>cancel}" press="onACDialog"/>
+</endButton>
+-->

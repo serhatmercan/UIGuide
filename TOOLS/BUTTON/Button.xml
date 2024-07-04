@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Button text="{i18n>button}" tooltip="{i18n>buttonTooltip}" type="Emphasized" icon="sap-icon://add" press="onPress" />
+</core:FragmentDefinition> <!-- -->
+<!-- BUTTON - ATTRIBUTES -->
+<!--
+id="Button" 
+class="sapUiSmallMarginTop sapUiSmallMarginBegin" class="sapUiTinyMarginEnd"
+icon="sap-icon://status-critical" icon="sap-icon://status-inactive" icon="sap-icon://status-negative" icon="sap-icon://status-positive"
+text="{ path: 'Count', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence : true, maxLength : 10 } }"
+type="Accept" type="Reject" type="Transparent"
+
+enabled="{= ${Count} === '0' ? false : true }"
+iconFirst="true"
+visible=true
+
+press="onSendParameter('P', $event)"
+-->
+<!-- BUTTON - LAYOUT -->
+<!--
+<Button icon="sap-icon://attachment" tooltip="{i18n>document}" type="Emphasized" press="onShowDocument">
+	<customData>
+		<BadgeCustomData key="badge" value="{= +${DocCount} }" visible="{= ${DocCount} &amp;&amp; +${DocCount} !== 0 }" />
+	</customData>
+</Button>
+-->

@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
+    <unified:Currency currency="{model>/Currency}" stringValue="{model>/Amount}" useSymbol="false"/>
+</core:FragmentDefinition>
+<!-- CURRENCY - ATTRIBUTES -->
+<!-- 
+
+-->
+
+<!-- CURRENCY - LAYOUT -->
+<!--
+	
+-->

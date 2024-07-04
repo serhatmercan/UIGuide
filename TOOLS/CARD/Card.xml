@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:card="sap.f.cards" xmlns:core="sap.ui.core" xmlns:f="sap.f" xmlns:l="sap.ui.layout">
+    <f:Card>		
+		<f:content>			
+		</f:content>
+	</f:Card>
+</core:FragmentDefinition>
+<!-- CARD - ATTRIBUTES -->
+<!-- 
+id="Card"
+class="sapUiLargeMarginBegin"
+height="8rem"
+width="12rem"
+-->
+
+<!-- CARD - CONTENT -->
+<!--
+<l:VerticalLayout class="sapUiContentPadding" class="sapUiTinyMargin">
+</l:VerticalLayout>    
+-->   
+<!-- CARD - LAYOUT -->
+<!--
+<f:layoutData>
+    <f:GridContainerItemLayoutData columns="3" rows="7"/>
+</f:layoutData>
+<f:header>
+    <card:Header iconSrc="sap-icon://lead" title="Revenue" class="green-card-header" />
+</f:header>	
+<f:content>
+	<ObjectNumber number="{model>/Number}" unit="{model>/Unit}" state="Success" class="sapUiTinyMarginBegin sapMObjectNumberLarge"/>
+</f:content>	
+-->
+<!-- CARD - EXAMPLE -->
+<!--
+<f:Card>	
+	<f:layoutData>
+		<f:GridContainerItemLayoutData columns="3"/>
+	</f:layoutData>
+	<f:header>
+        <card:Header iconSrc="sap-icon://lead" title="Revenue" class="green-card-header" />
+    </f:header>	
+	<f:content>
+		<l:VerticalLayout class="sapUiContentPadding">
+			<FlexBox alignItems="Start" justifyContent="Start">
+			</FlexBox>
+			<FlexBox alignItems="Start" justifyContent="Start">
+			</FlexBox>
+		</l:VerticalLayout>
+	</f:content>
+</f:Card>
+-->

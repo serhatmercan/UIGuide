@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+	<t:TreeTable id="TreeTable" rows="{ path : '/TreeTableSet', parameters: { countMode: 'Inline' } }" selectionBehavior="RowOnly" selectionMode="Single">
+		<t:columns>
+			<t:Column label="{i18n>Node}">
+				<t:template>
+					<HBox alignContent="Center" alignItems="Center" justifyContent="Start">
+						<Text text="{Node}" wrapping="false"/>
+					</HBox>
+				</t:template>
+			</t:Column>
+			<t:Column label="{i18n>Description}">
+				<t:template>
+					<Text text="{Description}" wrapping="false"/>
+				</t:template>
+			</t:Column>
+		</t:columns>
+	</t:TreeTable>	
+</core:FragmentDefinition>

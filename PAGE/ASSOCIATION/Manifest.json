@@ -1,0 +1,20 @@
+{
+	"sap.ui5": {
+		"routing": {
+			"routes": [{
+				"pattern": "MainSet/{ID}",
+				"name": "Object",
+				"target": [
+					"Object"
+				]
+			}],
+			"targets": {
+				"Object": {
+					"viewName": "Object",
+					"viewId": "Object",
+					"viewLevel": 2
+				}
+			}
+		}
+	}
+}

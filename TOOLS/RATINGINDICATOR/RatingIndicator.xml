@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <RatingIndicator editable="false" maxValue="5" value="{model>/Value}" />
+</core:FragmentDefinition>
+<!-- RATING INDICATOR - ATTRIBUTES -->
+<!-- 
+class="sapUiSmallMarginBegin"
+-->
+<!-- RATING INDICATOR - LAYOUT -->
+<!--
+	
+-->
+<!-- RATING INDICATOR - EXAMPLE -->
+<!--
+<VBox class="sapUiSmallMarginBeginEnd">
+    <HBox class="sapUiTinyMarginBottom">
+    	<Title text="Title I" class="sapUiTinyMarginTop" />
+        <RatingIndicator value="{model>/ValueI}" class="sapUiSmallMarginBegin" editable="false" />
+    </HBox>
+    <HBox class="sapUiTinyMarginBottom">
+    	<Title text="Title II" class="sapUiTinyMarginTop" />
+        <RatingIndicator value="{model>/ValueII}" class="sapUiSmallMarginBegin" editable="false" />
+    </HBox>
+</VBox>	
+-->

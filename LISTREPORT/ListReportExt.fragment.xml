@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+	<table:Column id="ExtensionWizard::ColumnBreakout" width="10rem">
+		<Text text="{i18n>id}"/>
+		<table:customData >
+			<core:CustomData key="p13nData" value='\{"columnKey": "ID", "columnIndex" : "0"}'/>
+		</table:customData>
+		<table:template >
+			<CheckBox selected="{ID}"/>
+		</table:template>
+	</table:Column>
+	<table:Column id="ExtensionWizard::ColumnBreakoutX" width="100px">
+		<Text visible="{=${Items}.length > 0 }" text="X"/>
+		<table:customData>
+			<core:CustomData key="p13nData" value='\{"columnKey": "Value", "columnIndex" : "1"}'/>
+		</table:customData>
+		<table:template>
+			<Button press="onPressButtonX"/>
+		</table:template>
+	</table:Column>
+	<table:Column width="10rem">
+		<Label text="{i18n>note}"/>
+		<table:customData>
+			<core:CustomData key="p13nData" value='\{"columnKey": "Note", "columnIndex" : "100"}'/>
+		</table:customData>
+		<table:template>
+			<TextArea value="{Note}"/>
+		</table:template>
+	</table:Column>
+</core:FragmentDefinition>

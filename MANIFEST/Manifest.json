@@ -1,0 +1,88 @@
+{
+	"sap.app": {
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/ZSM_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml",
+					"annotations": [
+						"annotation"
+					]
+				}
+			},
+			"util": {
+				"uri": "/sap/opu/odata/ittr/PMM_UTIL_SRV/",
+				"type": "OData"
+			}
+		}
+	},
+	"sap.ui": {
+		"fullWidth": true
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.71.11",
+			"libs": {
+				"sap.f": {},
+				"sap.gantt": {},
+				"sap.m": {},
+				"sap.collaboration": {
+					"lazy": true
+				},
+				"sap.ui.comp": {},
+				"sap.ui.core": {},
+				"sap.ui.layout": {},
+				"sap.ui.table": {},
+				"sap.ui.unified": {},
+				"sap.ushell": {},
+				"sap.uxap": {}
+			}
+		},
+		"flexEnabled": false,
+		"handleValidation": true,
+		"models": {
+			"": {
+				"dataSource": "mainService",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"_comment": "Count Modes: Inline / InlineRepeat / None / Request"
+				}
+			},
+			"util": {
+				"dataSource": "util",
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline"
+				}
+			},
+			"model": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"uri": "./model/model.json",
+				"preload": true
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.sm.application.i18n.i18n"
+				}
+			},
+			"@i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
+		}
+	}
+}

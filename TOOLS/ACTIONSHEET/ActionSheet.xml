@@ -1,0 +1,9 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ActionSheet title="{i18n>as}" placement="Auto">
+		<Button icon="sap-icon://begin" text="{i18n>button}" press="onPress">
+			<customData>
+				<core:CustomData key="action" value="Button"/>
+			</customData>
+		</Button>
+	</ActionSheet>
+</core:FragmentDefinition>

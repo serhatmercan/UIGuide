@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<MessageStrip text="{i18n>message}"/>
+</core:FragmentDefinition>
+<!--
+MESSAGE STRIP - ATTRIBUTES
+
+class="sapUiMediumMarginBottom" 
+type="Warning"
+
+enableFormattedText="true" 
+showCloseButton="true" 
+showIcon="true"
+visible="{model>/Visibility}" visible="{= !${model>/IDSelected}}"
+-->

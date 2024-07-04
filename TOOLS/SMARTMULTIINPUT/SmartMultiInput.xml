@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <smartMultiInput:SmartMultiInput value="{Items/Values}" tokenUpdate="onTokenUpdate" />
+</core:FragmentDefinition>
+<!-- SMART MULTI INPUT - ATTRIBUTES -->
+<!-- 
+id="SmartMultiInput" 
+
+expandNavigationProperties="true"
+supportMultiSelect="true"
+-->
+<!-- SMART MULTI INPUT - LAYOUT -->
+<!--
+	
+-->
+<!-- SMART MULTI INPUT - EXAMPLE -->
+<!--
+	
+-->

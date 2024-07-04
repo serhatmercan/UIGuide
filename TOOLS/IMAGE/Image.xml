@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Image src="../assets/Photo.png"/>
+    <Image src="/sap/opu/odata/sap/ZXX_SRV/DocumentSet(Value='{model>Value}')/$value" />
+    <Image src="{ path: '', formatter: '.formatter.getImage' }" tooltip="X" />
+</core:FragmentDefinition>
+<!-- IMAGE ATTRIBUTES -->
+<!--
+class="sapUiTinyMarginTop sapUiTinyMarginEnd"     
+height="100px" height="100%"
+tooltip="{model>Tooltip}"
+width="150px" width="100%" 
+
+decorative="false"					 
+densityAware="false"
+visible="false"
+
+press="onShowImage"
+-->

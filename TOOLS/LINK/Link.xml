@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Link text="{i18n>link}"/>
+</core:FragmentDefinition>
+<!-- LINK ATTRIBUTES -->
+<!--
+class="sapUiSmallMarginEnd"
+
+text="{ path : 'Link', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence: true, maxLength: 10 }}"
+
+emphasized="true" 
+visible="{= ( ${Url} &amp;&amp; ${Url} !== '' ) ? true : false }"
+
+press="onPress"
+-->

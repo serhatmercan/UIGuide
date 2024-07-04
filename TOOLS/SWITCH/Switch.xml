@@ -1,0 +1,21 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Switch state="{= ${model>Value} === 'X' }" />
+</core:FragmentDefinition>
+<!-- SWITCH - ATTRIBUTES -->
+<!--
+customTextOn="{i18n>on}" 
+customTextOff="{i18n>off}" 
+type="AcceptReject"
+
+enabled="{= ${model>Value} === 'X' }"
+
+change="onChange"
+-->	
+<!-- SWITCH - LAYOUT -->
+<!--
+<Switch>
+	<layoutData>
+    	<FlexItemData growFactor="1" />
+    </layoutData>
+</Switch>
+-->

@@ -1,0 +1,39 @@
+{
+	"routes": [{
+		"path": "/webapp/resources/sap/s4h/cfnd/featuretoggle",
+		"target": {
+			"type": "destination",
+			"name": "Itelligence_F4D",
+			"entryPath": "/sap/bc/ui5_ui5/sap/FEATURETOGGLES1"
+		},
+		"description": "Library for Feature  Toggle"
+	}, {
+		"path": "/resources/sap/s4h/cfnd/featuretoggle",
+		"target": {
+			"type": "destination",
+			"name": "Itelligence_F4D",
+			"entryPath": "/sap/bc/ui5_ui5/sap/FEATURETOGGLES1"
+		},
+		"description": "Library for Feature  Toggle"
+	}, {
+		"path": "/resources/sap/se/mi/plm/lib/attachmentservice",
+		"target": {
+			"type": "destination",
+			"name": "Itelligence_F4D",
+			"entryPath": "/sap/bc/ui5_ui5/sap/plm_ath_cres1",
+			"preferLocal": true
+		},
+		"description": "sap/se/mi/plm/lib/attachmentservice Reuse Library"
+	}],
+	"headerWhiteList": [
+		"objecttype",
+		"objectkey",
+		"slug",
+		"MarkForDeletion",
+		"documentType",
+		"documentNumber",
+		"documentVersion",
+		"documentPart",
+		"semanticobjecttype"
+	]
+}

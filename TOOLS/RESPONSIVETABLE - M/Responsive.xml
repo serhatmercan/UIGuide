@@ -1,0 +1,86 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Table items="{model>/Items}">
+        <columns>
+            <Column>
+                <Label text="{i18n>text}" design="Bold" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <Text text="{model>Value}" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition> <!-- -->
+<!-- TABLE - LAYOUT -->
+<!-- 
+<headerToolbar>
+    <Toolbar>
+	    <ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
+        <Button icon="sap-icon://add" text="{i18n>add}" tooltip="{i18n>add}" type="Emphasized" visible="{model>/Edit}" press="onShowItem('A', $event)" />
+    </Toolbar>
+</headerToolbar>
+<infoToolbar>
+    <Toolbar>
+	    <ToolbarSeparator/>
+    </Toolbar>
+</infoToolbar>
+<columns>
+    <Column id="Column" demandPopin="true" hAlign="Begin" mergeDuplicates="true" minScreenWidth="Tablet" popinDisplay="Inline" width="10rem">
+		<Text text="{/#Main/Value/@sap:label}"/>
+	</Column>
+<columns>
+<ColumnListItem id="CLI" type="Active" vAlign="Middle" press="onPress">
+    <cells>
+	    <ComboBox items="{model>Data}" showSecondaryValues="true" change="onChangeCB">
+			<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
+		</ComboBox>
+    <Button icon="sap-icon://decline" tooltip="{i18n>delete}" type="Transparent" press="onDeleteRow"/>
+    </cells>
+</ColumnListItem>
+
+TABLE - ATTRIBUTES
+
+id="Table"
+backgroundDesign="Solid" backgroundDesign="Transparent"  
+busyIndicatorDelay="0"
+class="sapUiResponsiveMargin"
+items="{/...Set}"
+items="{ path: '/...Set', suspended:true }"
+items="{ path: 'model>/Items', group: 'groupingItems' }"
+items="{ path: 'model>/Items', sorter: { path: 'ID', descending: false } }"
+items="{ path: 'model>/Items', sorter: [{ path: 'ID', descending: false }, { path: 'Key', descending: false }] }"
+mode="MultiSelect" mode="SingleSelectLeft" mode="Delete"
+noDataText="{i18n>noData}"
+popinLayout="GridLarge"
+sticky="ColumnHeaders"
+width="auto"
+
+enableBusyIndicator="true"
+fixedLayout="true"
+growing="true" growingScrollToLoad="true" growingThreshold="10"
+showNoData="false"
+
+delete="onDelete"
+select="onSelect"
+selectionChange="onSelectionChange"
+updateFinished="onUpdateFinished"
+
+COLUMN - ATTRIBUTES
+
+demandPopin="true"
+hAlign="Center" hAlign="End" hAlign="Left" hAlign="Right" 
+minScreenWidth="Desktop"
+popinDisplay="Block" 
+
+COLUMN LIST ITEM - ATTRIBUTES
+
+type="Inactive" type="Navigation" 
+
+COLUMN LIST ITEM - CELLS
+
+<ObjectIdentifier title="{model>ID}" text="{model>Text}"/>
+<ObjectNumber number="{ path: 'Value', formatter: '.formatter.setValueTextColor' }" />
+-->

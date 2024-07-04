@@ -1,0 +1,47 @@
+<core:FragmentDefinition xmlns="sap.gantt.simple" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:axistime="sap.gantt.axistime"
+	xmlns:config="sap.gantt.config" xmlns:mvc="sap.ui.core.mvc" xmlns:shapes="sap.gantt.simple.shapes" xmlns:table="sap.ui.table">
+	<GanttChartContainer>
+		<toolbar>
+			<ContainerToolbar design="Transparent">
+				<m:Button text="{i18n>displayDetail}" press="onShowDetailGC"/>
+			</ContainerToolbar>
+		</toolbar>
+		<GanttChartWithTable id="GCTable" shapeSelectionMode="Single" shapeDrop="onGCShapeDrop" shapeResize="onGCShapeResize">
+			<table>
+				<table:TreeTable selectionMode="Single" visibleRowCountMode="Auto" selectionBehavior="RowSelector"
+					rows="{ path:'model>/GanttData', parameters:{ arrayNames:['Children'], numberOfExpandedLevels:1 } }" enableColumnReordering="true">
+					<table:columns>
+						<table:Column label="{i18n>manufacturer}" hAlign="Center">
+							<table:template>
+								<m:ObjectIdentifier title="{model>Manufacturer}" text="{model>ManufacturerDesc}"/>
+							</table:template>
+						</table:Column>
+						<table:Column label="{i18n>bandNo}" hAlign="Center">
+							<table:template>
+								<m:Text text="{model>BandNo}"/>
+							</table:template>
+						</table:Column>
+						<table:Column label="{i18n>warning}" hAlign="Center">
+							<table:template>
+								<core:Icon src="{ path:'model>Msgty', formatter: '.formatter.getMessageIcon' }"
+									color="{ path:'model>Msgty', formatter: '.formatter.getMessageColor' }"/>
+							</table:template>
+						</table:Column>
+					</table:columns>
+					<table:rowSettingsTemplate>
+						<GanttRowSettings rowId="{model>Manufacturer}.{model>BandNo}.{model>PlanNo}"
+							shapes1="{ path:'model>SubTask', templateShareable:true }">
+							<shapes1>
+								<BaseRectangle title="{model>Model}" tooltip="{model>ModelName}"
+									time="{ path:'model>StartTime', formatter:'.formatter.convertTime' }"
+									endTime="{ path:'model>EndTime', formatter:'.formatter.convertTime' }"
+									fill="{ parts:[ { path: 'model>ReservationNo'}, { path: 'model>Msgty'} ], formatter: '.formatter.getChartIconColor' }" height="19"
+									horizontalTextAlignment="Start" verticalTextAlignment="Center" selectable="true" draggable="true"/>
+							</shapes1>
+						</GanttRowSettings>
+					</table:rowSettingsTemplate>
+				</table:TreeTable>
+			</table>
+		</GanttChartWithTable>
+	</GanttChartContainer>
+</core:FragmentDefinition>

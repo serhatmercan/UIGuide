@@ -1,0 +1,51 @@
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+    <TabContainer items="{model>/Items}">
+        <items>
+            <TabContainerItem name="{model>Name}">
+                <content>
+                    <f:Form editable="false">
+                        <f:title>
+                            <core:Title text="{i18n>employee}" />
+                        </f:title>
+                        <f:layout>
+                            <f:ResponsiveGridLayout />
+                        </f:layout>
+                        <f:FormContainer>
+                            <f:FormElement label="{i18n>firstName}">
+                                <f:fields>
+                                    <Text text="{model>FirstName}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="{i18n>lastName}">
+                                <f:fields>
+                                    <Text text="{model>LastName}" />
+                                </f:fields>
+                            </f:FormElement>
+                        </f:FormContainer>
+                    </f:Form>
+                </content>
+            </TabContainerItem>
+        </items>
+    </TabContainer>
+</mvc:View>
+<!-- TAB CONTAINER - ATTRIBUTES -->
+<!-- 
+id="TabContainer" 
+class="sapUiResponsiveContentPadding sapUiResponsivePadding--header"
+
+showAddNewButton="true"
+
+addNewButtonPress="onAddTCI" 
+itemClose="onDeleteTCI"
+-->
+<!-- TAB CONTAINER - LAYOUT -->
+<!--
+	
+-->
+<!-- TAB CONTAINER ITEM - ATTRIBUTES -->
+<!--
+additionalText="{Position}" 
+icon="{Icon}" 
+iconTooltip="{IconTooltip}" 
+modified="{Modified}"	
+-->

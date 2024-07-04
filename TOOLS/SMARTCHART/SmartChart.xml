@@ -1,0 +1,46 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:data="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:smartChart="sap.ui.comp.smartchart"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartVariants="sap.ui.comp.smartvariants"
+>
+    <semantic:SemanticPage>
+        <semantic:titleHeading>
+            <smartVariants:SmartVariantManagement id="SmartChartSVM" persistencyKey="SmartChartSVMKey" />
+        </semantic:titleHeading>
+        <semantic:headerContent>
+            <smartFilterBar:SmartFilterBar id="SmartChartSFB" entitySet="ReportSet" persistencyKey="SmartChartSVBKey" smartVariant="SmartChartSVM" useDateRangeType="true" initialized="onInitSFB" search="onSearchSFB" />
+        </semantic:headerContent>
+        <semantic:content>
+            <smartChart:SmartChart
+                id="SmartChart"
+                data:chartQualifier="CompanyCode"
+                entitySet="ReportSet"
+                header="{i18n>documents}"
+                persistencyKey="SmartChartKey"
+                smartFilterId="SmartChartSFB"
+                smartVariant="SmartChartSVM"
+                selectionMode="None"
+                useVariantManagement="true"
+                showDownloadButton="true"
+                showDrillButtons="false"
+                showFullScreenButton="true"
+            />
+        </semantic:content>
+        <semantic:messagesIndicator>
+            <semantic:MessagesIndicator press="onShowMessages" />
+        </semantic:messagesIndicator>
+    </semantic:SemanticPage>
+</mvc:View>
+<!-- -->
+<!-- SMART CHART - ATTRIBUTES -->
+<!-- 
+visible="false"
+-->
+<!-- SMART CHART - LAYOUT -->
+<!--
+	
+-->

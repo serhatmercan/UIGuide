@@ -1,0 +1,5 @@
+<semantic:FullscreenPage showNavButton="true" navButtonPress="onNavBack">
+	<semantic:content>
+		<TileContainer id="TileContainer"></TileContainer>
+	</semantic:content>
+</semantic:FullscreenPage>

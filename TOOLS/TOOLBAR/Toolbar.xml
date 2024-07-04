@@ -1,0 +1,9 @@
+<Toolbar>
+	<Title/>
+	<ToolbarSpacer/>
+	<Button press="onPress"/>
+</Toolbar>
+<!--
+TOOLBAR - ATTRIBUTES
+id="Toolbar"
+-->

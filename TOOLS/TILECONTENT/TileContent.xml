@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<HeaderContainer id="HeaderContainer">
+		<FlexBox id="FlexBox" justifyContent="Center">
+			<TileContent footer="{Footer}" unit="{Unit}">
+				<content>
+					<NumericContent indicator="Down" scale="{Scale}" value="{Value}" valueColor="Error" press="onPress"/>
+				</content>
+			</TileContent>
+			<TileContent />
+		</FlexBox>
+	</HeaderContainer>
+</core:FragmentDefinition>
+
+<!-- NUMERIC CONTENT - ATTRIBUTES -->
+<!-- 
+
+icon="sap-icon://error"
+
+valueColor="Good"
+indicator="Up"
+
+-->

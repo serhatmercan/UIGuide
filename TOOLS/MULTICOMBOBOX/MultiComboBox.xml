@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<MultiComboBox items="{model>/Items}" selectedKeys="{model>/Values}">
+		<core:ListItem key="{model>ID}" text="{model>ID}"/>
+	</MultiComboBox>
+</core:FragmentDefinition>
+<!-- MULTI COMBO BOX - ATTRIBUTES  -->
+<!--
+id="MCB"	 
+items="{/...Set}"
+items="{ path:'/...Set', templateShareable:true }"
+items="{ path: 'model>/Items', sorter: { path: 'model>ID', ascending:false, group: true } }"
+
+selectionFinish="onSFMultiCombobox"
+-->
+<!-- MULTI COMBO BOX - LAYOUT  -->
+<!--
+showSecondaryValues="true"
+<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
+-->

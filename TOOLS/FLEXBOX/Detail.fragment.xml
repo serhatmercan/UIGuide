@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Popover id="DetailPopover" title="Detail" placement="Bottom">
+        <List items="{model>/Details}">
+            <StandardListItem title="{model>}" />
+        </List>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button text="Okay" press="onClosePopover" />
+            </OverflowToolbar>
+        </footer>
+    </Popover>
+</core:FragmentDefinition>

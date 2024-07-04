@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:grid="sap.ui.layout.cssgrid" xmlns:f="sap.f" xmlns:l="sap.ui.layout"
+	xmlns:form="sap.ui.layout.form">
+	<f:GridList class="sapUiResponsiveContentPadding" delete="onDelete" selectionChange="onSelectionChange">
+		<f:customLayout>
+			<grid:GridBasicLayout gridGap="1rem" gridTemplateColumns="repeat(auto-fit, minmax(11rem, 1fr))"/>
+		</f:customLayout>
+		<f:GridListItem highlight="Success" type="Active" press="onPressGLI1">
+			<VBox height="100%">
+				<HBox height="100%" class="sapUiSmallMargin" alignItems="Center">
+					<core:Icon class="sapUiTinyMargin" color="Default" size="1.625rem" src="sap-icon://measurement-document"/>
+					<VBox>
+						<Title text="{i18n>text}"class="sapUiSmallMarginBegin" wrapping="true"/>
+					</VBox>
+				</HBox>
+			</VBox>
+		</f:GridListItem>
+		<f:GridListItem press="onPressGLI2" highlight="Information" type="Active">
+			<VBox height="100%">
+				<HBox alignItems="Center" class="sapUiSmallMargin" height="100%">
+					<core:Icon class="sapUiTinyMargin" color="Default" size="1.625rem" src="sap-icon://image-viewer"/>
+					<VBox>
+						<Title text="{i18n>text}" class="sapUiSmallMarginBegin" wrapping="true"/>
+					</VBox>
+				</HBox>
+			</VBox>
+		</f:GridListItem>
+	</f:GridList>
+</core:FragmentDefinition>

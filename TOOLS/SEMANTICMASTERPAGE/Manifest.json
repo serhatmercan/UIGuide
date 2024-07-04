@@ -1,0 +1,85 @@
+{
+	"sap.app": {
+		"dataSources": {
+			"Menu": {
+				"uri": "model/Menu.json",
+				"type": "JSON"
+			}
+		}
+	},
+	"sap.ui5": {
+		"models": {
+			"Menu": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "Menu"
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.serhatmercan.view",
+				"controlId": "idAppControl",
+				"controlAggregation": "detailPages",
+				"bypassed": {
+					"target": [
+						"Menu",
+						"NotFound"
+					]
+				},
+				"async": true
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "Menu",
+				"target": [
+					"Menu"
+				]
+			}, {
+				"pattern": "ViewI",
+				"name": "ViewI",
+				"target": [
+					"Menu",
+					"ViewI"
+				]
+			}, {
+				"pattern": "ViewII",
+				"name": "ViewII",
+				"target": [
+					"Menu",
+					"ViewII"
+				]
+			}, {
+				"pattern": "ViewIII",
+				"name": "ViewIII",
+				"target": [
+					"Menu",
+					"ViewIII"
+				]
+			}],
+			"targets": {
+				"Menu": {
+					"viewName": "Menu",
+					"viewLevel": 1,
+					"viewId": "Menu",
+					"controlAggregation": "masterPages"
+				},
+				"ViewI": {
+					"viewName": "ViewI",
+					"viewId": "ViewI",
+					"viewLevel": 2
+				},
+				"ViewII": {
+					"viewName": "ViewII",
+					"viewId": "ViewII",
+					"viewLevel": 2
+				},
+				"ViewIII": {
+					"viewName": "ViewIII",
+					"viewId": "ViewIII",
+					"viewLevel": 2
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,62 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:ndc="sap.ndc" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartField="sap.ui.comp.smartfield">
+	<smartForm:SmartForm>		
+		<smartForm:Group>
+			<smartForm:GroupElement>
+				<smartField:SmartField value="{Value}"/>
+			</smartForm:GroupElement>			
+		</smartForm:Group>
+	</smartForm:SmartForm>
+</core:FragmentDefinition>
+<!-- SMART FORM - ATTRIBUTES -->
+<!-- 
+id="SmartForm" 
+entityType="..." 
+
+editable="true"	
+-->
+
+<!-- SMART FORM - LAYOUT -->
+<!-- 
+<smartForm:layout>	
+	<smartForm:ColumnLayout columnsM="2" columnsL="2" columnsXL="2"/>
+	<smartForm:Layout labelSpanXL="2" labelSpanL="2" labelSpanM="2"/>
+</smartForm:layout>	
+-->
+
+<!-- SMART FORM - GROUP ELEMENT - ATTRIBUTES -->
+<!--
+label="{/#SFEntity/Value/@sap:label}" label="{i18n>ID}"
+
+visible="{= ${ID} === 'X' &amp;&amp; !${model>/Edit} }"
+-->
+
+<!-- SMART FORM - GROUP ELEMENT- LAYOUT -->
+<!-- 
+<smartform:GroupElement label="{i18n>key}">
+	<Select id="Select" selectedKey="{Key}" showSecondaryValues="true">
+		<core:ListItem key="X" additionalText="X" text="X Data"/>
+		<core:ListItem key="Y" additionalText="Y" text="Y Data"/>
+	</Select>
+</smartform:GroupElement>
+
+<smartform:GroupElement>
+	<smartField:SmartField value="{Key}" textLabel="{i18n>key}"/>
+	<HBox justifyContent="SpaceBetween">
+		<Button press="onPress"/>
+		<smartfield:SmartField value="{Data}"/>
+	</HBox>
+</smartform:GroupElement>
+			
+<smartform:GroupElement>
+	<smartfield:SmartField value="{Data}"/>
+	<HBox justifyContent="SpaceBetween">
+		<Button icon="sap-icon://bar-code" text="{i18n>scanBarcode}" press="onScanBarcode"/>
+		<smartfield:SmartField value="{Key}"/>
+	</HBox>
+</smartform:GroupElement>
+
+<smartForm:GroupElement>
+	<smartField:SmartField value="{ID}"/>
+	<ndc:BarcodeScannerButton scanSuccess="onSSID"/>
+</smartForm:GroupElement>	
+-->

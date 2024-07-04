@@ -1,0 +1,53 @@
+<mvc:View xmlns="sap.m" xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" 
+	xmlns:smartField="sap.ui.comp.smartfield">
+    <smartField:smartfield value="{ID}" />
+</mvc:View>
+<!-- SMART FIELD - ATTRIBUTES -->
+<!--
+id="SmartField"
+app:multiLineSettings="{cols: 50, rows: 20}"
+busy="{model>/Busy}"
+class="sapUiTinyMarginEnd"
+entitySet="...Set"
+placeholder="{i18n>ID}"
+textInEditModeSource="ValueList" 
+textLabel="{i18n>ID}"
+value="{ path: 'Value', type: 'sap.ui.model.type.Integer' }
+value="{ path: 'Date',
+type:'sap.ui.model.type.Date', formatOptions: { UTC: true } }"   
+width="18rem" width="{= ${model>/Desktop} ? '17.5rem' : '100%'}" width="{= ${model>/Desktop} ? '46rem' : '100%'}"			   
+
+editable="false"
+enabled="false"
+mandatory="true" mandatory="{= ${ID} === 'X' }" 
+showLabel="false"
+showSuggestion="false"
+uomEditable="false"
+visible="false"	visible="{= ${ID} === 'X' &amp;&amp; !${model>/Edit} }"
+
+change="onChangeID" change="onChangeIDWithDescription"
+innerControlsCreated="onICC"
+valueListChanged="onVLC"
+-->
+<!-- SMART FIELD - LAYOUT -->
+<!--
+<f:SimpleForm id="SimpleForm">
+	<smartField:smartfield value="{ID}">
+		<smartField:layoutData>
+<l:GridData spanXL="3" spanL="3" spanM="3" spanS="3"/>
+		</smartField:layoutData>
+<smartField:configuration>
+			<smartField:Configuration displayBehaviour="descriptionAndId"/>
+</smartField:configuration>
+		<smartField:customData>
+			<core:CustomData key="multiLineSettings" value="{ cols: 80, rows: 5 }"/>
+		</smartField:customData>
+	</smartField:smartfield>
+</f:SimpleForm>
+-->
+<!-- SMART FIELD - CONFIGURATION -->
+<!--
+controlType="dropDownList" controlType="selection"	
+displayBehaviour="descriptionOnly" displayBehaviour="idAndDescription"
+preventInitialDataFetchInValueHelpDialog="true"
+-->

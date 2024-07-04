@@ -1,0 +1,7 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Slider value="{model>/Value}"/>
+</core:FragmentDefinition>
+<!-- SLIDER - ATTRIBUTES -->
+<!--
+showAdvancedTooltip="true" 	
+-->

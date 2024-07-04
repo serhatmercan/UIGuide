@@ -1,0 +1,23 @@
+<mvc:View controllerName="xxx.controller.Main" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic">
+	<semantic:SemanticPage showFooter="{=${message>/}.length > 0}">
+		<semantic:footerCustomActions>
+			<Button visible="{= ${message>/}.length > 0 }" text="{= ${message>/}.length }" type="Emphasized" icon="sap-icon://message-popup" press="onShowMessages" />
+		</semantic:footerCustomActions>
+		<semantic:messagesIndicator>
+			<semantic:MessagesIndicator press="onShowMessages" />
+		</semantic:messagesIndicator>
+	</semantic:SemanticPage>
+	<customHeader>
+		<OverflowToolbar class="toolbarBorder">
+			<ToolbarSpacer />
+			<Title text="{i18n>title}" class="sapUiTinyMarginBegin" />
+			<ToolbarSpacer />
+			<Button text="{= ${message>/}.length }" icon="sap-icon://message-popup" type="Emphasized" visible="{=${message>/}.length > 0}" press="onShowMessages" />
+		</OverflowToolbar>
+	</customHeader>
+	<Toolbar>
+		<Button id="MessagePO" text="{= ${message>/}.length }" icon="sap-icon://message-popup" type="Emphasized" visible="{=${message>/}.length > 0}" press="onShowMessages" />
+		<ToolbarSpacer />
+		<Button text="{i18n>text}" />
+	</Toolbar>
+</mvc:View>

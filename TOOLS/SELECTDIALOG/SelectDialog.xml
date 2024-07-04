@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog items="{/...Set}">
+		<StandardListItem title="{Title}" description="{Description}" info="{Info}" type="Active"/>
+	</SelectDialog>
+</core:FragmentDefinition>
+<!-- SELECT DIALOG - ATTRIBUTE -->
+<!--
+id="SD"
+confirmButtonText="{i18n>confirm}"
+contentHeight="auto" 
+items="{/...Set}"
+items="{model>/Items}"
+items="{ path: '/...Set', suspended: true }"
+items="{ path: 'model>/Items' }"
+growing="true" growingScrollToLoad="true" growingThreshold="50"
+noDataText="{i18n>noDataFound}"
+title="{i18n>title}"
+
+multiSelect="true"
+
+cancel="onCancelSD"
+confirm="onConfirmSD" 
+search="onSearchSD"
+-->

@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ProgressIndicator percentValue="{Value}" displayValue="{Value}%"/>
+</core:FragmentDefinition>
+<!-- PROGRESS INDICATOR - ATTRIBUTES -->
+<!-- 
+state="None" state="Success"  
+width="8rem"
+-->
+<!-- PROGRESS INDICATOR - LAYOUT -->
+<!--
+	
+-->
+<!-- PROGRESS INDICATOR - EXAMPLE -->
+<!--
+	
+-->

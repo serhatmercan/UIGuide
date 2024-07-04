@@ -1,0 +1,112 @@
+<mvc:View controllerName="serhatmercan.controller.List" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+    <headerToolbar>
+        <OverflowToolbar>
+            <content>
+                <SearchField liveChange="onLiveChange" width="100%" />
+                <ToolbarSpacer />
+            </content>
+        </OverflowToolbar>
+    </headerToolbar>
+    <List items="{model>/Values}">
+        <headerToolbar>
+            <Toolbar>
+                <Text text="{i18n>toolbar}" />
+                <ToolbarSpacer />
+            </Toolbar>
+        </headerToolbar>
+        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" 
+			title="{model>Id}" type="Active" press="onPress" />
+    </List>
+</mvc:View>
+<!-- LIST - ATTRIBUTES -->
+<!--
+id="List"
+headerText="{i18n>list}"
+items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
+items="{ path: '/MainSHSet', suspended: true }"
+items="{ path: '/MainSet', filters: [{ path: 'Authority', operator: 'EQ', value1: true }] }"
+items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
+growingThreshold="10"
+mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
+showSeparators="All"
+
+enableBusyIndicator="true"
+growing="true"
+growingScrollToLoad="true"
+includeItemInSelection="true"
+
+delete="onDelete"
+itemPress="onItemPress"
+selectionChange="onSelectionChange"
+
+<items>
+	<CustomListItem>
+		<Panel>
+			<headerToolbar>
+				<Toolbar>
+				</Toolbar>
+			</headerToolbar>
+			<content>
+				<List id="ResultList" items="{model>/Results}" mode="Delete" delete="onDeleteResult">
+					<items>
+						<CustomListItem>
+							<Panel expandable="true" expanded="false" expandAnimation="true">
+								<headerToolbar>
+									<Toolbar>
+										<Text text="{ID} {Value}"/>
+									</Toolbar>
+								</headerToolbar>
+								<content>
+									<f:SimpleForm>
+										<f:content>
+										</f:content>
+									</f:SimpleForm>
+								</content>
+							</Panel>
+						</CustomListItem>
+						<DisplayListItem label="{i18n>ID}" value="{ID}"/>
+						<DisplayListItem label="{i18n>Key}" value="{Key}"/>
+						<DisplayListItem class="listBorderStyle" highlight="Information" label="{i18n>Value}" value="{Value}"/>
+						<ObjectListItem title="{ValueX}" type="Active" press="onOLI">
+							<firstStatus>
+								<ObjectStatus text="{ID}"/>
+							</firstStatus>
+							<secondStatus>
+								<ObjectStatus text="{Value}"/>
+							</secondStatus>
+							<attributes>
+								<ObjectAttribute text="{Text}"/>
+							</attributes>
+						</ObjectListItem>
+						<InputListItem label="{i18n>value}">
+							<HBox>
+								<Input value="{model>Result}"/>
+								<Button icon="sap-icon://write-new" tooltip="{i18n>description}" press="onShowDescription"/>
+							</HBox>
+						</InputListItem>
+						<NotificationListItem title="{Title}" description="{Description}">
+							<buttons>
+                                <Button text="{i18n>OK}" type="Accept" press="onAcceptNLI"/>
+                                <Button text="{i18n>detail}" type="Emphasized" press="onDetailNLI"/>
+                            </buttons>
+                        </NotificationListItem> 
+					</items>
+				</List>
+			</content>
+		</Panel>
+	</CustomListItem>	
+</items>
+-->
+<!-- STANDARD LIST ITEM - ATTRIBUTES -->
+<!--
+
+counter="{model>Counter}"
+title="{ID} - {Value}" 
+type="Navigation"
+
+<StandardListItem>
+	<customData>
+		<core:CustomData key="CDKey" value="{model>Read}" writeToDom="true"/>
+	</customData>
+</StandardListItem>
+-->

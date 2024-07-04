@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m">
+    <ObjectPageDynamicHeaderTitle>
+        <heading>
+            <m:Title text="{model>/ID} - {model>/Key}" level="H2" />
+        </heading>
+        <navigationActions>
+            <m:OverflowToolbarButton icon="sap-icon://full-screen" type="Transparent" press="onShowFullScreenDetailXPage" visible="{= !${model>/ActionButtonsInfo/EndColumn/FullScreen} }" />
+            <m:OverflowToolbarButton icon="sap-icon://exit-full-screen" type="Transparent" press="onExitFullScreenDetailXPage" visible="{model>/ActionButtonsInfo/EndColumn/FullScreen}" />
+            <m:OverflowToolbarButton icon="sap-icon://decline" type="Transparent" press="onCloseDetailXPage" />
+        </navigationActions>
+    </ObjectPageDynamicHeaderTitle>
+</core:FragmentDefinition>

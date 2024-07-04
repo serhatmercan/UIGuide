@@ -1,0 +1,17 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Avatar backgroundColor="Transparent" displaySize="L" src="sap-icon://activity-individual"/>
+</mvc:View>
+<!-- AVATAR - ATTRIBUTES -->
+<!-- 
+backgroundColor="Accent10"	
+class="sapUiMediumMarginEnd sapUiSmallMarginBottom" sapUiTinyMarginEnd
+displayShape="Square"
+displaySize="S" displaySize="XL"
+initials="SM"
+src="{= !${Pernr} || ${Pernr} === '' ? 'sap-icon://add-contact' : 'sap-icon://business-card' }"
+-->
+
+<!-- AVATAR - LAYOUT -->
+<!--
+	
+-->

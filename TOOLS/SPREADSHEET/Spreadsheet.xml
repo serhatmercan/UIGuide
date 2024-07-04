@@ -1,0 +1,55 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Table id="Table" items="{/Items}">
+        <headerToolbar>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://excel-attachment" press="onExport" />
+            </OverflowToolbar>
+        </headerToolbar>
+        <columns>
+            <Column>
+                <Text text="{i18n>ID}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>firstname}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>lastname}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>birthdate}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>salary}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>currency}" />
+            </Column>
+            <Column>
+                <Text text="{i18n>active}" />
+            </Column>
+        </columns>
+        <items>
+            <ColumnListItem>
+                <cells>
+                    <ObjectIdentifier title="{ID}" />
+                    <Text text="{Firstname}" />
+                    <Text text="{Lastname}" />
+                    <Text text="{ path: 'Birthdate', type: 'sap.ui.model.type.Date' }" />
+                    <Text text="{ path: 'Salary', type: 'sap.ui.model.type.Float' }" />
+                    <Text text="{Currency}" />
+                    <Text text="{ path: 'Active', type: 'sap.ui.model.type.Boolean' }" />
+                </cells>
+            </ColumnListItem>
+        </items>
+    </Table>
+</core:FragmentDefinition>
+<!-- -->
+<!-- SPREADSHEET - ATTRIBUTES -->
+<!-- 
+
+-->
+<!-- SPREADSHEET - LAYOUT -->
+<!--
+	
+-->

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <FormattedText htmlText="{Mesaj}" />
+</core:FragmentDefinition>
+<!-- FORMATTED TEXT - ATTRIBUTES -->
+<!-- 
+id="MessageFT"
+
+width="{= ${model>/Desktop} ? '46rem' : '100%'}"
+visible="{model>/Edit}"
+-->
+<!-- FORMATTED TEXT - LAYOUT -->
+<!--
+	
+-->
+<!-- FORMATTED TEXT - EXAMPLE -->
+<!--
+	
+-->

@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<GenericTag text="{i18n>text}">
+		<ObjectNumber number="{model>/Value}" />
+	</GenericTag>
+</core:FragmentDefinition> <!-- -->
+<!-- GENERIC TAG - ATTRIBUTES -->
+<!--
+class="sapUiTinyMarginBottom"
+design="StatusIconHidden" 
+status="Information" status="Success" status="Warning"
+text="{/#Main/GT/@sap:label}"
+
+press="onShow"
+
+visible="{model>/Selected}"
+-->
+<!-- GENERIC TAG - CONTENT -->
+<!--
+<GenericTag design="StatusIconHidden" text="{/#Main/Value/@sap:label}">
+	<customData>
+		<core:CustomData key="generictag" value="{model>/Value}" writeToDom="true" />
+	</customData>
+	<ObjectNumber number="{model>/Value}">
+		<customData>
+			<core:CustomData key="generictagtext" value="{model>/Value}" writeToDom="true" />
+		</customData>
+	</ObjectNumber>
+</GenericTag>
+-->
+<!-- GENERIC TAG - CSS -->
+<!--
+[data-generictag='X']>.sapMGenericTagWrap {
+  border-color: #58AC0E !important;
+}
+
+[data-generictagtext='X'] {
+  color: #58AC0E !important;
+}
+-->

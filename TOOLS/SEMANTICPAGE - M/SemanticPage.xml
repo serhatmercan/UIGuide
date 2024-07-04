@@ -1,0 +1,22 @@
+<mvc:View controllerName="com.serhatmercan.Controller" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic">
+	<semantic:FullscreenPage title="{i18n>fullScreenPage}" showNavButton="true" navButtonPress="onNavBack">
+		<semantic:content></semantic:content>
+		<semantic:customFooterContent></semantic:customFooterContent>
+	</semantic:FullscreenPage>
+</mvc:View>
+<semantic:DetailPage id="DetailPage" title="{i18n>detailPage}" showNavButton="true" navButtonPress="onNavBack">
+	<semantic:customHeaderContent></semantic:customHeaderContent>
+	<semantic:content></semantic:content>
+	<semantic:messagesIndicator>
+		<semantic:MessagesIndicator/>
+	</semantic:messagesIndicator>
+	<semantic:customFooterContent></semantic:customFooterContent>
+</semantic:DetailPage>
+<!-- DETAIL PAGE - ATTRIBUTES -->
+<!--
+busy="{model>/Busy}"
+busyIndicatorDelay="0"
+
+enableScrolling="true"
+showFooter="false"
+-->

@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ComboBox items="{/...Set}" selectedKey="{model>/Value}">
+		<items>
+			<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}" />
+		</items>
+	</ComboBox>
+</core:FragmentDefinition> <!--
+COMBO BOX - ATTRIBUTES
+
+id="ComboBox" 
+class="sapUiTinyMarginBegin"
+items="{model>/Items}"
+items="{ path:'/...Set', suspended: true, templateShareable: true }"
+items="{ path: '/...Set', templateShareable: true, filters: [{ path: 'ID', operator: 'NE', value1: '' }] }"
+selectedKey="{model>/Item}"
+value="{model>/Value}"
+valueState="Error"
+
+enabled="false"
+filterSecondaryValues="true"
+required="true"
+showButton="true" 
+showSecondaryValues="true"
+showValueStateMessage="false" 
+
+change="onChangeCB"
+loadItems="onLoadItemsCB" 
+selectionChange="onSelectionChangeCB" 
+
+ITEMS - ATTRIBUTES
+
+<core:Item key="{model>ID}" text="{model>ID}"/>
+<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
+
+-->

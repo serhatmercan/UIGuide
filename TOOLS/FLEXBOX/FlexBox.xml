@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <FlexBox>
+        <items>
+            <Title text="{Title}" />
+        </items>
+    </FlexBox>
+</core:FragmentDefinition>
+<!-- FLEX BOX - ATTRIBUTES -->
+<!--
+id="FlexBox" 
+alignContent="Center" 
+alignItems="Center" alignItems="End" alignContent="SpaceAround" alignItems="Stretch"
+class="sapUiTinyMarginEnd sapUiTinyMarginTop sapUiNoContentPadding" class="sapUiLargeMarginBegin sapUiSmallMarginTop"
+height="100%" 
+justifyContent="Center" justifyContent="End" justifyContent="SpaceAround"	  
+width="100%" width="{= ${model>/Desktop} ? '57.5rem' : '100%'}" 
+wrap="Wrap"
+
+fitContainer="true"
+-->
+<!-- FLEX BOX - EXAMPLE I-->
+<!--
+<FlexBox id="FlexBox" alignContent="SpaceAround" justifyContent="SpaceAround"></FlexBox>	
+-->
+<!-- FLEX BOX - EXAMPLE II-->
+<!--
+<FlexBox direction="Column" wrap="Wrap">
+    <FlexBox class="sapUiTinyMarginTopBottom" justifyContent="SpaceAround">	
+    </FlexBox>
+    <FlexBox class="sapUiTinyMarginTopBottom" justifyContent="Center">
+    </FlexBox>
+    <Panel height="500px">
+    </Panel>
+</FlexBox>
+-->
+

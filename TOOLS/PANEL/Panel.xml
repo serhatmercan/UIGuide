@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Panel>
+		<headerToolbar>
+			<OverflowToolbar>
+				<Title/>
+				<ToolbarSpacer/>
+				<Button/>
+			</OverflowToolbar>
+		</headerToolbar>
+		<content></content>
+	</Panel>
+</core:FragmentDefinition>
+<!-- PANEL - ATTRIBUTES -->
+<!-- 
+id="Panel"
+class="sapUiNoContentPadding" class="sapUiTinyMarginBegin panelBorderLine"
+headerText="{i18n>text}"
+width="100%"
+
+expanded="true" 
+expandable="false"
+expandAnimation="true"
+-->

@@ -1,0 +1,137 @@
+{
+	"sap.ui5": {
+		"models": {
+			"model": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {},
+				"preload": true,
+				"uri": "model/model.json"
+			}
+		},
+		"extends": {
+			"extensions": {
+				"sap.ui.controllerExtensions": {
+					"sap.suite.ui.generic.template.ListReport.view.ListReport": {
+						"controllerName": "com.serhatmercan.ext.controller.ListReportExt",
+						"sap.ui.generic.app": {
+							"SummarySet": {
+								"EntitySet": "MainSet",
+								"Actions": {
+									"DetailButton": {
+										"id": "DetailButton",
+										"text": "{@i18n>detail}",
+										"press": "onGoToDetail"
+									}
+								}
+							}
+						}
+					}
+				},
+				"sap.ui.viewExtensions": {
+					"sap.suite.ui.generic.template.ListReport.view.ListReport": {
+						"GridTableColumnsExtension|MainSet": {
+							"type": "XML",
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.view.ListReport"
+						},
+						"SmartFilterBarControlConfigurationExtension|ConfirmationSet": {
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.fragment.CustomFilter",
+							"type": "XML"
+						}
+					},
+					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
+						"controllerName": "com.serhatmercan.ext.controller.ObjectPageExt",
+						"sap.ui.generic.app": {
+							"MainSet": {
+								"EntitySet": "MainSet",
+								"Header": {
+									"Actions": {
+										"GoToExternalPage": {
+											"id": "ExternalPage",
+											"text": "{@i18n>externalPage}",
+											"requiresSelection": true,
+											"press": "onGoToExternalPage"
+										}
+									}
+								}
+							}
+						},
+						"GridTableColumnsExtension|DetailSet|Items::com.sap.vocabularies.UI.v1.LineItem": {
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.view.DetailExt",
+							"type": "XML"
+						}
+					}
+				}
+			}
+		}
+	},
+	"sap.ui.generic.app": {
+		"_version": "1.3.0",
+		"pages": {
+			"ListReport|MainSet": {
+				"entitySet": "MainSet",
+				"component": {
+					"name": "sap.suite.ui.generic.template.ListReport",
+					"list": true,
+					"settings": {
+						"condensedTableLayout": true,
+						"enableTableFilterInPageVariant": true,
+						"filterSettings": {
+							"dateSettings": {
+								"useDateRange": true
+							}
+						},
+						"tableSettings": {
+							"multiSelect": true,
+							"selectAll": true,
+							"smartVariantManagement": true,
+							"type": "GridTable",
+							"quickVariantSelectionX": {
+								"enableAutoBinding": false,
+								"showCounts": false,
+								"variants": {
+									"0": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Main",
+										"entitySet": "MainSet",
+										"key": "ID"
+									},
+									"1": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Detail",
+										"entitySet": "DetailSet",
+										"key": "Text"
+									},
+									"2": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Item",
+										"entitySet": "ItemSet",
+										"key": "Value"
+									}
+								}
+							}
+						},
+						"smartVariantManagement": true,
+						"variantManagementHidden": true
+					}
+				},
+				"pages": {
+					"ObjectPage|MainSet": {
+						"entitySet": "MainSet",
+						"component": {
+							"name": "sap.suite.ui.generic.template.ObjectPage",
+							"settings": {
+								"sections": {
+									"Items::com.sap.vocabularies.UI.v1.LineItem": {
+										"navigationProperty": "Items",
+										"entitySet": "Detail",
+										"tableSettings": {}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

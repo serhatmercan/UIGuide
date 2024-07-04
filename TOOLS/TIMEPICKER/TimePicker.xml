@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TimePicker value="{model>Value}"/>
+</core:FragmentDefinition>
+<!-- TIME PICKER - ATTRIBUTES -->
+<!--
+displayFormat="HH:mm:ss" 
+placeholder="dd:mm" 
+value="{ path: 'model>Value', type: 'sap.ui.model.odata.type.Time', formatOptions: { UTC: true } }"
+value="{ path: 'model>Value', type: 'sap.ui.model.odata.type.Time', formatOptions: { style: 'short', UTC: true } }"
+valueState="Error" 
+valueState="{ parts:[ { path:'model>BeginTime' }, { path: 'model>EndTime' } ], formatter: '.formatter.checkTime' }"
+
+editable="false"
+enabled="false"
+-->

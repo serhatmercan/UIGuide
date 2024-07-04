@@ -1,0 +1,3 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt">
+	<tnt:InfoLabel text="{i18n>InfoLabelText}" colorScheme="5" displayOnly="true" width="10rem"/>
+</mvc:View>

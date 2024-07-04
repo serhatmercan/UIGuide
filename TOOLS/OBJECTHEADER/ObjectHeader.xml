@@ -1,0 +1,14 @@
+<ObjectHeader title="{model>/Title}" number="{model>/Number}" numberUnit="{model>/NumberUnit}" numberState="Error">
+	<attributes>
+		<ObjectAttribute title="{i18n>value}" text="{model>/Value}"/>
+	</attributes>
+</ObjectHeader>
+
+<!-- OBJECT HEADER - ATTRIBUTES -->
+<!--
+backgroundDesign="Solid" backgroundDesign="Translucent"
+icon="sap-icon://product"
+numberState="Success"
+
+responsive="true" 
+-->

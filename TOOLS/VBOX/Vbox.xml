@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <VBox>
+    </VBox>
+</core:FragmentDefinition>
+<!-- VBOX - ATTRIBUTES -->
+<!--
+id="VB"
+class="sapUiSmallMarginBegin" class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom"
+alignContent="Start"
+items="{model>/Data}"
+justifyContent="Start" 
+renderType="Bare"
+
+busy="true"
+-->
+<!-- VBOX - LAYOUT -->
+<!--
+<VBox>
+	<layoutData>
+			<FlexItemData backgroundDesign="Transparent" baseSize="0" growFactor="1" styleClass="sapUiTinyMargin"/>
+	</layoutData>
+</VBox>
+-->

@@ -1,0 +1,88 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:footerbar="sap.ushell.ui.footerbar">
+    <Page>
+        <content />
+        <footer />
+    </Page>
+</core:FragmentDefinition>
+<!-- PAGE - ATTRIBUTES -->
+<!-- 
+class="sapUiFioriObjectPage" class="sapUiResponsiveContentPadding"
+id="Page"
+
+backgroundDesign="Solid"
+enableScrolling="false"
+floatingFooter="false"
+showHeader="false"   
+showNavButton="false" 
+
+navButtonPress="onNavBack"
+-->
+<!-- PAGE - LAYOUT -->
+<!--
+<customHeader>
+	<Bar>
+	    <contentLeft>
+		</contentLeft>
+		<contentMiddle>
+		</contentMiddle>
+        <contentRight>
+			<footerbar:AddBookmarkButton title="{i18n>appTitle}" showGroupSelection="true" />
+		</contentRight>
+    </Bar>
+</customHeader>
+<subHeader>
+	<Toolbar>
+	</Toolbar>
+</subHeader>
+<headerContent>
+    <Text text="Header Content"/>
+</headerContent>
+<content>
+</content>
+<dependents>
+	<BusyDialog/>
+</dependents>
+<footer>			
+    <Toolbar>
+	<ToolbarSpacer/>
+	</Toolbar>
+</footer>    
+-->
+<!-- PAGE - EXAMPLE -->
+<!--
+<Page backgroundDesign="Solid" showNavButton="false">
+    <customHeader>
+    	<Bar>
+            <contentRight>
+            	<footerbar:AddBookmarkButton title="{i18n>appTitle}" showGroupSelection="true" />
+                <Button icon="sap-icon://pdf-attachment" tooltip="{i18n>pdf}" press="onShowPDF" />
+            </contentRight>
+        </Bar>
+    </customHeader>
+    <content>
+    	<Carousel height="50%">
+        	<pages>
+                <MessagePage description="{i18n>chooseProcess}" text="{i18n>appTitle}" class="sapUiNoMargin" icon="sap-icon://expense-report" enableFormattedText="true" showHeader="false" />
+            </pages>
+        </Carousel>
+        <Panel>
+            <FlexBox height="100%" width="100%" alignContent="Center" alignItems="Center" justifyContent="Center">
+            	<items>
+                	<ScrollContainer>
+                    	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTI}" press="onGoToPage('GTI', $event)">
+                        	<TileContent>
+                                <ImageContent src="sap-icon://travel-expense-report" />
+                            </TileContent>
+                        </GenericTile>
+                        <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="{i18n>GTII}" press="onGoToPage('GTII', $event)">
+                        	<TileContent>
+                                <ImageContent src="sap-icon://order-status" />
+                            </TileContent>
+                        </GenericTile>
+                    </ScrollContainer>
+                </items>
+            </FlexBox>
+        </Panel>
+    </content>
+</Page>	
+-->

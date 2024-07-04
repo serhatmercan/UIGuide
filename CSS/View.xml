@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<GenericTag design="StatusIconHidden" text="{/#Main/Value/@sap:label}">
+		<customData>
+			<core:CustomData key="generictag" value="{model>/Value}" writeToDom="true" />
+		</customData>
+		<ObjectNumber number="{model>/Value}">
+			<customData>
+				<core:CustomData key="generictagtext" value="{model>/Value}" writeToDom="true" />
+			</customData>
+		</ObjectNumber>
+	</GenericTag>
+	<ObjectNumber class="objectnumber" />
+	<Text class="maintxt" text="{i18n>text}" />
+</core:FragmentDefinition>

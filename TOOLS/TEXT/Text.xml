@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Text text="{i18n>text}" />
+    <Text text="{ID} - {Text}" />
+    <Text text="{Text} ( {ID} )" />
+    <Text text="{i18n>text}:">
+        <layoutData>
+            <ToolbarLayoutData shrinkable="false" maxWidth="100px" />
+        </layoutData>
+    </Text>
+</core:FragmentDefinition>
+<!-- TEXT - ATTRIBUTES -->
+<!--
+class="sapUiTinyMarginBegin sapUiTinyMarginBottom"
+text="{/#Main/Value/@sap:label}"
+text="{ path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { UTC: true, style: 'short', pattern: 'dd.MM.yyyy' } }"
+text="{ path: 'model>Time/ms', type: 'sap.ui.model.type.Time', formatOptions: { UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss'} }"
+text="{ path: 'model>Value', type:'sap.ui.model.type.Float', formatOptions: { groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ',', maxFractionDigits: 0 } }"
+text="{ path: 'model>Value', type: 'sap.ui.model.type.String', constraints: { isDigitSequence: true, maxLength: 10 } }"
+-->
+<!-- TEXT - LAYOUT -->
+<!--
+<Text text="{model>Value}">
+	<customData>
+    	<core:CustomData key="text" value="{model>Value}" writeToDom="true" />
+    </customData>
+</Text>
+-->
+<!-- TEXT - CSS -->
+<!--
+.sapMText[data-text="Green"] {
+    color:#007833;
+}
+
+.sapMText[data-text="Red"] {
+    color:#cc1919;
+}
+-->

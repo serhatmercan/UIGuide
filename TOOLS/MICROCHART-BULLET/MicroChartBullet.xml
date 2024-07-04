@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:micro="sap.suite.ui.microchart">
+    <micro:BulletMicroChart maxValue="9" minValue="0" targetValue="3" size="Responsive">
+		<micro:actual>
+		    <micro:BulletMicroChartData color="{model>/Color}" value="{model>/Value}"/>
+		</micro:actual>
+		<micro:thresholds>
+			<micro:BulletMicroChartData value="0" color="Good"/>
+			<micro:BulletMicroChartData value="3" color="Warning"/>
+			<micro:BulletMicroChartData value="6" color="Critical"/>
+			<micro:BulletMicroChartData value="9" color="Error"/>
+        </micro:thresholds>
+    </micro:BulletMicroChart>
+</core:FragmentDefinition>
+<!-- MICRO CHART BULLET - ATTRIBUTES -->
+<!-- 
+press="onPress"
+-->
+
+<!-- MICRO CHART BULLET - LAYOUT -->
+<!--
+	
+-->

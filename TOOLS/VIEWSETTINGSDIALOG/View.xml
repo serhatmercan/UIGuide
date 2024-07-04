@@ -1,0 +1,1 @@
+<Button text="{i18n>sort}" icon="sap-icon://sort" press="onShowSort"/>

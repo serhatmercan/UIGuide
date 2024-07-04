@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Breadcrumbs>
+		<Link text="{LinkI}"/>
+		<Link text="{LinkII}"/>
+		<Link text="{LinkIII}"/>
+	</Breadcrumbs>
+</core:FragmentDefinition>
+<!-- BREADCRUMBS - ATTRIBUTES -->
+<!-- 
+visible="{= ${model>/Visible} === true ? false : true }"
+-->
+<!-- BREADCRUMBS - LAYOUT -->
+<!--
+	
+-->
+<!-- BREADCRUMBS - EXAMPLE -->
+<!--
+	
+-->

@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<DatePicker value="{model>Value}"/>
+</core:FragmentDefinition>
+<!--
+DATE PICKER - ATTRIBUTES
+
+id="DatePicker"
+class="sapUiSmallMarginBottom"
+displayFormat="dd.MM.yyyy"
+maxDate="{model>/MaxDate}"
+minDate="{model>/MinDate}"
+placeholder="{i18n>date}"
+value="{ path: 'model>Value', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy', UTC: true } }" 
+value="{ path: 'model>Value', type:'sap.ui.model.type.Date', formatOptions: { style: 'medium', strictParsing: true } }"
+valueFormat="dd.MM.yyyy" 
+valueState="Error" 
+valueState="{ parts:[ { path:'model>BeginDate' }, { path: 'model>EndDate' } ], formatter: '.formatter.checkDate' }"
+valueStateText="{i18n>text}"
+
+editable="false"
+enabled="{model>Enable}"
+showCurrentDateButton="true"
+showFooter="true"
+
+change="onChangeDB"
+-->

@@ -1,0 +1,27 @@
+<mvc:View controllerName="com.serhatmercan.controller" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic">
+	<semantic:FullscreenPage title="Page Title" showNavButton="true" showFooter="false" navButtonPress="onNavBack">
+		<semantic:content>
+			<SplitApp>
+				<detailPages>
+					<Page id="DetailPage" showHeader="false">
+					</Page>
+				</detailPages>
+				<masterPages>
+					<Page id="MasterPage" icon="sap-icon://action" title="{i18n>menu}">
+						<content>
+							<List id="List" items="{model>/Items}" mode="SingleSelectMaster" itemPress="onPressLI">
+								<headerToolbar>
+									<Toolbar width="100%">										
+									</Toolbar>
+								</headerToolbar>
+								<items>
+									<ObjectListItem title="{model>Title}" type="Active"/>
+								</items>
+							</List>
+						</content>
+					</Page>
+				</masterPages>
+			</SplitApp>
+		</semantic:content>
+	</semantic:FullscreenPage>
+</mvc:View>

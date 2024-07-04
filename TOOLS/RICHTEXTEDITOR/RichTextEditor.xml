@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartForm="sap.ui.comp.smartform"/>
+<smartForm:SmartForm id="RTESF">
+    <smartForm:Group >
+        <smartForm:GroupElement label="{i18n>message}" visible="{model>/Edit}">
+        </smartForm:GroupElement>
+        <smartForm:GroupElement label="{i18n>message}" visible="{model>/Edit}">
+                <FormattedText id="MessageFT" htmlText="{Mesaj}" />
+            </smartForm:GroupElement>
+    </smartForm:Group>
+</smartForm:SmartForm>
+</core:FragmentDefinition>
+<!-- RICH TEXT EDITOR  - ATTRIBUTES -->
+<!-- 
+
+-->
+<!-- RICH TEXT EDITOR - LAYOUT -->
+<!--
+	
+-->
+<!-- RICH TEXT EDITOR - EXAMPLE -->
+<!--
+	
+-->

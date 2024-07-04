@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Select items="{model>/Items}" selectedKey="{model>/Key}">
+		<core:Item key="{model>Key}" text="{model>Text}"/>
+	</Select>
+</core:FragmentDefinition>
+<!-- SELECT ATTRIBUTES -->
+<!-- 
+id="Select"
+items="{/...Set}"
+items="{ path:'model>/Items', templateShareable: 'true' }"	
+maxWidth="15rem"
+valueState="Error"
+valueStateText="{i18n>error}"
+width="5rem" width="100%"
+
+autoAdjustWidth="false"
+enabled="false" enabled="{model>Enable}"
+forceSelection="true" 
+required="true" 
+showSecondaryValues="true"
+visible="false"
+
+change="onChangeSelect"
+-->
+
+<!-- LIST ITEM ATTRIBUTES -->
+<!--
+	<core:ListItem key="{model>Key}" additionalText="{model>AdditionalText}" text="{model>Text}"/>
+-->

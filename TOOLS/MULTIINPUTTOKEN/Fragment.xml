@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<TableSelectDialog items="{/...Set}" multiSelect="true" cancel="onCancelTSD" confirm="onConfirmTSD" search="onSearchTSD">
+		<ColumnListItem>
+			<cells>
+				<ObjectIdentifier title="{Value}" text="{ValueName} {ValueResult}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column>
+				<header>
+					<Text text="Value"/>
+				</header>
+			</Column>
+		</columns>
+	</TableSelectDialog>
+	<SelectDialog items="{/...Set}" title="{i18n>listVH}" multiSelect="true" cancel="onCancelSD" confirm="onConfirmSD" search="onSearchSD">
+		<StandardListItem description="{Stext}" title="{Pernr}"/>
+	</SelectDialog>
+</core:FragmentDefinition>
+<!-- TABLE SELECT DIALOG - ATTRIBUTES -->
+<!-- 
+multiSelect="false"
+rememberSelections="false"
+
+liveChange="onLiveChangeTSD"
+-->	

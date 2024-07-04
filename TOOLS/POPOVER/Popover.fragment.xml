@@ -1,0 +1,82 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartForm="sap.ui.comp.smartform" xmlns:smartTable="sap.ui.comp.smarttable">
+	<Popover>		
+		<footer>
+			<OverflowToolbar>
+				<ToolbarSpacer/>
+				<Button text="{i18n>close}" press="onClose"/>
+			</OverflowToolbar>
+		</footer>
+	</Popover>
+</core:FragmentDefinition>
+<!-- POPOVER - ATTRIBUTES -->
+<!-- 
+id="PopoverID"
+contentHeight="auto" 
+contentWidth="30rem" 
+placement="Bottom" placement="Left"
+title="{i18n>popover}" 
+-->
+<!-- POPOVER - CONTENT -->
+<!-- 
+<List items="{/...Set}">
+	<StandardListItem description="{Text}" info="{Value}" title="{ID}"/>
+</List>
+
+<List items="{model>/Items}">
+	<StandardListItem description="{model>Text}" info="{model>Value}" title="{model>ID}"/>
+</List>
+
+<List items="{model>/Items}">
+	<ObjectListItem title="{model>ID}" type="Inactive">
+		<firstStatus>
+			<ObjectStatus text="{model>ID}"/>
+		</firstStatus>
+		<ObjectAttribute text="{model>Text}"/>
+	</ObjectListItem>
+</List>
+
+<smartForm:SmartForm>
+	<smartForm:Group>
+		<smartForm:GroupElement label="{/#Main/ID/@sap:label}">
+			<smartField:SmartField value="{ID}"/>
+		</smartForm:GroupElement>
+		<smartForm:GroupElement label="{/#Main/Text/@sap:label}">
+			<smartField:SmartField value="{Text}"/>
+		</smartForm:GroupElement>
+	</smartForm:Group>
+</smartForm:SmartForm>
+
+<smartTable:SmartTable entitySet="...Set" tableBindingPath="Items" enableAutoBinding="true" header="{/#Main/ST/@sap:label}" initiallyVisibleFields="ID,Text,Value" 
+	requestAtLeastFields="ID" showRowCount="true" showTablePersonalisation="false" tableType="ResponsiveTable" useExportToExcel="false"/>
+
+<Table items="{/...Set}">
+	<columns>
+		<Column hAlign="Center">
+			<Text text="{/#Main/ID/@sap:label}"/>
+		</Column>
+	</columns>
+	<items>
+		<ColumnListItem>
+			<cells>
+				<Text text="{ID}"/>
+			</cells>
+		</ColumnListItem>
+	</items>
+</Table>
+
+<Table items="{model>/Items}">
+	<columns>
+		<Column hAlign="Center">
+			<Text text="{/#Main/ID/@sap:label}"/>
+		</Column>
+	</columns>
+	<items>
+		<ColumnListItem>
+			<cells>
+				<Text text="{model>ID}"/>
+			</cells>
+		</ColumnListItem>
+	</items>
+</Table>
+-->
+

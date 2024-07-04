@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Input enabled="{= ( ${model>/ValueI} &amp;&amp; ${model>/ValueII} === 'X' ) }" />
+    <Input valueState="{= +${model>Value} &lt; 0 ? 'Error' : 'Success' }" />
+    <Input valueState="{= ( ${model>ValueI} === '' || +${model>ValueII} &lt;= 0 ) ? 'Error' : 'Success' }" />
+    <Input visible="{= !${model>/MaterialSelected}}" />
+    <Input visible="{= ( ${model>/Value} || ${model>/Value} === true ) ? false : true }" />
+    <ObjectIdentifier text="{= +${model>ValueI} } - {= +${model>ValueII} }" />
+    <ObjectIdentifier text="{= ${model>Statu} ? ${model>ValueI} : ${model>ValueII} }" title="{= ${model>Statu} === '' ? ${model>ValueI} : ${model>ValueII}}" />
+    <Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }" />
+    <Text text="{= Math.max(${model>/ValueI}, ${model>/ValueII}, ${model>/ValueIII}) }" />
+    <Text text="{= ${model>/Data}.split('@')[1] }" />
+    <Text visible="{= ${model>/Data} || ${model>/Value} }" />
+    <Text visible="{= ${model>/Data}.toUpperCase() === 'XYZ' || ${model>/Data} > 10000 }" />
+    <Text visible="{= RegExp('xyz', 'i').test(${model>/Data}) }" />
+</core:FragmentDefinition>

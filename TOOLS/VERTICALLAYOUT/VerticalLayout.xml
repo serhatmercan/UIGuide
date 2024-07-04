@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout>
+		<l:content>
+		</l:content>		
+	</l:VerticalLayout>
+</core:FragmentDefinition>
+<!-- VERTICAL LAYOUT ATTRIBUTES -->
+<!--
+id="VL"
+class="sapUiContentPadding" class="sapUiTinyMargin"
+width="100%"
+-->

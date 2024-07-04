@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<OverflowToolbar>
+		<Title text="{i18n>title}"/>
+		<ToolbarSpacer/>
+		<Label text="{i18n>text}"/>
+		<Input value="{model>/Value}"/>
+		<Button icon="sap-icon://add" tooltip="{i18n>add}" press="onAdd"/>
+	</OverflowToolbar>
+</core:FragmentDefinition>
+<!-- OVERFLOW TOOLBAR -->
+<!--
+class="sapUiSmallMargin" class="sapUiSmallMarginTop"
+design="Transparent"
+style="Clear" style="Standard" 
+-->

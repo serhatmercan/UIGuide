@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <HBox id="HBox"></HBox>
+</core:FragmentDefinition> <!-- -->
+<!-- HBOX - ATTRIBUTES -->
+<!-- 
+class="sapUiMediumMarginTop" class="sapUiTinyMarginBottom"
+alignItems="Start"
+justifyContent="SpaceBetween"
+renderType="Bare"
+-->
+<!-- HBOX - LAYOUT -->
+<!--
+	
+-->

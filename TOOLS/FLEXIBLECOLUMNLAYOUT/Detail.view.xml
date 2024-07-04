@@ -1,0 +1,24 @@
+<mvc:View controllerName="com.sm.application.controller.Detail"
+    xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc">
+    <ObjectPageLayout showFooter="{= ${model>/Details}.length > 0 &amp;&amp; (${model>/ActionButtonsInfo/MidColumn/FullScreen} || ${model>/ActionButtonsInfo/MidColumn/Toolbar}) }">
+        <headerTitle>
+            <core:Fragment fragmentName="com.sm.application.fragments.detail.Title" type="XML" />
+        </headerTitle>
+        <sections>
+            <ObjectPageSection showTitle="true" titleUppercase="false">
+                <subSections>
+                    <ObjectPageSubSection title="{i18n>information}" titleUppercase="false">
+                        <blocks>
+                            <core:Fragment fragmentName="com.sm.application.fragments.detail.List" type="XML" />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+            <core:Fragment fragmentName="com.sm.application.fragments.detail.Footer" type="XML" />
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>

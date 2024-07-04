@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Label text="{i18n>text}" />
+</core:FragmentDefinition> <!-- -->
+<!-- LABEL ATTRIBUTES -->
+<!--
+
+class="sapUiSmallMarginBegin sapUiSmallMarginTop" class="sapUiSmallMarginEnd" class="sapUiSmallMarginTop" class="sapUiSmallMarginBeginTop sapUiSmallMarginEnd" class="formLabel" 
+design="Bold"
+labelFor="IDText"
+text="{/#Main/Text/@sap:label}"
+textAlign="Begin"
+width="10rem"
+
+wrapping="true"
+
+-->
