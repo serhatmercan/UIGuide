@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
+=======
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
     <DatePicker value="{ path: 'model>DateValue', type: 'sap.ui.model.type.Date', formatOptions: { UTC:true } }" />
     <Input value="{ parts:[ { path:'ID' }, { path: 'Text' }, { path: 'Value' } ], formatter: '.formatter.generateText' }" />
     <Input value="{ path: 'model>/Value', type: 'sap.ui.model.type.Currency' }" />
@@ -11,10 +15,13 @@
     <Text text="{ path: 'model>Date', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'dd.MM.yyyy' } }" />
     <Text text="{ path: 'model>Value', type:'sap.ui.model.type.Float', formatOptions: { decimalSeparator: ',', groupingEnabled: true, groupingSeparator: '.', maxFractionDigits: 2 } }" />
     <Text text="{ path: 'TimeValue/ms', type: 'sap.ui.model.type.Time', formatOptions: { UTC: true, source: { pattern: 'timestamp' }, pattern: 'HH:mm:ss' } }" />
+<<<<<<< HEAD
     <Text text="{= ${model>/ValueI}.length &lt; 20 
          ? ${i18n>errorMessage} 
          : ${parts: [{ path: 'i18n>successMessage' },
                      { path: 'model>/DateI',  type:'sap.ui.model.type.Date', constraints: { displayFormat:'Date' } },
                      { path: 'model>/DateII', type:'sap.ui.model.type.Date', constraints: { displayFormat:'Date' } }], formatter: '.formatter.generateMessage' }}" />
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
     <TimePicker value="{ path:'model>TimeValue', type: 'sap.ui.model.odata.type.Time' }" displayFormat="HH:mm:ss" />
 </core:FragmentDefinition>

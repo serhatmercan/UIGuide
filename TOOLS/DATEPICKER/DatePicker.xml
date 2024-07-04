@@ -21,6 +21,9 @@ editable="false"
 enabled="{model>Enable}"
 showCurrentDateButton="true"
 showFooter="true"
+<<<<<<< HEAD
 
 change="onChangeDB"
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 -->

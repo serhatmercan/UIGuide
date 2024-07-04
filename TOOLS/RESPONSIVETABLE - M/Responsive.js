@@ -126,7 +126,11 @@ sap.ui.define([
 		onDelete: function (oEvent) {
 			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
 			const oViewModel = this.getModel("model");
+<<<<<<< HEAD
 			const aItems = oViewModel.getProperty("/Items");
+=======
+			const aItems = oModel.getProperty("/Items");
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 
 			aItems.splice(iIndex, 1);
 

@@ -20,9 +20,12 @@
     <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/vocabularies/Org.OData.Measures.V1.xml">
         <edmx:Include Alias="CQP" Namespace="Org.OData.Measures.V1" />
     </edmx:Reference>
+<<<<<<< HEAD
     <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
 		<edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
 	</edmx:Reference>
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
     <edmx:Reference Uri="https://wiki.scn.sap.com/wiki/download/attachments/448470968/UI.xml?api=v2">
         <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1" />
     </edmx:Reference>

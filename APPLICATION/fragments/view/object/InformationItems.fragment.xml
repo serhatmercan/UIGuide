@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <core:FragmentDefinition
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
@@ -8,10 +9,16 @@
         mode="{= ${model>/Edit} ? 'MultiSelect' : 'None' }"
         noDataText="{i18n>checkItem}"
     >
+=======
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <Table id="InformationItems" items="{model>/InformationItems}" mode="{= ${model>/Edit} ? 'MultiSelect' : 'None' }" noDataText="{i18n>checkItem}">
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
         <headerToolbar>
             <OverflowToolbar>
                 <content>
                     <ToolbarSpacer />
+<<<<<<< HEAD
                     <Button
                         icon="sap-icon://add"
                         text="{i18n>add}"
@@ -20,10 +27,14 @@
                         visible="{model>/Edit}"
                         press="onShowInformationItem('A', $event)"
                     />
+=======
+                    <Button icon="sap-icon://add" text="{i18n>add}" tooltip="{i18n>addItem}" type="Emphasized" visible="{model>/Edit}" press="onShowInformationItem('A', $event)" />
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
                 </content>
             </OverflowToolbar>
         </headerToolbar>
         <columns>
+<<<<<<< HEAD
             <Column
                 minScreenWidth="Desktop"
                 width="15rem"
@@ -49,10 +60,20 @@
                 demandPopin="true"
                 visible="{model>/Edit}"
             >
+=======
+            <Column minScreenWidth="Desktop" width="15rem">
+                <Label text="{i18n>ID}" design="Bold" />
+            </Column>
+            <Column minScreenWidth="Desktop" width="15rem" demandPopin="true">
+                <Label text="{i18n>value}" design="Bold" />
+            </Column>
+            <Column minScreenWidth="Desktop" hAlign="End" demandPopin="true" visible="{model>/Edit}">
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
                 <Label />
             </Column>
         </columns>
         <items>
+<<<<<<< HEAD
             <ColumnListItem
                 type="Navigation"
                 press="onShowInformationItem('U', $event)"
@@ -69,8 +90,19 @@
                         press="onDeleteItem"
                         visible="{model>/Edit}"
                     />
+=======
+            <ColumnListItem type="Navigation" press="onShowInformationItem('U', $event)">
+                <cells>
+                    <ObjectIdentifier title="{model>ID}" text="{model>Name}" />
+                    <Text text="{model>Value}" />
+                    <Button icon="sap-icon://decline" tooltip="{i18n>delete}" press="onDeleteItem" visible="{model>/Edit}"/>
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
                 </cells>
             </ColumnListItem>
         </items>
     </Table>
+<<<<<<< HEAD
 </core:FragmentDefinition>
+=======
+</core:FragmentDefinition>
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2

@@ -42,7 +42,11 @@ sap.ui.define([
 			const oFilterData = oSFB.getFilterData();
 			const aFilterItems = oSFB.getAllFilterItems();
 			const aCategoryFilterData = oFilterData.Category;
+<<<<<<< HEAD
 			const oBeginDate = 	.find(oFilter => oFilter.getName() === "Begda");
+=======
+			const oBeginDate = aFilterItems.find(oFilter => oFilter.getName() === "Begda");
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			const oSubCategory = aFilterItems.find(oFilter => oFilter.getName() === "SubCat");
 
 			if (sFilteredFieldName === "Begda" || sFilteredFieldName === "Endda") {

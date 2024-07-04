@@ -23,10 +23,13 @@ sap.ui.define([
 				selectedItem: sID
 			});
 
+<<<<<<< HEAD
 			this.byId("ComboBox").setFilterFunction((sTerm, oItem) => {
 				return oItem.getKey().match(new RegExp(sTerm, "i")) || oItem.getText().match(new RegExp(sTerm, "i"));
 			});
 
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);
 		},
 

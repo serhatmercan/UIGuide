@@ -59,6 +59,7 @@ sap.ui.define([
 
 		createColumns: function () {
 			const aColumns = [];
+<<<<<<< HEAD
 			const oTable = this.byId("Table");
 			const aCells = oTable.getItems()[0].getCells();
 			const oResourceBundle = this.getResourceBundle();
@@ -75,6 +76,10 @@ sap.ui.define([
 				});
 			});
 
+=======
+			const oResourceBundle = this.getResourceBundle();
+
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			// Boolean
 			aColumns.push({
 				label: oResourceBundle.getText("active"),
@@ -125,6 +130,7 @@ sap.ui.define([
 				template: "{0}, {1}"
 			});
 
+<<<<<<< HEAD
 			// String III (Date(YYYYMMDD) -> String(DD.MM.YYYY))
 			aColumns.push({
 				inputFormat: "^([0-9]{4})([0-9]{2})([0-9]{2})$",
@@ -136,6 +142,10 @@ sap.ui.define([
 
 			// Time
 			aColumns.push({
+=======
+			// Time
+			aCols.push({
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 				label: oResourceBundle.getText("time"),
 				property: "Time/ms",
 				type: EdmType.Time,

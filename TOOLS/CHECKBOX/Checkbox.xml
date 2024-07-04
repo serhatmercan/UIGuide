@@ -13,8 +13,11 @@ enabled="false"
 selected="true"
 wrapping="true"
 visible="false" visible="{= ${model>/PartSelected} &amp;&amp; ${model>/Part/Edit} }"
+<<<<<<< HEAD
 
 select="onSelectCB"
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 -->
 <!-- CHECKBOX LAYOUT -->
 <!-- 

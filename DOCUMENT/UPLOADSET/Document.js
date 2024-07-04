@@ -16,6 +16,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
+<<<<<<< HEAD
 			this.setModel(
 				new JSONModel({
 					DeletedDocuments: [],
@@ -23,6 +24,13 @@ sap.ui.define([
 					Documents: []
 				}), "model"
 			);
+=======
+			this.setModel(new JSONModel({
+				DeletedDocuments: [],
+				DocumentUrl: "",
+				Documents: []
+			}), "model");
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 
 			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
@@ -184,10 +192,13 @@ sap.ui.define([
 
 			sDocumentPath = sServiceURL + sPath + "/$value";
 
+<<<<<<< HEAD
 			oPDFViewer.attachEventOnce("sourceValidationFailed", (oEvent) => {
 				oEvent.preventDefault();
 			});
 			oPDFViewer.setShowDownloadButton(false);
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			oPDFViewer.setSource(sDocumentPath);
 			oPDFViewer.setTitle(this.getText("preview"));
 			oPDFViewer.open();

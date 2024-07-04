@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 <core:FragmentDefinition xmlns="sap.m"
     xmlns:core="sap.ui.core">
+=======
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
     <Input enabled="{= ( ${model>/ValueI} &amp;&amp; ${model>/ValueII} === 'X' ) }" />
     <Input valueState="{= +${model>Value} &lt; 0 ? 'Error' : 'Success' }" />
     <Input valueState="{= ( ${model>ValueI} === '' || +${model>ValueII} &lt;= 0 ) ? 'Error' : 'Success' }" />
@@ -8,9 +12,20 @@
     <ObjectIdentifier text="{= +${model>ValueI} } - {= +${model>ValueII} }" />
     <ObjectIdentifier text="{= ${model>Statu} ? ${model>ValueI} : ${model>ValueII} }" title="{= ${model>Statu} === '' ? ${model>ValueI} : ${model>ValueII}}" />
     <Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }" />
+<<<<<<< HEAD
     <Text text="{= Math.max(${model>/ValueI}, ${model>/ValueII}, ${model>/ValueIII}) }" />
     <Text text="{= ${model>/Data}.split('@')[1] }" />
     <Text visible="{= ${model>/Data} || ${model>/Value} }" />
     <Text visible="{= ${model>/Data}.toUpperCase() === 'XYZ' || ${model>/Data} > 10000 }" />
     <Text visible="{= RegExp('xyz', 'i').test(${model>/Data}) }" />
 </core:FragmentDefinition>
+=======
+    <Text visible="{= ${model>/Data} || ${model>/Value} }" />
+</core:FragmentDefinition>
+
+
+<Text text="{ sValue === 'X' && iValue === 10 ? 'ABC' : sValue === 'Y' || iValue === 20 ? 'DEF' : 'XYZ' }" />
+<Text text="{= ${sValue} === "X" && ${iValue} === 10 ? "ABC" : ${sValue} === "Y" || ${iValue} === 20 ? "DEF" : "XYZ" }" />
+<Text text="{= ${sValue} === 'X' &amp;&amp; ${iValue} === 10 ? 'ABC' : ${sValue} === 'Y' || ${iValue} === 20 ? 'DEF' : 'XYZ' }" />
+<Text text="{= ${sValue} === "X" &amp;&amp; ${iValue} === 10 ? "ABC" : ${sValue} === "Y" || ${iValue} === 20 ? "DEF" : "XYZ" }" />
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2

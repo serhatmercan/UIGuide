@@ -44,7 +44,10 @@ sap.ui.define([
 			const oBeginDate = oExportSettings.workbook?.columns?.find(oColumn => oColumn.property === "BeginDate");
 
 			oExportSettings.fileName = "Excel Test";
+<<<<<<< HEAD
 			oExportSettings.dataSource.count = 1000;
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 
 			if (oBeginDate) {
 				oBeginDate.type = "Date";
@@ -106,7 +109,11 @@ sap.ui.define([
 		},
 
 		onClearFilters: function () {
+<<<<<<< HEAD
 			this.byId("ST").applyVariant({});
+=======
+			this.byId("ST").getTable().getBinding("items").aApplicationFilters = [];
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 		},
 
 		onDetail: function (oEvent) {
@@ -245,6 +252,7 @@ sap.ui.define([
 		patternMatched: function () {
 			this.getModel().resetChanges();
 			this.byId("ST").rebindTable();
+<<<<<<< HEAD
 
 			this.onReadQuery("/...Set/$count", [], this.getModel())
 				.then((iCount) => {
@@ -252,6 +260,8 @@ sap.ui.define([
 				})
 				.catch(() => { })
 				.finally(() => { });
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 		},
 
 		refreshTable: function () {

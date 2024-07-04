@@ -1,10 +1,15 @@
 sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
+<<<<<<< HEAD
 	"sap/ui/export/Spreadsheet",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
 ], function (MessageBox, MessageToast, Spreadsheet, Filter, FilterOperator) {
+=======
+	'sap/ui/export/Spreadsheet'
+], function (MessageBox, MessageToast, Spreadsheet) {
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 	"use strict";
 	return sap.ui.controller("com.serhatmercan.ext.controller.ListReportExt", {
 

@@ -24,7 +24,10 @@ id="List"
 headerText="{i18n>list}"
 items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
 items="{ path: '/MainSHSet', suspended: true }"
+<<<<<<< HEAD
 items="{ path: '/MainSet', filters: [{ path: 'Authority', operator: 'EQ', value1: true }] }"
+=======
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
 growingThreshold="10"
 mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"

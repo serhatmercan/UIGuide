@@ -1,8 +1,14 @@
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ndc="sap.ndc" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
 	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariants="sap.ui.comp.smartvariants" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable" >
+<<<<<<< HEAD
     <smartVariants:SmartVariantManagement id="...SVM" entitySet="...Set" persistencyKey="...SVMKey"/>
 	<smartFilterBar:SmartFilterBar id="...SFB" entitySet="...Set" persistencyKey="...SFBKey" smartVariant="...SVM"/>
 	<smartTable:SmartTable entitySet="...Set" persistencyKey="...STKey" smartFilterId="...SFB" smartVariant="...SVM"/>
+=======
+    <smartVariants:SmartVariantManagement id="...SVM" />
+	<smartFilterBar:SmartFilterBar id="...SFB" entitySet="...Set" smartVariant="...SVM"/>
+	<smartTable:SmartTable entitySet="...Set" smartFilterId="...SFB" smartVariant="...SVM"/>
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 </mvc:View>
 <!-- SMART TABLE - ATTRIBUTES -->
 <!-- 
@@ -11,6 +17,10 @@ class="sapUiResponsiveContentPadding" class="smarttable sapUiResponsiveContentPa
 header="{i18n>smartTable}" header="{/#Main/ST/@sap:label}" w/ showRowCount="true" 
 ignoredFields="Value" 
 initiallyVisibleFields="ID,Key" 
+<<<<<<< HEAD
+=======
+persistencyKey="STKey"
+>>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 requestAtLeastFields="ID"
 smartFilterId="SFB" 
 smartVariant="SVM"
