@@ -17,21 +17,21 @@ sap.ui.define([
 		},
 
 		onShowMB: function () {
-			const oResourceBundle = this.getResourceBundle();
+			const oMBAction = MessageBox.Action;
 
 			// Confirm
-			MessageBox.confirm(this.getResourceBundle().getText("Confirm"), {
+			MessageBox.confirm(this.getText("Confirm"), {
 				onClose: (sAction) => {
-					if (sAction === MessageBox.Action.OK) {}
+					if (sAction === oMBAction.OK) { }
 				}
 			});
 
 			// Warning
-			MessageBox.warning(this.getResourceBundle().getText("Warning"), {
-				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL],
-				emphasizedAction: MessageBox.Action.OK,
+			MessageBox.warning(this.getText("Warning"), {
+				actions: [oMBAction.OK, oMBAction.CANCEL],
+				emphasizedAction: oMBAction.OK,
 				onClose: function (sAction) {
-					if (sAction !== "OK") {} else {}
+					if (sAction !== "OK") { } else { }
 				}
 			});
 		}

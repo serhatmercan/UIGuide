@@ -1,20 +1,21 @@
 sap.ui.define([
-<<<<<<< HEAD
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent"
 ], (MessagePopover, MessagePopoverItem, Controller, UIComponent) => {
-=======
-	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/UIComponent"
-], function (Controller, UIComponent) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 	"use strict";
+
+	const createPromise = (oModelMethod, sSet, oData, oModel) => new Promise((fnResolve, fnReject) => {
+		const mParameters = {
+			success: fnResolve,
+			error: fnReject
+		};
+		oModelMethod.call(oModel, sSet, oData, mParameters);
+	});
 
 	return Controller.extend("xxx.controller.BaseController", {
 
-<<<<<<< HEAD
 		getModel(sName) {
 			return this.getView().getModel(sName);
 		},
@@ -25,27 +26,10 @@ sap.ui.define([
 
 		getText(sText, iNumber) {
 			const oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-			return iNumber ? oResourceBundle.getText(sText, iNumber) : oResourceBundle.getText(sText);
+			return oResourceBundle.getText(sText, iNumber || undefined);
 		},
 
 		setModel(oModel, sName) {
-=======
-		getModel: function (sName) {
-			return this.getView().getModel(sName);
-		},
-
-		getRouter: function () {
-			return UIComponent.getRouterFor(this);
-		},
-
-		getText: function (sText, iNumber) {
-			const oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
-
-			return iNumber ? oResourceBundle.getText(sText, iNumber) : oResourceBundle.getText(sText);
-		},
-
-		setModel: function (oModel, sName) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			return this.getView().setModel(oModel, sName);
 		},
 
@@ -53,64 +37,34 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-<<<<<<< HEAD
 		onClearModel() {
 			const oViewModel = this.getModel("model");
-			const oData = {
-				"ItemFound": false
-=======
-		onClearModel: function () {
-			const oViewModel = this.getModel("model");
-			const oData = {
-				ItemFound: false
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-			};
-
-			oViewModel.setProperty("/", oData);
+			oViewModel.setProperty("/", { "ItemFound": false });
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 
-<<<<<<< HEAD
 		onFireToShowMessages() {
-=======
-		onFireToShowMessages: function () {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-			if (this.getOwnerComponent().getModel("message").getData().length) {
-				setTimeout(() => {
-					this.byId("MessagePO").firePress();
-				}, 100);
+			const oMessageModel = this.getOwnerComponent().getModel("message");
+
+			if (oMessageModel.getData().length) {
+				setTimeout(() => this.byId("MessagePO").firePress(), 100);
 			}
 		},
 
-<<<<<<< HEAD
-		onShowMessages(oEvent) {
-			const oMessagesButton = oEvent.getSource();
+		onShowMessages({ getSource }) {
+			const oMessagesButton = getSource();
 
 			if (!this._oMessagePopover) {
 				this._oMessagePopover = new MessagePopover({
 					items: {
 						path: "message>/",
 						template: new MessagePopoverItem({
-=======
-		onShowMessages: function (oEvent) {
-			let oMessagesButton = oEvent.getSource();
-
-			if (!this._oMessagePopover) {
-				this._oMessagePopover = new sap.m.MessagePopover({
-					items: {
-						path: "message>/",
-						template: new sap.m.MessagePopoverItem({
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 							description: "{message>description}",
 							type: "{message>type}",
 							title: "{message>message}"
 						})
 					}
 				});
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 				oMessagesButton.addDependent(this._oMessagePopover);
 			}
 
@@ -121,148 +75,40 @@ sap.ui.define([
 		/* CRUD */
 		/* ==== */
 
-<<<<<<< HEAD
 		onCallFunction(sEntity, sMethod, oModel, oURLParameters) {
-=======
-		onCallFunction: function (sEntity, sMethod, oModel, oURLParameters) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-			return new Promise((fnResolve, fnReject) => {
-				const mParameters = {
-					method: sMethod,
-					urlParameters: oURLParameters,
-					success: fnResolve,
-					error: fnReject
-				};
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				oModel.callFunction(sEntity, mParameters);
-			});
+			return createPromise(oModel.callFunction, sEntity, { method: sMethod, urlParameters: oURLParameters }, oModel);
 		},
 
-<<<<<<< HEAD
 		onCreate(sSet, oData, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onCreate: function (sSet, oData, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.create(sSet, oData, mParameters);
-			});
+			return createPromise(oModel.create, sSet, oData, oModel);
 		},
 
-<<<<<<< HEAD
 		onDelete(sSet, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onDelete: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.remove(sSet, mParameters);
-			});
+			return createPromise(oModel.remove, sSet, undefined, oModel);
 		},
 
-<<<<<<< HEAD
 		onRead(sSet, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onRead: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
+			return createPromise(oModel.read, sSet, undefined, oModel);
 		},
 
-<<<<<<< HEAD
 		onReadAssociation(sSet, oExpand, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onReadAssociation: function (sSet, oExpand, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					urlParameters: oExpand,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
+			return createPromise(oModel.read, sSet, { urlParameters: oExpand }, oModel);
 		},
 
-<<<<<<< HEAD
 		onReadExpanded(sSet, aFilters, oExpand, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onReadExpanded: function (sSet, aFilters, oExpand, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					filters: aFilters,
-					urlParameters: oExpand,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
+			return createPromise(oModel.read, sSet, { filters: aFilters, urlParameters: oExpand }, oModel);
 		},
 
-<<<<<<< HEAD
 		onReadQuery(sSet, aFilters, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onReadQuery: function (sSet, aFilters, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					filters: aFilters,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
+			return createPromise(oModel.read, sSet, { filters: aFilters }, oModel);
 		},
 
-<<<<<<< HEAD
 		onSubmitChanges(oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onSubmitChanges: function (oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.submitChanges(mParameters);
-			});
+			return createPromise(oModel.submitChanges, undefined, undefined, oModel);
 		},
 
-<<<<<<< HEAD
 		onUpdate(sSet, oData, oModel) {
-			return new Promise((fnSuccess, fnReject) => {
-=======
-		onUpdate: function (sSet, oData, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.update(sSet, oData, mParameters);
-			});
+			return createPromise(oModel.update, sSet, oData, oModel);
 		}
 
 	});

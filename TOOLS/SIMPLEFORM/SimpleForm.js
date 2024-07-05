@@ -9,17 +9,17 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function() {					 		
+		onInit: function () {
 			this.setModel(
 				new JSONModel({
-					Value: ""	
+					Value: ""
 				}), "model"
 			);
-			
+
 			this.getRequiredElements();
 
 			if (this.checkFields()) {
-				MessageToast.show(this.getResourceBundle().getText("infoObligatoryFields"));
+				MessageToast.show(this.getText("infoObligatoryFields"));
 				return;
 			}
 		},
@@ -32,12 +32,12 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		checkFields: function(){		
+		checkFields: function () {
 			return this.RequiredElements.some(oRequiredElement => !this.validateElement(oRequiredElement));
 		},
 
-		getRequiredElements: function(){
-			const aClasses = [ "sap.m.ComboBox", "sap.m.DatePicker", "sap.m.Input", "sap.m.MultiComboBox", "sap.m.MultiInput", "sap.m.TextArea", "sap.m.TimePicker" ];
+		getRequiredElements: function () {
+			const aClasses = ["sap.m.ComboBox", "sap.m.DatePicker", "sap.m.Input", "sap.m.MultiComboBox", "sap.m.MultiInput", "sap.m.TextArea", "sap.m.TimePicker"];
 			const aContents = this.byId("SimpleForm").getContent();
 
 			this.RequiredElements = aContents.filter(oContext => {
@@ -45,27 +45,27 @@ sap.ui.define([
 			});
 		},
 
-		validateElement: function (oElement) {			
-			let sValue;				
+		validateElement: function (oElement) {
+			let sValue;
 
 			switch (oElement.getMetadata().getName()) {
-			case "sap.m.DatePicker":
-				sValue = oElement.getDateValue();
-				break;
-			case "sap.m.ComboBox":
-				sValue = oElement.getSelectedKey();
-				break;
-			case "sap.m.MultiComboBox":
-				sValue = oElement.getSelectedKeys().length;
-				break;
-			case "sap.m.Select":
-				sValue = oElement.getSelectedKey();
-				break;
-			case "sap.m.MultiInput":
-				sValue = oElement.getTokens().length;
-				break;
-			default:
-				sValue = oElement.getValue();
+				case "sap.m.DatePicker":
+					sValue = oElement.getDateValue();
+					break;
+				case "sap.m.ComboBox":
+					sValue = oElement.getSelectedKey();
+					break;
+				case "sap.m.MultiComboBox":
+					sValue = oElement.getSelectedKeys().length;
+					break;
+				case "sap.m.Select":
+					sValue = oElement.getSelectedKey();
+					break;
+				case "sap.m.MultiInput":
+					sValue = oElement.getTokens().length;
+					break;
+				default:
+					sValue = oElement.getValue();
 			}
 
 			oElement.setValueState(sValue ? "None" : "Error");

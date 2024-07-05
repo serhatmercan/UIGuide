@@ -1,9 +1,9 @@
-sap.ui.define([], function () {
+sap.ui.define([], () => {
 	"use strict";
 
 	return {
 
-		generateFileSize: function (sValue) {
+		generateFileSize(sValue) {
 			return sap.ui.core.format.FileSizeFormat.getInstance({
 				binaryFilesize: false,
 				maxFractionDigits: 1,
@@ -11,13 +11,11 @@ sap.ui.define([], function () {
 			}).format(sValue);
 		},
 
-		generateURL: function (oContext) {
+		generateURL(oContext) {
 			const oModel = this.getModel();
+			const { ID, DocumentID } = oContext;
 
-			return oModel.sServiceUrl + oModel.createKey("/DocumentSet", {
-				ID: oContext.ID,
-				DocumentID: oContext.DocumentID
-			}) + "/$value";
+			return `${oModel.sServiceUrl}${oModel.createKey("/DocumentSet", { ID, DocumentID })}/$value`;
 		}
 
 	};

@@ -16,7 +16,7 @@ sap.ui.define([
 			this.setModel(
 				new JSONModel({
 					Items: [],
-					Value: "" 
+					Value: ""
 				}), "model");
 		},
 
@@ -25,7 +25,7 @@ sap.ui.define([
 		/* ============== */
 
 		onCancelSD: function () {
-			this.oSD.close();			
+			this.oSD.close();
 			this.oSD.destroy();
 			this.oSD = null;
 		},
@@ -45,7 +45,7 @@ sap.ui.define([
 			this.getModel("model").setProperty("/Value", oData.Value);
 
 			this.onCancelSD();
-		},	
+		},
 
 		onSearchSD: function (oEvent) {
 			const aFilters = [
@@ -56,13 +56,13 @@ sap.ui.define([
 			oEvent.getSource().getBinding("items").filter(aFilters);
 		},
 
-		onShowSD: function () { 
+		onShowSD: function () {
 			this.oSD = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.SelectDialog", this);
 			this.getView().addDependent(this.oSD);
 			this.oSD.open();
 		},
 
-		onShowSD: function () {  
+		onShowSD: function () {
 			const aFilters = [
 				new Filter("Value", FilterOperator.Contains, "X")
 			];
@@ -77,7 +77,7 @@ sap.ui.define([
 
 			// BIND: Add Filter To Set
 			this.oSD._oDialog.attachBeforeOpen(function () {
-				this.getModelData();				
+				this.getModelData();
 				this.byId("SD").getBinding("items").filter(aFilters);
 			}.bind(this));
 
@@ -88,8 +88,8 @@ sap.ui.define([
 
 			// Add Button To Toolbar In Select Dialog
 			this.oSD._oDialog._header.addContentRight(new sap.m.Button({
-				icon: "sap-icon://add",				
-				tooltip: this.getResourceBundle().getText("button"),
+				icon: "sap-icon://add",
+				tooltip: this.getText("button"),
 				type: "Emphasized",
 				press: this.onPress.bind(this) // Call Function
 			}));

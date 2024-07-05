@@ -6,7 +6,7 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, MessageToast, PDFViewer, Item, Filter, FilterOperator, JSONModel) {
+], (BaseController, MessageToast, PDFViewer, Item, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -15,8 +15,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-<<<<<<< HEAD
+		onInit() {
 			this.setModel(
 				new JSONModel({
 					DeletedDocuments: [],
@@ -24,18 +23,11 @@ sap.ui.define([
 					Documents: []
 				}), "model"
 			);
-=======
-			this.setModel(new JSONModel({
-				DeletedDocuments: [],
-				DocumentUrl: "",
-				Documents: []
-			}), "model");
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 
 			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
 
-		onExit: function () {
+		onExit() {
 			if (this.oDocument) {
 				this.oDocument.destroy();
 				this.oDocument = null;
@@ -46,9 +38,9 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onAIR: function (oEvent) { },
+		onAIR(oEvent) { },
 
-		onBUSDocument: function (oEvent) {
+		onBUSDocument(oEvent) {
 			const oModel = this.getModel();
 			const oItem = oEvent.getParameter("item");
 
@@ -66,46 +58,44 @@ sap.ui.define([
 			}));
 		},
 
-		onCloseDocument: function () {
+		onCloseDocument() {
 			this.oDocument.close();
 		},
 
-		onPrintout: function () {
+		onPrintout() {
 			const aContexts = this.byId("Table").getTable().getSelectedContexts();
-			let sID = "";
 
 			if (aContexts.length === 0) {
 				MessageToast.show(this.getText("infoChooseRow"));
 				return;
 			}
 
-			sID = aContexts.map(oContext => this.getModel().getProperty(oContext.getPath() + "/ID")).join("-");
+			const sID = aContexts.map(oContext => this.getModel().getProperty(`${oContext.getPath()}/ID`)).join("-");
 
 			this.openPdfViewer(sID);
 		},
 
-		onSendDocuments: async function () {
+		async onSendDocuments() {
 			const oDocumentUS = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUS");
 			const oViewModel = this.getModel("model");
 			const aDeletedDocuments = oViewModel.getProperty("/DeletedDocuments");
-			let oData = {};
 
 			if (oDocumentUS) {
 				this.addDeletedDocuments();
 			}
 
-			oData.Documents = aDeletedDocuments.length ? aDeletedDocuments : [];
+			const oData = { Documents: aDeletedDocuments.length ? aDeletedDocuments : [] };
 
 			await this.uploadDocument();
 
-			if (oUploadCollection) {
+			if (oDocumentUS) {
 				this.oDocument.destroy();
 				this.oDocument = null;
 				oViewModel.setProperty("/Documents", []);
 			}
 		},
 
-		onShowDocument: function () {
+		onShowDocument() {
 			if (!this.oDocument) {
 				this.oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.sm.application.fragments.dialog.Document", this);
 				this.oDocument.setModel(this.getModel("i18n"), "i18n");
@@ -119,118 +109,94 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		addDeletedDocuments: function () {
+		addDeletedDocuments() {
 			const oDocumentUS = this.byId("DocumentUS");
 			const oViewModel = this.getModel("model");
 			const aDeletedDocuments = oViewModel.getProperty("/DeletedDocuments");
 			const aOriginDocuments = oDocumentUS.getBinding("items").getCurrentContexts();
 			const aNewDocuments = oDocumentUS.getItems();
 			const sID = oViewModel.getProperty("/ID");
-			let aOriginDocumentID = [];
-			let aNewDocumentID = [];
-
-			aOriginDocumentID = aOriginDocuments.map(oOriginDocument => {
-				return {
-					DocumentID: oOriginDocument.getObject("DocumentID")
-				};
-			});
-
-			aNewDocumentID = aNewDocuments.map(oNewDocument => {
-				return {
-					DocumentID: oViewModel.getProperty(oNewDocument.getBindingContext("model").getPath() + "/DocumentID")
-				};
-			});
-
-			aOriginDocumentID.forEach((oOriginDocumentID) => {
-				if (aNewDocumentID.findIndex(oNewDocumentID => oNewDocumentID.DocumentID === oOriginDocumentID.DocumentID) === -1) {
-					aDeletedDocuments.push({
-						ID: sID,
-						DocumentID: oOriginDocumentID.DocumentID
-					});
+			const aOriginDocumentIDs = aOriginDocuments.map(oOriginDocument => ({
+				DocumentID: oOriginDocument.getObject("DocumentID")
+			}));
+			const aNewDocumentIDs = aNewDocuments.map(oNewDocument => ({
+				DocumentID: oViewModel.getProperty(`${oNewDocument.getBindingContext("model").getPath()}/DocumentID`)
+			}));
+			aOriginDocumentIDs.forEach(({ DocumentID }) => {
+				if (!aNewDocumentIDs.some(oNewDocumentID => oNewDocumentID.DocumentID === DocumentID)) {
+					aDeletedDocuments.push({ ID: sID, DocumentID });
 				}
 			});
 
 			oViewModel.setProperty("/DeletedDocuments", aDeletedDocuments);
 		},
 
-		getDocuments: async function (sID) {
+		async getDocuments() {
 			const oViewModel = this.getModel("model");
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, oViewModel.getProperty("/ID"))
-			];
+			const aFilters = [new Filter("ID", FilterOperator.EQ, oViewModel.getProperty("/ID"))];
 
-			await this.onReadQuery("/DocumentSet", aFilters, this.getModel())
-				.then((oData) => {
-					oViewModel.setProperty("/Documents", oData.results);
-				})
-				.catch(() => { })
-				.finally(() => { });
+			try {
+				const oData = await this.onReadQuery("/DocumentSet", aFilters, this.getModel());
+				oViewModel.setProperty("/Documents", oData.results);
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				// Handle Finally
+			}
 		},
 
-		getUploadUrl: function () {
+		getUploadUrl() {
 			const oModel = this.getModel();
-			const sPath = oModel.createKey("/...Set", {
-				ID: this.getModel("model").getProperty("/ID")
-			});
-			let sDocumentPath = "";
+			const sID = this.getModel("model").getProperty("/ID");
+			const sPath = oModel.createKey("/...Set", { ID: sID });
+			const sServiceURL = oModel.sServiceUrl;
 
-			sDocumentPath = oModel.sServiceUrl + sPath + "/Documents";
-
-			return sDocumentPath;
+			return `${sServiceURL}${sPath}/Documents`;
 		},
 
-		openPdfViewer: function (sID) {
+		openPdfViewer(sID) {
 			const oModel = this.getModel();
 			const oPDFViewer = new PDFViewer();
 			const sServiceURL = oModel.sServiceUrl;
-			let sDocumentPath = "";
-			let sPath = "";
+			const sPath = oModel.createKey("/...Set", { ID: sID });
+			const sDocumentPath = `${sServiceURL}${sPath}/$value`;
 
-			sPath = oModel.createKey("/...Set", {
-				ID: sID
-			});
-
-			sDocumentPath = sServiceURL + sPath + "/$value";
-
-<<<<<<< HEAD
-			oPDFViewer.attachEventOnce("sourceValidationFailed", (oEvent) => {
-				oEvent.preventDefault();
-			});
+			oPDFViewer.attachEventOnce("sourceValidationFailed", oEvent => { oEvent.preventDefault(); });
 			oPDFViewer.setShowDownloadButton(false);
-=======
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 			oPDFViewer.setSource(sDocumentPath);
 			oPDFViewer.setTitle(this.getText("preview"));
 			oPDFViewer.open();
 		},
 
-		uploadDocument: async function () {
+		async uploadDocument() {
 			const oDocumentUS = this.byId("DocumentUS");
-			let iDocumentItemsCount = 0;
-			let sServiceUrl = "";
 
 			if (!oDocumentUS) {
 				return;
 			}
 
-			iDocumentItemsCount = oDocumentUS.getIncompleteItems().length;
-			sServiceUrl = this.getUploadUrl();
+			const iDocumentItemsCount = oDocumentUS.getIncompleteItems().length;
+			const sServiceUrl = this.getUploadUrl();
 
 			oDocumentUS.getIncompleteItems().forEach(oItem => {
 				oItem.setUploadUrl(sServiceUrl);
 			});
 
-			if (iDocumentItemsCount > 0) {
+			if (iDocumentItemsCount) {
 				await oDocumentUS.upload();
 			}
 		},
 
-		viewMatched: function () {
-			this.getOwnerComponent().getModel().metadataLoaded().then(async () => {
+		async viewMatched() {
+			try {
+				await this.getOwnerComponent().getModel().metadataLoaded();
 				await this.getDocuments();
-			});
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				// Handle Finally
+			}
 		}
 
 	});
-
 });

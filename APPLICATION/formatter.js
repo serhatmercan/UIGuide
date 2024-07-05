@@ -1,9 +1,9 @@
-sap.ui.define([], function () {
+sap.ui.define([], () => {
 	"use strict";
 
 	return {
 
-		setValue: function (sValue) {
+		setValue(sValue) {
 			return "X";
 		}
 

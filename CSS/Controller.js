@@ -1,32 +1,32 @@
 sap.ui.define([
     "com/serhatmercan/controller/BaseController",
-    "sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController) => {
     "use strict";
 
     return BaseController.extend("com.serhatmercan.Controller", {
 
-        onInit: function () {
+        onInit() {
+            const oTable = this.byId("Table").getTable();
+
             // Change Cell Style
-            this.byId("Table").getTable().getSelectedItem().getCells()[0].$().addClass("cell_color_green");
+            const oSelectedItem = oTable.getSelectedItem();
+            if (oSelectedItem) {
+                oSelectedItem.getCells()[0].$().addClass("cell_color_green");
+            }
 
             // Change Selected Row Style
-            this.byId("Table").getTable().getSelectedItems()[0].addStyleClass("row_color_red");
-
-            // Change Selected Rows Style
-            this.byId("Table").getTable().getSelectedItems().forEach(oItem => {
-                oItem.addStyleClass("row_color_red");
-            });
+            const aSelectedItems = oTable.getSelectedItems();
+            if (aSelectedItems.length > 0) {
+                aSelectedItems.forEach(oItem => oItem.addStyleClass("row_color_red"));
+            }
 
             // Change All Rows Style
-            this.byId("Table").getTable().getRows().forEach(oItem => {
-                oItem.addStyleClass("row_color_red");
-            });
+            oTable.getRows().forEach(oItem => oItem.addStyleClass("row_color_red"));
+        },
 
-            // Remove CSS Style
+        removeStyle(oEvent) {
             oEvent.getSource().removeStyleClass("row_color_red");
         }
 
     });
-
 });

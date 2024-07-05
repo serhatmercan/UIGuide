@@ -1,6 +1,6 @@
 sap.ui.define([
     "./BaseController",
-], function (BaseController) {
+], (BaseController) => {
     "use strict";
 
     return BaseController.extend("xxx.controller.Controller", {
@@ -9,60 +9,40 @@ sap.ui.define([
         /* Lifecycle Methods */
         /* ================= */
 
-        onInit: function () {
+        onInit() {
             this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
             this.getOwnerComponent().getModel().attachRequestCompleted(this.attachRequestCompleted, this);
-
             this.getView().addEventDelegate({
-                onAfterHide: (oEvent) => {
-
-                },
-                onAfterRendering: (oEvent) => {
-
-                },
-                onAfterShow: (oEvent) => {
-
-                },
-                onBeforeHide: (oEvent) => {
-
-                },
-                onBeforeShow: (oEvent) => {
-
-                }
-            }, this)
+                onAfterHide: (oEvent) => { },
+                onAfterRendering: (oEvent) => { },
+                onAfterShow: (oEvent) => { },
+                onBeforeHide: (oEvent) => { },
+                onBeforeShow: (oEvent) => { },
+            }, this);
         },
 
-        onAfterRendering: function () {
-            this.byId("List").getBinding("items").attachDataRequested((oEvent) => {
+        onAfterRendering() {
+            const oListBinding = this.byId("List").getBinding("items");
 
-            });
-            this.byId("List").getBinding("items").attachDataReceived((oEvent) => {
-
-            });
+            oListBinding.attachDataRequested((oEvent) => { });
+            oListBinding.attachDataReceived((oEvent) => { });
         },
 
-        onBeforeRendering: function () {
-            const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({
-                pattern: "yyyy-MM-dd"
-            });
+        onBeforeRendering() {
+            const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance({ pattern: "yyyy-MM-dd" });
             const oToday = new Date();
             const oFormattedToday = oDateFormat.format(oToday);
             const oFormattedTwoWeeksAgo = oDateFormat.format(new Date(oToday.getFullYear(), oToday.getMonth(), oToday.getDate() - 14));
-            const oDefaultFilter = {
-                Erdat: {
-                    low: oFormattedTwoWeeksAgo,
-                    high: oFormattedToday
-                }
-            };
+            const oDefaultFilter = { Erdat: { low: oFormattedTwoWeeksAgo, high: oFormattedToday } };
             const sAppIdentifier = "com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
-            const oSmartFilter = this.byId(sAppIdentifier + "::MainSet--listReportFilter");
+            const oSmartFilter = this.byId(`${sAppIdentifier}::MainSet--listReportFilter`);
 
             oSmartFilter.attachInitialise(() => {
                 oSmartFilter.setFilterData(oDefaultFilter);
             });
         },
 
-        onExit: function () {
+        onExit() {
             if (this.oDocument) {
                 this.oDocument.destroy();
                 this.oDocument = null;
@@ -77,21 +57,22 @@ sap.ui.define([
         /* Internal Methods */
         /* ================ */
 
-        attachRequestCompleted: function () {
+        attachRequestCompleted() {
             setTimeout(() => {
-                this.byId("ComboBox").fireChange();
-                this.byId("ComboBox").getInnerControls()[0].getBinding("items").filter([
-                    new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID"))
+                const oComboBox = this.byId("ComboBox");
+
+                oComboBox.fireChange();
+                oComboBox.getInnerControls()[0].getBinding("items").filter([
+                    new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, this.getModel().getProperty(`${this.getView().getBindingContext().getPath()}/ID`))
                 ]);
             }, 500);
         },
 
-        patternMatched: function (oEvent) {
+        async patternMatched(oEvent) {
             this.onClearModel();
-
             this.getView().rerender();
 
-            this.getOwnerComponent().getModel().metadataLoaded().then(async () => { });
+            await this.getOwnerComponent().getModel().metadataLoaded();
         }
 
     });

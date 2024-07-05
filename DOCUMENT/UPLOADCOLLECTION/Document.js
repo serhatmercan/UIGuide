@@ -1,12 +1,15 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/ui/core/HTML",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
+	"sap/m/Button",
+	"sap/m/Dialog",
 	"sap/m/MessageToast",
 	"sap/m/UploadCollectionParameter",
 	"sap/m/PDFViewer"
-], function (BaseController, Filter, FilterOperator, JSONModel, MessageToast, UploadCollectionParameter, PDFViewer) {
+], (BaseController, Filter, FilterOperator, JSONModel, MessageToast, Button, Dialog, UploadCollectionParameter, PDFViewer) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -15,17 +18,17 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.setModel(new JSONModel({
 				DocumentUrl: "",
 				Documents: [],
-				Value: "",
+				Value: ""
 			}), "model");
 
 			this.getRouter().getRoute("Document").attachPatternMatched(this.viewMatched, this);
 		},
 
-		onExit: function () {
+		onExit() {
 			if (this.oDocument) {
 				this.oDocument.destroy();
 				this.oDocument = null;
@@ -36,32 +39,36 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onACFrame: function () {
-			this.oFrame.close();
-			this.oFrame.destroy();
-			this.oFrame = null;
+		onACFrame() {
+			if (this.oFrame) {
+				this.oFrame.close();
+				this.oFrame.destroy();
+				this.oFrame = null;
+			}
 		},
 
-		onBUSDocument: function (oEvent) {
-			oEvent.getParameter("addHeaderParameter")(
-				new UploadCollectionParameter({
-					name: "slug",
-					value: encodeURIComponent(oEvent.getParameter("fileName")) + "&&" + "X"
-				}));
+		onBUSDocument(oEvent) {
+			const { addHeaderParameter, fileName } = oEvent.getParameter();
 
-			oEvent.getParameter("addHeaderParameter")(
-				new UploadCollectionParameter({
-					name: "X-Requested-With",
-					value: "XMLHttpRequest"
-				}));
+			addHeaderParameter(new UploadCollectionParameter({
+				name: "slug",
+				value: `${encodeURIComponent(fileName)}&&X`
+			}));
+
+			addHeaderParameter(new UploadCollectionParameter({
+				name: "X-Requested-With",
+				value: "XMLHttpRequest"
+			}));
 		},
 
-		onCloseDocument: function () {
+		onCloseDocument() {
 			this.oDocument.close();
 		},
 
-		onCUDocument: function (oEvent) {
-			if (this.getModel("model").getProperty("/Value") !== "") {
+		onCUDocument(oEvent) {
+			const oViewModel = this.getModel("model");
+
+			if (oViewModel.getProperty("/Value") !== "") {
 				sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").fireFileDeleted(oEvent);
 				this.uploadDocument();
 			}
@@ -69,57 +76,37 @@ sap.ui.define([
 			this.onCloseDocument();
 		},
 
-		onDownloadItem: function () {
-			const oModel = this.getModel();
+		onDownloadItem() {
+			const oViewModel = this.getModel();
 
-			this.byId("DocumentUC").getSelectedItems(oItem => {
-				window.open(
-					oModel.sServiceUrl +
-					oModel.createKey("/DocumentSet", { DocumentID: oItem.getBindingContext().getObject("DocumentID") }) + "/$value",
-					"_blank");
+			this.byId("DocumentUC").getSelectedItems().forEach(oItem => {
+				const sDocumentID = oItem.getBindingContext().getObject("DocumentID");
+				window.open(`${oViewModel.sServiceUrl}${oViewModel.createKey("/DocumentSet", { DocumentID: sDocumentID })}/$value`, "_blank");
 			});
 		},
 
-		onFDDocument: function (oEvent) {
+		onFDDocument(oEvent) {
 			const oDocumentUC = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
-			const oUC = oEvent.getSource();
 			const aOriginDocuments = oDocumentUC.getBinding("items").getCurrentContexts();
 			const aNewDocuments = oDocumentUC.getItems();
-			let aOriginDocumentID = [];
-			let aNewDocumentID = [];
-			let aDocumentsIDs = [];
+			const aOriginDocumentIDs = aOriginDocuments.map(({ getObject }) => ({ DocumentID: getObject("DocumentID") }));
+			const aNewDocumentIDs = aNewDocuments.map(({ getBindingContext, getDocumentId }) => ({
+				DocumentID: getBindingContext().getProperty("DocumentID"),
+				DocumentId: getDocumentId()
+			}));
+			const aDeletedDocumentIDs = aOriginDocumentIDs.filter(({ DocumentID }) =>
+				!aNewDocumentIDs.some(oNewDoc => oNewDoc.DocumentID === DocumentID)
+			).map(oDeletedDocumentID => oDeletedDocumentID.DocumentID);
 
-			aOriginDocumentID = aOriginDocuments.map(oOriginDocument => {
-				return {
-					DocumentID: oOriginDocument.getObject("DocumentID")
-				};
-			});
-
-			aNewDocumentID = aNewDocuments.map(oNewDocument => {
-				return {
-					DocumentID: oNewDocument.getBindingContext().getProperty("DocumentID"),
-					DocumentID: oNewDocument.getDocumentId()
-				};
-			});
-
-			aOriginDocumentID.forEach((oOriginDocumentID) => {
-				if (aNewDocumentID.findIndex(oNewDocumentID => oNewDocumentID.DocumentID === oOriginDocumentID.DocumentID) === -1) {
-					aDocumentsIDs.push(oOriginDocumentID.DocumentID);
-				}
-			});
-
-			this.deleteDocuments(aDocumentsIDs);
-
-			this.getModel("model").setProperty("/DeletedDocuments", aDocumentsIDs);
+			this.deleteDocuments(aDeletedDocumentIDs);
+			this.getModel("model").setProperty("/DeletedDocuments", aDeletedDocumentIDs);
 		},
 
-		onFDSingleDocument: function () {
+		onFDSingleDocument() {
 			const oModel = this.getModel();
-			const oDocumentKey = oModel.createKey("/DocumentSet", {
-				DocumentID: "X"
-			});
+			const sDocumentKey = oModel.createKey("/DocumentSet", { DocumentID: "X" });
 
-			this.onDelete(oDocumentKey, oModel)
+			this.onDelete(sDocumentKey, oModel)
 				.then(() => {
 					this.getModel("model").setProperty("/Documents", []);
 				})
@@ -127,36 +114,33 @@ sap.ui.define([
 				.finally(() => { });
 		},
 
-		onPressUCI: function (oEvent) {
-			const oContext = this.getView().getBindingContext();
+		onPressUCI(oEvent) {
 			const oModel = this.getModel();
 			const sServiceURL = oModel.sServiceUrl;
 			const sBindingPath = oEvent.getSource().getBindingContext().getPath();
-			const sPath = oModel.createKey("/DocumentSet", {
-				DocumentID: oModel.getProperty(sBindingPath + "/DocumentID")
-			});
-			const sDocumentPath = sServiceURL + sPath + "/$value";
+			const sDocumentID = oModel.getProperty(`${sBindingPath}/DocumentID`);
+			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { sDocumentID })}/$value`;
 
 			window.open(sDocumentPath, "_blank");
 		},
 
-		onSCDocument: function () {
-			this.byId("DownloadButton").setEnabled(this.byId("DocumentUC").getSelectedItems().length > 0);
+		onSCDocument() {
+			const aSelectedItems = this.byId("DocumentUC").getSelectedItems();
+			this.byId("DownloadButton").setEnabled(aSelectedItems.length > 0);
 		},
 
-		onSendDocuments: async function () {
+		async onSendDocuments() {
 			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 			const oViewModel = this.getModel("model");
 			const aDeletedDocuments = oViewModel.getProperty("/DeletedDocuments");
-			let oData = {};
 
 			if (oUploadCollection) {
 				await oUploadCollection.fireFileDeleted();
 			}
 
-			oData.Documents = aDeletedDocuments.length ? aDeletedDocuments : [];
+			const aData = { Documents: aDeletedDocuments.length ? aDeletedDocuments : [] };
 
-			await this.uploadDocument(oResponse.ID);
+			await this.uploadDocument();
 
 			if (oUploadCollection) {
 				this.oDocument.destroy();
@@ -165,47 +149,35 @@ sap.ui.define([
 			}
 		},
 
-		onShowIFrame: function (oEvent) {
-			const oContext = this.getView().getBindingContext();
+		onShowIFrame(oEvent) {
 			const oModel = this.getModel();
-			const oResourceBundle = this.getResourceBundle();
-			const sServiceURL = this.getModel().sServiceUrl;
+			const sServiceURL = oModel.sServiceUrl;
 			const sBindingPath = oEvent.getSource().getBindingContext().getPath();
-			const sFileName = oModel.getProperty(sBindingPath + "/Filename");
-			const sPath = oModel.createKey("/DocumentSet", {
-				DocumentID: oModel.getProperty(sBindingPath + "/DocumentID")
-			});
-			const sDocumentPath = sServiceURL + sPath + "/$value";
-			const oLoadEvent = "sap.ui.getCore().getEventBus().publish('com.sm.serhatmercan', 'PDFLoaded')";
-			const sSource = "<iframe name='PDF' src='" + jQuery.sap.encodeHTML(sDocumentPath) + "' onLoad='" +
-				jQuery.sap.encodeHTML(oLoadEvent) +
-				"' height='100%' width='100%'/>";
+			const sFileName = oModel.getProperty(`${sBindingPath}/Filename`);
+			const sDocumentID = oModel.getProperty(`${sBindingPath}/DocumentID`);
+			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { sDocumentID })}/$value`;
+			const sLoadEvent = "sap.ui.getCore().getEventBus().publish('com.sm.serhatmercan', 'PDFLoaded')";
+			const sSource = `<iframe name='PDF' src='${jQuery.sap.encodeHTML(sDocumentPath)}' onLoad='${jQuery.sap.encodeHTML(sLoadEvent)}' height='100%' width='100%'/>`;
 
 			this.oFrame = new Dialog({
 				title: sFileName,
 				afterClose: this.onACFrame.bind(this),
-				content: [
-					new sap.ui.core.HTML({
-						content: sSource
-					})
-				],
+				content: [new HTML({ content: sSource })],
 				contentHeight: "250rem",
 				contentWidth: "250rem",
 				horizontalScrolling: false,
 				stretch: true,
 				verticalScrolling: false,
 				endButton: new Button({
-					text: oResourceBundle.getText("close"),
-					press: function () {
-						this.onACFrame();
-					}.bind(this)
+					text: this.getText("close"),
+					press: this.onACFrame.bind(this)
 				})
 			});
 
 			this.oFrame.open();
 		},
 
-		onShowDocument: function (oEvent) {
+		onShowDocument(oEvent) {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
@@ -215,27 +187,26 @@ sap.ui.define([
 				Doknr: oViewModel.getProperty(sBindingPath + "/Doknr"),
 				Matnr: oModel.getProperty(sViewPath + "/Matnr")
 			});
-			const sDocumentPath = sServiceURL + sPath + "/$value";
+			const sDocumentPath = `${sServiceURL}${sPath}/$value`;
 
 			window.open(sDocumentPath, "_blank");
 		},
 
-		onShowDocument: function () {
+		onShowDocument() {
 			if (!this.oDocument) {
 				this.oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);
 				this.getFiles();
 			}
 
-			this.oDocument.attachBeforeOpen((oEvent) => {
+			this.oDocument.attachBeforeOpen(() => {
 				this.byId("DocumentUC").getBinding("items").filter([new Filter("X", FilterOperator.EQ, "X")]);
 			});
 
 			this.byId("DocumentUC").setUploadButtonInvisible(false);
-
 			this.oDocument.open();
 		},
 
-		onUCDocument: function (oEvent) {
+		onUCDocument(oEvent) {
 			const oUploadCollection = oEvent.getSource();
 			const oModel = this.getModel();
 
@@ -245,20 +216,20 @@ sap.ui.define([
 			this.addParameter(oUploadCollection, "ID", "X");
 		},
 
-		onUpdCmpDocument: function () {
+		onUpdCmpDocument() {
 			this.getDocument();
 		},
 
-		onPrintout: function () {
-			const aContexts = this.byId("Table").getTable().getSelectedContexts();
-			let sID = "";
+		onPrintout() {
+			const aSelectedContexts = this.byId("Table").getTable().getSelectedContexts();
+			const oModel = this.getModel();
 
-			if (aContexts.length === 0) {
-				MessageToast.show(this.getResourceBundle().getText("infoChooseRow"));
+			if (!aSelectedContexts.length) {
+				MessageToast.show(this.getText("infoChooseRow"));
 				return;
 			}
 
-			sID = aContexts.map(oContext => this.getModel().getProperty(oContext.getPath() + "/ID")).join("-");
+			const sID = aSelectedContexts.map(oContext => oModel.getProperty(`${oContext.getPath()}/ID`)).join("-");
 
 			this.openPdfViewer(sID);
 		},
@@ -267,39 +238,29 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		addParameter: function (oCollection, sName, sValue) {
+		addParameter(oCollection, sName, sValue) {
 			oCollection.addHeaderParameter(new UploadCollectionParameter({
 				name: sName,
 				value: sValue
 			}));
 		},
 
-		deleteDocuments: function (aData) {
-			let oData = {};
+		deleteDocuments(aDocumentIDs) {
+			const oDocument = {
+				ID: "Documents",
+				Documents: aDocumentIDs.map(DocumentID => ({ DocumentID }))
+			};
 
-			oData.ID = "Documents";
-			oData.Documents = [];
-
-			aData.forEach((sDocumentID) => {
-				oData.Documents.push({
-					DocumentID: sDocumentID
-				});
-			});
-
-			this.onCreate("/DeepIDSet", oData, this.getModel())
-				.then((oData) => {
-					this.uploadDocument();
-				})
+			this.onCreate("/DeepIDSet", oDocument, this.getModel())
+				.then(() => this.uploadDocument())
 				.catch(() => { })
 				.finally(() => { });
 		},
 
-		getDocument: function () {
+		getDocument() {
 			const oModel = this.getModel();
-			const sID = oModel.getProperty(this.getView().getBindingContext().getPath() + "/ID");
-			const oKey = oModel.createKey("/DocumentSet", {
-				ID: "X"
-			});
+			const sID = oModel.getProperty(`${this.getView().getBindingContext().getPath()}/ID`);
+			const oKey = oModel.createKey("/DocumentSet", { ID: "X" });
 
 			this._getSingleData(oKey, oModel)
 				.then((oData) => {
@@ -309,7 +270,7 @@ sap.ui.define([
 				.finally(() => { });
 		},
 
-		getFiles: function () {
+		getFiles() {
 			const aFilters = [];
 			const aItems = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC").getBinding("items");
 			const sValue = this.getModel("model").getProperty("/Value");
@@ -319,46 +280,35 @@ sap.ui.define([
 			aItems.filter(aFilters);
 		},
 
-		getUploadUrl: function () {
+		getUploadUrl() {
+			const oModel = this.getModel();
 			const sValue = this.getModel("model").getProperty("/Value");
-			const sPath = this.getModel().createKey("/MainEntitySet", {
-				ID: sValue
-			});
-			let sDocumentPath = "";
+			const sPath = oModel.createKey("/MainEntitySet", { ID: sValue });
 
-			sDocumentPath = this.getModel().sServiceUrl + sPath + "/Documents";
-
-			return sDocumentPath;
+			return `${oModel.sServiceUrl}${sPath}/Documents`;
 		},
 
-		openPdfViewer: function (sID) {
+		openPdfViewer(sID) {
 			const oModel = this.getModel();
 			const oPDFViewer = new PDFViewer();
 			const sServiceURL = oModel.sServiceUrl;
-			let sDocumentPath = "";
-			let sPath = "";
-
-			sPath = oModel.createKey("/...Set", {
-				ID: sID
-			});
-
-			sDocumentPath = sServiceURL + sPath + "/$value";
+			const sDocumentPath = `${sServiceURL}${oModel.createKey("/...Set", { ID: sID })}/$value`;
 
 			oPDFViewer.setSource(sDocumentPath);
-			oPDFViewer.setTitle(this.getResourceBundle().getText("preview"));
+			oPDFViewer.setTitle(this.getText("preview"));
 			oPDFViewer.open();
 		},
 
-		uploadDocument: function () {
+		uploadDocument() {
 			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 
-			if (oUploadCollection && oUploadCollection._aFileUploadersForPendingUpload.length > 0) {
+			if (oUploadCollection && oUploadCollection._aFileUploadersForPendingUpload.length) {
 				this.updateUploadUrl();
 				oUploadCollection.upload();
 			}
 		},
 
-		updateUploadUrl: function () {
+		updateUploadUrl() {
 			const oUploadCollection = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 			const sServiceUrl = this.getUploadUrl();
 
@@ -367,13 +317,12 @@ sap.ui.define([
 			});
 		},
 
-		viewMatched: function () {
-			if (sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC")) {
+		viewMatched() {
+			if (this.oDocument) {
 				this.oDocument.destroy();
 				this.oDocument = null;
 			}
 		}
 
 	});
-
 });

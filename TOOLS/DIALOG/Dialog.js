@@ -143,7 +143,7 @@ sap.ui.define([
 				// Add Button To Dialog
 				this.oDialog.oDialog._header.addContentRight(new sap.m.Button({
 					icon: "sap-icon://add",
-					tooltip: this.getResourceBundle().getText("save"),
+					tooltip: this.getText("save"),
 					type: "Emphasized",
 					press: this.onSaveButton.bind(this)
 				}));
@@ -235,16 +235,15 @@ sap.ui.define([
 		/* ================ */
 
 		addTextAreaInDialog: function () {
-			const oResourceBundle = this.getResourceBundle();
 			const oTextAreaDialog = new Dialog({
-				title: oResourceBundle.getText("title"),
+				title: this.getText("title"),
 				type: "Message",
 				content: [
 					new TextArea("TextArea", {
 						liveChange: function (oEvent) {
 							oEvent.getSource().getParent().getBeginButton().setEnabled(oEvent.getParameter("value").length > 0);
 						},
-						placeholder: oResourceBundle.getText("placeholder"),
+						placeholder: this.getText("placeholder"),
 						width: "100%"
 					})
 				],

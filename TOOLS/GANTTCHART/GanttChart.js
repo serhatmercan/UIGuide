@@ -53,7 +53,7 @@ sap.ui.define([
 			const sUID = this.byId("GCTable").getSelectedShapeUid();
 
 			if (sUID.length === 0) {
-				MessageToast.show(this.getResourceBundle().getText("checkColumn"));
+				MessageToast.show(this.getText("checkColumn"));
 				return;
 			}
 

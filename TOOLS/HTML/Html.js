@@ -72,7 +72,7 @@ sap.ui.define([
 				oFrame.print();
 				this._oPDFViewer.close();
 			} catch (e) {
-				MessageToast.show(this.getResourceBundle().getText("autoPrintNotSupported"));
+				MessageToast.show(this.getText("autoPrintNotSupported"));
 			}
 		},
 

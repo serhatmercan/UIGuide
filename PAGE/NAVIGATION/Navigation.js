@@ -32,10 +32,11 @@ sValue.replace("/", "%%");
 // Go To Launchpad - 1
 "sap/m/MessageBox"
 MessageBox
+const oMBAction = MessageBox.Action;
 
-MessageBox.error(this.getResourceBundle().getText("checkAuthorization"), {
-	actions: [MessageBox.Action.CLOSE],
-	emphasizedAction: MessageBox.Action.CLOSE,
+MessageBox.error(this.getText("checkAuthorization"), {
+	actions: [oMBAction.CLOSE],
+	emphasizedAction: oMBAction.CLOSE,
 	onClose: () => {
 		sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
 			target: {

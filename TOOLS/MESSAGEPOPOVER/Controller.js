@@ -28,7 +28,7 @@ sap.ui.define([
 
 		addMessages: function () {
 			const oModel = this.getModel();
-			const sMessage = this.getResourceBundle().getText("sMessage");
+			const sMessage = this.getText("sMessage");
 			const aMessages = [];
 
 			aMessages.push(
@@ -41,7 +41,7 @@ sap.ui.define([
 			);
 
 			sap.ui.getCore().getMessageManager().addMessages(aMessages);
-			MessageToast.show(that.getResourceBundle().getText("errorOccurred"));
+			MessageToast.show(this.getText("errorOccurred"));
 		},
 
 		addRequestMessages: function (oError) {
@@ -81,7 +81,7 @@ sap.ui.define([
 			aMessages.forEach(oMessage => oMessage.setPersistent(true));
 
 			if (aMessages.some(oMessage => oMessage.type === "Error")) {
-				MessageToast.show(this.getResourceBundle().getText("errorOccured"));
+				MessageToast.show(this.getText("errorOccured"));
 			} else { }
 		},
 

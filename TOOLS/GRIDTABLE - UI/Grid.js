@@ -149,12 +149,11 @@ sap.ui.define([
 		},
 
 		generateColumns: function (aData) {
-			const oResourceBundle = this.getResourceBundle();
 			const aColumns = [];
 
 			aColumns.push({
 				uiobject: "label",
-				label: oResourceBundle.getText("text"),
+				label: this.getText("text"),
 				width: 300,
 				valuePath: "Text",
 				additionalValuePath: "Description"
@@ -162,13 +161,13 @@ sap.ui.define([
 
 			aColumns.push({
 				uiobject: "label",
-				label: oResourceBundle.getText("unit"),
+				label: this.getText("unit"),
 				valuePath: "Meins"
 			});
 
 			aColumns.push({
 				uiobject: "label",
-				label: oResourceBundle.getText("number"),
+				label: this.getText("number"),
 				valuePath: "Number",
 				type: "sap.ui.model.type.Float",
 				formatOptions: {
