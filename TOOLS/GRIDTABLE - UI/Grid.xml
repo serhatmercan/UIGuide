@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:ui="sap.ui.table">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd" xmlns:tableRowMode="sap.ui.table.rowmodes" xmlns:ui="sap.ui.table">
     <ui:Table rows="{model>/Items}">
         <ui:columns>
             <ui:Column>
@@ -58,6 +58,9 @@ width="10rem"
 	    <ui:RowActionItem icon="sap-icon://search" type="Custom" press="onPressRAI" visible="true"/>
 	</ui:RowAction>
 </ui:rowActionTemplate>
+<ui:rowMode>
+    <tableRowMode:Interactive />
+</ui:rowMode>
 <ui:extension>
     <OverflowToolbar>
 	    <Title text="{i18n>table}"/>
