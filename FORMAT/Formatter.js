@@ -104,8 +104,8 @@ sap.ui.define([
 
 		/*
 		Compare Open Date Time & Close Date Time -> If Open Date Time > Close Date Time ? "Error" : "None" (For Time Picker's Value State)
-		=> @dOpenDate: Type: sap.ui.model.type.Date / new Date()
-		=> @tOpenTime: Type: sap.ui.model.type.Time / new Date()
+		=> @dOpenDate:  Type: sap.ui.model.type.Date / new Date()
+		=> @tOpenTime:  Type: sap.ui.model.type.Time / new Date()
 		=> @dCloseDate: Type: sap.ui.model.type.Date / new Date()
 		=> @tCloseTime: Type: sap.ui.model.type.Time / new Date()
 		=> checkTwoDateTimes(dOpenDate, tOpenTime, dCloseDate, tCloseTime)

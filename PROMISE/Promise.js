@@ -1,27 +1,18 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageBox",
+	"sap/m/MessageToast",
+	"sap/ui/core/message/Message",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/FilterType",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, MessageBox, MessageToast, Message, Filter, FilterOperator, FilterType, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		/* ================= */
-		/* Lifecycle Methods */
-		/* ================= */
-
-		onInit: function () {
-			const oModel = new JSONModel({
-				Busy: false,
-				Data: [],
-				Value: ""
-			});
-
-			this.setModel(oModel, "model");
-
+		onInit() {
 			// Clear Metadata
 			jQuery.extend(true, {}, oData);
 			jQuery.extend(true, [], aData);
@@ -30,188 +21,79 @@ sap.ui.define([
 			JSON.parse(JSON.stringify(oData.Items));
 		},
 
-		/* ============== */
-		/* Event Handlers */
-		/* ============== */
+		onGetSetMessages() {
+			const oViewModel = this.getModel("model");
 
-		onAsyncFunction: async function () {
+			oViewModel.setProperty("/Messages", sap.ui.getCore().getMessageManager().getMessageModel().getData());
+
+			oViewModel.getProperty("/Messages").forEach(({ message, type }) => {
+				sap.ui.getCore().getMessageManager().addMessages(
+					new Message({
+						message,
+						type,
+						persistent: true
+					})
+				);
+			});
+
+			this.onFireToShowMessages();
+			oViewModel.setProperty("/Messages", []);
+		},
+
+		async onAsyncFunction() {
+			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
 			};
 
-			await this.callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
-				.then((oData) => {
-					const sID = oData.GetData.ID;
-				})
-				.catch(() => { })
-				.finally(() => { });
+			try {
+				const oData = await this.onCallFunction("/...Set", sMethod, this.getModel(), oURLParameters);
+				const sID = oData.GetData.ID;
+			} catch (oError) {
+				// Handle Error
+			}
+			finally {
+				this.onFireToShowMessages();
+			}
 		},
 
-		onCallFunction: function () {
+		async onCallFunction() {
+			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
 				ID: "X"
 			};
 
-			this.callFunction("/...Set", sMethod, this.getModel(), oURLParameters)
-				.then((oData) => {
-					const sID = oData.GetData.ID;
-				})
-				.catch(() => { })
-				.finally(() => { });
+			try {
+				const oData = await this.onCallFunction("/...", sMethod, this.getModel(), oURLParameters);
+				const sID = oData.GetData.ID;
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
 		},
 
-		onRunMultiPromise: function () {
-			const oModel = this.getModel();
-			const oViewModel = this.getModel("model");
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X")
-			];
-			const oExpand = {
-				"$expand": "Main,List"
-			};
-
-			Promise.all([
-				this.readMultiTable("/...Set", aFilters, oExpand, oModel)
-					.then((oData) => {
-						// oData.results[0];
-						// oData.results[0].Main.results
-						// oData.results[0].List.results,
-					})
-					.catch(() => { })
-					.finally(() => { }),
-				this.readMultiData("/...Set", aFilters, oModel)
-					.then((oData) => {
-						// oData.results[0];
-					})
-					.catch(() => { })
-					.finally(() => { })
-			])
-				.catch(() => { })
-				.finally(() => {
-				});
-		},
-
-		onDeleteSingleData: function () {
-			const oModel = this.getModel();
-			const oViewModel = this.getModel("model");
-			const oKey = oModel.createKey("/...Set", {
-				ID: "X"
-			});
-
-			this.deleteSingleData(oKey, oModel)
-				.then(() => {
-					sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
-				})
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onGetAssociationData: function () {
-			const oModel = this.getModel();
-			const sPath = oModel.createKey("/...Set", {
-				ID: sID
-			});
-			const oExpand = {
-				"$expand": "Items,Values"
-			};
-
-			this.getAssociationData(sPath, oExpand, oModel)
-				.then((oData) => {
-					const aItems = oData.Items.results;
-					const aValues = oData.Values.results;
-				})
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onGetSingleData: function () {
-			const oModel = this.getModel();
-			const oKey = oModel.createKey("/...Set", {
-				ID: "X"
-			});
-
-			this.readSingleData(oKey, oModel)
-				.then((oData) => { })
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onGetMultiData: function () {
-			const oViewModel = this.getModel("model");
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X"),
-			];
-			const aXFilters = new Filter({
-				filters: [
-					new Filter("ID", FilterOperator.Contains, "X"),
-					new Filter("Value", FilterOperator.Contains, "ABC")
-				],
-				and: false
-			});
-
-			this.readMultiData("/...Set", aFilters, this.getModel())
-				.then((oData) => {
-					// oData.results[0];
-				})
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onGetMultiTable: function () {
-			const oViewModel = this.getModel("model");
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X")
-			];
-			const oExpand = {
-				"$expand": "Main,List"
-			};
-
-			this.readMultiTable("/...Set", aFilters, oExpand, this.getModel())
-				.then((oData) => {
-					// oData.results[0];
-					// oData.results[0].Main.results
-					// oData.results[0].List.results,
-				})
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onUpdateData: function () {
-			const oData = {};
-			const oModel = this.getModel();
-			const oKey = oModel.createKey("/...Set", {
-				ID: "X"
-			});
-
-			this.updateData(oKey, oData, oModel)
-				.then((oData) => { })
-				.catch(() => { })
-				.finally(() => { });
-		},
-
-		onSendMultiData: function (oEvent) {
+		async onCreate(oEvent) {
 			const oMBAction = MessageBox.Action;
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const aData = oViewModel.getProperty("/Data");
-			const oData = {
+			let oData = {
 				ID: "X",
 				Items: []
 			};
+
 			const aPaths = this.getView().getBindingContext().getProperty("Items");
 
-			aData.forEach((xData) => {
-				oData.Items.push(xData);
+			aData.forEach((Data) => {
+				oData.Items.push(Data);
 			});
 
 			oData.Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
 
 			// Match Binding Data
-			oData = jQuery.extend(true, [], aData.Items);
-
-			// Match Binding Data - ES6
 			oData = JSON.parse(JSON.stringify(aData.Items));
 
 			// Clear Metadata
@@ -223,47 +105,184 @@ sap.ui.define([
 			});
 
 			// Convert Integer Value to String
-			Object.keys(oData).map(function (sFieldName) {
-				if ((typeof oData[sFieldName]) === "number") {
+			Object.keys(oData).forEach(sFieldName => {
+				if (typeof oData[sFieldName] === "number") {
 					oData[sFieldName] = oData[sFieldName].toString();
 				}
 			});
+
+			const onConfirm = async (sAction) => {
+				if (sAction === oMBAction.OK) {
+					try {
+						const oResponse = await this.onCreate("/...Set", oData, this.getModel());
+						const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
+
+						aMessages.forEach(oMessage => oMessage.setPersistent(true));
+
+						if (aMessages.some(oMessage => oMessage.type === "Error")) {
+							MessageToast.show(this.getText("errorOccured"));
+							return;
+						}
+
+						oResponse.results.forEach(oResult => {
+							sap.ui.getCore().getMessageManager().addMessages(
+								new Message({
+									message: oResult.Message,
+									type: oResult.Type,
+									persistent: false
+								})
+							);
+						});
+					} catch (oError) {
+						const sMessage = new DOMParser()?.parseFromString(oError.responseText, 'text/xml')?.querySelector('message')?.textContent;
+					} finally {
+						this.onFireToShowMessages();
+					}
+				}
+			};
 
 			MessageBox.confirm(this.getText("Info"), {
 				actions: [oMBAction.OK, oMBAction.CANCEL],
 				emphasizedAction: oMBAction.OK,
 				styleClass: this.getOwnerComponent().getContentDensityClass(),
-				onClose: (sAction) => {
-					if (sAction === oMBAction.OK) {
-						this.sendMultiData("/...Set", oData, this.getModel())
-							.then((oResponse) => {
-								const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
-
-								aMessages.forEach(oMessage => oMessage.setPersistent(true));
-
-								if (aMessages.some(oMessage => oMessage.type === "Error")) {
-									MessageToast.show(this.getText("errorOccured"));
-									return;
-								} else { }
-
-								oResponse.results.forEach(oResult => {
-									sap.ui.getCore().getMessageManager().addMessages(
-										new sap.ui.core.message.Message({
-											message: oResult.Message,
-											type: oResult.Type,
-											persistent: false
-										})
-									);
-								});
-							})
-							.catch(() => { })
-							.finally(() => { });
-					}
-				}
+				onClose: onConfirm
 			});
 		},
 
-		onSubmitChange: function () {
+		async onDelete() {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const oKey = oModel.createKey("/...Set", {
+				ID: "X"
+			});
+
+			try {
+				await this.onDelete(oKey, oModel);
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onRead() {
+			const oModel = this.getModel();
+			const oKey = oModel.createKey("/...Set", {
+				ID: "X"
+			});
+
+			try {
+				await this.onRead(oKey, oModel);
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onReadAssociation() {
+			const oModel = this.getModel();
+			const sPath = oModel.createKey("/...Set", {
+				ID: sID
+			});
+			const oExpand = {
+				"$expand": "Items,Values"
+			};
+
+			try {
+				const oData = await this.onReadAssociation(sPath, oExpand, oModel);
+				const aItems = oData.Items.results;
+				const aValues = oData.Values.results;
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onReadExpanded() {
+			const oViewModel = this.getModel("model");
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+			const oExpand = {
+				"$expand": "Items,Values"
+			};
+
+			try {
+				await this.onReadExpanded("/...Set", aFilters, oExpand, this.getModel());
+				// oData.results[0];
+				// oData.results[0].Items.results
+				// oData.results[0].Values.results,
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onReadQuery() {
+			const oViewModel = this.getModel("model");
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+			const aXFilters = new Filter({
+				filters: [
+					new Filter("ID", FilterOperator.Contains, "X"),
+					new Filter("Value", FilterOperator.Contains, "ABC")
+				],
+				and: false
+			});
+
+			try {
+				await this.onReadQuery("/...Set", aFilters, this.getModel());
+				// oData.results[0];
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+
+			try {
+				await this.onReadQuery("/...Set/$count", [], this.getModel());
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onRunMultiPromise() {
+			const oModel = this.getModel();
+			const oViewModel = this.getModel("model");
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+			const oExpand = {
+				"$expand": "Items,Values"
+			};
+
+			try {
+				await Promise.all([
+					this.onReadExpanded("/...Set", aFilters, oExpand, oModel),
+					this.onReadQuery("/...Set", aFilters, oModel)
+				]);
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+
+			try {
+				await this.onReadExpanded();
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onSubmitChanges() {
 			const oModel = this.getModel();
 			const oMBAction = MessageBox.Action;
 
@@ -272,119 +291,36 @@ sap.ui.define([
 					actions: [oMBAction.OK, oMBAction.CANCEL],
 					emphasizedAction: oMBAction.OK,
 					styleClass: this.getOwnerComponent().getContentDensityClass(),
-					onClose: (sAction) => {
+					onClose: async (sAction) => {
 						if (sAction === oMBAction.OK) {
-							this.submitChange()
-								.then(() => {
-									oModel.resetChanges();
-								})
-								.catch(() => { })
-								.finally(() => { });
+							try {
+								await this.onSubmitChanges();
+								oModel.resetChanges();
+							} catch (oError) {
+								// Handle Error
+							} finally {
+								this.onFireToShowMessages();
+							}
 						}
 					}
 				});
 			}
 		},
 
-		/* ================ */
-		/* Internal Methods */
-		/* ================ */
-
-		callFunction: function (sEntity, sMethod, oModel, oURLParameters) {
-			return new Promise((fnResolve, fnReject) => {
-				const mParameters = {
-					method: sMethod,
-					urlParameters: oURLParameters,
-					success: fnResolve,
-					error: fnReject
-				};
-
-				oModel.callFunction(sEntity, mParameters);
+		async onUpdate() {
+			const oData = {};
+			const oModel = this.getModel();
+			const oKey = oModel.createKey("/...Set", {
+				ID: "X"
 			});
-		},
 
-		deleteSingleData: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.remove(sSet, mParameters);
-			});
-		},
-
-		getAssociationData: function (sSet, oExpand, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					urlParameters: oExpand,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
-		},
-
-		updateData: function (sSet, oData, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.update(sSet, oData, mParameters);
-			});
-		},
-
-		readMultiData: function (sSet, aFilters, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					filters: aFilters,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
-		},
-
-		readSingleData: function (sSet, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
-		},
-
-		readMultiTable: function (sSet, aFilters, oExpand, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					filters: aFilters,
-					urlParameters: oExpand,
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.read(sSet, mParameters);
-			});
-		},
-
-		sendMultiData: function (sSet, oData, oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.create(sSet, oData, mParameters);
-			});
-		},
-
-		submitChange: function (oModel) {
-			return new Promise(function (fnSuccess, fnReject) {
-				const mParameters = {
-					success: fnSuccess,
-					error: fnReject
-				};
-				oModel.submitChanges(mParameters);
-			});
+			try {
+				await this.onUpdate(oKey, oData, oModel);
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
 		}
 
 	});

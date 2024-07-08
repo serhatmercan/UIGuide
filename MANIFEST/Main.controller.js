@@ -1,6 +1,6 @@
 sap.ui.define([
 	"./BaseController"
-], function (BaseController) {
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.Main", {
@@ -9,7 +9,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.ODataModel = this.getOwnerComponent().getModel("ss");
 		},
 
@@ -21,7 +21,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) { }
+		patternMatched(oEvent) { }
 
 	});
 });

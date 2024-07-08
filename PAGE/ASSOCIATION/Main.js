@@ -1,14 +1,13 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"	
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController"
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.controller.Main", {
 
-		onGoToObject: function (oEvent) {
-			this.getRouter().navTo("Object", {
-				ID: oEvent.getSource().getBindingContext().getProperty("ID")
-			});
+		onGoToObject(oEvent) {
+			const ID = oEvent.getSource().getBindingContext().getProperty("ID");
+			this.getRouter().navTo("Object", { ID });
 		}
 
 	});

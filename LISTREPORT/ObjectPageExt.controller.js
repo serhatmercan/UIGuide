@@ -1,14 +1,16 @@
-sap.ui.controller("com.ittr.pmm.equipmentlist.ext.controller.ObjectPageExt", {
+sap.ui.controller("com.serhatmercan.ext.controller.ObjectPageExt", {
 
-	onGoToExternalPage: function (oEvent) {
-		sap.ushell.Container.getService("CrossApplicationNavigation").toExternal({
+	onGoToExternalPage(oEvent) {
+		const oService = sap.ushell.Container.getService("CrossApplicationNavigation");
+		const sID = oEvent.getSource().getBindingContext().getProperty("ID");
+
+		oService.toExternal({
 			target: {
 				semanticObject: "SM_FIORI_APP",
 				action: "display"
 			},
-			params: {
-				ID: oEvent.getSource().getBindingContext().getProperty("ID")
-			}
+			params: { sID }
 		});
 	}
+
 });

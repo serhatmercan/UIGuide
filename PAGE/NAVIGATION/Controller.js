@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,7 +9,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -18,147 +17,65 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onGoToExternalApplication: function () {
-			const oParams = {};
+		onGoToExternalApplication() {
+			const oService = sap.ushell.Container.getService("CrossApplicationNavigation");
+			const oParams = {
+				ID: ["X"],
+				Value: ["ABC"]
+			};
+
+			// Parameter Contains / Character
+			oParams.Value = oParams.Value.map(sValue => sValue.replace("/", "%%"));
+
 			const oTarget = {
 				action: "manage",
 				semanticObject: "ZApplication"
 			};
+
 			const oProperties = {
 				params: oParams,
 				target: oTarget
 			};
 
-			oParams["ID"] = "X";
-			oParams["Value"] = "ABC";
-			oParams["ID"] = ["X"];
-			oParams["Value"] = ["ABC"];
+			oTarget.action = `manage&/ZApplication/ABC/9999999999`;
 
-			// Parameter Contains / Character
-			oParams["Value"] = oParams["Value"].replace("/", "%%");
-
-			oTarget.action = "display";
-			oTarget.action = "manage&/ZApplication/" + "ABC" + "/9999999999";
-
-			sap.ushell.Container.getService("CrossApplicationNavigation").toExternal(oProperties);
+			oService.toExternal(oProperties);
 		},
 
-		onGoToExternalApplicationInNewTab: function () {
-			const oHrefForExternal = sap.ushell.Container.getService("CrossApplicationNavigation").hrefForExternal({
+		onGoToExternalApplicationInNewTab() {
+			const oService = sap.ushell.Container.getService("CrossApplicationNavigation");
+			const oHrefForExternal = oService.hrefForExternal({
 				target: {
 					action: "display",
 					semanticObject: "ZSM_APP"
 				},
 				params: {}
 			});
+			const oURLHelper = sap.m.URLHelper;
+			const sBaseUrl = window.location.href.split("#")[0];
 
-			sap.m.URLHelper.redirect(window.location.href.split("#")[0] + oHrefForExternal, true);
-			sap.m.URLHelper.redirect("#ZSM_APP-manage&/Candidate/" + "TR33273" + "/" + "A8", true);
+			oURLHelper.redirect(`${sBaseUrl}${oHrefForExternal}`, true);
+			oURLHelper.redirect(`#ZSM_APP-manage&/Candidate/TR33273/A8`, true);
 		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		getMyComponent: function () {
+		getMyComponent() {
 			return sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
 		},
 
-		getStartupParameters: function () {
-			const oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
-			const sID = oStartupParameters.ID;
-			const sIDx = oStartupParameters.ID.toString();
-			const sValue = oStartupParameters.Value;
+		getStartupParameters() {
+			const { ID, Value } = this.getMyComponent().getComponentData().startupParameters;
+			const sID = ID.toString();
 		},
 
-		patternMatched: function (oEvent) {
-			const sID = oEvent.getParameter("arguments").ID;
+		patternMatched(oEvent) {
+			const { ID } = oEvent.getParameter("arguments");
 
 			this.getStartupParameters();
 		}
 
 	});
-
-=======
-sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
-	"use strict";
-
-	return BaseController.extend("com.serhatmercan.Controller", {
-
-		/* ================= */
-		/* Lifecycle Methods */
-		/* ================= */
-
-		onInit: function () {
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
-		},
-
-		/* ============== */
-		/* Event Handlers */
-		/* ============== */
-
-		onGoToExternalApplication: function () {
-			const oParams = {};
-			const oTarget = {
-				action: "manage",
-				semanticObject: "ZApplication"
-			};
-			const oProperties = {
-				params: oParams,
-				target: oTarget
-			};
-
-			oParams["ID"] = "X";
-			oParams["Value"] = "ABC";
-			oParams["ID"] = ["X"];
-			oParams["Value"] = ["ABC"];
-
-			// Parameter Contains / Character
-			oParams["Value"] = oParams["Value"].replace("/", "%%");
-
-			oTarget.action = "display";
-			oTarget.action = "manage&/ZApplication/" + "ABC" + "/9999999999";
-
-			sap.ushell.Container.getService("CrossApplicationNavigation").toExternal(oProperties);
-		},
-
-		onGoToExternalApplicationInNewTab: function () {
-			const oHrefForExternal = sap.ushell.Container.getService("CrossApplicationNavigation").hrefForExternal({
-				target: {
-					action: "display",
-					semanticObject: "ZSM_APP"
-				},
-				params: {}
-			});
-
-			sap.m.URLHelper.redirect(window.location.href.split("#")[0] + oHrefForExternal, true);
-			sap.m.URLHelper.redirect("#ZSM_APP-manage&/Candidate/" + "TR33273" + "/" + "A8", true);
-		},
-
-		/* ================ */
-		/* Internal Methods */
-		/* ================ */
-
-		getMyComponent: function () {
-			return sap.ui.component(sap.ui.core.Component.getOwnerIdFor(this.getView()));
-		},
-
-		getStartupParameters: function () {
-			const oStartupParameters = this.getMyComponent().getComponentData().startupParameters;
-			const sID = oStartupParameters.ID;
-			const sIDx = oStartupParameters.ID.toString();
-			const sValue = oStartupParameters.Value;
-		},
-
-		patternMatched: function (oEvent) {
-			const sID = oEvent.getParameter("arguments").ID;
-
-			this.getStartupParameters();
-		}
-
-	});
-
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 });
