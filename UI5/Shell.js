@@ -1,31 +1,32 @@
 // Country Code From API
-let sCountryCode = "";
-
-await $.getJSON('https://geolocation-db.com/json/').done((oLocation) => {
-    sCountryCode = oLocation.country_code; // "TR"
-});
+try {
+    const oLocation = await $.getJSON('https://geolocation-db.com/json/');
+    const sCountryCode = oLocation.country_code; // "TR"
+} catch (oError) {
+    console.error('Error fetching country code:', oError);
+}
 
 // Country Code & Region From Library
-Intl.DateTimeFormat().resolvedOptions().locale;	  // "tr"
-Intl.DateTimeFormat().resolvedOptions().timeZone; // "Europe/Istanbul"
+const sLocale = Intl.DateTimeFormat().resolvedOptions().locale;     // "tr"
+const sTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // "Europe/Istanbul"
 
 // Device Information
-sap.ui.Device.system
-sap.ui.Device.system.desktop    // => true | false
-sap.ui.Device.system.phone      // => true | false
-sap.ui.Device.system.tablet     // => true | false
+const oDeviceSystem = sap.ui.Device.system;
+const bDesktop = oDeviceSystem.desktop;    // => true | false
+const bPhone = oDeviceSystem.phone;        // => true | false
+const bTablet = oDeviceSystem.tablet;      // => true | false
 
 // Service Information
-sap.ushell.Container.getService("UserInfo");
+const oUserInfoService = sap.ushell.Container.getService("UserInfo");
 
 // Service Information ID
-sap.ushell.Container.getService("UserInfo").getId();
+const sUserID = oUserInfoService.getId();
 
 // System ID
-sap.ushell.Container.getLogonSystem().getName();
+const sSystemName = sap.ushell.Container.getLogonSystem().getName();
 
 // System Version
-sap.ui.version;
+const sUI5Version = sap.ui.version;
 
 // Tool ID
-sap.ui.getCore().getElementById("ID");
+const sToolID = sap.ui.getCore().getElementById("ID");

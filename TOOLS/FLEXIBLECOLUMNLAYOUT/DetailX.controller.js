@@ -2,7 +2,7 @@ sap.ui.define([
     "./BaseController",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator"
-], function (BaseController, Filter, FilterOperator) {
+], (BaseController, Filter, FilterOperator) => {
     "use strict";
 
     return BaseController.extend("com.sm.application.controller.DetailX", {
@@ -11,7 +11,7 @@ sap.ui.define([
         /* Lifecycle Methods */
         /* ================= */
 
-        onInit: function () {
+        onInit() {
             this.getRouter().getRoute("DetailX").attachPatternMatched(this.patternMatched, this);
         },
 
@@ -19,7 +19,7 @@ sap.ui.define([
         /* Event Handlers */
         /* ============== */
 
-        onCloseDetailXPage: function () {
+        onCloseDetailXPage() {
             const oModel = this.getModel("model");
 
             oModel.setProperty("/ActionButtonsInfo/EndColumn/FullScreen", false);
@@ -29,14 +29,14 @@ sap.ui.define([
             });
         },
 
-        onExitFullScreenDetailXPage: function () {
+        onExitFullScreenDetailXPage() {
             const oModel = this.getModel("model");
 
             oModel.setProperty("/ActionButtonsInfo/EndColumn/FullScreen", false);
             oModel.setProperty("/Layout", "ThreeColumnsMidExpanded");
         },
 
-        onShowFullScreenDetailXPage: function () {
+        onShowFullScreenDetailXPage() {
             const oModel = this.getModel("model");
 
             oModel.setProperty("/ActionButtonsInfo/EndColumn/FullScreen", true);
@@ -47,10 +47,8 @@ sap.ui.define([
         /* Internal Methods */
         /* ================ */
 
-        patternMatched: async function (oEvent) {
-            const oArgument = oEvent.getParameter("arguments");
-            const sID = oArgument.ID;
-            const sKey = oArgument.Key;
+        async patternMatched(oEvent) {
+            const { ID: sID, Key: sKey } = oEvent.getParameter("arguments");
             const oViewModel = this.getModel("model");
             const aDetailXFilters = [
                 new Filter("ID", FilterOperator.EQ, sID),
@@ -60,24 +58,23 @@ sap.ui.define([
                 new Filter("ID", FilterOperator.EQ, sID)
             ];
 
-            await this.onReadQuery("/...Set", aDetailFilters, this.getModel())
-                .then((oData) => {
-                    oViewModel.setProperty("/Details", oData.results);
-                })
-                .catch(() => { })
-                .finally(() => { });
+            try {
+                const [oDetailsData, oDetailXsData] =
+                    await Promise.all([
+                        this.onReadQuery("/...Set", aDetailFilters, this.getModel()),
+                        this.onReadQuery("/DetailXSet", aDetailXFilters, this.getModel())
+                    ]);
 
-            await this.onReadQuery("/DetailXSet", aDetailXFilters, this.getModel())
-                .then((oData) => {
-                    oViewModel.setProperty("/DetailXs", oData.results);
-                })
-                .catch(() => { })
-                .finally(() => { });
-
-            oViewModel.setProperty("/ActionButtonsInfo/MidColumn/Toolbar", false);
-            oViewModel.setProperty("/ID", sID);
-            oViewModel.setProperty("/Key", sKey);
-            oViewModel.setProperty("/Layout", "ThreeColumnsMidExpanded");
+                oViewModel.setProperty("/Details", oDetailsData.results);
+                oViewModel.setProperty("/DetailXs", oDetailXsData.results);
+            }
+            catch (oError) { }
+            finally {
+                oViewModel.setProperty("/ActionButtonsInfo/MidColumn/Toolbar", false);
+                oViewModel.setProperty("/ID", sID);
+                oViewModel.setProperty("/Key", sKey);
+                oViewModel.setProperty("/Layout", "ThreeColumnsMidExpanded");
+            }
         }
 
     });

@@ -1,12 +1,12 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				MaxDate: new Date(),
 				MinDate: new Date(),
@@ -16,7 +16,7 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		checkIsValidDate: function () {
+		checkIsValidDate() {
 			return this.byId("DatePicker").isValidValue(); // => True / False
 		}
 

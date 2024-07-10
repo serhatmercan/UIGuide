@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/unified/FileUploaderParameter"
-], function (BaseController, MessageToast, JSONModel, FileUploaderParameter) {
+], (BaseController, MessageToast, JSONModel, FileUploaderParameter) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -12,12 +12,13 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.setModel(
 				new JSONModel({
 					Items: [],
 					Value: ""
-				}), "model");
+				}), "model"
+			);
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
@@ -26,47 +27,35 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onUCFileUploader: function (oEvent) {
+		onUCFileUploader(oEvent) {
 			const oFileUploader = this.byId("FileUploader");
 			const sResponse = oEvent.getParameter("response");
-			const iHttpStatusCode = +/\d{3}/.exec(sResponse)[0];
-			let sMessage;
+			const iHttpStatusCode = +sResponse.match(/\d{3}/)[0];
 
 			oFileUploader.clear();
-			oFileUploader.destroyHeaderParameters();
 
 			if (sResponse) {
-				sMessage = iHttpStatusCode === 200 ? sResponse + " (Upload Success)" : sResponse + " (Upload Error)";
+				const sMessage = iHttpStatusCode === 200 ? sResponse + " (Upload Success)" : sResponse + " (Upload Error)";
 				MessageToast.show(sMessage);
 			}
 		},
 
-		onUpload: function () {
+		onUpload() {
 			const oFileUploader = this.byId("FileUploader");
+			const oModel = this.getModel();
 
 			if (oFileUploader.getValue() === "") {
-				MessageToast.show("Choose a File !");
+				MessageToast.show("Choose a File!");
 			} else {
-				oFileUploader.addHeaderParameter(
-					new FileUploaderParameter({
-						name: "SLUG",
-						value: oFileUploader.getValue() + "~" + "XYZ"
-					})
-				);
+				const aHeaderParameters = [
+					{ name: "SLUG", value: oFileUploader.getValue() + "~" + "XYZ" },
+					{ name: "Key", value: "123" },
+					{ name: "x-csrf-token", value: oModel.getSecurityToken() }
+				];
 
-				oFileUploader.addHeaderParameter(
-					new FileUploaderParameter({
-						name: "Key",
-						value: "123"
-					})
-				);
-
-				oFileUploader.addHeaderParameter(
-					new FileUploaderParameter({
-						name: "x-csrf-token",
-						value: oModel.getSecurityToken()
-					})
-				);
+				aHeaderParameters.forEach(oParameter => {
+					oFileUploader.addHeaderParameter(new FileUploaderParameter(oParameter));
+				});
 
 				oFileUploader.setSendXHR(true);
 				oFileUploader.upload();
@@ -77,9 +66,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
-
-		}
+		patternMatched() { }
 
 	});
 

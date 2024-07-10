@@ -4,11 +4,11 @@ sap.ui.define([
 	"sap/m/ButtonType",
 	"sap/m/Dialog",
 	"sap/m/TextArea",
-	"sap/ui/model/json/JSONModel",
+	"sap/ui/core/Fragment",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/core/Fragment"
-], function (BaseController, Button, ButtonType, Dialog, TextArea, JSONModel, Filter, FilterOperator, Fragment) {
+	"sap/ui/model/json/JSONModel"
+], (BaseController, Button, ButtonType, Dialog, TextArea, Fragment, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -17,216 +17,123 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Values: {
-						Value: {}
-					}
-				}), "model");
+		onInit() {
+			this.setModel(new JSONModel({
+				Values: {
+					Value: {}
+				}
+			}), "model");
 		},
 
-		onExit: function () {
-			if (this.oConfirmDialog) {
-				this.oConfirmDialog.destroy();
-				this.oConfirmDialog = null;
-			}
-
-			if (this.oDialog) {
-				this.oDialog.destroy();
-				this.oDialog = null;
-			}
+		onExit() {
+			this.destroyDialog(this.oConfirmDialog);
+			this.destroyDialog(this.oDialog);
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onACConfirmDialog: function () {
+		onACConfirmDialog() {
 			this.oConfirmDialog.close();
 		},
 
-		onACDialog: function (oEvent) {
+		onACDialog() {
 			this.oDialog.close();
 		},
 
-		onEHDialog: function (oEvent) {
+		onEHDialog(oEvent) {
 			oEvent.reject();
 		},
 
-		onFilterDialogTable: function () {
-			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.fragment.Dialog", this);
+		onFilterDialogTable() {
+			this.createDialog("Dialog", "com.serhatmercan.fragment.Dialog").then(oDialog => {
+				const aFilters = [
+					new Filter("Key", FilterOperator.EQ, "A"),
+					new Filter("Value", FilterOperator.EQ, "X")
+				];
 
-			var aFilters = [
-				new Filter("Key", FilterOperator.EQ, "A"),
-				new Filter("Value", FilterOperator.EQ, "X")
-			];
-
-			sap.ui.core.Fragment.byId("Dialog", "Table").getBinding("items").filter(aFilters);
+				Fragment.byId("Dialog", "Table").getBinding("items").filter(aFilters);
+			});
 		},
 
-		onGetToolWithID: function () {
-			return sap.ui.core.Fragment.byId("Dialog", "Table");
+		onGetToolWithID() {
+			return Fragment.byId("Dialog", "Table");
 		},
 
-		onPressContinue: function (oEvent) {
+		onPressContinue(oEvent) {
 			const sPath = this.byId("Dialog").getBindingContext("model").getPath();
 			const oData = this.getModel("model").getProperty(sPath);
 
-			// Set Input Value
-			oEvent.getSource().getParent().setValue(oSelectedItem.getTitle());
+			oEvent.getSource().getParent().setValue(oData.Title);
 		},
 
-		onSaveConfirmDialog: function () {
+		onSaveConfirmDialog() {
 			const sExplanation = this.getModel("model").getProperty("/Explanation");
 
 			this.onACConfirmDialog();
 		},
 
-		onShowConfirmDialog: function () {
-			this.getModel("model").setProperty("/Explanation", "");
-
-			if (!this.oConfirmDialog) {
-				this.oConfirmDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.ConfirmDialog", this);
-				this.oConfirmDialog.setModel(this.getModel("i18n"), "i18n");
-				this.oConfirmDialog.setModel(this.getModel("model"), "model");
-				this.getView().addDependent(this.oConfirmDialog);
-			}
-
-			this.oConfirmDialog.open();
+		onShowConfirmDialog() {
+			this.showDialog("ConfirmDialog", "com.serhatmercan.fragment.ConfirmDialog");
 		},
 
-		onShowDialog: function (oEvent) {
-			if (!this.oDialog) {
-				this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.Dialog", this);
-				this.oDialog.setModel(this.getModel("i18n"), "i18n");
-				this.oDialog.setModel(this.getModel("model"), "model");
-				this.getView().addDependent(this.oDialog);
-			}
-
-			this.oDialog.open();
+		onShowDialog() {
+			this.showDialog("Dialog", "com.serhatmercan.fragment.Dialog");
 		},
 
-		onShowSFDialog: function (sType, oEvent) {
+		onShowSFDialog(sType, oEvent) {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const sPath = oModel.createEntry("/...Set").getPath();
-			let oData = {};
-			let sBindingPath = "";
 
-			this.oDialog = sap.ui.xmlfragment(this.getView().getId(), "com.sm.application.fragments.dialog.Dialog", this);
-			this.oDialog.setModel(this.getModel("i18n"), "i18n");
-			this.oDialog.setModel(oViewModel, "model");
+			this.createDialog("Dialog", "com.sm.application.fragments.dialog.Dialog").then(oDialog => {
+				oDialog.bindElement(sPath);
 
-			this.getView().addDependent(this.oDialog);
+				if (sType === "U") {
+					const sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
+					const oData = oViewModel.getProperty(sBindingPath);
 
-			this.oDialog.bindElement(sPath);
+					oModel.setProperty(`${sPath}/Value`, oData.Value);
+				}
 
-			if (sType === "U") {
-				sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
-				oData = oViewModel.getProperty(sBindingPath);
-
-				oModel.setProperty(sPath + "/Value", oData.Value);
-			}
-
-			this.oDialog.open();
+				oDialog.open();
+			});
 		},
 
-		onShowDialogDetail: function (oEvent) {
+		onShowDialogDetail(oEvent) {
 			const oControl = oEvent.getSource();
 			const sDialogPath = this.getModel().createEntry("/...Set").getPath();
-			const oKey = this.getModel().createKey("/...Set", {
-				ID: "X"
-			});
+			const oKey = this.getModel().createKey("/...Set", { ID: "X" });
 
-			if (!this.oDialog) {
-				// Add Button To Dialog
-				this.oDialog.oDialog._header.addContentRight(new sap.m.Button({
+			this.createDialog("Dialog", "com.serhatmercan.fragment.Dialog").then(oDialog => {
+				oDialog._header.addContentRight(new Button({
 					icon: "sap-icon://add",
 					tooltip: this.getText("save"),
 					type: "Emphasized",
 					press: this.onSaveButton.bind(this)
 				}));
 
-				// Header Visible
-				this.oDialog._oSubHeader.setVisible(false);
+				oDialog._oSubHeader.setVisible(false);
 
-				// Set Model To Dialog
-				this.oDialog.setModel(this.getModel("model"), "model");
+				oDialog.setModel(this.getModel("model"), "model");
 
-				// Add Dialog To View
-				oEvent.getSource().addDependent(this.oDialog);
-			}
+				oControl.addDependent(oDialog);
 
-			// Before Show Dialog
-			this.oDialog.attachBeforeOpen((oEvent) => {
-				// Read Function OR Filter => getData | onFilter
-			});
+				oDialog.attachBeforeOpen(() => { });
+				oDialog.setEscapeHandler(oEvent => oEvent.reject());
+				oDialog.bindElement(sDialogPath);
+				oDialog.bindElement({ path: "model>/Values" });
 
-			// Escape Handler
-			this.oDialog.setEscapeHandler((oEvent) => {
-				oEvent.reject();
-			});
+				const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
 
-			// Bind Model to Dialog
-			this.oDialog.bindElement(sDialogPath);
+				oDialog.bindElement({ model: "model", path: `model>${sPath}` });
+				oDialog.bindElement({ path: oKey });
+				oDialog.setContentHeight("250px");
 
-			this.oDialog.bindElement({
-				path: "model>/Values"
-			});
+				oControl.addDependent(oDialog);
 
-			// Bind Model w/ Path to Dialog
-			const sPath = oEvent.getSource().getParent().getBindingContext("model").getPath();
-
-			this.oDialog.bindElement({
-				model: "model",
-				path: "model>" + sPath
-			});
-
-			// Bind Model w/ Path Events to Dialog
-			this._oDialog1.bindElement({
-				path: oKey,
-				events: {
-					dataRequested: () => {
-
-					},
-					dataReceived: () => {
-
-					}
-				}
-			});
-
-			// Set Dialog Height 
-			this.oDialog.setContentHeight("250px");
-
-			// Add Input to Dialog
-			oControl.addDependent(this.oDialog);
-		},
-
-		onShowDialog: function () {
-			// Default
-			this.openDialog("Dialog", "serhatmercan.Dialog");
-
-			// Default w/ Then
-			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => { });
-
-			// w/ Binding Path
-			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {
-				oDialog.bindElement({
-					path: "model>" + sPath
-				});
-			});
-
-			const oTable = this.byId("Table").getTable();
-			const iSelectedIndex = oTable.getSelectedIndex();
-			let oBindElement = {};
-
-			oBindElement = this.getModel().createEntry("/...Set").getPath();
-			oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
-
-			// w/ Binding Element
-			this.openDialog("Dialog", "serhatmercan.Dialog").then((oDialog) => {
-				oDialog.bindElement(oBindElement);
+				oDialog.open();
 			});
 		},
 
@@ -234,13 +141,13 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		addTextAreaInDialog: function () {
+		addTextAreaInDialog() {
 			const oTextAreaDialog = new Dialog({
 				title: this.getText("title"),
 				type: "Message",
 				content: [
 					new TextArea("TextArea", {
-						liveChange: function (oEvent) {
+						liveChange: oEvent => {
 							oEvent.getSource().getParent().getBeginButton().setEnabled(oEvent.getParameter("value").length > 0);
 						},
 						placeholder: this.getText("placeholder"),
@@ -251,16 +158,11 @@ sap.ui.define([
 					text: "OK",
 					type: ButtonType.Emphasized,
 					enabled: false,
-					press: (oEvent) => {
-						const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
-						const oContext = this.getModel().createEntry(sPath);
+					press: () => {
 						const oTextArea = sap.ui.getCore().byId("TextArea");
-						const soTextAreaValue = oTextArea.getValue();
-						// const sPath = oTextAreaDialog.getParent().getBindingContext().getPath();
-						// const sID = oTextAreaDialog.getParent().getBindingContext().getProperty("ID");
-						// https://openui5.hana.ondemand.com/topic/6c47b2b39db9404582994070ec3d57a2.html#loio6c47b2b39db9404582994070ec3d57a2
-						this.addNote(this.byId("TextArea").getValue());
-						this.addNote(sap.ui.getCore().byId("TextArea").getValue());
+
+						this.addNote(oTextArea.getValue());
+
 						oTextArea.setValue("");
 						oTextAreaDialog.close();
 					}
@@ -277,13 +179,12 @@ sap.ui.define([
 				}
 			});
 
-			oEvent.getSource().addDependent(oTextAreaDialog);
-
+			this.getView().addDependent(oTextAreaDialog);
 			oTextAreaDialog.open();
 		},
 
-		openDialog: function (sDialogID, sFragmentName) {
-			return new Promise((fnResolve, fnReject) => {
+		createDialog(sDialogID, sFragmentName) {
+			return new Promise((fnResolve) => {
 				const oView = this.getView();
 				const oDialog = this.byId(sDialogID);
 				const sContentDensityClass = this.getOwnerComponent().getContentDensityClass();
@@ -293,19 +194,27 @@ sap.ui.define([
 						id: oView.getId(),
 						name: sFragmentName,
 						controller: this
-					}).then((oFragment) => {
+					}).then(oFragment => {
 						jQuery.sap.syncStyleClass(sContentDensityClass, oView, oFragment);
 						oView.addDependent(oFragment);
-						oFragment.open();
 						fnResolve(oFragment);
 					});
 				} else {
-					oDialog.open();
 					fnResolve(oDialog);
 				}
 			});
+		},
+
+		destroyDialog(oDialog) {
+			if (oDialog) {
+				oDialog.destroy();
+				oDialog = null;
+			}
+		},
+
+		showDialog(sDialogID, sFragmentName) {
+			this.createDialog(sDialogID, sFragmentName).then(oDialog => oDialog.open());
 		}
 
 	});
-
 });

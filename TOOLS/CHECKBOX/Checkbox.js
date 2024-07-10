@@ -1,31 +1,24 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-
-			const oModel = new JSONModel({
-				Value: ""
-			});
-
+		onInit() {
+			const oModel = new JSONModel({ Value: "" });
 			this.setModel(oModel, "model");
-
 		},
 
-<<<<<<< HEAD
-		onSelectCB: function(oEvent){
+		onSelectCB(oEvent) {
 			const sValue = oEvent.getSource().getSelected();
 		},
 
-=======
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
-		getValue: function () {
-			sValue = this.byId("CheckBox").getSelected();
+		getValue() {
+			const sValue = this.byId("CheckBox").getSelected();
+			return sValue;
 		}
 
 	});
-
 });

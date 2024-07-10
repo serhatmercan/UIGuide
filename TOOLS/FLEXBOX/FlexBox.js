@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/m/GenericTag",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, GenericTag, Fragment, JSONModel) {
+], (BaseController, GenericTag, Fragment, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -12,37 +12,35 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Busy: false,
-					Details: [],
-					Items: [],
-					Skills: [
-						{
-							"Skill": "JavaScript",
-							"Statu": "Success",
-							"Detail": [
-								"Arrow Functions",
-								"Async / Await",
-								"Classes",
-								"Collections",
-								"Control Flow & Error Handling",
-								"ES6 & ES7",
-								"Expressions & Operators",
-								"Functions",
-								"Grammar & Types",
-								"Loops & Iteration",
-								"Numbers & Dates",
-								"Objects",
-								"Promises",
-								"Text Formatting"
-							]
-						}
-					],
-					Value: ""
-				}), "model"
-			);
+		onInit() {
+			const oModel = new JSONModel({
+				Busy: false,
+				Details: [],
+				Items: [],
+				Skills: [{
+					"Skill": "JavaScript",
+					"Statu": "Success",
+					"Detail": [
+						"Arrow Functions",
+						"Async / Await",
+						"Classes",
+						"Collections",
+						"Control Flow & Error Handling",
+						"ES6 & ES7",
+						"Expressions & Operators",
+						"Functions",
+						"Grammar & Types",
+						"Loops & Iteration",
+						"Numbers & Dates",
+						"Objects",
+						"Promises",
+						"Text Formatting"
+					]
+				}],
+				Value: ""
+			});
+
+			this.setModel(oModel, "model");
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
@@ -51,11 +49,11 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onClosePopover: function (oEvent) {
+		onClosePopover(oEvent) {
 			oEvent.getSource().getParent().getParent().close();
 		},
 
-		onGenerateFB: function () {
+		onGenerateFB() {
 			const oFlexBox = this.byId("FlexBox");
 
 			this.getModel("model").getProperty("/Items").forEach(oSkill => {
@@ -68,17 +66,17 @@ sap.ui.define([
 			});
 		},
 
-		onShowPopover: function (oEvent, sDialogID, sName) {
+		onShowPopover(oEvent, sDialogID, sName) {
 			const oSource = oEvent.getSource();
 			const oView = this.getView();
-			let oDialog = this.byId(sDialogID);
+			const oDialog = this.byId(sDialogID);
 
 			if (!oDialog) {
 				Fragment.load({
 					id: oView.getId(),
-					name: "com.sm.cv.fragment." + sName,
+					name: `com.sm.cv.fragment.${sName}`,
 					controller: this
-				}).then(function (oPopover) {
+				}).then(oPopover => {
 					oView.addDependent(oPopover);
 					oPopover.openBy(oSource);
 				});
@@ -87,19 +85,16 @@ sap.ui.define([
 			}
 		},
 
-		onShowSkillDetail: function (oEvent) {
+		onShowSkillDetail(oEvent) {
 			const oGenericTag = oEvent.getSource();
-			const sGenericTagID = oGenericTag.getId()
+			const sGenericTagID = oGenericTag.getId();
 			const iIndex = oGenericTag.getParent().getItems().findIndex(oItem => oItem.getId() === sGenericTagID);
 			const oViewModel = this.getModel("model");
-			const aDetails = oViewModel.getProperty("/Skills/" + iIndex + "/Detail");
+			const aDetails = oViewModel.getProperty(`/Skills/${iIndex}/Detail`);
 
-			if (!aDetails) {
-				return;
-			}
+			if (!aDetails) return;
 
 			oViewModel.setProperty("/Details", aDetails);
-
 			this.onShowPopover(oEvent, "DetailPopover", "Detail");
 		},
 
@@ -107,7 +102,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
+		patternMatched() {
 			this.onGenerateFB();
 		}
 

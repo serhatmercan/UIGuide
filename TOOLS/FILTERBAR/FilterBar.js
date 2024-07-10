@@ -1,12 +1,12 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-
+		onInit() {
 			const oModel = new JSONModel({
 				Value: ""
 			});
@@ -14,7 +14,7 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		onSearch: function () {
+		onSearch() {
 			const sValue = this.getModel("model").getProperty("/Value");
 		}
 

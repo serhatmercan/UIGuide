@@ -1,18 +1,15 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onPress: function (oEvent) {
+		onPress(oEvent) {
 			const oContext = oEvent.getSource().getBindingContext().getObject();
 		},
 
-		onSendParameter: function(sType, oEvent){
-
-		}
+		onSendParameter(sType, oEvent) { }
 
 	});
-
 });

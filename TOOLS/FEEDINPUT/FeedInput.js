@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,13 +10,13 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [],
-					Value: ""
-				}), "model");
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [],
+				Value: ""
+			});
 
+			this.setModel(oModel, "model");
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -24,20 +24,20 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onDeleteFLI: function (oEvent) {
+		onDeleteFLI(oEvent) {
 			const oViewModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const aItems = oViewModel.getProperty("/Items");
 			const sPath = oEvent.getParameter("item").getBindingContextPath();
-			const iIndex = sPath.split("/")[sPath.split("/").length - 1];
+			const iIndex = +sPath.split("/").pop();
 
 			aItems.splice(iIndex, 1);
 			oViewModel.setProperty("/Items", aItems);
 		},
 
-		onPostFI: function (oEvent) {
+		onPostFI(oEvent) {
 			const sValue = oEvent.getParameter("value");
 			const oViewModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const aItems = oViewModel.getProperty("/Items");
 
 			aItems.push({
 				Date: new Date(),
@@ -54,10 +54,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
-
-		}
+		patternMatched() { }
 
 	});
-
 });

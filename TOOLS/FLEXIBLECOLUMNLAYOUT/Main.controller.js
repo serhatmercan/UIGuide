@@ -1,6 +1,6 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -9,7 +9,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -17,7 +17,7 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onClearModel: function () {
+		onClearModel() {
 			const oViewModel = this.getModel("model");
 			const oData = {
 				ActionButtonsInfo: {
@@ -41,13 +41,11 @@ sap.ui.define([
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 
-		onGoToDetail: function (oEvent) {
+		onGoToDetail(oEvent) {
 			const oData = oEvent.getSource().getBindingContext();
 			const oModel = this.getModel("model");
 
-			if (!oData) {
-				return;
-			}
+			if (!oData) return;
 
 			oModel.setProperty("/Details", []);
 			oModel.setProperty("/Layout", "TwoColumnsMidExpanded");
@@ -61,10 +59,9 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
+		patternMatched() {
 			this.onClearModel();
 		}
 
 	});
-
 });

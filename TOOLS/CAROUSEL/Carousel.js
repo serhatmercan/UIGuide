@@ -2,7 +2,7 @@ sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/Image",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, Image, JSONModel) {
+], (BaseController, Image, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -11,16 +11,12 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [
-						"../assets/PartQueryCockpit.png"
-					],
-					Value: ""
-				}), "model"
-			);
-
+		onInit() {
+			const oModel = new JSONModel({
+				Items: ["../assets/PartQueryCockpit.png"],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 		},
 
@@ -28,13 +24,12 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onGenerateCarousel: function () {
+		onGenerateCarousel() {
 			const oCarousel = this.byId("Carousel");
+			const aItems = this.getModel("model").getProperty("/Items");
 
-			this.getModel("model").getProperty("/Items").forEach(oItem => {
-				oCarousel.addPage(new Image({
-					src: oItem
-				}));
+			aItems.forEach((sItem) => {
+				oCarousel.addPage(new Image({ src: sItem }));
 			});
 		},
 
@@ -42,12 +37,10 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function () {
+		patternMatched() {
 			this.onGenerateCarousel();
 
-			setInterval(() => {
-				this.byId("Carousel").next();
-			}, 5000);
+			setInterval(() => this.byId("Carousel").next(), 5000);
 		}
 
 	});

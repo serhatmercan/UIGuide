@@ -1,26 +1,23 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-
+		onInit() {
 			const oModel = new JSONModel({
 				Value: ""
 			});
-
 			this.setModel(oModel, "model");
-
 		},
 
-		onScanSuccess: function (oEvent) {
+		onScanSuccess(oEvent) {
 			if (!oEvent.getParameter("cancelled")) {
-				var sValue = oEvent.getParameter("text");
+				const sValue = oEvent.getParameter("text");
 			}
 		}
 
 	});
-
 });
