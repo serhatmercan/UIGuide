@@ -7,13 +7,13 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				MaxDate: new Date(),
 				MinDate: new Date(),
 				Value: new Date()
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		checkIsValidDate() {

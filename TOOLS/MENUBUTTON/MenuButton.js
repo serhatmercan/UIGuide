@@ -7,14 +7,14 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				MenuStatu: false,
 				Items: [],
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		onShowMI(sType, oEvent) { }

@@ -11,14 +11,14 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Data: {},
 				Items: [],
 				No: 0,
 				Value: ""
 			});
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			oModel.attachPropertyChange(this.attachPropertyChange.bind(this));
 

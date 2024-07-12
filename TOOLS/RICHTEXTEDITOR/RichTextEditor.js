@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/richtexteditor/library",
 	"sap/ui/richtexteditor/RichTextEditor"
-], function (BaseController, JSONModel, library, RichTextEditor) {
+], (BaseController, JSONModel, library, RichTextEditor) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -12,13 +12,14 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.setModel(
 				new JSONModel({
 					Edit: true,
 					Items: [],
 					Value: ""
-				}), "model");
+				}), "model"
+			);
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
@@ -31,9 +32,9 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		addRTEToSmartForm: function (sSmartFormID) {
+		addRTEToSmartForm(sSmartFormID) {
 			if (!this.byId("MessageRTE")) {
-				this.byId(sSmartFormID).getGroups()[0].getGroupElements()[0].addElement(
+				this.byId(sSmartFormID)?.getGroups()[0]?.getGroupElements()[0]?.addElement(
 					new RichTextEditor("MessageRTE", {
 						editorType: library.EditorType.TinyMCE6,
 						height: "10rem",
@@ -48,12 +49,12 @@ sap.ui.define([
 			}
 		},
 
-		getValue: function () {
-			const sMessageX = sap.ui.getCore().byId("MessageRTE").getValue();
-			const sMessageY = this.byId("MessageRTE").getValue();
+		getValue() {
+			const sMessageX = sap.ui.getCore().byId("MessageRTE")?.getValue();
+			const sMessageY = this.byId("MessageRTE")?.getValue();
 		},
 
-		patternMatched: function (oEvent) {
+		patternMatched() {
 			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
 				const oMessageRTE = sap.ui.getCore().byId("MessageRTE");
 
@@ -65,11 +66,9 @@ sap.ui.define([
 			});
 		},
 
-		setValue: function () {
-			sap.ui.getCore().byId("MessageRTE").setValue("");
-			this.byId("MessageRTE").setValue("");
+		setValue() {
+			sap.ui.getCore().byId("MessageRTE")?.setValue("");
+			this.byId("MessageRTE")?.setValue("");
 		}
-
 	});
-
 });

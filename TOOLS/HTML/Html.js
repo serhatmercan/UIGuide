@@ -11,13 +11,13 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Items: [],
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			sap.ui.getCore().getEventBus().subscribe("com.serhatmercan", "PDFLoaded", this.pdfLoaded, this);
 

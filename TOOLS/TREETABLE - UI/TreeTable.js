@@ -11,13 +11,13 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Items: [],
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.byId("TreeTable").collapseAll();
 			this.byId("TreeTable").expandToLevel(1);

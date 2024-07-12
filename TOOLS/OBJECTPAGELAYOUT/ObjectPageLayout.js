@@ -11,12 +11,12 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.getRouter().getRoute("objectPageLayout").attachPatternMatched(this.patternMatched, this);
 		},

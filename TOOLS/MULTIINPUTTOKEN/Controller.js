@@ -17,12 +17,12 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Value: "",
 				List: []
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.byId("MI").setEnableMultiLineMode(sap.ui.Device.system.phone);
 			this.byId("MI").setValueState("Error");

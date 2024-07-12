@@ -4,11 +4,7 @@
 	<semantic:SemanticPage id="Page" busy="{model>/Busy}" title="{i18n>title}" showFooter="{=${message>/}.length > 0}">
 		<semantic:titleHeading>
 			<core:Fragment fragmentName="com.sm.application.fragments.view.object.TitleHeading" type="XML" />
-<<<<<<< HEAD
 			<Title text="{i18n>title}" level="H2"/>
-=======
-			<Title text="{i18n>text}" level="H2"/>
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 		</semantic:titleHeading>
 		<semantic:titleExpandedContent>
 			<ObjectStatus title="{i18n>status}" text="{i18n>text}"/>

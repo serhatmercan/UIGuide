@@ -13,12 +13,12 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.byId("SFB").triggerSearch();
 		},

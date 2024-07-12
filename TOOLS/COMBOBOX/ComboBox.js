@@ -13,11 +13,11 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Items: [],
 				Value: ""
 			});
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.byId("ComboBox").fireSelectionChange({
 				selectedItem: sID

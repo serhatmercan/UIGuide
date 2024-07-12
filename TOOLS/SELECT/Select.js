@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, Item, Filter, FilterOperator, JSONModel) {
+], (BaseController, Item, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -13,36 +13,31 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(new JSONModel({
+		onInit() {
+			const oModel = new JSONModel({
 				Key: "",
-				Items: [{
-					Key: "1",
-					Text: "One"
-				}, {
-					Key: "2",
-					Text: "Two"
-				}, {
-					Key: "3",
-					Text: "Three"
-				}]
-			}), "model");
+				Items: [
+					{ Key: "1", Text: "One" },
+					{ Key: "2", Text: "Two" },
+					{ Key: "3", Text: "Three" }
+				]
+			});
+			this.setModel(oModel, "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onBindItems: function () {
+		onBindItems() {
 			const oSelect = this.byId("Select");
 			const oFilter = new Filter("Key", FilterOperator.EQ, "X");
 			const oTemplate = new Item({
 				key: {
-					parts: [{
-						path: "ID"
-					}, {
-						path: "Key"
-					}],
+					parts: [
+						{ path: "ID" },
+						{ path: "Key" }
+					],
 					formatter: this.formatter.createKey
 				},
 				text: "{Text}"
@@ -58,13 +53,14 @@ sap.ui.define([
 			});
 		},
 
-		onChangeSelect: function (oEvent) {
-			const oData = oEvent.getParameter("selectedItem").getBindingContext().getObject();
-			const sKey = oEvent.getParameter("selectedItem").getBindingContext().getProperty("Key");
-			const sSelectedKey = oEvent.getSource().getSelectedKey();
+		onChangeSelect(oEvent) {
+			const oSelectedItem = oEvent.getParameter("selectedItem");
+			const oData = oSelectedItem?.getBindingContext()?.getObject();
+			const sKey = oSelectedItem?.getBindingContext()?.getProperty("Key");
+			const sSelectedKey = oEvent.getSource()?.getSelectedKey();
 			let sType;
 
-			switch (oEvent.getSource().getSelectedItem().getKey()) {
+			switch (sSelectedKey) {
 				case "idSIKey":
 					sType = "1H";
 					break;
@@ -73,11 +69,11 @@ sap.ui.define([
 			}
 
 			// Get Smart Table Binding Value
-			const sValue = oEvent.getParameter("selectedItem").getKey();
-			const sRowPath = oEvent.getSource().getBindingContext().getPath();
+			const sValue = oSelectedItem?.getKey();
+			const sRowPath = oEvent.getSource()?.getBindingContext()?.getPath();
 			const oModel = this.getModel();
-			const oRowData = oModel.getProperty(sRowPath);
-			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
+			const oRowData = oModel?.getProperty(sRowPath);
+			const aData = this.getView()?.getBindingContext()?.getProperty("Items")?.map(sPath => oModel.getProperty("/" + sPath));
 		}
 
 	});

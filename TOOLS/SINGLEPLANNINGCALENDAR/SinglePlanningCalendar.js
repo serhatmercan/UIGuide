@@ -1,11 +1,12 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
+	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/unified/library"
-], function (Controller, JSONModel, unifiedLibrary) {
+	"sap/ui/unified/library",
+], (Controller, Fragment, JSONModel, library) => {
 	"use strict";
 
-	const oCalendarDayType = unifiedLibrary.CalendarDayType;
+	const { CalendarDayType: oCalendarDayType } = library;
 
 	return Controller.extend("com.sm.SinglePlanningCalendar.controller.Main", {
 
@@ -13,76 +14,59 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					"Appointment": {
-						"Title": "",
-						"Text": "",
-						"Type": oCalendarDayType.Type01,
-						"StartDate": new Date(),
-						"EndDate": new Date()
+		onInit() {
+			const oModel = new JSONModel({
+				Appointment: { Title: "", Text: "", Type: oCalendarDayType.Type01, StartDate: new Date(), EndDate: new Date() },
+				Appointments: [
+					{
+						Title: "Meeting", Text: "Online", Type: oCalendarDayType.Type01, Icon: "sap-icon://meeting-room",
+						StartDate: new Date("2022-01-12T09:00:00"), EndDate: new Date("2022-01-12T10:00:00")
 					},
-					"Appointments": [{
-						"Title": "Meeting",
-						"Text": "Online",
-						"Type": oCalendarDayType.Type01,
-						"Icon": "sap-icon://meeting-room",
-						"StartDate": new Date("2022-01-12T09:00:00"),
-						"EndDate": new Date("2022-01-12T10:00:00")
-					}, {
-						"Title": "Lunch",
-						"Text": "Canteen",
-						"Type": oCalendarDayType.Type02,
-						"Icon": "sap-icon://meal",
-						"StartDate": new Date("2022-01-12T12:00:00"),
-						"EndDate": new Date("2022-01-12T13:00:00")
-					}, {
-						"Title": "Rest",
-						"Text": "Home",
-						"Type": oCalendarDayType.Type03,
-						"Icon": "sap-icon://home",
-						"StartDate": new Date("2022-01-12T18:00:00"),
-						"EndDate": new Date("2022-01-12T20:00:00")
-					}],
-					"Mode": "CA"
-				}), "model"
-			);
+					{
+						Title: "Lunch", Text: "Canteen", Type: oCalendarDayType.Type02, Icon: "sap-icon://meal",
+						StartDate: new Date("2022-01-12T12:00:00"), EndDate: new Date("2022-01-12T13:00:00")
+					},
+					{
+						Title: "Rest", Text: "Home", Type: oCalendarDayType.Type03, Icon: "sap-icon://home",
+						StartDate: new Date("2022-01-12T18:00:00"), EndDate: new Date("2022-01-12T20:00:00")
+					}
+				],
+				Mode: "CA"
+			});
+
+			this.setModel(oModel, "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onACAppointmentDialog: function () {
+		onACAppointmentDialog() {
 			this.oAppointment.close();
 			this.oAppointment.destroy();
 			this.oAppointment = null;
 			this.sPath = "";
 		},
 
-		onAppointmentCreate: function (oEvent) {
+		onAppointmentCreate(event) {
 			const oViewModel = this.getModel("model");
-			const aAppointments = oModel.getProperty("/Appointments");
+			const aAppointments = oViewModel.getProperty("/Appointments");
 
 			aAppointments.push({
 				Title: "New Appointment",
-				StartDate: oEvent.getParameter("startDate"),
-				EndDate: oEvent.getParameter("endDate")
+				StartDate: event.getParameter("startDate"),
+				EndDate: event.getParameter("endDate")
 			});
 
-			oViewModel.setProperty("/Appointments", aAppointments);
 			oViewModel.updateBindings();
 		},
 
-		onAppointmentDrop: function (oEvent) {
-			const oAppointment = oEvent.getParameter("appointment");
-			const oStartDate = oEvent.getParameter("startDate");
-			const oEndDate = oEvent.getParameter("endDate");
+		onAppointmentDrop(oEvent) {
 			const oViewModel = this.getModel("model");
-			const aAppointments = oModel.getProperty("/Appointments");
+			const aAppointments = oViewModel.getProperty("/Appointments");
+			const { appointment: oAppointment, startDate: oStartDate, endDate: oEndDate } = oEvent.getParameters();
 
-			if (oEvent.getParameter("copy")) {
+			if (event.getParameter("copy")) {
 				aAppointments.push({
 					Title: oAppointment.getTitle(),
 					Icon: oAppointment.getIcon(),
@@ -91,7 +75,6 @@ sap.ui.define([
 					StartDate: oStartDate,
 					EndDate: oEndDate
 				});
-				oViewModel.setProperty("/Appointments", aAppointments);
 				oViewModel.updateBindings();
 			} else {
 				oAppointment.setStartDate(oStartDate);
@@ -99,18 +82,18 @@ sap.ui.define([
 			}
 		},
 
-		onAppointmentResize: function (oEvent) {
-			const oAppointment = oEvent.getParameter("appointment");
+		onAppointmentResize(event) {
+			const { appointment: oAppointment, startDate, endDate } = event.getParameters();
 
-			oAppointment.setStartDate(oEvent.getParameter("startDate"));
-			oAppointment.setEndDate(oEvent.getParameter("endDate"));
+			oAppointment.setStartDate(startDate);
+			oAppointment.setEndDate(endDate);
 		},
 
-		onAppointmentSelect: function (oEvent) {
-			const oAppointment = oEvent.getParameter("appointment");
+		onAppointmentSelect(event) {
+			const oAppointment = event.getParameter("appointment");
 			const oViewModel = this.getModel("model");
 
-			if ((!oAppointment || !oAppointment.getSelected())) {
+			if (!oAppointment || !oAppointment.getSelected()) {
 				return;
 			}
 
@@ -128,7 +111,7 @@ sap.ui.define([
 			this.onShowAppointment();
 		},
 
-		onCreateAppointment: function () {
+		onCreateAppointment() {
 			const oViewModel = this.getModel("model");
 
 			oViewModel.setProperty("/Appointment", {
@@ -144,28 +127,27 @@ sap.ui.define([
 			this.onShowAppointment();
 		},
 
-		onDeleteAppointment: function () {
+		onDeleteAppointment() {
 			const oViewModel = this.getModel("model");
-			const aAppointments = oModel.getProperty("/Appointments");
+			const aAppointments = oViewModel.getProperty("/Appointments");
+			const iIndex = this.sPath.split("/").pop();
 
-			aAppointments.splice(this.sPath.split("/")[this.sPath.split("/").length - 1], 1);
+			aAppointments.splice(iIndex, 1);
 
-			oViewModel.setProperty("/Appointments", aAppointments);
 			oViewModel.updateBindings();
 
 			this.onCloseAppointmentDialog();
 		},
 
-		onSaveAppointment: function () {
+		onSaveAppointment() {
 			const oViewModel = this.getModel("model");
-			const oAppointment = oModel.getProperty("/Appointment");
-			const aAppointments = oModel.getProperty("/Appointments");
+			const oAppointment = oViewModel.getProperty("/Appointment");
+			const aAppointments = oViewModel.getProperty("/Appointments");
 
-			if (oModel.getProperty("/Mode") === "CA") {
+			if (oViewModel.getProperty("/Mode") === "CA") {
 				aAppointments.push(oAppointment);
-				oViewModel.setProperty("/Appointments", aAppointments);
 			} else {
-				oViewModel.setProperty(this._sPath + "/", oAppointment);
+				oViewModel.setProperty(this.sPath, oAppointment);
 			}
 
 			oViewModel.updateBindings();
@@ -173,17 +155,24 @@ sap.ui.define([
 			this.onCloseAppointmentDialog();
 		},
 
-		onShowAppointment: function () {
-			this.oAppointment = sap.ui.xmlfragment(this.getView().getId(), "com.sm.SinglePlanningCalendar.Appointment", this);
-			this.oAppointment.setModel(this.getModel("model"), "model");
-			this.oAppointment.open();
+		onShowAppointment() {
+			Fragment.load({
+				id: this.getView().getId(),
+				name: "com.sm.SinglePlanningCalendar.Appointment",
+				controller: this
+			}).then(oAppointment => {
+				this.oAppointment = oAppointment;
+				this.getView().addDependent(this.oAppointment);
+				this.oAppointment.setModel(this.getModel("model"), "model");
+				this.oAppointment.open();
+			});
 		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		formatDate: function (sDate) {
+		formatDate(sDate) {
 			return new Date(sDate);
 		}
 

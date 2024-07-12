@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,28 +10,27 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			const oModel = new JSONModel({
+		onInit() {
+			const oViewModel = new JSONModel({
 				RBExternal: true,
 				RBInternal: false,
 			});
-
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onSelectRBG: function (oEvent) {
+		onSelectRBG(oEvent) {
 			const iIndex = oEvent.getSource().getSelectedIndex();
 
-			switch (oEvent.getSource().getSelectedIndex()) {
+			switch (iIndex) {
 				case 0:
 					break;
 				case 1:
 					break;
-				case 2:
+				default:
 					break;
 			}
 		},
@@ -40,11 +39,9 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		getSelectedIndex: () => {
+		getSelectedIndex() {
 			return this.byId("idRBG").getSelectedIndex();
 		}
 
-
 	});
-
 });

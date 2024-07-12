@@ -13,7 +13,7 @@ sap.ui.define([
 		onInit() {
 			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Experience: {
 					Positions: [
 						{ ID: "0", Position: 0, Icon: "sap-icon://study-leave", Date: "Sept '14 - June '19" },
@@ -61,7 +61,7 @@ sap.ui.define([
 				]
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		/* ================ */

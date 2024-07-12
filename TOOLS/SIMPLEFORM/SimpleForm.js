@@ -1,6 +1,8 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/m/MessageToast",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, MessageToast, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -9,12 +11,12 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Value: ""
-				}), "model"
-			);
+		onInit() {
+			const oViewModel = new JSONModel({
+				Value: ""
+			});
+
+			this.setModel(oViewModel, "model");
 
 			this.getRequiredElements();
 
@@ -25,54 +27,52 @@ sap.ui.define([
 		},
 
 		/* ============== */
-		/* Event Handlers */
+		/* Internal Methods */
 		/* ============== */
 
-		/* ================ */
-		/* Internal Methods */
-		/* ================ */
-
-		checkFields: function () {
-			return this.RequiredElements.some(oRequiredElement => !this.validateElement(oRequiredElement));
+		checkFields() {
+			return this.aRequiredElements.some(oRequiredElement => !this.validateElement(oRequiredElement));
 		},
 
-		getRequiredElements: function () {
-			const aClasses = ["sap.m.ComboBox", "sap.m.DatePicker", "sap.m.Input", "sap.m.MultiComboBox", "sap.m.MultiInput", "sap.m.TextArea", "sap.m.TimePicker"];
+		getRequiredElements() {
+			const aClasses = [
+				"sap.m.ComboBox",
+				"sap.m.DatePicker",
+				"sap.m.Input",
+				"sap.m.MultiComboBox",
+				"sap.m.MultiInput",
+				"sap.m.TextArea",
+				"sap.m.TimePicker"
+			];
 			const aContents = this.byId("SimpleForm").getContent();
 
-			this.RequiredElements = aContents.filter(oContext => {
-				return aClasses.findIndex(oClass => oClass === oContext.getMetadata().getName()) !== -1 && oContext.getRequired();
-			});
+			this.aRequiredElements = aContents.filter(oContext => aClasses.includes(oContext.getMetadata()?.getName()) && oContext.getRequired());
 		},
 
-		validateElement: function (oElement) {
-			let sValue;
-
-			switch (oElement.getMetadata().getName()) {
-				case "sap.m.DatePicker":
-					sValue = oElement.getDateValue();
-					break;
+		getElementValue(oElement, sElementName) {
+			switch (sElementName) {
 				case "sap.m.ComboBox":
-					sValue = oElement.getSelectedKey();
-					break;
-				case "sap.m.MultiComboBox":
-					sValue = oElement.getSelectedKeys().length;
-					break;
 				case "sap.m.Select":
-					sValue = oElement.getSelectedKey();
-					break;
+					return oElement.getSelectedKey();
+				case "sap.m.DatePicker":
+					return oElement.getDateValue();
+				case "sap.m.MultiComboBox":
+					return oElement.getSelectedKeys().length;
 				case "sap.m.MultiInput":
-					sValue = oElement.getTokens().length;
-					break;
+					return oElement.getTokens().length;
 				default:
-					sValue = oElement.getValue();
+					return oElement.getValue();
 			}
+		},
+
+		validateElement(oElement) {
+			const sElementName = oElement.getMetadata()?.getName();
+			const sValue = this.getElementValue(oElement, sElementName);
 
 			oElement.setValueState(sValue ? "None" : "Error");
 
-			return !sValue;
+			return !!sValue;
 		}
 
 	});
-
 });

@@ -1,36 +1,33 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		/* ================= */
-        /* Lifecycle Methods */
-        /* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-		onInit: function () {
-			const oModel = new JSONModel({
+		onInit() {
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		/* ============== */
-        /* Event Handlers */
-        /* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-		onLiveChange: function (oEvent) {
+		onLiveChange(oEvent) {
 			const sValue = oEvent.getParameter("newValue");
 		},
 
-		onSearch: function(oEvent){
-
-		}
+		onSearch(oEvent) { }
 
 	});
-
 });

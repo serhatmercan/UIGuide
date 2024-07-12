@@ -7,14 +7,14 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Date: new Date(),
 				Date1: null,
 				Date2: null,
 				DateFormatted: new Date(Date.now() - (50 * 24 * 60 * 60 * 1000))
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		onChangeDTI(oEvent) {

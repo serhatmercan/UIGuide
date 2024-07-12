@@ -20,7 +20,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Educations: [
 					{
 						Company: "NTT DATA Business Solutions Turkey",
@@ -56,7 +56,7 @@ sap.ui.define([
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			const oGC = this.byId("GC");
 

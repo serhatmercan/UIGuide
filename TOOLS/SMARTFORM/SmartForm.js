@@ -11,11 +11,11 @@ sap.ui.define([
 		/* ================= */
 
 		onInit: function () {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.resetSmartFormElementsValueStates("SmartForm");
 

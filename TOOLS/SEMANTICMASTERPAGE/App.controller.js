@@ -1,36 +1,65 @@
 sap.ui.define([
-		"com/controller/BaseController",
-		"sap/ui/model/json/JSONModel"
-	], function (BaseController, JSONModel) {
-		"use strict";
+	"./BaseController",
+	"sap/ui/core/BusyIndicator",
+], (BaseController, BusyIndicator) => {
+	"use strict";
 
-		return BaseController.extend("com.serhatmercan.controller.App", {
+	return BaseController.extend("xxx.controller.App", {
 
-			onInit : function () {
-				const oComponent = this.getOwnerComponent();
+		async onInit() {
+			const oComponent = this.getOwnerComponent();
+			const oMessageModel = sap.ui.getCore().getMessageManager()?.getMessageModel();
 
-				const oModel = new JSONModel({
-					Busy : true,
-					Delay : 0
-				});
+			oComponent.setModel(oMessageModel, "message");
 
-				this.setModel(oModel, "model");
+			oComponent?.oListSelector?.attachListSelectionChange((oEvent) => {
+				this.byId("SplitApp").hideMaster();
+			});
 
-				const fnSetAppNotBusy = function() {
-					oModel.setProperty("/Busy", false);
-					oModel.setProperty("/Delay", this.getView().getBusyIndicatorDelay());
-				};
+			this.attachBusy();
+			this.getView().addStyleClass(oComponent.getContentDensityClass());
+		},
 
-				oComponent.getModel().metadataLoaded().then(fnSetAppNotBusy);
+		attachBusy() {
+			const oModel = this.getOwnerComponent().getModel();
+			const fnRequestSent = () => {
+				BusyIndicator.show();
+				sap.ui.getCore().getMessageManager()?.removeAllMessages();
+			};
+			const fnRequestReceived = () => {
+				const oMessageManager = sap.ui.getCore().getMessageManager();
+				const oMessageModel = oMessageManager?.getMessageModel();
+				const aMessages = oMessageModel?.getData();
 
-				oComponent.oListSelector.attachListSelectionChange((oEvent) => {
-					this.byId("SplitApp").hideMaster();
-				}); 
-				
-				this.getView().addStyleClass(oComponent.getContentDensityClass());
-			}
+				aMessages.forEach(oMessage => oMessage.setPersistent(true));
 
-		});
+				this.removeDuplicateMessages();
 
-	}
-);
+				BusyIndicator.hide();
+			};
+
+			oModel.attachMetadataFailed(fnRequestReceived);
+			oModel.metadataLoaded().then(() => {
+				oModel.attachRequestSent(fnRequestSent);
+				oModel.attachRequestCompleted(fnRequestReceived);
+				oModel.attachRequestFailed(fnRequestReceived);
+				oModel.attachBatchRequestSent(fnRequestSent);
+				oModel.attachBatchRequestCompleted(fnRequestReceived);
+				oModel.attachBatchRequestFailed(fnRequestReceived);
+			});
+		},
+
+		removeDuplicateMessages() {
+			const oMessageManager = sap.ui.getCore().getMessageManager();
+			const oMessageModel = oMessageManager?.getMessageModel();
+			const aModelMessages = oMessageModel?.getData();
+
+			if (!aModelMessages) return;
+
+			const aUniqueMessages =
+				Array.from(new Set(aModelMessages.map(oItem => oItem.message))).map(sMessage => aModelMessages.find(oMessage => oMessage.message === sMessage));
+
+			oMessageModel.setData(aUniqueMessages);
+		}
+	});
+});

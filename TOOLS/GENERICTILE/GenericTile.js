@@ -11,7 +11,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Certifications: [
 					{
 						Certification: "Introduction To ABAP In The Cloud",
@@ -24,7 +24,7 @@ sap.ui.define([
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		/* ============== */

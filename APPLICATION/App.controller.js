@@ -8,10 +8,12 @@ sap.ui.define([
 
 		async onInit() {
 			const oComponent = this.getOwnerComponent();
+			const oMessageModel = sap.ui.getCore().getMessageManager()?.getMessageModel();
 
-			oComponent.setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
+			oComponent.setModel(oMessageModel, "message");
 
 			this.attachBusy();
+
 			this.getView().addStyleClass(oComponent.getContentDensityClass());
 		},
 
@@ -19,13 +21,14 @@ sap.ui.define([
 			const oModel = this.getOwnerComponent().getModel();
 			const fnRequestSent = () => {
 				BusyIndicator.show();
-				sap.ui.getCore().getMessageManager().removeAllMessages();
+				sap.ui.getCore().getMessageManager()?.removeAllMessages();
 			};
 			const fnRequestReceived = () => {
 				const oMessageManager = sap.ui.getCore().getMessageManager();
-				const oMessageModel = oMessageManager.getMessageModel();
+				const oMessageModel = oMessageManager?.getMessageModel();
+				const aMessages = oMessageModel?.getData();
 
-				oMessageModel.getData().forEach(oMessage => oMessage.setPersistent(true));
+				aMessages.forEach(oMessage => oMessage.setPersistent(true));
 
 				this.removeDuplicateMessages();
 
@@ -45,13 +48,15 @@ sap.ui.define([
 
 		removeDuplicateMessages() {
 			const oMessageManager = sap.ui.getCore().getMessageManager();
-			const oMessages = oMessageManager.getMessageModel().getData();
-			const aUniqueMessages = [...new Set(oMessages.map(oItem => oItem.message))];
-			const aMessages = aUniqueMessages.map(sMessage =>
-				oMessages.find(oMessage => oMessage.message === sMessage)
-			);
+			const oMessageModel = oMessageManager?.getMessageModel();
+			const aModelMessages = oMessageModel?.getData();
 
-			oMessageManager.getMessageModel().setData(aMessages);
+			if (!aModelMessages) return;
+
+			const aUniqueMessages =
+				Array.from(new Set(aModelMessages.map(oItem => oItem.message))).map(sMessage => aModelMessages.find(oMessage => oMessage.message === sMessage));
+
+			oMessageModel.setData(aUniqueMessages);
 		}
 	});
 });

@@ -13,7 +13,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Details: [],
 				Items: [],
@@ -40,7 +40,7 @@ sap.ui.define([
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},

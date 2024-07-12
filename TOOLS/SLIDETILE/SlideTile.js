@@ -1,44 +1,45 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], function (BaseController) {
+	"com/serhatmercan/controller/BaseController",
+	"sap/m/GenericTile",
+	"sap/m/ImageContent",
+	"sap/m/TileContent",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, GenericTile, ImageContent, TileContent, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Busy: false,
-					Items: [],
-					Value: ""
-				}), "model"
-			);
-
+		onInit() {
+			const oModel = new JSONModel({
+				Busy: false,
+				Items: [],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 			this.onGenerateSlideTile();
 		},
 
-		onGenerateSlideTile: function () {
+		onGenerateSlideTile() {
 			const oSlideTile = this.byId("SlideTile");
+			const aItems = this.getModel("model").getProperty("/Items");
 
-			this.getModel("model").getProperty("/Items").forEach(oItem => {
-				let oTC = new sap.m.TileContent({});
+			aItems.forEach(oItem => {
+				const oTileContent = new TileContent({
+					content: new ImageContent({
+						src: oItem.Logo
+					})
+				});
 
-				oTC.setContent(new sap.m.ImageContent({
-					src: oItem.Logo
-				}));
-
-				let oGT = new sap.m.GenericTile({
+				const oGenericTile = new GenericTile({
 					header: oItem.Title,
 					subheader: oItem.Description,
 					press: () => window.open(oItem.URL, "_blank")
 				});
 
-				oGT.addTileContent(oTC);
-
-				oSlideTile.addTile(oGT);
+				oGenericTile.addTileContent(oTileContent);
+				oSlideTile.addTile(oGenericTile);
 			});
-		},
+		}
 
 	});
-
 });

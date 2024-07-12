@@ -12,11 +12,11 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Items: ["../assets/PartQueryCockpit.png"],
 				Value: ""
 			});
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 		},
 

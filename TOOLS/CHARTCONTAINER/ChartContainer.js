@@ -13,7 +13,7 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Chart: [],
 				Data: [
@@ -31,7 +31,7 @@ sap.ui.define([
 				Value: ""
 			});
 
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 			this.setVizProperties();
 
 			this.byId("VizFrame").attachRenderComplete(this.onVizFrameRenderComplete.bind(this));

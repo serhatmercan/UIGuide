@@ -1,8 +1,5 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
 	"sap/m/CheckBox",
 	"sap/m/Column",
 	"sap/m/ColumnListItem",
@@ -10,11 +7,14 @@ sap.ui.define([
 	"sap/m/Label",
 	'sap/m/library',
 	"sap/m/Text",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Sorter"
-], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Text, Sorter) {
+], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Text, Filter, FilterOperator, JSONModel, Sorter) => {
 	"use strict";
 
-	const URLHelper = MobileLibrary.URLHelper;
+	const { URLHelper } = MobileLibrary;
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
@@ -22,33 +22,31 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: []
-				}), "model");
+		onInit() {
+			const oViewModel = new JSONModel({
+				Items: []
+			});
+			this.setModel(oViewModel, "model");
 
 			this.byId("Table")._getSelectAllCheckbox().setVisible(false);
 
 			this.byId("Table").attachSelectionChange((oEvent) => {
-				this.getModel("model").setProperty("/Statu", !!oEvent.getSource().getSelectedContextPaths().length);
-			});
-
-			this.byId("Table").onAttachUpdateFinished((oEvent) => {
-				oEvent.getSource().getAggregation("items").forEach((oItem) => oItem.setType("Navigation"));
+				const aPaths = oEvent.getSource().getSelectedContextPaths();
+				oModel.setProperty("/Statu", !!aPaths.length);
 			});
 
 			this.byId("Table").attachUpdateFinished((oEvent) => {
-				oEvent.getSource().getItems().forEach(oItem => {
+				oEvent.getSource()?.getItems()?.forEach(oItem => {
 					const sBindingPath = oItem.getBindingContext("model").getPath();
 					const oViewModel = this.getModel("model");
+					const sStatu = oViewModel.getProperty(`${sBindingPath}/Statu`);
 
-					if (oItem.getBindingContext("model") && oViewModel.getProperty(sBindingPath + "/Statu") === "G") {
+					if (oItem.getBindingContext("model") && sStatu === "G") {
 						oItem.$().css("background-color", "#30914c");
-					} else if (oItem.getBindingContext("model") && oViewModel.getProperty(sBindingPath + "/Statu") === "W") {
+					} else if (oItem.getBindingContext("model") && sStatu === "W") {
 						oItem.$().css("background-color", "#e76500");
 					} else {
-						oItem.$().css("background-color", "##fff");
+						oItem.$().css("background-color", "#fff");
 					}
 				});
 			});
@@ -64,13 +62,13 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onAddColumn: function () {
+		onAddColumn() {
 			this.initTable("Table", "CLI", 2);
 			this.initModel();
 			this.setTableColumn();
 		},
 
-		onBindItems: function () {
+		onBindItems() {
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -79,211 +77,165 @@ sap.ui.define([
 				path: "/TableSet",
 				template: new ColumnListItem({
 					cells: [
-						new Text({
-							text: "{ID}"
-						}),
-						new Text({
-							text: {
-								parts: [{
-									path: "Date"
-								}],
-								formatter: this.formatter.convertDate
-							}
-						})
+						new Text({ text: "{ID}" }),
+						new Text({ text: { path: "Date", formatter: this.formatter.convertDate } })
 					]
 				}),
 				filters: aFilters,
-				events: {
-					dataReceived: (oEvent) => { }
-				}
+				events: { dataReceived: () => { } }
 			});
 		},
 
-		onCellClick: function (oEvent) {
-			const oRow = this.getModel("model").getProperty(oEvent.getSource().getParent().getBindingContext("model").getPath());
+		onCellClick(oEvent) {
+			const sPath = oEvent.getSource()?.getParent()?.getBindingContext("model")?.getPath();
+			const oRow = this.getModel("model").getProperty(sPath);
 		},
 
-		onChangeCB: function (oEvent) {
-			const sID = this.getModel("model").getProperty(oEvent.getSource().getSelectedItem().getBindingContext("model").getPath() + "/ID");
+		onChangeCB(oEvent) {
+			const sPath = oEvent.getSource()?.getSelectedItem()?.getBindingContext("model")?.getPath();
+			const sID = this.getModel("model").getProperty(sPath + "/ID");
 			const aRows = this.byId("Table").getItems();
-			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, sID)
-			];
+			const aFilters = [new Filter("ID", FilterOperator.EQ, sID)];
 
-			aRows.forEach((oRow) => {
-				oRow.getCells()[1].getBinding("items").filter(aFilters);
+			aRows.forEach(oRow => {
+				oRow.getCells()[1]?.getBinding("items")?.filter(aFilters);
 			});
 		},
 
-		onCheckCellValue: function () {
-			this.byId("Table").getRows().forEach(oRow => {
+		onCheckCellValue() {
+			const oValueState = sap.ui.core.ValueState;
+
+			this.byId("Table").getRows()?.forEach(oRow => {
 				oRow.getCells().forEach(oCell => {
-					oCell.setValueState(oCell.getValue() === "" ? sap.ui.core.ValueState.Error : sap.ui.core.ValueState.None);
+					oCell.setValueState(oCell.getValue() === "" ? oValueState.Error : oValueState.None);
 				});
 			});
 		},
 
-		onDelete: function (oEvent) {
-			const iIndex = +oEvent.getParameter("listItem").getBindingContextPath().slice(-1);
+		onDelete(oEvent) {
+			const iIndex = +oEvent.getParameter("listItem")?.getBindingContextPath()?.slice(-1);
 			const oViewModel = this.getModel("model");
-<<<<<<< HEAD
 			const aItems = oViewModel.getProperty("/Items");
-=======
-			const aItems = oModel.getProperty("/Items");
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 
 			aItems.splice(iIndex, 1);
-
 			oViewModel.setProperty("/Items", aItems);
 		},
 
-		onDeleteSelectedRows: function () {
+		onDeleteSelectedRows() {
 			const oViewModel = this.getModel("model");
 			const oTable = this.byId("Table");
 			const aItems = oViewModel.getProperty("/Items");
-			const aReverseSelectedRowsPaths = [].concat(oTable.getSelectedContextPaths()).reverse();
+			const aReverseSelectedRowsPaths = [...oTable.getSelectedContextPaths()].reverse();
 
 			aReverseSelectedRowsPaths.forEach(sReverseSelectedRowPath => {
-				aItems.splice(+sReverseSelectedRowPath.split("/")[sReverseSelectedRowPath.split("/").length - 1], 1);
+				aItems.splice(+sReverseSelectedRowPath.split("/").pop(), 1);
 			});
 
 			oViewModel.setProperty("/Items", aItems);
-
 			oTable.removeSelections(true);
 		},
 
-		onDeleteRow: function () {
-			const aPaths = oEvent.getSource().getBindingContext("model").getPath().split("/");
-			const iIndex = +aPaths[aPaths.length - 1];
+		onDeleteRow(oEvent) {
+			const aPaths = oEvent.getSource()?.getBindingContext("model")?.getPath()?.split("/");
+			const iIndex = +aPaths.pop();
 			const oViewModel = this.getModel("model");
-			const aItems = oModel.getProperty("/Items");
+			const aItems = oViewModel.getProperty("/Items");
 
 			aItems.splice(iIndex, 1);
 			oViewModel.setProperty("/Items", aItems);
 		},
 
-		onDownloadExcel: function () {
-			const sDownloadUrl = this.byId("Table").getBinding("items").getDownloadUrl();
+		onDownloadExcel() {
+			const sDownloadUrl = this.byId("Table").getBinding("items")?.getDownloadUrl();
 			const sFilter = "?$filter=ID eq 'X'";
 			const sUrlParameters = "$format=xlsx&$select=ID,Value,Text";
 
-			window.open(sDownloadUrl + sFilter + "&" + sUrlParameters);
+			window.open(`${sDownloadUrl}${sFilter}&${sUrlParameters}`);
 		},
 
-		onDownloadExcelII: function () {
+		onDownloadExcelII() {
 			const oModel = this.getModel();
-			const sPath = oModel.createKey("/ExcelDownloadSet", {
-				"ID": "X"
-			});
-			const sUrl = oModel.sServiceUrl + sPath + "/$value"
+			const sPath = oModel.createKey("/ExcelDownloadSet", { "ID": "X" });
+			const sUrl = `${oModel.sServiceUrl}${sPath}/$value`;
 
 			URLHelper.redirect(sUrl, true);
 		},
 
-		onPress: function (oEvent) {
-			const sPath = oEvent.getSource().getBindingContextPath();
-			const sID = oEvent.getSource().getBindingContext("model").getProperty("ID");
-
-			this.getRouter().navTo("View", {
-				ID: sID
-			});
+		onPress(oEvent) {
+			const sID = oEvent.getSource()?.getBindingContext("model")?.getProperty("ID");
+			this.getRouter().navTo("View", { ID: sID });
 		},
 
-		onSelectionChange: function (oEvent) {
-			const oData = oEvent.getParameter("listItem").getBindingContext().getObject();
-			const sPath = oEvent.getSource().getSelectedItem().getBindingContext("model").getPath();
+		onSelectionChange(oEvent) {
+			const sPath = oEvent.getSource()?.getSelectedItem()?.getBindingContext("model")?.getPath();
 		},
 
-		onSortWithViewSettingsDialog: function () {
+		onSortWithViewSettingsDialog(oEvent) {
 			const oParams = oEvent.getParameters();
-			const aSorters = [
-				new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)
-			];
-			const xSorters = [
-				new Sorter("ID", true)
-			];
+			const aSorters = [new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)];
 
-			this.byId("Table").getBinding("items").sort(aSorters);
+			this.byId("Table")?.getBinding("items")?.sort(aSorters);
 		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		addColumnToTable: function (sTableID, sCLIID, aColumnIDs, sPath, sModel) {
-			const oTable = sap.ui.core.Fragment.byId(this.getView().getId(), sTableID);
-			const oCLI = sap.ui.core.Fragment.byId(this.getView().getId(), sCLIID);
-			const fnChange = (oEvent) => {
-				this.setData();
-			};
+		addColumnToTable(sTableID, sCLIID, aColumnIDs, sPath, sModel) {
+			const oFragment = sap.ui.core.Fragment;
+			const sID = this.getView().getId();
+			const oTable = oFragment.byId(sID, sTableID);
+			const oCLI = oFragment.byId(sID, sCLIID);
 
-			aColumnIDs.forEach((sColumnID) => {
-				oTable.addColumn(new Column({
-					hAlign: "Center",
-					header: new Label({
-						text: sColumnID
-					})
-				}));
+			aColumnIDs.forEach(sColumnID => {
+				oTable.addColumn(new Column({ hAlign: "Center", header: new Label({ text: sColumnID }) }));
 
-				// CheckBox
 				oCLI.addCell(new CheckBox({
-					enabled: "{" + sModel + ">" + sColumnID + "Statu}",
-					selected: "{" + sModel + ">" + sColumnID + "}",
-					select: fnChange
+					enabled: `{${sModel}>${sColumnID}Statu}`,
+					selected: `{${sModel}>${sColumnID}}`,
+					select: () => this.setData()
 				}));
 
-				// Input
 				oCLI.addCell(new Input({
 					type: "Number",
-					value: "{" + sModel + ">" + sColumnID + "}",
-					valueState: "{= +${" + sModel + ">" + sColumnID + "} > 0 ? 'Success' : 'Error' }",
+					value: `{${sModel}>${sColumnID}}`,
+					valueState: `{= +${sModel}>${sColumnID} > 0 ? 'Success' : 'Error' }`,
 					valueLiveUpdate: true,
-					change: fnChange
+					change: () => this.setData()
 				}));
 			});
 
 			oTable.bindItems(sPath, oCLI);
 		},
 
-		getBindingContext: function () {
+		getBindingContext() {
 			const oModel = this.getModel();
-			let aItems = [];
-
-			aItems = oModel.getProperty(this.getView().getBindingContext().getPath() + "/Items").map(sPath => {
-				return oModel.getProperty("/" + sPath);
-			});
+			const sPath = this.getView().getBindingContext().getPath();
+			const aItems = oModel.getProperty(sPath + "/Items").map(xPath => oModel.getProperty(`/${xPath}`));
 
 			return aItems;
 		},
 
-		getSelectedContextProperty: function (sProperty) {
-			return this.byId("Table").getSelectedContexts()[0].getProperty(sProperty);
+		getSelectedContextProperty(sProperty) {
+			return this.byId("Table")?.getSelectedContexts()[0]?.getProperty(sProperty);
 		},
 
-		getSelectedContexts: function () {
-			return this.byId("Table").getSelectedContexts();
+		getSelectedContexts() {
+			return this.byId("Table")?.getSelectedContexts();
 		},
 
-		getSelectedData: function () {
+		getSelectedData() {
 			const oModel = this.getModel();
-			let aItems = [];
-
-			aItems = this.byId("Table").getSelectedContextPaths().map(sPath => {
-				return oModel.getProperty("/" + sPath);
-			});
+			const aItems = this.byId("Table")?.getSelectedContextPaths()?.map(sPath => oModel.getProperty(`/${sPath}`));
 
 			return aItems;
 		},
 
-		groupingItems: function () {
-
-		},
-
-		initModel: function () {
+		initModel() {
 			this.getModel("model").setProperty("/Items", []);
 		},
 
-		initTable: function (sId, sCLIID, iStaticColumn) {
+		initTable(sId, sCLIID, iStaticColumn) {
 			const oTable = this.byId(sId);
 			const oCLI = sap.ui.core.Fragment.byId(this.getView().getId(), sCLIID);
 
@@ -293,7 +245,7 @@ sap.ui.define([
 			}
 		},
 
-		patternMatched: function (oEvent) {
+		patternMatched(oEvent) {
 			const oBindingContext = this.getView().getBindingContext();
 
 			if (oBindingContext) {
@@ -301,50 +253,41 @@ sap.ui.define([
 			}
 		},
 
-		selectRow: function () {
-			this.byId("Table").getItems().forEach(oItem => {
-				oItem.setSelected(oItem.getCells()[1].getTitle() === "X");
+		selectRow() {
+			this.byId("Table")?.getItems()?.forEach(oItem => {
+				oItem.setSelected(oItem.getCells()[1]?.getTitle() === "X");
 			});
 		},
 
-		setFilter: function () {
-			const aFilters = [
-				new Filter("Value", FilterOperator.EQ, "X")
-			];
-
-			this.byId("Table").getBinding("items").filter(aFilters);
+		setFilter() {
+			const aFilters = [new Filter("Value", FilterOperator.EQ, "X")];
+			this.byId("Table")?.getBinding("items")?.filter(aFilters);
 		},
 
-		setTableColumn: function () {
+		setTableColumn() {
 			const iNumber = 5;
-			const aColumnIDs = [];
-
-			iNumber.forEach((i) => {
-				aColumnIDs.push("P" + (i + 1));
-			});
+			const aColumnIDs = Array.from({ length: iNumber }, (xData, i) => `P${i + 1}`);
 
 			this.addColumnToTable("Table", "CLI", aColumnIDs, "model>/Items", "model");
-			this.setTableData(this.getModel("model"), iNumber, sStatu);
+			this.setTableData(this.getModel("model"), iNumber, "BO");
 		},
 
-		setTableData: function (oViewModel, iNumber, sStatu) {
+		setTableData(oViewModel, iNumber, sStatu) {
 			const aItems = oViewModel.getProperty("/Items");
 
-			aItems.forEach((oItem) => {
+			aItems.forEach(oItem => {
 				for (let i = 0; i < iNumber; i++) {
-					oItem("P" + iNumber) = sStatu === "BO" ? false : 100;
+					oItem[`P${i}`] = sStatu === "BO" ? false : 100;
 				}
 			});
 
 			oViewModel.setProperty("/Items", aItems);
 		},
 
-		setValueTextColor: function (iValue) {
-			iValue > 0 ? this.addStyleClass("green") : this.addStyleClass("red");
-
+		setValueTextColor(iValue) {
+			this.addStyleClass(iValue > 0 ? "green" : "red");
 			return iValue;
 		}
 
 	});
-
 });

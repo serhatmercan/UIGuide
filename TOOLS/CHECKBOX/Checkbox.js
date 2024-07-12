@@ -7,8 +7,8 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({ Value: "" });
-			this.setModel(oModel, "model");
+			const oViewModel = new JSONModel({ Value: "" });
+			this.setModel(oViewModel, "model");
 		},
 
 		onSelectCB(oEvent) {

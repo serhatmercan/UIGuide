@@ -2,9 +2,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/core/routing/History",
-	"sap/ui/Device",
-	"com/serhatmercan/model/models"
-], function(BaseController, History, Device, Models) {
+	"sap/ui/Device"
+], (BaseController, History, Device) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.controller.Menu", {
@@ -13,14 +12,14 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function() {
+		onInit() {
 			this.oHashChanger = this.getRouter().oHashChanger;
-			this.First = true;
+			this.bFirst = true;
 		},
 
-		onAfterRendering: function() {
-			if (this.First) {
-				this.First = false;
+		onAfterRendering() {
+			if (this.bFirst) {
+				this.bFirst = false;
 			}
 		},
 
@@ -28,7 +27,7 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onNavBack: function() {
+		onNavBack() {
 			const oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
 			if (History.getInstance().getPreviousHash() !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
@@ -42,11 +41,11 @@ sap.ui.define([
 			}
 		},
 
-		onSelectionChange: function(oEvent) {
+		onSelectionChange(oEvent) {
 			this.showDetail(oEvent.getParameter("listItem") || oEvent.getSource());
 		},
 
-		onUpdateFinished: function() {
+		onUpdateFinished() {
 			this.selectMenuItem();
 		},
 
@@ -54,29 +53,34 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		selectMenuItem: function() {
+		selectMenuItem() {
 			if (!Device.system.phone) {
 				const aMenu = this.getModel("Menu").getData();
 				const oList = this.byId("List");
-				let sIndex;
 
 				if (aMenu.length > 0) {
-					sIndex = aMenu.findIndex(oMenu => oMenu.pattern === this.oHashChanger.getHash());
-					this.oSelectedItem = oList.getItems().find(x => x.getBindingContextPath() === "/" + sIndex);
+					const sIndex = aMenu.findIndex(oMenu => oMenu.pattern === this.oHashChanger.getHash());
+
+					this.oSelectedItem = oList.getItems()?.find(oItem => oItem.getBindingContextPath() === `/${sIndex}`);
+
 					oList.setSelectedItem(this.oSelectedItem);
 				}
 			}
 		},
 
-		showDetail: function(oItem) {
+		showDetail(oItem) {
 			const bReplace = !Device.system.phone;
 			const oMenu = oItem.getBindingContext("menu").getObject();
 			const oList = this.byId("List");
+			const oModel = this.getModel();
+			const oRouter = this.getRouter();
 			const fnNavToCreate = () => {
-				this.getRouter().oHashChanger.replaceHash("");
-				this.getModel().resetChanges();
+				oRouter.oHashChanger.replaceHash("");
+
 				this.oSelectedItem = oItem;
-				this.getRouter().navTo(oMenu.View, {}, bReplace);
+
+				oModel.resetChanges();
+				oModel.navTo(oMenu.View, {}, bReplace);
 			};
 			const fnCancel = () => {
 				oList.setSelectedItem(this.oSelectedItem);
@@ -84,13 +88,9 @@ sap.ui.define([
 
 			this.oSelectedItem = oItem;
 
-			if (oMenu.View == "ViewI" || oMenu.View == "ViewII") {
-				this.getRouter().navTo(oMenu.View, {}, bReplace);
+			if (["ViewI", "ViewII"].includes(oMenu.View)) {
+				oRouter.navTo(oMenu.View, {}, bReplace);
 			}
-			
 		}
-
-		
 	});
-
 });

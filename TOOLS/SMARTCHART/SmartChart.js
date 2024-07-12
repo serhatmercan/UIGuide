@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,27 +10,27 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					ChartType: "",
-					ChartVisible: false,
-					Items: [],
-					Value: ""
-				}), "model");
+		onInit() {
+			const oModel = new JSONModel({
+				ChartType: "",
+				ChartVisible: false,
+				Items: [],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched.bind(this));
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onInitSFB: function (oEvent) {
-			oEvent.getSource().setFilterContainerWidth("15rem");
+		onInitSFB(oEvent) {
+			oEvent.setFilterContainerWidth("15rem");
 		},
 
-		onSearchSFB: function (oEvent) {
+		onSearchSFB() {
 			const oFilterData = oEvent.getSource().getFilterData();
 
 			if (oFilterData) {
@@ -42,17 +42,14 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
-			this.setChartProperties("SmartChart");
-		},
-
-		setChartProperties: function (sID) {
+		setChartProperties(sID) {
 			const oSmartChart = this.byId(sID);
+			const aSCContents = oSmartChart?.getToolbar()?.getContent();
 
-			oSmartChart.getToolbar().getContent().find(oItem => oItem.getId().includes("btnNavigation")).setVisible(false);
+			aSCContents?.find(oItem => oItem.getId()?.includes("btnNavigation"))?.setVisible(false);
 
 			oSmartChart.attachInitialized(() => {
-				oSmartChart.getChartAsync().then((oInnerChartEvent) => {
+				oSmartChart.getChartAsync()?.then(oInnerChartEvent => {
 					oInnerChartEvent.setVizProperties({
 						plotArea: {
 							dataLabel: {
@@ -69,6 +66,10 @@ sap.ui.define([
 			oSmartChart.attachDataReceived(() => {
 				this.getModel("model").setProperty("/ChartVisible", true);
 			});
+		},
+
+		patternMatched() {
+			this.setChartProperties("SmartChart");
 		}
 
 	});

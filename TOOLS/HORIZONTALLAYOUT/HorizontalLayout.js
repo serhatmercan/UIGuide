@@ -7,7 +7,7 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			const oModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				Busy: false,
 				Items: [{
 					Header: "XYZ",
@@ -17,7 +17,7 @@ sap.ui.define([
 				}],
 				Value: ""
 			});
-			this.setModel(oModel, "model");
+			this.setModel(oViewModel, "model");
 		},
 
 		onPressGT(oEvent) {
