@@ -385,13 +385,13 @@ sap.ui.define([
 		*/
 		generateURL(oContext) {
 			const oModel = this.getModel();
-			const { sServiceUrl, createKey } = oModel;
-			const key = createKey("/DocumentSet", {
+			const { sServiceUrl, createKey: oCreateKey } = oModel;
+			const oKey = oCreateKey("/DocumentSet", {
 				ID: oContext.ID,
 				DocumentID: oContext.DocumentID
 			});
 
-			return `${sServiceUrl}${key}/$value`;
+			return `${sServiceUrl}${oKey}/$value`;
 		},
 
 		/*

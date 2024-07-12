@@ -1,8 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/routing/History"
-], function (BaseController, JSONModel, History) {
+	"sap/ui/core/routing/History",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, History, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -11,32 +11,30 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [],
-					Value: ""
-				}), "model");
-
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onGoToPage: function (sType, oEvent) {
+		onGoToPage(sType) {
 			const oRouter = this.getRouter();
 
-			switch (sType) {
-				case "GTI":
-					oRouter.navTo("GTI");
-					break;
+			if (sType === "GTI") {
+				oRouter.navTo("GTI");
 			}
 		},
 
-		onNavBack: function () {
-			if (History.getInstance().getPreviousHash() !== undefined) {
+		onNavBack() {
+			const sPreviousHash = History.getInstance().getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
 				window.history.go(-1);
 			} else {
 				this.getRouter().navTo("Main", {}, true);
@@ -47,11 +45,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
-
-		},
-
-		setInitialPage: function () {
+		setInitialPage() {
 			setTimeout(() => {
 				this.byId("Page").scrollTo(0, 0);
 			}, 250);

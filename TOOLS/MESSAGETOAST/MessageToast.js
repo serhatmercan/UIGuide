@@ -1,12 +1,12 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageToast"
-], function (BaseController, MessageToast) {
+], (BaseController, MessageToast) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		showMessage: function () {
+		showMessage() {
 			MessageToast.show("Message");
 
 			MessageToast.show(this.getText("Message")); // i18n > Message

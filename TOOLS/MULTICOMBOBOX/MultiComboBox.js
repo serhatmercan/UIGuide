@@ -1,10 +1,10 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/core/item",
+	"sap/ui/core/Item",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, Item, JSONModel, Filter, FilterOperator) {
+], (BaseController, Item, JSONModel, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -13,7 +13,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Items: [],
@@ -28,7 +28,7 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onBindMCB: function () {
+		onBindMCB() {
 			const oMCB = this.byId("MCB");
 			const oItem = new Item({
 				key: "{Key}",
@@ -38,7 +38,6 @@ sap.ui.define([
 
 			oMCB.unbindItems();
 			oMCB.setEnabled(false);
-
 			oMCB.bindItems({
 				path: "/SHSet",
 				template: oItem,
@@ -47,13 +46,9 @@ sap.ui.define([
 			oMCB.setEnabled(true);
 		},
 
-		onSFMultiCombobox: function () {
+		onSFMultiCombobox() {
 			const aValues = this.getModel("model").getProperty("/Values");
-			let aFilters = [];
-
-			aValues.forEach((sValue) => {
-				aFilters.push(new Filter("ID", FilterOperator.EQ, sValue));
-			});
+			const aFilters = aValues.map(sValue => new Filter("ID", FilterOperator.EQ, sValue));
 
 			this.byId("MCB").getBinding("items").filter(aFilters);
 		},
@@ -62,12 +57,12 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		clearItems: function () {
+		clearItems() {
 			this.byId("MCB").setSelectedItems([]);
 		},
 
-		getSelectedItems: function () {
-			return this.byId("idMCB").getSelectedItems();
+		getSelectedItems() {
+			return this.byId("MCB").getSelectedItems();
 		}
 
 	});

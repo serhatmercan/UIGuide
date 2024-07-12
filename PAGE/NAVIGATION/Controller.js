@@ -72,7 +72,7 @@ sap.ui.define([
 		},
 
 		patternMatched(oEvent) {
-			const { ID } = oEvent.getParameter("arguments");
+			const { ID: sID } = oEvent.getParameter("arguments");
 
 			this.getStartupParameters();
 		}

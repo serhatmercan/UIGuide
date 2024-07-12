@@ -48,14 +48,14 @@ sap.ui.define([
 		},
 
 		onBUSDocument(oEvent) {
-			const { addHeaderParameter, fileName } = oEvent.getParameter();
+			const { addHeaderParameter: oAddHeaderParameter, fileName: sFileName } = oEvent.getParameter();
 
-			addHeaderParameter(new UploadCollectionParameter({
+			oAddHeaderParameter(new UploadCollectionParameter({
 				name: "slug",
-				value: `${encodeURIComponent(fileName)}&&X`
+				value: `${encodeURIComponent(sFileName)}&&X`
 			}));
 
-			addHeaderParameter(new UploadCollectionParameter({
+			oAddHeaderParameter(new UploadCollectionParameter({
 				name: "X-Requested-With",
 				value: "XMLHttpRequest"
 			}));

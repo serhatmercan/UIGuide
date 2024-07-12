@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, GroupHeaderListItem, Filter, FilterOperator, JSONModel) {
+], (BaseController, GroupHeaderListItem, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -13,7 +13,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			this.setModel(
 				new JSONModel({
 					Count: 0,
@@ -23,73 +23,62 @@ sap.ui.define([
 				}), "model"
 			);
 
-			this.byId("List").attachEventOnce("updateFinished", () => {
-
-			});
-
+			this.byId("List").attachEventOnce("updateFinished", () => { });
 			this.byId("List").removeSelections();
 		},
 
-		onAfterRendering: function () {
-			this.byId("List").getBinding("items").attachDataRequested((oEvent) => {
+		onAfterRendering() {
+			const oListBinding = this.byId("List").getBinding("items");
 
-			});
-			this.byId("List").getBinding("items").attachDataReceived((oEvent) => {
-
-			});
+			oListBinding.attachDataRequested(() => { });
+			oListBinding.attachDataReceived(() => { });
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onAcceptNLI: function (oEvent) {
+		onAcceptNLI(oEvent) {
 			const oItem = oEvent.getSource().getParent().getParent();
 			const sPath = oItem.getBindingContextPath();
 			const oContext = this.getModel().getObject(sPath);
 		},
 
-		onDelete: function (oEvent) {
+		onDelete(oEvent) {
 			const sPath = oEvent.getParameter("listItem").getBindingContextPath();
-			const sPathItem = oEvent.getParameter("listItem").getBindingContext("model").getPath();
 			const aIndexes = sPath.split("/");
-			const sIndex = aIndexes[aIndexes.length - 1];
+			const iIndex = parseInt(aIndexes.pop(), 10);
+			const sModelPath = aIndexes.join("/");
 			const oViewModel = this.getModel("model");
-			let sModelPath;
-			let aResults;
+			const aResults = oViewModel.getProperty(sModelPath);
 
-			aIndexes.pop();
-			sModelPath = aIndexes.join("/");
-			aResults = oModel.getProperty(sModelPath);
-			aResults.splice(parseInt(sIndex), 1);
+			aResults.splice(iIndex, 1);
 			oViewModel.setProperty(sModelPath, aResults);
 		},
 
-		onDetailNLI: function (oEvent) {
+		onDetailNLI(oEvent) {
 			const oItem = oEvent.getSource().getParent().getBindingContext().getObject();
 		},
 
-		onItemPress: function (oEvent) {
+		onItemPress(oEvent) { },
 
-		},
-
-		onLiveChange: function () {
+		onLiveChange(oEvent) {
 			const sValue = oEvent.getParameter("newValue");
-			const aItems = this.byId("List").getBinding("items");
+			const oBinding = this.byId("List").getBinding("items");
 
-			aItems.filter([new Filter("ID", FilterOperator.Contains, sValue)]);
+			oBinding.filter([new Filter("ID", FilterOperator.Contains, sValue)]);
 		},
 
-		onOLI: function (oEvent) {
+		onOLI(oEvent) {
 			const sID = oEvent.getParameter("listItem").getBindingContext().getProperty("ID");
 		},
 
-		onPress: function (oEvent) {
+		onPress(oEvent) {
 			const oData = oEvent.getSource().getBindingContext("model").getObject();
 			const sValue = oEvent.getSource().getBindingContext().getProperty("Value");
 		},
 
-		onSelectionChange: function (oEvent) {
+		onSelectionChange(oEvent) {
 			const oItem = oEvent.getParameter("listItem") || oEvent.getSource();
 			const sID = oItem.getBindingContext().getProperty("ID");
 		},
@@ -98,7 +87,7 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		createGroupHeader: function (oGroup) {
+		createGroupHeader(oGroup) {
 			return new GroupHeaderListItem({
 				title: oGroup.text,
 				upperCase: false
@@ -106,5 +95,4 @@ sap.ui.define([
 		}
 
 	});
-
 });

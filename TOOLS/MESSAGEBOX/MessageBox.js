@@ -1,13 +1,13 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageBox"
-], function (BaseController, JSONModel, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, MessageBox, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Value: ""
@@ -16,26 +16,32 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		onShowMB: function () {
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onShowMB() {
 			const oMBAction = MessageBox.Action;
 
-			// Confirm
 			MessageBox.confirm(this.getText("Confirm"), {
 				onClose: (sAction) => {
 					if (sAction === oMBAction.OK) { }
 				}
 			});
 
-			// Warning
 			MessageBox.warning(this.getText("Warning"), {
 				actions: [oMBAction.OK, oMBAction.CANCEL],
 				emphasizedAction: oMBAction.OK,
-				onClose: function (sAction) {
-					if (sAction !== "OK") { } else { }
+				onClose: (sAction) => {
+					if (sAction === oMBAction.OK) { }
+					else { }
 				}
 			});
 		}
 
-	});
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
+	});
 });

@@ -1,13 +1,16 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Value: ""
@@ -15,50 +18,53 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			this.getRouter().getRoute("objectPageLayout").attachPatternMatched(this._onObjectMatched, this);
+			this.getRouter().getRoute("objectPageLayout").attachPatternMatched(this.patternMatched, this);
 		},
 
-		_onObjectMatched: function (oEvent) {
-			let oNewEntry;
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-			if (oEvent.getParameter("arguments").id) {
-				this._sId = oEvent.getParameter("arguments").id;
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		async patternMatched(oEvent) {
+			const { id: sID, value: sValue } = oEvent.getParameter("arguments");
+
+			this.sID = sID;
+			this.sValue = sValue;
+
+			await this.getOwnerComponent().getModel().metadataLoaded();
+
+			if (!this.sID) {
+				const oNewEntry = this.getModel().createEntry("/...Set");
+				this.getView().bindElement(oNewEntry.sPath);
+			} else {
+				this.getView().bindElement(this.getRequestPath());
 			}
 
-			if (oEvent.getParameter("arguments").value) {
-				this._sValue = oEvent.getParameter("arguments").value;
-			}
+			setTimeout(() => {
+				const oOPL = this.byId("OPL"); // preserveHeaderStateOnScroll="true"
 
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-				if (!this._sOrderNo) {
-					oNewEntry = this.getModel().createEntry("/...Set");
-					this.getView().bindElement(oNewEntry.sPath);
-				} else {
-					this.getView().bindElement(this._getRequestPath());
-				}
-
-				setTimeout(() => {
-					const oOPL = this.byId("OPL"); // preserveHeaderStateOnScroll="true"
-
-					oOPL.setSelectedSection(oOPL.getSections()[0].getId());
-					oOPL._handleExpandButtonPress();
-					oOPL._scrollTo(0);
-				}, 200);
-			}.bind(this));
+				oOPL.setSelectedSection(oOPL.getSections()[0].getId());
+				oOPL._handleExpandButtonPress();
+				oOPL._scrollTo(0);
+			}, 200);
 		},
 
-		_getRequestPath: function () {
+		getRequestPath() {
 			return this.getModel().createKey("/...Set", {
-				Id: this._sId,
-				Value: this._sValue
+				ID: this.sID,
+				Value: this.sValue
 			});
 		},
 
-		_setInitialSubSection: function () {
+		setInitialSubSection() {
 			this.byId("OPL").setSelectedSection(this.byId("OPS").getId());
 		},
 
-		_triggerExpandButton: function () {
+		triggerExpandButton() {
 			this.byId("OPL")._handleExpandButtonPress();
 		}
 

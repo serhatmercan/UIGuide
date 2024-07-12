@@ -1,12 +1,12 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				MenuStatu: false,
@@ -17,10 +17,7 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		onShowMI: function(sType, oEvent){
-
-		}
+		onShowMI(sType, oEvent) { }
 
 	});
-
 });

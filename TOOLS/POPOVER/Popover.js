@@ -1,8 +1,8 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/Fragment"
-], function (BaseController, JSONModel, Fragment) {
+	"sap/ui/core/Fragment",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, JSONModel, Fragment) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -11,7 +11,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Items: [],
@@ -22,22 +22,22 @@ sap.ui.define([
 		},
 
 		/* ============== */
-        /* Event Handlers */
-        /* ============== */        
+		/* Event Handlers */
+		/* ============== */
 
-		onShowPopover: function (oEvent) {
-			this.showPopover(oEvent, "PopoverID", "Popover");
-		},
-
-		onClose: function () {
+		onClose(oEvent) {
 			oEvent.getSource().getParent().getParent().close();
 		},
 
-		/* ================ */
-        /* Internal Methods */
-        /* ================ */
+		onShowPopover(oEvent) {
+			this.showPopover(oEvent, "PopoverID", "Popover");
+		},
 
-		showPopover: function (oEvent, sDialogID, sName) {
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		showPopover(oEvent, sDialogID, sName) {
 			const oSource = oEvent.getSource();
 			const oView = this.getView();
 			let oDialog = this.byId(sDialogID);
@@ -45,9 +45,9 @@ sap.ui.define([
 			if (!oDialog) {
 				Fragment.load({
 					id: oView.getId(),
-					name: "com.serhatmercan.fragment.dialog." + sName,
+					name: `com.serhatmercan.fragment.dialog.${sName}`,
 					controller: this
-				}).then(function (oPopover) {
+				}).then((oPopover) => {
 					oView.addDependent(oPopover);
 					oPopover.openBy(oSource);
 				});

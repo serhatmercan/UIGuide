@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,14 +10,13 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [],
-					Value: ""
-				}), "model");
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [],
+				Value: ""
+			});
 
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			this.setModel(oModel, "model");
 		},
 
 		/* ============== */
@@ -28,13 +27,8 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		patternMatched: function (oEvent) {
-
-		},
-
-		setValueTextColor: function (iValue) {
-			iValue > 0 ? this.addStyleClass("green") : this.addStyleClass("red");
-
+		setValueTextColor(iValue) {
+			this.addStyleClass(iValue > 0 ? "green" : "red");
 			return iValue;
 		}
 

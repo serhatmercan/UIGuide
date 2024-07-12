@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.NotificationList", {
@@ -10,26 +10,26 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [],
-					Value: ""
-				}), "model");
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onAcceptNLI: function (oEvent) {
+		onAcceptNLI(oEvent) {
 			const oItem = oEvent.getSource().getParent().getParent();
 			const sPath = oItem.getBindingContextPath();
 			const oContext = this.getModel().getObject(sPath);
 			const oItemData = oEvent.getSource().getParent().getBindingContext().getObject();
 		},
 
-		onCloseNLI: function (oEvent) {
+		onCloseNLI(oEvent) {
 			const oItem = oEvent.getSource();
 			const oList = oItem.getParent();
 			const sTitle = oItem.getTitle();
@@ -37,12 +37,12 @@ sap.ui.define([
 			oList.removeItem(oItem);
 		},
 
-		onPressNLI: function (oEvent) {
+		onPressNLI(oEvent) {
 			const oItem = oEvent.getSource();
 			const oList = oItem.getParent();
 		},
 
-		onRejectNLI: function (oEvent) {
+		onRejectNLI(oEvent) {
 			const oItem = oEvent.getSource().getParent().getParent();
 			const sPath = oItem.getBindingContextPath();
 			const oContext = this.getModel().getObject(sPath);
@@ -53,5 +53,4 @@ sap.ui.define([
 		/* ================ */
 
 	});
-
 });

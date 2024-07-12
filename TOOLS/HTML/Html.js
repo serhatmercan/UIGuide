@@ -1,12 +1,16 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Items: [],
@@ -15,66 +19,72 @@ sap.ui.define([
 
 			this.setModel(oModel, "model");
 
-			sap.ui.getCore().getEventBus().subscribe("com.serhatmercan", "PDFLoaded", this._onPDFLoaded, this);
+			sap.ui.getCore().getEventBus().subscribe("com.serhatmercan", "PDFLoaded", this.pdfLoaded, this);
 
-			this._setDefaultZoomLevel();
+			this.setDefaultZoomLevel();
 		},
 
-		onExit: function () {
-			sap.ui.getCore().getEventBus().unsubscribe("com.serhatmercan", "PDFLoaded", this._onPDFLoaded);
+		onExit() {
+			sap.ui.getCore().getEventBus().unsubscribe("com.serhatmercan", "PDFLoaded", this.pdfLoaded);
 
-			if (this._oPDFViewer) {
-				this._oPDFViewer.destroy();
-				this._oPDFViewer = null;
+			if (this.oPDFViewer) {
+				this.oPDFViewer.destroy();
+				this.oPDFViewer = null;
 			}
 		},
 
-		onShowIFrame: function () {
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onShowIFrame() {
 			const oModel = this.getModel();
-			let sPath;
 
-			if (!this._oPDFViewer) {
-				this._oPDFViewer = sap.ui.xmlfragment("Dialog", "com.serhatmercan.Dialog.Html", this);
-				this._oPDFViewer.setModel(this.getModel("i18n"), "i18n");
-				this._oPDFViewer.setModel(oModel);
+			if (!this.oPDFViewer) {
+				this.oPDFViewer = sap.ui.xmlfragment("Dialog", "com.serhatmercan.Dialog.Html", this);
+				this.oPDFViewer.setModel(this.getModel("i18n"), "i18n");
+				this.oPDFViewer.setModel(oModel);
 			}
 
-			sPath = oModel.createKey("/IDSet", {
+			const sPath = oModel.createKey("/IDSet", {
 				ID: "X"
 			});
-
-			const sURL = oModel.sServiceUrl + sDocPath;
+			const sURL = `${oModel.sServiceUrl}${sPath}`;
 			const oLoadEvent = "sap.ui.getCore().getEventBus().publish('com.serhatmercan', 'PDFLoaded')";
-			const sSource = "<iframe name='PDF' src='" + jQuery.sap.encodeHTML(sURL + "/$value") + "' onLoad='" +
-				jQuery.sap.encodeHTML(oLoadEvent) + "' width='100%' height='99%' type='application/pdf'/>";
+			const sEncodedURL = jQuery.sap.encodeHTML(sURL + "/$value");
+			const sEncodedLoadEvent = jQuery.sap.encodeHTML(oLoadEvent);
+			const sSource = `<iframe name='PDF' src='${sEncodedURL}' onLoad='${sEncodedLoadEvent}' width='100%' height='99%' type='application/pdf'/>`;
 
 			sap.ui.core.Fragment.byId("Dialog", "idIFrame").setContent(sSource);
 
-			this._oPDFViewer.open();
+			this.oPDFViewer.open();
 		},
 
-		_setDefaultZoomLevel: function () {
-			const iCurrentBrowserZoomLevel = Math.round(window.devicePixelRatio * 100);
-			try {
-				if (window.screen.width < 1920 && iCurrentBrowserZoomLevel > 95) {
-					document.body.style.zoom = "75%";
-				}
-			} catch (oError) {
-				//
-			}
-		},
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
 
-		_onPDFLoaded: function () {
+		pdfLoaded() {
 			const oFrame = window.frames.pastelLabelPdf;
 
 			try {
 				oFrame.focus();
 				oFrame.print();
-				this._oPDFViewer.close();
-			} catch (e) {
+				this.oPDFViewer.close();
+			} catch (oError) {
 				MessageToast.show(this.getText("autoPrintNotSupported"));
 			}
 		},
+
+		setDefaultZoomLevel() {
+			const iCurrentBrowserZoomLevel = Math.round(window.devicePixelRatio * 100);
+
+			try {
+				if (window.screen.width < 1920 && iCurrentBrowserZoomLevel > 95) {
+					document.body.style.zoom = "75%";
+				}
+			} catch (oError) { }
+		}
 
 	});
 

@@ -1,98 +1,58 @@
 /*global location */
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/m/MessageToast"
-], function (BaseController, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/MessagePopover",
+	"sap/m/MessagePopoverItem",
+	"sap/ui/core/message/Message",
+	"sap/ui/core/message/MessageType"
+], (BaseController, MessageToast, Message, MessagePopoverItem, MessageType, MessagePopover) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			const oMessageModel = sap.ui.getCore().getMessageManager().getMessageModel();
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
+
+		onInit() {
+			const oMessageManager = sap.ui.getCore().getMessageManager();
+			const oMessageModel = oMessageManager.getMessageModel();
 			const oMessagePO = this.byId("MessagePO");
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
+			oMessageManager.removeAllMessages();
 
-			oMessageModel.bindList("/", undefined, []).attachChange((oEvent) => {
+			oMessageModel.bindList("/", undefined, []).attachChange(() => {
 				if (oMessageModel.getData().length) {
 					oMessagePO.firePress();
 				}
-			}, this);
+			});
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
 
-		addDialog: function () {
-			this.oDialog.setModel(this.getModel("message"), "message");
-		},
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-		addMessages: function () {
-			const oModel = this.getModel();
-			const sMessage = this.getText("sMessage");
-			const aMessages = [];
-
-			aMessages.push(
-				new sap.ui.core.message.Message({
-					message: sMessage,
-					processor: oModel,
-					technical: true,
-					type: sap.ui.core.MessageType.Error
-				})
-			);
-
-			sap.ui.getCore().getMessageManager().addMessages(aMessages);
-			MessageToast.show(this.getText("errorOccurred"));
-		},
-
-		addRequestMessages: function (oError) {
-			const aErrorMessages = JSON.parse(oError.responseText).error.innererror.errordetails;
-			const oModel = this.getModel();
-			let aMessages = [];
-
-			sap.ui.getCore().getMessageManager().removeAllMessages();
-
-			aErrorMessages.forEach(oErrorMessage => {
-				aMessages.push(
-					new sap.ui.core.message.Message({
-						code: oErrorMessage.code,
-						message: oErrorMessage.message,
-						processor: oModel,
-						technical: true,
-						type: sap.ui.core.MessageType.Error
-					})
-				);
-			});
-
-			sap.ui.getCore().getMessageManager().addMessages(aMessages);
-			MessageToast.show(that.getResourceBundle().getText("errorOccurred"));
-		},
-
-		autoShowMessages: function () {
-			if (this.getOwnerComponent().getModel("message").getData().length) {
-				setTimeout(() => {
-					this.byId("MessagePO").firePress();
-				}, 100);
-			}
-		},
-
-		onCheckMessages: function () {
+		onCheckMessages() {
 			const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
 
 			aMessages.forEach(oMessage => oMessage.setPersistent(true));
 
-			if (aMessages.some(oMessage => oMessage.type === "Error")) {
-				MessageToast.show(this.getText("errorOccured"));
-			} else { }
+			if (aMessages.some(oMessage => oMessage.type === MessageType.Error)) {
+				MessageToast.show(this.getText("errorOccurred"));
+			}
 		},
 
-		onShowMessages: function (oEvent) {
+		onShowMessages(oEvent) {
 			const oMessagesButton = oEvent.getSource();
 
 			if (!this.oMessagePopover) {
-				this.oMessagePopover = new sap.m.MessagePopover({
+				this.oMessagePopover = new MessagePopover({
 					items: {
 						path: "message>/",
-						template: new sap.m.MessagePopoverItem({
+						template: new MessagePopoverItem({
 							description: "{message>description}",
 							type: "{message>type}",
 							title: "{message>message}"
@@ -104,6 +64,56 @@ sap.ui.define([
 			}
 
 			this.oMessagePopover.toggle(oMessagesButton);
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		addDialog() {
+			this.oDialog.setModel(this.getModel("message"), "message");
+		},
+
+		addMessages() {
+			const oModel = this.getModel();
+			const sMessage = this.getText("sMessage");
+			const oNewMessage = new Message({
+				message: sMessage,
+				processor: oModel,
+				technical: true,
+				type: MessageType.Error
+			});
+
+			sap.ui.getCore().getMessageManager().addMessages(oNewMessage);
+			MessageToast.show(this.getText("errorOccurred"));
+		},
+
+		addRequestMessages(oError) {
+			const aErrorMessages = JSON.parse(oError.responseText)?.error?.innererror?.errordetails;
+			const oModel = this.getModel();
+
+			sap.ui.getCore().getMessageManager().removeAllMessages();
+
+			const aMessages = aErrorMessages.map(oErrorMessage =>
+				new Message({
+					code: oErrorMessage.code,
+					message: oErrorMessage.message,
+					processor: oModel,
+					technical: true,
+					type: MessageType.Error
+				})
+			);
+
+			sap.ui.getCore().getMessageManager().addMessages(aMessages);
+			MessageToast.show(this.getResourceBundle().getText("errorOccurred"));
+		},
+
+		autoShowMessages() {
+			if (this.getOwnerComponent().getModel("message").getData().length) {
+				setTimeout(() => {
+					this.byId("MessagePO").firePress();
+				}, 100);
+			}
 		}
 
 	});

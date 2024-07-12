@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.NavigationList", {
@@ -10,28 +10,23 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({					
-					Items: [],
-					Value: ""
-			}), "model");
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 		},
 
-        /* ============== */
-        /* Event Handlers */
-        /* ============== */
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
-		onCollapseExpand: function(oEvent){
+		onCollapseExpand() {
 			const oNavigationList = this.byId("NavigationList");
 
 			oNavigationList.setExpanded(!oNavigationList.getExpanded());
 		}
 
-        /* ================ */
-        /* Internal Methods */
-        /* ================ */
-
-    });
-
+	});
 });

@@ -1,13 +1,16 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
+	"sap/m/CheckBox",
+	"sap/m/Input",
+	"sap/m/Label",
+	"sap/m/LabelDesign",
+	"sap/m/ObjectIdentifier",
+	"sap/ui/core/TextAlign",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/m/CheckBox",
-	"sap/m/Column",
-	"sap/m/Input",
-	"sap/m/Label"
-], function (BaseController, JSONModel, Filter, FilterOperator, CheckBox, Column, Input, Label) {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/table/Column"
+], (BaseController, CheckBox, Input, Label, LabelDesign, ObjectIdentifier, TextAlign, Filter, FilterOperator, JSONModel, Column) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -16,26 +19,28 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Columns: [],
-					Items: [],
-					Value: ""
-				}), "model"
-			);
+		onInit() {
+			this.setModel(new JSONModel({
+				Columns: [],
+				Items: [],
+				Value: ""
+			}), "model");
 
-			this.byId("Table").onRowsUpdated = function () {
-				this.byId("Table").getRows().forEach(oRow => {
-					if (oRow.getBindingContext("model") &&
-						this.getModel("model").getProperty(oRow.getBindingContext("model").getPath() + "/ID") === "X") {
+			const oTable = this.byId("Table");
+			const oViewModel = this.getModel("model");
+
+			oTable.onRowsUpdated = () => {
+				oTable.getRows().forEach(oRow => {
+					const sPath = oRow.getBindingContext("model").getPath();
+
+					if (oRow.getBindingContext("model") && oViewModel.getProperty(sPath + "/ID") === "X") {
 						$("#" + oRow.getId()).css("background-color", "red");
 					}
 				});
-			}.bind(this);
+			};
 
-			this.byId("Table").clearSelection();
-			this.byId("Table").getBinding("rows").refresh(true);
+			oTable.clearSelection();
+			oTable.getBinding("rows").refresh(true);
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
 		},
@@ -44,22 +49,22 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onChange: function (oEvent) {
+		onChange(oEvent) {
 			const sPath = oEvent.getParameter("rowContent").getPath();
 		},
 
-		onDrop: function (oEvent) {
+		onDrop(oEvent) {
 			const oDragSession = oEvent.getParameter("dragSession");
 			const oDroppedRow = oEvent.getParameter("droppedControl");
-			const iDragedIndex = oDragSession.getDragControl("getDragControl").getIndex();
+			const iDraggedIndex = oDragSession.getDragControl("getDragControl").getIndex();
 			const iDroppedRowIndex = oDroppedRow.getIndex();
 		},
 
-		onPressRAI: function (oEvent) {
+		onPressRAI(oEvent) {
 			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
 		},
 
-		onShow: function (oEvent) {
+		onShow(oEvent) {
 			const sID = this.getModel("model").getProperty(oEvent.getSource().getParent().getBindingContext("model").getPath() + "/ID");
 		},
 
@@ -67,79 +72,57 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		addColumn: function () {
+		addColumn() {
 			this.initTable("Table", 2);
 			this.addColumnToTable("Table", 2);
 		},
 
-		addColumnToTable: function (sID, iColumnNumber) {
+		addColumnToTable(sID, iColumnNumber) {
 			const oTable = this.byId(sID);
 
 			for (let i = 0; i < iColumnNumber; i++) {
-				oTable.addColumn(new sap.ui.table.Column({
+				oTable.addColumn(new Column({
 					hAlign: "Center",
 					label: new Label({
-						text: "Column" + " " + (i + 1)
+						text: `Column ${i + 1}`
 					}),
-					path: "model>/Table",
 					template: new Input({
-						value: "{model>Column" + (i + 1) + "}",
+						value: `{model>Column${i + 1}}`,
 						type: "Number"
 					})
 				}));
 			}
 		},
 
-		factory: function (sId, oContext, oParams) {
-			let oBindingValue,
-				oAdditionalBindingValue,
-				oTemplate;
-
-			oBindingValue = {
-				formatOptions: oContext.getProperty("formatOptions"),
-				model: "model",
-				path: oContext.getProperty("valuePath"),
-				type: oContext.getProperty("type")
-			};
-
-			oBindingValue = {
-				parts: [{
-					model: "model",
-					path: oContext.getProperty("valuePath")
-				}, {
-					model: "model",
-					path: oContext.getProperty("additionalValuePath")
-				}],
+		factory(sId, oContext, oParams) {
+			const oBindingValue = {
+				parts: [
+					{ model: "model", path: oContext.getProperty("valuePath") },
+					{ model: "model", path: oContext.getProperty("additionalValuePath") }
+				],
 				formatter: formatter.dynamicCellValueWithKey
 			};
-
-			if (oContext.getProperty("additionalValuePath")) {
-				oAdditionalBindingValue = {
-					formatOptions: oContext.getProperty("formatOptions"),
-					model: "model",
-					path: oContext.getProperty("additionalValuePath"),
-					type: oContext.getProperty("type")
-				};
-
-				oTemplate = new sap.m.ObjectIdentifier({
+			const oTemplate = oContext.getProperty("additionalValuePath") ?
+				new ObjectIdentifier({
 					title: oBindingValue,
-					text: oAdditionalBindingValue,
-					textAlign: sap.ui.core.TextAlign.Center
-				});
-			} else {
-				oTemplate = new sap.m.Label({
+					text: {
+						model: "model",
+						path: oContext.getProperty("additionalValuePath")
+					},
+					textAlign: TextAlign.Center
+				}) :
+				new Label({
 					text: oBindingValue,
-					textAlign: sap.ui.core.TextAlign.Center,
+					textAlign: TextAlign.Center,
 					wrapping: true
 				});
-			}
 
-			return new sap.ui.table.Column({
-				hAlign: sap.ui.core.TextAlign.Center,
-				label: new sap.m.Label({
-					design: sap.m.LabelDesign.Bold,
+			return new Column({
+				hAlign: TextAlign.Center,
+				label: new Label({
+					design: LabelDesign.Bold,
 					text: oContext.getProperty("label"),
-					textAlign: sap.ui.core.TextAlign.Center,
+					textAlign: TextAlign.Center,
 					wrapping: true
 				}),
 				minWidth: oContext.getProperty("width") || 96,
@@ -148,64 +131,56 @@ sap.ui.define([
 			});
 		},
 
-		generateColumns: function (aData) {
-			const aColumns = [];
-
-			aColumns.push({
-				uiobject: "label",
-				label: this.getText("text"),
-				width: 300,
-				valuePath: "Text",
-				additionalValuePath: "Description"
-			});
-
-			aColumns.push({
-				uiobject: "label",
-				label: this.getText("unit"),
-				valuePath: "Meins"
-			});
-
-			aColumns.push({
-				uiobject: "label",
-				label: this.getText("number"),
-				valuePath: "Number",
-				type: "sap.ui.model.type.Float",
-				formatOptions: {
-					decimals: 2
+		generateColumns(aData) {
+			const aColumns = [
+				{
+					uiobject: "label",
+					label: this.getText("text"),
+					width: 300,
+					valuePath: "Text",
+					additionalValuePath: "Description"
+				},
+				{
+					uiobject: "label",
+					label: this.getText("unit"),
+					valuePath: "Meins"
+				},
+				{
+					uiobject: "label",
+					label: this.getText("number"),
+					valuePath: "Number",
+					type: "sap.ui.model.type.Float",
+					formatOptions: {
+						decimals: 2
+					}
 				}
-			});
+			];
 
 			this.getModel("model").setProperty("/Columns", aColumns);
 		},
 
-		getContexts: function () {
+		getContexts() {
 			return this.byId("Table").getBinding("rows").getContexts();
 		},
 
-		getSelectedRows: function () {
+		getSelectedRows() {
 			const oTable = this.byId("Table");
-			let aItems = [];
-
-			oTable.getSelectedIndices().forEach(iIndex => {
-				aItems.push(oTable.getContextByIndex(iIndex).getObject());
-			});
-
-			return aItems;
+			return oTable.getSelectedIndices().map(iIndex => oTable.getContextByIndex(iIndex).getObject());
 		},
 
-		getVisibleRowCount: function () {
+		getVisibleRowCount() {
 			return this.byId("Table").getVisibleRowCount();
 		},
 
-		initTable: function (sID, iStaticColumn) {
+		initTable(sID, iStaticColumn) {
 			const oTable = this.byId(sID);
+			const aColumns = oTable.getColumns();
+			const aColumnsToRemove = aColumns.slice(iStaticColumn);
 
-			for (let i = oTable.getColumns().length; i >= iStaticColumn; i--) {
-				oTable.removeColumn(i);
-			}
+			aColumnsToRemove.forEach(oColumn => oTable.removeColumn(oColumn));
 		},
 
-		patternMatched: function (oEvent) {
+		patternMatched(oEvent) {
 			const oBindingContext = this.getView().getBindingContext();
 
 			if (oBindingContext) {
@@ -213,11 +188,8 @@ sap.ui.define([
 			}
 		},
 
-		setFilter: function () {
-			let aFilters = [
-				new Filter("Value", FilterOperator.EQ, "X")
-			];
-
+		setFilter() {
+			const aFilters = [new Filter("Value", FilterOperator.EQ, "X")];
 			this.byId("Table").getBinding("rows").filter(aFilters);
 		}
 

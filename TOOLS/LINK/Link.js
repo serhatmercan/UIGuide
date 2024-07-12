@@ -1,13 +1,13 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageToast"
-], function (BaseController, JSONModel, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, MessageToast, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Value: ""
@@ -16,12 +16,12 @@ sap.ui.define([
 			this.setModel(oModel, "model");
 		},
 
-		onPress: function (oEvent) {
-			const oData = oEvent.getSource().getBindingContext().getObject();
-			const sID = oData.ID;
-			const sURL = this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/Url");
+		onPress(oEvent) {
+			const { ID: sID } = oEvent.getSource().getBindingContext().getObject();
+			const sPath = this.getView().getBindingContext()?.getPath();
+			const sURL = this.getModel().getProperty(`${sPath}/Url`);
 
-			if (!sURL || sURL === "") {
+			if (!sURL) {
 				MessageToast.show(this.getText("checkURL"));
 				return;
 			}

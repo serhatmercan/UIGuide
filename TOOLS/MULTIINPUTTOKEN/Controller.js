@@ -1,4 +1,3 @@
-/*global location */
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"com/serhatmercan/formatter",
@@ -6,18 +5,18 @@ sap.ui.define([
 	"sap/m/Tokenizer",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, formatter, Token, Tokenizer, Filter, FilterOperator) {
+], (BaseController, formatter, Token, Tokenizer, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		formatter: formatter,
+		formatter,
 
 		/* ================= */
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Value: "",
 				List: []
@@ -33,108 +32,100 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onCancelSD: function () {
+		onCancelSD() {
 			this.oDialog.destroy();
 			this.oDialog = null;
 		},
 
-		onCancelTSD: function () {
+		onCancelTSD() {
 			this.oDialog.destroy();
 			this.oDialog = null;
 		},
 
-		onChange: function (oEvent) {
+		onChange(oEvent) {
 			const sValue = oEvent.getParameter("newValue");
-			const sPath = oEvent.getSource().getBindingInfo("tokens").path;
-			const sModel = oEvent.getSource().getBindingInfo("tokens").model;
-			const sKeyField = oEvent.getSource().getBindingInfo("tokens").template.getBindingInfo("key").parts[0].path;
+			const { path: sPath, model: sModel } = oEvent.getSource()?.getBindingInfo("tokens");
+			const sKeyField = oEvent.getSource()?.getBindingInfo("tokens")?.template.getBindingInfo("key")?.parts[0]?.path;
 			const aList = this.getModel(sModel).getProperty(sPath);
 			const oObj = {};
 
 			oObj[sKeyField] = formatter.validField(sValue) ? formatter.padLeft(sValue, oEvent.getSource().getMaxLength()) : sValue.toUpperCase();
 
+			oEvent.getSource().setValue("");
 			aList.push(oObj);
 
 			this.getModel(sModel).setProperty(sPath, aList);
-
-			oEvent.getSource().setValue("");
 		},
 
-		onClearMI: function () {
+		onClearMI() {
 			this.byId("MI").destroyTokens();
 		},
 
-		onConfirmSD: function () {
-			this.getModel("model").setProperty("/List", oEvent.getParameter("selectedItems").map(oItem => {
-				return {
-					ID: oItem.getTitle(),
-					Value: oItem.getDescription()
-				};
+		onConfirmSD(oEvent) {
+			const aSelectedItems = oEvent.getParameter("selectedItems").map(oItem => ({
+				ID: oItem.getTitle(),
+				Value: oItem.getDescription()
 			}));
 
+			this.getModel("model").setProperty("/List", aSelectedItems);
 			this.onCancelSD();
 		},
 
-		onConfirmTSD: function (oEvent) {
+		onConfirmTSD(oEvent) {
 			const oModel = this.getModel();
-			const aItems = [];
-
-			oEvent.getParameter("selectedContexts").forEach(oContext => {
-				aItems.push(oModel.getProperty(oContext.getPath()));
-			});
+			const aItems = oEvent.getParameter("selectedContexts").map(oContext => oModel.getProperty(oContext.getPath()));
 
 			this.getModel("viewModel").setProperty("/List", aItems);
-
 			this.onCancelTSD();
 		},
 
-		onLiveChangeTSD: function (oEvent) {
-			const sValue = oEvent.getParameter("value");;
-		},
-
-		onSearchSD: function (oEvent) {
-			oEvent.getSource().getBinding("items").filter([
-				new Filter("ID", FilterOperator.Contains, oEvent.getParameter("value"))
-			]);
-		},
-
-		onSearchTSD: function (oEvent) {
+		onLiveChangeTSD(oEvent) {
 			const sValue = oEvent.getParameter("value");
-			const aFilters = [
-				new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())
-			];
+			const aFilters = [new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())];
 
 			sap.ui.getCore().byId(oEvent.getSource().getId()).getBinding("items").filter(aFilters, "Application");
 		},
 
-		onTC: function (oEvent) {
+		onSearchSD(oEvent) {
+			const sValue = oEvent.getParameter("value");
+			const aFilters = [new Filter("ID", FilterOperator.Contains, sValue)];
+
+			oEvent.getSource().getBinding("items").filter(aFilters);
+		},
+
+		onSearchTSD(oEvent) {
+			const sValue = oEvent.getParameter("value");
+			const aFilters = [new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())];
+
+			sap.ui.getCore().byId(oEvent.getSource().getId()).getBinding("items").filter(aFilters, "Application");
+		},
+
+		onTC(oEvent) {
 			if (oEvent.getParameter("type") === "removed") {
 				const oToken = oEvent.getParameter("token");
 				const sKey = oToken.getProperty("key");
 				const sKeyField = oToken.getBindingInfo("key").parts[0].path;
 				const aParts = oToken.getBindingInfo("key").binding.getContext().getPath().split("/");
-				const sPath = "/" + aParts[1];
+				const sPath = `/${aParts[1]}`;
 				const oViewModel = this.getModel("model");
-				const sIndex = oModel.getProperty(sPath).map((oData) => {
-					return oData[sKeyField];
-				}).indexOf(sKey);
+				const sIndex = oViewModel.getProperty(sPath).findIndex(oData => oData[sKeyField] === sKey);
+				const aList = oViewModel.getProperty(sPath).filter((_, iIndex) => iIndex !== sIndex);
 
-				oViewModel.getProperty(sPath).splice(sIndex, 1);
-				oViewModel.setProperty(sPath, oViewModel.getProperty(sPath));
+				oViewModel.setProperty(sPath, aList);
 			}
 		},
 
-		onTU: function (oEvent) {
+		onTU(oEvent) {
 			const oSource = oEvent.getSource();
 			const iDeletedTokenRow = oSource.getParent().getIndex();
-			const aTokens = oSource.getTokens();
 			const aRemovedTokens = oEvent.getParameters("removedTokens").removedTokens;
 			const oViewModel = this.getModel("model");
+			const updatedList = oViewModel.getProperty("/List").filter(oToken => oToken.ID !== aRemovedTokens[0].getKey());
 
-			oViewModel.setProperty("/List", oViewModel.getProperty("/List").filter(oToken => oToken.ID !== oEvent.getParameter("removedTokens")[0].getKey()));
+			oViewModel.setProperty("/List", updatedList);
 		},
 
-		onVHR: function (oEvent) {
+		onVHR() {
 			this.oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
 			this.getView().addDependent(this.oDialog);
 			this.oDialog.open();
@@ -144,16 +135,11 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		getTokens: function () {
-			const aTokens = this.byId("MI").getTokens();
-			const aKeys = aTokens.map(oToken => {
-				return oToken.getKey();
-			});
-
-			return aKeys;
+		getTokens() {
+			return this.byId("MI").getTokens().map(oToken => oToken.getKey());
 		},
 
-		setTokens: function () {
+		setTokens() {
 			const oTokenizer = new Tokenizer();
 			const oToken = new Token({
 				key: "X",

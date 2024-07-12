@@ -1,28 +1,28 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Busy: false,
-					Items: [{
-						Header: "XYZ",
-						SubHeader: "Abc",
-						Logo: "Logo.png",
-						URL: "url.com"
-					}],
-					Value: ""
-				}), "model"
-			);
+		onInit() {
+			const oModel = new JSONModel({
+				Busy: false,
+				Items: [{
+					Header: "XYZ",
+					SubHeader: "Abc",
+					Logo: "Logo.png",
+					URL: "url.com"
+				}],
+				Value: ""
+			});
+			this.setModel(oModel, "model");
 		},
 
-		onPressGT: function (oEvent) {
-			const sPath = this.getModel("model").getProperty(oEvent.getSource().getBindingContext("model").getPath() + "/URL");
+		onPressGT(oEvent) {
+			const oModel = this.getModel("model");
+			const sPath = oModel.getProperty(`${oEvent.getSource().getBindingContext("model").getPath()}/URL`);
 
 			if (sPath) {
 				window.open(sPath, "_blank");

@@ -1,31 +1,39 @@
 sap.ui.define([
 	"./BaseController",
 	"sap/ui/core/BusyIndicator"
-], function (BaseController, BusyIndicator) {
+], (BaseController, BusyIndicator) => {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.App", {
-		onInit: function () {
-			this.getOwnerComponent().setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
+
+		async onInit() {
+			const oComponent = this.getOwnerComponent();
+
+			oComponent.setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
+
 			this.attachBusy();
-			this.getView().addStyleClass(this.getOwnerComponent().getContentDensityClass());
+			this.getView().addStyleClass(oComponent.getContentDensityClass());
 		},
 
-		attachBusy: function () {
+		attachBusy() {
 			const oModel = this.getOwnerComponent().getModel();
-			const fnRequestSent = function () {
+			const fnRequestSent = () => {
 				BusyIndicator.show();
 				sap.ui.getCore().getMessageManager().removeAllMessages();
 			};
-			const fnRequestReceived = function () {
-				sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
+			const fnRequestReceived = () => {
+				const oMessageManager = sap.ui.getCore().getMessageManager();
+				const oMessageModel = oMessageManager.getMessageModel();
+
+				oMessageModel.getData().forEach(oMessage => oMessage.setPersistent(true));
+
 				this.removeDuplicateMessages();
+
 				BusyIndicator.hide();
-			}.bind(this);
+			};
 
 			oModel.attachMetadataFailed(fnRequestReceived);
-
-			oModel.metadataLoaded().then(function () {
+			oModel.metadataLoaded().then(() => {
 				oModel.attachRequestSent(fnRequestSent);
 				oModel.attachRequestCompleted(fnRequestReceived);
 				oModel.attachRequestFailed(fnRequestReceived);
@@ -35,24 +43,14 @@ sap.ui.define([
 			});
 		},
 
-		removeDuplicateMessages: function () {
-			let oMessageManager = sap.ui.getCore().getMessageManager(),
-				oMessages = oMessageManager.getMessageModel().getData(),
-				aMessageTexts = oMessages.map(oItem => oItem.message),
-				aMessages = [];
+		removeDuplicateMessages() {
+			const oMessageManager = sap.ui.getCore().getMessageManager();
+			const oMessages = oMessageManager.getMessageModel().getData();
+			const aUniqueMessages = [...new Set(oMessages.map(oItem => oItem.message))];
+			const aMessages = aUniqueMessages.map(sMessage =>
+				oMessages.find(oMessage => oMessage.message === sMessage)
+			);
 
-			aMessageTexts = [...new Set(aMessageTexts)];
-
-			let fnFilterDuplicates = (oMessage) => {
-				if (aMessageTexts.includes(oMessage.message)) {
-					aMessageTexts.splice(aMessageTexts.indexOf(oMessage.message), 1);
-					return oMessage;
-				} else {
-					return false;
-				}
-			};
-
-			aMessages = oMessages.filter(fnFilterDuplicates);
 			oMessageManager.getMessageModel().setData(aMessages);
 		}
 	});
