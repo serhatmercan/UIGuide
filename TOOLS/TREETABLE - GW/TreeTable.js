@@ -1,14 +1,18 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+	"com/serhatmercan/controller/BaseController"
+], (BaseController) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onConfirm: function () {			
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
+		onConfirm() {
 			const oTable = this.byId("TreeTable");
-			const oData = oTable.getContextByIndex(oTable.getSelectedIndex()).getObject();
+			const oSelectedIndex = oTable?.getSelectedIndex();
+			const oData = oSelectedIndex !== -1 ? oTable?.getContextByIndex(oSelectedIndex)?.getObject() : null;
 		}
 
 	});

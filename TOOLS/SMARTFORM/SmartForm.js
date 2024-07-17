@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,7 +10,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oViewModel = new JSONModel({
 				Value: ""
 			});
@@ -26,19 +26,23 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onScanBarcode: function () {
-			const fnSuccess = function (oScan) {
-				if (!oScan.cancelled) {
-					this.getModel().setProperty(this.getView().getBindingContext().getPath() + "/Key", oScan.text);
-				}
-			}.bind(this);
+		onScanBarcode() {
+			BarcodeScanner?.scan(oScan => {
+				if (!oScan?.cancelled) {
+					const oModel = this.getModel();
+					const sPath = this.getView()?.getBindingContext()?.getPath();
 
-			BarcodeScanner.scan(fnSuccess);
+					oModel.setProperty(sPath + "/Key", oScan?.text);
+				}
+			});
 		},
 
-		onSSID: function (oEvent) {
+		onSSID(oEvent) {
 			if (!oEvent.getParameter("cancelled")) {
-				this.getModel().setProperty(this.getView().getBindingContext().getPath() + "/ID", oEvent.getParameter("text"));
+				const oModel = this.getModel();
+				const sPath = this.getView()?.getBindingContext()?.getPath();
+
+				oModel.setProperty(sPath + "/ID", oEvent.getParameter("text"));
 			}
 		},
 
@@ -46,54 +50,61 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		bindDialog: function () {
+		bindDialog() {
 			const oModel = this.getModel();
 			const oCreateEntry = oModel.createEntry("/...Set");
+			const sSmartFormID = this.getView().getId() + "--SmartForm";
+			const sPath = oCreateEntry.getPath();
 
-			sap.ui.core.Fragment.byId(this.getView().getId(), "SmartForm").bindElement(oCreateEntry.getPath());
-			oModel.setProperty(oCreateEntry.getPath() + "/Value", "X");
+			sap.ui.core.Fragment.byId(sSmartFormID, "SmartForm").bindElement(sPath);
 
-			// From Smart Table To Smart Form
-			const oTable = this.byId("SmartTable").getTable();
-			const iSelectedIndex = oTable.getSelectedIndex();
-			const oBindElement = oTable.getContextByIndex(iSelectedIndex).getPath();
+			oModel.setProperty(sPath + "/Value", "X");
 
-			this.onOpenDialog("Dialog", "serhatmercan.SmartForm").then((oDialog) => {
-				oDialog.bindElement(oBindElement);
+			const oTable = this.byId("SmartTable")?.getTable();
+			const iSelectedIndex = oTable?.getSelectedIndex();
+			const sBindElement = oTable?.getContextByIndex(iSelectedIndex)?.getPath();
+
+			this.onOpenDialog("Dialog", "serhatmercan.SmartForm").then(oDialog => {
+				oDialog.bindElement(sBindElement);
 			});
 		},
 
-		check: function () {
-			if (this.byId("SmartField").check().length) {
+		check() {
+			if (this.byId("SmartField")?.check()?.length) {
 				return;
 			}
 		},
 
-		getData: function () {
-			const oSFData = this.byId("SmartForm").getBindingContext().getProperty();
+		getData() {
+			return this.byId("SmartForm")?.getBindingContext()?.getProperty();
 		},
 
-		patternMatched: function (oEvent) {
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-				const sPath = this.getModel().createEntry("/ValueSet").getPath();
+		patternMatched() {
+			this.getOwnerComponent()?.getModel()?.metadataLoaded()?.then(() => {
+				const oModel = this.getModel();
+				const sPath = oModel?.createEntry("/ValueSet")?.getPath();
 
 				this.byId("SmartForm").bindElement(sPath);
-				this.getModel().setProperty(sPath + "/Value", "X");
-			}.bind(this));
+
+				oModel.setProperty(sPath + "/Value", "X");
+			});
 		},
 
-		resetSmartFormElementsValueStates: function (sSmartFormID) {
-			this.byId(sSmartFormID).getGroups().forEach(oSFGroup => {
-				oSFGroup.getGroupElements().forEach(oSFGroupElement => {
-					oSFGroupElement.getElements().forEach(oSmartField => {
-						oSmartField.setValueState("None");
+		resetSmartFormElementsValueStates(sSmartFormID) {
+			this.byId(sSmartFormID)?.getGroups()?.forEach(oSFGroup => {
+				oSFGroup?.getGroupElements()?.forEach(oSFGroupElement => {
+					oSFGroupElement?.getElements()?.forEach(oSmartField => {
+						oSmartField?.setValueState("None");
 					});
 				});
 			});
 		},
 
-		setData: function () {
-			this.getModel().setProperty(this.byId("SmartForm").getBindingContext().getPath() + "/ID", "X");
+		setData() {
+			const oModel = this.getModel();
+			const sPath = this.byId("SmartForm")?.getBindingContext()?.getPath();
+
+			oModel.setProperty(sPath + "/ID", "X");
 		}
 
 	});

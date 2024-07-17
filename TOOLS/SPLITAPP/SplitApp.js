@@ -1,6 +1,9 @@
 sap.ui.define([
-	"./BaseController"
-], function (BaseController) {
+	"./BaseController",
+	"sap/ui/core/Fragment",
+	"sap/ui/core/routing/History",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, Fragment, History, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.SplitApp", {
@@ -9,65 +12,64 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({										
-                    Items: [
-                        {
-                            "Title": "Title I",
-                            "Fragment": "FI"
-                        }, {
-                            "Title": "Title II",
-                            "Fragment": "FII"
-                        }, {
-                            "Title": "Title III",
-                            "Fragment": "FIII"
-                        }
-                    ]
-				}), "model"
-			);
+		onInit() {
+			const oModel = new JSONModel({
+				Items: [
+					{ Title: "Title I", Fragment: "FI" },
+					{ Title: "Title II", Fragment: "FII" },
+					{ Title: "Title III", Fragment: "FIII" }
+				]
+			});
+			this.setModel(oModel, "model");
 
-            this.getRouter().getRoute("SplitApp").attachPatternMatched(this.patternMatched, this);
+			this.getRouter().getRoute("SplitApp").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-        onNavBack: function(){
-            const sPreviousHash = History.getInstance().getPreviousHash();
-			const oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+		onNavBack() {
+			const sPreviousHash = History?.getInstance()?.getPreviousHash();
+			const oCrossAppNavigator = sap.ushell.Container?.getService("CrossApplicationNavigation");
 
-			if (sPreviousHash !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
+			if (sPreviousHash || !oCrossAppNavigator?.isInitialNavigation()) {
 				history.go(-1);
 			} else {
-				oCrossAppNavigator.toExternal({
-					target: {
-						shellHash: "#Shell-home"
-					}
+				oCrossAppNavigator?.toExternal({
+					target: { shellHash: "#Shell-home" }
 				});
 			}
-        },
+		},
 
-        onPressLI: function(oEvent){
-            this.setFragment(oEvent.getParameter("listItem").getBindingContext("model").getObject("Fragment"));
-        },
+		onPressLI(oEvent) {
+			const sFragment = oEvent?.getParameter("listItem")?.getBindingContext("model")?.getProperty("Fragment");
+
+			if (!sFragment) return;
+
+			this.setFragment(sFragment);
+		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-        patternMatched: function(){
-            this.setFragment("MessagePage");
+		patternMatched() {
+			this.setFragment("MessagePage");
 			this.byId("List").removeSelections();
-        },
+		},
 
-        setFragment: function (sFragmentName) {
+		async setFragment(sFragmentName) {
 			const oDetailPage = this.byId("DetailPage");
-			const oFragment = sap.ui.xmlfragment("com.serhatmercan.fragment." + sFragmentName, this);
+			const oView = this.getView();
+			const oFragment = await Fragment.load({
+				id: oView.getId(),
+				name: "com.serhatmercan.fragment." + sFragmentName,
+				controller: this
+			});
 
-			oDetailPage.destroyContent();
-			oDetailPage.addContent(oFragment);
+			oDetailPage?.destroyContent();
+			oDetailPage?.addContent(oFragment);
 		}
 
 	});

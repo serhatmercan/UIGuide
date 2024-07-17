@@ -1,9 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -12,25 +12,33 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.getView().setModel(
-				new JSONModel({
-					Busy: false,
-					Data: [],
-					Statu: false
-				}), "model");
+		onInit() {
+			const oViewModel = new JSONModel({
+				Busy: false,
+				Data: [],
+				Statu: false
+			});
+			this.setModel(oViewModel, "model");
+
+			const oTable = this.byId("ST").getTable();
 
 			// Grid Table		
-			this.byId("ST").getTable().attachRowSelectionChange((oEvent) => {
-				this.getModel("model").setProperty("/Statu", oEvent.getSource().getSelectedIndices().length === 1);
+			oTable.attachRowSelectionChange(oEvent => {
+				const oViewModel = this.getModel("model");
+				const aIndices = oEvent.getSource()?.getSelectedIndices();
+
+				oViewModel.setProperty("/Statu", aIndices?.length === 1);
 			});
 
 			// Responsive Table			
-			this.byId("ST").getTable().attachSelectionChange((oEvent) => {
-				this.getModel("model").setProperty("/Statu", !!oEvent.getSource().getSelectedContextPaths().length);
+			oTable.attachSelectionChange(oEvent => {
+				const oViewModel = this.getModel("model");
+				const aPaths = oEvent.getSource()?.getSelectedContextPaths();
+
+				oViewModel.setProperty("/Statu", !!aPaths?.length);
 			});
 
-			this.byId("ST").getTable()._getSelectAllCheckbox().setVisible(false);
+			oTable?._getSelectAllCheckbox()?.setVisible(false);
 
 			this.getRouter().getRoute("SmartTable").attachPatternMatched(this.patternMatched, this);
 		},
@@ -39,59 +47,44 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onBeforeExport: function (oEvent) {
-			const oExportSettings = oEvent.getParameter("exportSettings");
-			const oBeginDate = oExportSettings.workbook?.columns?.find(oColumn => oColumn.property === "BeginDate");
+		onBeforeExport(oEvent) {
+			const oExportSettings = oEvent?.getParameter("exportSettings");
+			const oBeginDate = oExportSettings.workbook?.columns?.find(oColumn => oColumn?.property === "BeginDate");
 
-			oExportSettings.fileName = "Excel Test";
-<<<<<<< HEAD
-			oExportSettings.dataSource.count = 1000;
-=======
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
+			oExportSettings?.fileName = "Excel Test";
+			oExportSettings?.dataSource?.count = 1000;
 
-			if (oBeginDate) {
-				oBeginDate.type = "Date";
-			}
+			oBeginDate?.type = "Date";
 		},
 
-		onBRT: function (oEvent) {
+		onBRT(oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilterPeriod = new Filter("ID", FilterOperator.EQ, "X");
-			const oTable = oEvent.getSource().getTable();
+			const oTable = oEvent?.getSource()?.getTable();
 			const oSFB = this.byId("SFB");
-			var oComboBoxFilter = oSFB.getControlByKey("ComboBox");
+			const oComboBoxFilter = oSFB?.getControlByKey("ComboBox");
 
-			oBindingParams.filters.push(oFilterPeriod);
+			oBindingParams?.filters?.push(oFilterPeriod);
 
 			this.onBRTDataReceived(oEvent);
 			this.onSetFilter();
 			this.onSetTableContent(oTable);
 
-			if (oSFB instanceof sap.ui.comp.smartfilterbar.SmartFilterBar) {
-				if (oComboBoxFilter instanceof sap.m.ComboBox) {
-					switch (oComboBoxFilter.getSelectedKey()) {
-						case "1":
-							oBindingParams.filters.push(new Filter("ID", "EQ", "1"));
-							break;
-						case "2":
-							oBindingParams.filters.push(new Filter("ID", "EQ", "2"));
-							break;
-						case "3":
-							oBindingParams.filters.push(new Filter("ID", "EQ", "3"));
-							break;
-						default:
-							break;
-					}
+			if (oComboBoxFilter instanceof sap.m.ComboBox) {
+				const sSelectedKey = oComboBoxFilter?.getSelectedKey();
+
+				if (sSelectedKey) {
+					oBindingParams?.filters?.push(new Filter("ID", FilterOperator.EQ, sSelectedKey));
 				}
 			}
 		},
 
-		onBRTDataReceived: function (oEvent) {
+		onBRTDataReceived(oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oTable = oEvent.getSource();
 
-			oBindingParams.events = {
-				"dataReceived": () => {
+			oBindingParams?.events = {
+				dataReceived: () => {
 					setTimeout(() => {
 						this.setTableColor(oTable);
 						this.setTableWithResizing(oTable);
@@ -100,193 +93,163 @@ sap.ui.define([
 			};
 		},
 
-		onChangeKey: function (oEvent) {
-			const sValue = oEvent.getParameter("selectedItem").getKey();
-			const sRowPath = oEvent.getSource().getBindingContext().getPath();
+		onChangeKey(oEvent) {
+			const sValue = oEvent.getParameter("selectedItem")?.getKey();
+			const sRowPath = oEvent.getSource()?.getBindingContext()?.getPath();
 			const oModel = this.getModel();
-			const oRowData = oModel.getProperty(sRowPath);
-			const aData = this.getView().getBindingContext().getProperty("Items").map(sPath => oModel.getProperty("/" + sPath));
+			const oRowData = oModel?.getProperty(sRowPath);
+			const aItems = this.getView()?.getBindingContext()?.getProperty("Items");
+			const aData = aItems.map(sPath => oModel.getProperty("/" + sPath));
 		},
 
-		onClearFilters: function () {
-<<<<<<< HEAD
-			this.byId("ST").applyVariant({});
-=======
-			this.byId("ST").getTable().getBinding("items").aApplicationFilters = [];
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
+		onClearFilters() {
+			this.byId("ST")?.applyVariant({});
 		},
 
-		onDetail: function (oEvent) {
-			const sPath = oEvent.getSource().getBindingContextPath();
-			const oContext = this.getModel().getProperty(sPath);
+		onDetail(oEvent) {
+			const sPath = oEvent.getSource()?.getBindingContextPath();
+			const oContext = this.getModel()?.getProperty(sPath);
 
 			this.sID = oContext.ID;
 		},
 
-		onDT: function (oEvent) {
-			const oData = oEvent.getParameters().getParameter("data");
-			let sID = "";
-
-			if (oData !== undefined) {
-				sID = oData.results[0].ID;
-			}
+		onDT(oEvent) {
+			const oData = oEvent.getParameter("data");
+			const sID = oData?.results[0]?.ID;
 		},
 
-		onFieldChange: function (oEvent) { },
+		onFieldChange(oEvent) { },
 
-		onFilter: function () {
+		onFilter() {
+			const oSmartTable = this.byId("ST")?.getTable();
 			const aFilters = [
 				new Filter("Statu", FilterOperator.EQ, "X")
 			];
 
-			this.byId("ST").getTable().getBinding("items").filter(aFilters); // Grid
-			this.byId("ST").getTable().getBinding("rows").filter(aFilters);	// Responsive
+			oSmartTable?.getBinding("items")?.filter(aFilters); // Grid
+			oSmartTable?.getBinding("rows")?.filter(aFilters); // Responsive
 		},
 
-		onInitST: function () {
+		onInitST() {
 			const oSmartFilter = this.byId("SFB");
-			const oJSONData = {};
-			const oID = {};
+			let oID = {
+				items: [{
+					key: "X",
+					text: "ABC"
+				}]
+			};
 
-			this.sID = "X";
-			this.sText = "ABC";
-
-			if (oSmartFilter && this.sID) {
-				oID = {
-					items: [{
-						key: this.sID
-					}]
-				};
-				oID = {
-					items: [{
-						key: this.sID,
-						text: this.sText
-					}]
-				};
-				oJSONData.ID = oID;
+			if (this.sID) {
+				oSmartFilter?.setFilterData({ ID: oID });
 			}
-
-			oSmartFilter.setFilterData(oJSONData);
 		},
 
-		onPressKey: function (oEvent) {
-			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
+		onPressKey(oEvent) {
+			const sID = oEvent?.getSource()?.getBindingContext()?.getProperty("ID");
 		},
 
-		onSetTableContent: function (oTable) {
-			oEvent.getParameter("bindingParams").events = {
-				"dataReceived": () => {
+		onSetTableContent(oTable) {
+			oEvent?.getParameter("bindingParams")?.events = {
+				dataReceived: () => {
 					setTimeout(() => this.setTableContent(oTable));
 				}
 			};
 		},
 
-		onShow: function (oEvent) {
-			const sID = oEvent.getSource().getBindingContext().getProperty("ID");
-			const aSmartTableContexts = this.byId("ST").getTable().getSelectedContexts();
-			const aTableContexts = this.byId("SmartTable").getSelectedContexts();
-			const aIDs = [];
-
-			aTableContexts.forEach((oContext) => {
-				aIDs.push(this.getModel().getProperty(oContext.getPath() + "/ID"));
-			});
+		onShow(oEvent) {
+			const sID = oEvent?.getSource()?.getBindingContext()?.getProperty("ID");
+			const oModel = this.getModel();
+			const aSmartTableContexts = this.byId("ST")?.getTable()?.getSelectedContexts();
+			const aTableContexts = this.byId("SmartTable")?.getSelectedContexts();
+			const aIDs = aTableContexts?.map(oContext => oModel?.getProperty(oContext.getPath() + "/ID"));
 		},
 
-		onShowDetail: function (oEvent) {
-			const oContext = oEvent.getSource().getBindingContext();
+		onShowDetail(oEvent) {
+			const oContext = oEvent?.getSource()?.getBindingContext();
 
-			if (!oContext) {
-				return;
-			}
+			if (!oContext) return;
 
-			this.getRouter().navTo("Detail", {
-				ID: oContext.getProperty("ID")
-			});
+			this.getRouter().navTo("Detail", { ID: oContext?.getProperty("ID") });
 		},
 
-		onSSBarcode: function (oEvent) {
-			this.getModel().setProperty(oEvent.getSource().getBindingContext().getPath() + "/ID", oEvent.getParameter("text"));
+		onSSBarcode(oEvent) {
+			const oModel = this.getModel();
+			const sPath = oEvent?.getSource()?.getBindingContext()?.getPath();
+			const xValue = oEvent?.getParameter("text");
+
+			oModel.setProperty(sPath + "/ID", xValue);
 		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
 
-		dataReceived: function () {
-			const aData = this.getView().getElementBinding().getBoundContext().getObject().Items.__list;
+		dataReceived() {
+			const aData = this.getView()?.getElementBinding()?.getBoundContext()?.getObject()?.Items?.__list;
 		},
 
-		getData: function () {
+		getData() {
 			const oModel = this.getModel();
 			const oContext = this.getView().getBindingContext();
-			const sBindingPath = oContext.getPath();
-			const oData = oContext.getObject();
-			const sID = oModel.getProperty(sBindingPath + "/ID");
-			const aData = [];
-
-			oData.Items.__list.forEach((sPath) => {
-				aData.push(oContext.getProperty("/" + sPath));
-			});
+			const sBindingPath = oContext?.getPath();
+			const oData = oContext?.getObject();
+			const sID = oModel?.getProperty(sBindingPath + "/ID");
+			const aData = oData?.Items?.__list?.map(sPath => oContext?.getProperty("/" + sPath));
 		},
 
-		getSelectedDataFromGridST: function () {
-			const oTable = this.byId("SmartTable").getTable();
+		getSelectedDataFromGridST() {
+			const oTable = this.byId("SmartTable")?.getTable();
+			const aIndices = oTable?.getSelectedIndices();
+			const aData = aIndices.map(iIndex => oTable?.getContextByIndex(iIndex)?.getObject());;
 
-			return oTable.getSelectedIndices().map(iIndex => oTable.getContextByIndex(iIndex).getObject());
+			return aData;
 		},
 
-		getSelectedDataFromResponsiveST: function () {
-			return this.byId("ST").getTable().getSelectedContexts().map(oContext => this.getModel().getProperty(oContext.getPath() + "/"));
+		getSelectedDataFromResponsiveST() {
+			const aContexts = this.byId("ST")?.getTable()?.getSelectedContexts();
+			const oModel = this.getModel();
+
+			return aContexts.map(oContext => oModel.getProperty(oContext.getPath()));
 		},
 
-		getTotalCount: function () {
-			const oTable = this.byId("SmartTable").getTable();
-			const aSelectedData = oTable.getSelectedIndices().map(x => oTable.getContextByIndex(x).getObject());
-			const iTotal = aSelectedData.reduce((iSum, oCurrent) => iSum + +oCurrent.Amount, 0)
+		getTotalCount() {
+			const oTable = this.byId("SmartTable")?.getTable();
+			const aSelectedData = oTable?.getSelectedIndices()?.map(iIndex => oTable?.getContextByIndex(iIndex)?.getObject());
+			const iTotal = aSelectedData?.reduce((iSum, oCurrent) => iSum + +oCurrent.Amount, 0);
 		},
 
-		getVariant: function () {
-			return this.byId("SmartTable").fetchVariant();
+		getVariant() {
+			return this.byId("SmartTable")?.fetchVariant();
 		},
 
-		patternMatched: function () {
+		patternMatched() {
 			this.getModel().resetChanges();
-			this.byId("ST").rebindTable();
-<<<<<<< HEAD
-
-			this.onReadQuery("/...Set/$count", [], this.getModel())
-				.then((iCount) => {
-					iDataCount = iCount;
-				})
-				.catch(() => { })
-				.finally(() => { });
-=======
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
+			this.byId("ST")?.rebindTable();
 		},
 
-		refreshTable: function () {
-			this.byId("SmartTable").clearSelection();
-			this.byId("SmartTable").removeSelections();
-			this.byId("SmartTable").getBinding("items").refresh(true);	// Grid
-			this.byId("SmartTable").getBinding("rows").refresh(true);	// Responsive
-			this.byId("ST").rebindTable();
+		refreshTable() {
+			const oSmartTable = this.byId("SmartTable");
+
+			oSmartTable?.clearSelection();
+			oSmartTable?.removeSelections();
+			oSmartTable?.getBinding("items")?.refresh(true);	// Grid
+			oSmartTable?.getBinding("rows")?.refresh(true);	// Responsive
+
+			this.byId("ST")?.rebindTable();
 		},
 
-		setData: function () {
+		setData() {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
-			const sPath = oModel.createKey("/...Set", {
-				ID: "X"
-			});
-			const oExpand = {
-				"$expand": "Items"
-			};
+			const sPath = oModel.createKey("/...Set", { ID: "X" });
+			const oExpand = { "$expand": "Items" };
 			const oView = this.getView();
+			const oContext = oView.getBindingContext();
 			const oSmartTable = this.byId("ST");
 
 			oViewModel.setProperty(this.sPath + "/Data", []);
 
-			if (!oView.getBindingContext().getProperty("Items")) {
+			if (!oContext?.getProperty("Items")) {
 				oView.bindElement({
 					path: sPath,
 					parameters: oExpand,
@@ -299,12 +262,13 @@ sap.ui.define([
 			}
 		},
 
-		setTableColor: function (oTable) {
+		setTableColor(oTable) {
 			const oModel = this.getModel();
+			const aRows = oTable.getRows();
 
-			oTable.getRows().forEach(oRow => {
-				const sStatu = oModel.getProperty(oRow.getBindingContext().getPath() + "/Statu");
-				let sBackgroundColor = "";
+			aRows?.forEach(oRow => {
+				const sStatu = oModel.getProperty(oRow?.getBindingContext()?.getPath() + "/Statu");
+				let sBackgroundColor = "#fff";
 
 				switch (sStatu) {
 					case "CM":
@@ -313,9 +277,6 @@ sap.ui.define([
 					case "PR":
 						sBackgroundColor = "#e76500";
 						break;
-					default:
-						sBackgroundColor = "#fff";
-						break;
 				}
 
 				oRow.$().css("background-color", sBackgroundColor);
@@ -323,38 +284,38 @@ sap.ui.define([
 			});
 		},
 
-		setTableContent: function (oTable) {
-			oTable.getItems().forEach(oItem => {
-				let bFlag = this.getModel().getProperty(oItem.getBindingContextPath() + "/Flag") === "X" ? true : false;
-				let oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
-				let oCell = oItem.getCells().find(oCell => oCell.getBinding("text").getPath() === "ID");
+		setTableContent(oTable) {
+			const oModel = this.getModel();
+			const aItems = oTable?.getItems();
 
-				oRow.setEnabled(!bFlag);
-				oRow.setSelected(bFlag);
+			aItems?.forEach(oItem => {
+				const bFlag = oModel.getProperty(oItem?.getBindingContextPath() + "/Flag") === "X";
+				const oRow = sap.ui.getCore().byId(oItem.$().find(".sapMCb").attr("id"));
+				const oCell = oItem?.getCells()?.find(oCell => oCell?.getBinding("text")?.getPath() === "ID");
 
-				oCell.$().css("background-color", "#4BB543");
-				oCell.$().css("font-weight", "bold");
+				oRow?.setEnabled(!bFlag);
+				oRow?.setSelected(bFlag);
+
+				oCell?.$().css("background-color", "#4BB543");
+				oCell?.$().css("font-weight", "bold");
 			});
 		},
 
-		setTableWithResizing: function (oTable) {
-			const aColumns = oTable.getTable().getColumns();
+		setTableWithResizing(oTable) {
+			const aColumns = oTable?.getTable()?.getColumns();
 
-			for (let i = aColumns.length - 1; i > -1; i--) {
-				aColumns[i].getParent().autoResizeColumn(i);
-			}
+			aColumns?.forEach((oColumn, iIndex) => {
+				oColumn?.getParent()?.autoResizeColumn(iIndex);
+			});
 		},
 
-		sortTable: function () {
-			this.byId("SmartTable").applyVariant({
+		sortTable() {
+			this.byId("SmartTable")?.applyVariant({
 				sort: {
-					sortItems: [{
-						columnKey: "ID",
-						operation: "Descending"
-					}, {
-						columnKey: "Value",
-						operation: "Ascending"
-					}]
+					sortItems: [
+						{ columnKey: "ID", operation: "Descending" },
+						{ columnKey: "Value", operation: "Ascending" }
+					]
 				}
 			});
 		}

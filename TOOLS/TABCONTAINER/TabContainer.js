@@ -1,8 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/MessageBox",
 	"sap/m/TabContainerItem",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, TabContainerItem, JSONModel) {
+], (BaseController, MessageBox, TabContainerItem, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.TabContainer", {
@@ -11,19 +12,18 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Items: [],
-					Value: ""
-				}), "model");
+		onInit() {
+			this.setModel(new JSONModel({
+				Items: [],
+				Value: ""
+			}), "model");
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onAddTCI: function () {
+		onAddTCI() {
 			const oTabContainer = this.byId("TabContainer");
 			const oTCI = new TabContainerItem({
 				additionalText: "Developer",
@@ -33,26 +33,23 @@ sap.ui.define([
 				modified: false
 			});
 
-			oTabContainer.addItem(oTCI);
-			oTabContainer.setSelectedItem(oTCI);
+			oTabContainer?.addItem(oTCI);
+			oTabContainer?.setSelectedItem(oTCI);
 		},
 
-		onDeleteTCI: function (oEvent) {
-			const oSelectedItem = oEvent.getParameter("item");
+		onDeleteTCI(oEvent) {
+			const oTabContainer = this.byId("TabContainer");
+			const oSelectedItem = oEvent?.getParameter("item");
+			const sTabName = oSelectedItem?.getName();
 
-			MessageBox.confirm("Do You Want to Close The Tab '" + oSelectedItem.getName() + "' ?", {
-				onClose: function (oAction) {
+			MessageBox.confirm(`Do You Want to Close The Tab '${sTabName}'?`, {
+				onClose: (oAction) => {
 					if (oAction === MessageBox.Action.OK) {
-						this.byId("TabContainer").removeItem(oSelectedItem);
+						oTabContainer.removeItem(oSelectedItem);
 					}
 				}
 			});
 		}
 
-		/* ================ */
-		/* Internal Methods */
-		/* ================ */
-
 	});
-
 });

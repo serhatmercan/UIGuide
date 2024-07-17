@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-], function (BaseController, JSONModel, Filter, FilterOperator) {
+], (BaseController, JSONModel, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -12,7 +12,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oModel = new JSONModel({
 				Busy: false,
 				Value: ""
@@ -31,91 +31,81 @@ sap.ui.define([
 			const sID = oEvent.getParameter("value");
 			const sPath = this.getView().getBindingContext().getPath();
 			const oModel = this.getModel();
-			const sFormID = oModel.getProperty(sPath + "/ID");
-			const sBindingValuePath = oEvent.getSource().getBinding("value").getPath(); // Value
-			const sValue = oModel.getProperty("/...Set('" + sID + "')/Value"); // Get SH Data	
 
 			oEvent.getSource().setValue(sID);
-			oModel.setProperty(sPath + "/ID", oModel.getProperty("/VHSet('" + sID + "')" + "/Value"));
+			oModel.setProperty(`${sPath}/ID`, oModel.getProperty(`/VHSet('${sID}')/Value`));
 
-			if (sID && sID !== "") {
-				const oKey = oModel.createKey("/...VHSet", {
-					ID: sID
-				});
+			if (sID) {
+				const oKey = oModel.createKey("/...VHSet", { ID: sID });
 
-				await this.onRead(oKey, oModel)
-					.then((oData) => {
-						const sTxt = oData.Txt;
-					})
-					.catch(() => { })
-					.finally(() => {
-						sap.ui.getCore().getMessageManager().removeAllMessages();
-					});
+				try {
+					const oData = await this.onRead(oKey, oModel);
+					const sTxt = oData.Txt;
+				} catch (oError) {
+				} finally {
+					sap.ui.getCore().getMessageManager().removeAllMessages();
+				}
 			}
 		},
-
 
 		onChangeIDWithDescription: async function (oEvent) {
 			const oModel = this.getModel();
 			const sID = oEvent.getParameter("newValue");
 			const sPath = this.getView().getBindingContext().getPath();
 
-			oModel.setProperty(sPath + "/Description", "");
+			oModel.setProperty(`${sPath}/Description`, "");
 
-			if (sID !== "") {
-				const oIDVHKey = oModel.createKey("/IDVHSet", {
-					ID: sID
-				});
+			if (sID) {
+				try {
+					const oIDVHKey = oModel.createKey("/IDVHSet", { ID: sID });
+					const oData = await this.onRead(oIDVHKey, oModel);
 
-				await this.onRead(oIDVHKey, oModel)
-					.then((oData) => {
-						oModel.setProperty(sPath + "/Description", oData.Description);
-					})
-					.catch(() => { })
-					.finally(() => {
-						sap.ui.getCore().getMessageManager().removeAllMessages();
-					});
-			}
+					oModel.setProperty(`${sPath}/Description`, oData.Description);
+				} catch (oError) {
+				} finally {
+					sap.ui.getCore().getMessageManager().removeAllMessages();
+				}
 
-			if (sID !== "") {
-				const aFilters = [
-					new Filter("ID", FilterOperator.EQ, sID)
-				];
+				try {
+					const aFilters = [
+						new Filter("ID", FilterOperator.EQ, sID)
+					];
+					const oData = await this.onReadQuery("/IDVHSet", aFilters, oModel);
+					const sDescription = oData?.results?.length ? oData.results[0].Description : "";
 
-				await this.onReadQuery("/IDVHSet", aFilters, oModel)
-					.then((oData) => {
-						oModel.setProperty(sPath + "/Description", oData.results.length ? oData.results[0].Description : "");
-					})
-					.catch(() => { })
-					.finally(() => { });
+					oModel.setProperty(`${sPath}/Description`, sDescription);
+				} catch (oError) {
+				} finally {
+					sap.ui.getCore().getMessageManager().removeAllMessages();
+				}
 			} else {
-				oModel.setProperty(sPath + "/Description", "");
-				oModel.setProperty(sPath + "/ID", "");
+				oModel.setProperty(`${sPath}/Description`, "");
+				oModel.setProperty(`${sPath}/ID`, "");
 			}
 		},
 
-		onFilterContent: function () {
+		onFilterContent() {
 			const oFilter = new Filter("Statu", FilterOperator.EQ, sValue);
-
-			this.byId("SmartField").getContent().getBindingInfo("items").binding.filter(oFilter);
+			this.byId("SmartField")?.getContent()?.getBindingInfo("items")?.binding?.filter(oFilter);
 		},
 
-		onFilterDDL: function () {
+		onFilterDDL() {
+			const oBinding = this.byId("ID").getInnerControls()[0].getBinding("items");
+			const oModel = this.getModel();
+			const sPath = this.getView().getBindingContext().getPath();
 			const aFilters = [
-				new Filter("ID", FilterOperator.EQ, "X")
+				new Filter("ID", FilterOperator.EQ, "X"),
+				new Filter("ID", FilterOperator.EQ, oModel.getProperty(`${sPath}/Value`))
 			];
 
-			this.byId("ID").getInnerControls()[0].getBinding("items").filter(aFilters);
-			this.byId("ID").getInnerControls()[0].getBinding("items").filter([
-				new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/Value"))
-			]);
+			oBinding.filter(aFilters);
 		},
 
-		onICC: function (oEvent) {
+		onICC(oEvent) {
 			this.setSmartFieldValueHelpOnly(oEvent.getParameters()[0]);
 		},
 
-		onVLC: function (oEvent) {
+		onVLC(oEvent) {
 			const sPath = oEvent.getSource().getBindingContext().getPath();
 			const oData = this.getModel().getProperty(sPath);
 		},
@@ -124,119 +114,103 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
-		controlExplanationValueState: function () {
+		controlExplanationValueState(oEvent) {
 			const oContainer = oEvent.getSource();
 			const sExplanationID = oContainer.getId();
 			const aSmartFields = [];
-			let bCheckSmartForm = "";
 			// const aSmartFields = this.byId("SFData").getSmartFields();
 			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
 
-			do {
-				bCheckSmartForm = oContainer.getId().split("--")[oContainer.getId().split("--").length - 1].startsWith("idSF");
+			while (aSmartFields.length === 0) {
+				const bCheckSmartForm = sExplanationID?.split("--")?.pop()?.startsWith("idSF");
 
 				if (bCheckSmartForm) {
-					aSmartFields = oContainer.getSmartFields();
+					aSmartFields = oContainer?.getSmartFields();
 				} else {
-					oContainer = oContainer.getParent();
+					oContainer = oContainer?.getParent();
 				}
 			}
-			while (aSmartFields.length === 0);
 
-			const iIndex = aSmartFields.findIndex(oSF => oSF.getId() === sExplanationID);
+			const iIndex = aSmartFields?.findIndex(oSF => oSF.getId() === sExplanationID);
 			const oKeyField = aSmartFields[iIndex - 1];
 			const oExplanationField = oEvent.getSource();
-			const xValue = oKeyField.getValue();
+			const xValue = oKeyField?.getValue();
 
 			if (xValue) {
-				if (xValue === "N" || xValue === "No" || xValue === "None" || xValue === "Y" || +xValue <= 0 ||
-					oExplanationField.getValue() !== "") {
-					oExplanationField.setValueState("None");
-				} else {
-					oExplanationField.setValueState("Error");
-				}
+				const bValidValue = ["N", "No", "None", "Y"].includes(xValue) || +xValue <= 0 || oExplanationField?.getValue() !== "";
+				oExplanationField?.setValueState(bValidValue ? "None" : "Error");
 			} else {
-				oExplanationField.setValueState("None");
+				oExplanationField?.setValueState("None");
 			}
 		},
 
-		controlKeyValueState: function () {
+		controlKeyValueState(oEvent) {
 			let oContainer = oEvent.getSource();
-			let sKeyID = oContainer.getId();
 			let aSmartFields = [];
-			let bCheckSmartForm = "";
 			// const aSmartFields = this.byId("SFData").getSmartFields();
 			// const aSmartFields = oContainer.getParent().getParent().getParent().getParent().getSmartFields();
 
-			do {
-				bCheckSmartForm = oContainer.getId().split("--")[oContainer.getId().split("--").length - 1].startsWith("idSF");
+			while (aSmartFields.length === 0) {
+				const sIdSuffix = oContainer?.getId()?.split("--")?.pop();
 
-				if (bCheckSmartForm) {
-					aSmartFields = oContainer.getSmartFields();
+				if (sIdSuffix?.startsWith("idSF")) {
+					aSmartFields = oContainer?.getSmartFields();
 				} else {
-					oContainer = oContainer.getParent();
+					oContainer = oContainer?.getParent();
 				}
 			}
-			while (aSmartFields.length === 0);
-
-			const iIndex = aSmartFields.findIndex(oSF => oSF.getId() === sKeyID);
+			const sKeyID = oEvent?.getSource()?.getId();
+			const iIndex = aSmartFields?.findIndex(oSF => oSF.getId() === sKeyID);
 			const oExplanationField = aSmartFields[iIndex + 1];
-			const xValue = oEvent.getSource().getValue();
+			const xValue = oEvent?.getSource()?.getValue();
+			const bValidValue = ["N", "No", "None", "Y"].includes(xValue) || +xValue <= 0 || oExplanationField.getValue() !== "";
 
-			if (xValue) {
-				if (xValue === "N" || xValue === "No" || xValue === "None" || xValue === "Y" || +xValue <= 0 ||
-					oExplanationField.getValue() !== "") {
-					oExplanationField.setValueState("None");
-				} else {
-					oExplanationField.setValueState("Error");
-				}
-			} else {
-				oExplanationField.setValueState("None");
-			}
+			oExplanationField.setValueState(xValue ? (bValidValue ? "None" : "Error") : "None");
 		},
 
-		getData: function () {
-			return this.getModel().getProperty(this.getView().getBindingContext().getPath() + "/ID");
+		getData() {
+			const sPath = this.getView().getBindingContext().getPath();
+			return this.getModel().getProperty(`${sPath}/ID`);
 		},
 
-		getValue: function () {
+		getValue() {
 			const oSmartField = this.byId("SmartField");
-			const sValue = oSmartField.getProperty("value") ? oSmartField.getProperty("value") : oSmartField.getValue();
-			const sText = oSmartField.getContent().getSelectedItem().getProperty("text");
+			const sValue = oSmartField?.getProperty("value") || oSmartField?.getValue();
+			const sText = oSmartField?.getContent()?.getSelectedItem()?.getProperty("text");
+
+			return { sValue, sText };
 		},
 
-		patternMatched: function (oEvent) {
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-				this.byId("SimpleForm").bindElement(this.getModel().createEntry("/...Set").getPath());
-			}.bind(this));
+		patternMatched() {
+			const oModel = this.getOwnerComponent().getModel();
+			const sSimpleFormPath = this.getModel().createEntry("/...Set").getPath();
+			const sKeyPath = this.getModel().createKey("/SFSet", { ID: "X" });
 
-			const sPath = this.getModel().createKey("/SFSet", {
-				ID: "X"
-			});
+			oModel.metadataLoaded().then(() => {
+				this.byId("SimpleForm").bindElement(sSimpleFormPath);
 
-			this.getView().bindElement({
-				path: sPath,
-				parameters: {
-					expand: "Header,Items"
-				}
-			});
+				this.getView().bindElement({
+					path: sKeyPath,
+					parameters: { expand: "Header,Items" }
+				});
 
-			this.getOwnerComponent().getModel().metadataLoaded().then(() => {
 				setTimeout(() => {
-					this.byId("SmartField").getInnerControls()[0].getBinding("items").filter([
-						new Filter("Value", FilterOperator.EQ, "X")
-					]);
+					const oSmartField = this.byId("SmartField");
+					const oInnerControl = oSmartField?.getInnerControls()[0];
+
+					oInnerControl?.getBinding("items")?.filter([new Filter("Value", FilterOperator.EQ, "X")]);
 				}, 200);
 			});
 		},
 
-		setData: function () {
-			this.getModel().setProperty(this.byId("SimpleForm").getBindingContext().getPath() + "/ID", "XYZ");
+		setData() {
+			const sPath = `${this.byId("SimpleForm").getBindingContext().getPath()}/ID`;
+			this.getModel().setProperty(sPath, "XYZ");
 		},
 
-		setSmartFieldValueHelpOnly: function (oItem) {
-			if (oItem.getMetadata().getElementName() === "sap.m.Input") {
-				oItem.setValueHelpOnly(true);
+		setSmartFieldValueHelpOnly(oItem) {
+			if (oItem?.getMetadata()?.getElementName() === "sap.m.Input") {
+				oItem?.setValueHelpOnly(true);
 			}
 		}
 

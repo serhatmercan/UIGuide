@@ -1,24 +1,26 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-		onInit: function () {
+		onInit() {
 			const oViewModel = new JSONModel({
 				Value: new Date()
 			});
 
 			this.setModel(oViewModel, "model");
 
-			oModel.setProperty(sPath + "/Value", {
+			const sPath = this.getView()?.getBindingContext()?.getPath();
+			const oTime = new Date().getTime();
+
+			oViewModel.setProperty(`${sPath}/Value`, {
 				__edmType: "Edm.Time",
-				ms: new Date().getTime()
+				ms: oTime
 			});
 		}
 
 	});
-
 });
