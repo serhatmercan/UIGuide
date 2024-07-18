@@ -1,7 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/ui/model/json/JSONModel"
-], function (BaseController, JSONModel) {
+], (BaseController, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -10,7 +10,7 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
-		onInit: function () {
+		onInit() {
 			const oViewModel = new JSONModel({
 				Busy: false,
 				Items: [],
@@ -19,41 +19,41 @@ sap.ui.define([
 
 			this.setModel(oViewModel, "model");
 
-			this.byId("TreeTable").collapseAll();
-			this.byId("TreeTable").expandToLevel(1);
+			const oTreeTable = this.byId("TreeTable");
+
+			oTreeTable.collapseAll();
+			oTreeTable.expandToLevel(1);
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onAddDataToTreeTable: function () {
+		onAddDataToTreeTable() {
 			const oTreeTable = this.byId("TreeTable");
-			const aRows = oTreeTable.getBinding("rows");
-			const aSelectedIndices = aRows.getSelectedIndices();
+			const aRows = oTreeTable?.getBinding("rows");
+			const aIndices = aRows?.getSelectedIndices();
 
-			aRows.getSelectedIndices().forEach(index => {
-				let oNode = aRows.getNodeByIndex(index);
+			aRows.forEach(iIndex => {
+				const oNode = aRows.getNodeByIndex(iIndex);
 			});
 
-			oTreeTable.collapseAll();
-			oTreeTable.removeSelectionInterval(0, aRows.getRootContexts().length);
+			oTreeTable?.collapseAll();
+			oTreeTable?.clearSelection();
 		},
 
-		onTOS: function (oEvent) {
+		onTOS(oEvent) {
 			const oTreeTable = oEvent.getSource();
-			const iRowCount = oTreeTable.getVisibleRowCount();
-			const iSelectedRowCount = this.getModel("model").getProperty(oEvent.getParameter("rowContext").getPath() + "/Items").length;
+			const iRowCount = oTreeTable?.getVisibleRowCount();
+			const oModel = this.getModel("model");
+			const sPath = oEvent.getParameter("rowContext")?.getPath();
+			const iSelectedRowCount = oModel.getProperty(sPath + "/Items")?.length;
+			const iNewRowCount = oEvent.getParameter("expanded") ?
+				iRowCount + iSelectedRowCount :
+				iRowCount - iSelectedRowCount;
 
-			oEvent.getParameter("expanded") ?
-				oTreeTable.setVisibleRowCount(iRowCount + iSelectedRowCount) :
-				oTreeTable.setVisibleRowCount(iRowCount - iSelectedRowCount);
+			oTreeTable?.setVisibleRowCount(iNewRowCount);
 		}
 
-		/* ================ */
-		/* Internal Methods */
-		/* ================ */
-
 	});
-
 });

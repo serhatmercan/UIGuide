@@ -1,45 +1,58 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel",
-    "sap/ui/model/Sorter"
-], function (BaseController, JSONModel, Sorter) {
+	"sap/ui/model/Sorter"
+], function (BaseController, Fragment, JSONModel, Sorter) {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
-        /* ================= */
-        /* Lifecycle Methods */
-        /* ================= */
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
-		onInit: function () {
-			this.setModel(
-				new JSONModel({
-					Busy: false,
-					Items: [],
-					Value: ""
-				}), "model"
-			);
-		},        
+		onInit() {
+			const oViewModel = new JSONModel({
+				Busy: false,
+				Items: [],
+				Value: ""
+			});
 
-        /* ============== */
-        /* Event Handlers */
-        /* ============== */
-
-        onConfirm: function (oEvent) {
-			const oParams = oEvent.getParameters();							
-			const aSorters = [
-                new Sorter(oParams.sortItem.getKey(), oParams.sortDescending)
-            ];
-
-			this.byId("Table").getBinding("items").sort(aSorters);
+			this.setModel(oViewModel, "model");
 		},
 
-        onShowSort: function(){
-            this.oSortDialog = sap.ui.xmlfragment("com.serhatmercan.fragment.ViewSettingsDialog", this);
-			this.getView().addDependent(this.oSortDialog);			
-			this.oSortDialog.open();
-        }
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
 
+		onConfirm(oEvent) {
+			const { sortItem: oSortItem, sortDescending: bSortDescending } = oEvent.getParameters();
+			const aSorters = [
+				new Sorter(oSortItem?.getKey(), bSortDescending)
+			];
+			const aItems = this.byId("Table")?.getBinding("items");
+
+			aItems?.sort(aSorters);
+		},
+
+		onShowSort() {
+			const oView = this.getView();
+			const sID = oView.getId();
+
+			if (!this.oSortDialog) {
+				Fragment.load({
+					id: sID,
+					name: "com.serhatmercan.fragment.ViewSettingsDialog",
+					controller: this
+				}).then(oDialog => {
+					this.oSortDialog = oDialog;
+					oView.addDependent(this.oSortDialog);
+					this.oSortDialog.open();
+				});
+			} else {
+				this.oSortDialog.open();
+			}
+		}
 	});
-
 });
