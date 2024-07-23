@@ -18,6 +18,7 @@
 <!-- 
 <headerToolbar>
     <Toolbar>
+        <Title text="{model>/Title}" level="H3" titleStyle="H3"/>
 	    <ToolbarSeparator class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginBottom"/>
         <Button icon="sap-icon://add" text="{i18n>add}" tooltip="{i18n>add}" type="Emphasized" visible="{model>/Edit}" press="onShowItem('A', $event)" />
     </Toolbar>
@@ -46,7 +47,7 @@ TABLE - ATTRIBUTES
 id="Table"
 backgroundDesign="Solid" backgroundDesign="Transparent"  
 busyIndicatorDelay="0"
-class="sapUiResponsiveMargin"
+class="sapUiResponsiveMargin" class="sapUiMediumMarginTop"
 items="{/...Set}"
 items="{ path: '/...Set', suspended:true }"
 items="{ path: 'model>/Items', group: 'groupingItems' }"

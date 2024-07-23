@@ -1,23 +1,44 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:upload="sap.m.upload">
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:upload="sap.m.upload"
+>
     <Dialog title="{i18n>document}">
         <content>
-            <upload:UploadSet id="DocumentUS" items="{model>/Documents}" instantUpload="false" beforeUploadStarts="onBUSDocument">
+            <upload:UploadSet
+                id="DocumentUS"
+                items="{model>/Documents}"
+                instantUpload="false"
+                beforeUploadStarts="onBUSDocument"
+            >
                 <upload:items>
-                    <upload:UploadSetItem fileName="{model>Filename}" mediaType="{model>Mimetype}" url="{model>Url}"/>
+                    <upload:UploadSetItem
+                        fileName="{model>Filename}"
+                        mediaType="{model>Mimetype}"
+                        url="{model>Url}"
+                    />
                 </upload:items>
             </upload:UploadSet>
         </content>
         <endButton>
-            <Button text="{i18n>OK}" type="Emphasized" press="onCloseDocument" />
+            <Button
+                text="{i18n>OK}"
+                type="Emphasized"
+                press="onCloseDocument"
+            />
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
 <!-- UPLOAD COLLECTION - ATTRIBUTES -->
 <!--
+mode="Delete"
+uploadUrl="/sap/opu/odata/sap/ZSM_GOS_UI_SRV/DocumentSet"
+
 uploadButtonInvisible="true"    
 uploadEnabled="{model>/DocumentEdit}"    
 
-afterItemRemoved="onAIR"
+afterItemRemoved="onAIRDocument"
+uploadCompleted="onUCDocument"
 -->
 <!-- UPLOAD COLLECTION - TOOLBAR -->
 <!--

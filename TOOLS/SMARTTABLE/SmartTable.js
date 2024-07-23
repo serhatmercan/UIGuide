@@ -93,6 +93,13 @@ sap.ui.define([
 			};
 		},
 
+		async onChangeInput(oEvent) {
+			const oModel = this.getModel();
+			const sPath = oEvent.getSource().getBindingContext().getPath();
+			const sKey = oModel.getProperty(sPath + "/Key");
+			if (!sKey) return;
+		},
+
 		onChangeKey(oEvent) {
 			const sValue = oEvent.getParameter("selectedItem")?.getKey();
 			const sRowPath = oEvent.getSource()?.getBindingContext()?.getPath();

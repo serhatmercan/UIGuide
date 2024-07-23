@@ -1,8 +1,4 @@
-<mvc:View controllerName="serhatmercan.Controller" displayBlock="true"
-	xmlns="sap.m"
-	xmlns:core="sap.ui.core"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:f="sap.f">
+<mvc:View controllerName="serhatmercan.Controller" xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.f" displayBlock="true">
 	<f:DynamicPage stickySubheaderProvider="iconTabBar" showFooter="{= ${message>/}.length > 0 }">
 		<f:title>
 			<f:DynamicPageTitle>
@@ -23,15 +19,30 @@
 				</items>
 			</IconTabBar>
 		</f:content>
-		<f:footer></f:footer>
+		<f:footer>
+			<!-- OverflowToolbar -->
+		</f:footer>
 	</f:DynamicPage>
 </mvc:View>
 <!-- DYNAMIC PAGE - ATTRIBUTES -->
-<!-- class="sapUiNoContentPadding"
+<!-- 
+class="sapUiNoContentPadding"
+toggleHeaderOnTitleClick="false" 
+showFooter="true"
 -->
 <!-- DYNAMIC PAGE - LAYOUT -->
 <!--
-	
+
+-->
+<!-- DYNAMIC PAGE - FOOTER -->
+<!--
+<f:footer>
+    <OverflowToolbar>
+        <ToolbarSpacer/>
+        <Button class="sapUiTinyMargin" icon="sap-icon://undo" press="onNavBack"/>
+        <Button class="sapUiTinyMargin" icon="sap-icon://delete" type="Reject" press="onDelete"/>
+     </OverflowToolbar>
+</f:footer>
 -->
 <!-- DYNAMIC PAGE - EXAMPLE -->
 <!--

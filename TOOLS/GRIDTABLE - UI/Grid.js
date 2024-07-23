@@ -29,6 +29,11 @@ sap.ui.define([
 			const oTable = this.byId("Table");
 			const oViewModel = this.getModel("model");
 
+			oTable.attachRowSelectionChange(oEvent => {
+				const aIndices = oEvent.getSource()?.getSelectedIndices();
+				oViewModel.setProperty("/Statu", aIndices?.length === 1);
+			});
+
 			oTable.onRowsUpdated = () => {
 				oTable.getRows().forEach(oRow => {
 					const sPath = oRow.getBindingContext("model").getPath();

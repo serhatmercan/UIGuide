@@ -177,6 +177,22 @@ sap.ui.define([
 			this.byId("Table")?.getBinding("items")?.sort(aSorters);
 		},
 
+		onUpdateFinished(oEvent) {
+			const iTotalItems = oEvent.getParameter("total");
+			const oViewModel = this.getModel("model");
+			const oTable = this.byId("Table");
+			const aItems = oTable?.getBinding("items");
+			const sTableText = "product";
+			const sType = "Navigation"; // "Inactive"
+
+			if (aItems.isLengthFinal()) {
+				const sTitle = iTotalItems ? this.getText(`${sTableText}s`, iTotalItems) : this.getText(sTableText); // Product | Products ({0})
+
+				oViewModel.setProperty('/Title', sTitle);
+				oTable?.getAggregation("items")?.forEach((oItem) => oItem.setType(sType));
+			}
+		},
+
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */

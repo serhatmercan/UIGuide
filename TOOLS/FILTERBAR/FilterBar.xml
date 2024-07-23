@@ -1,7 +1,7 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 	<fb:FilterBar search="onSearch">
 		<fb:filterGroupItems>
-			<fb:FilterGroupItem label="{i18n>value}" name="Value" visibleInFilterBar="true">
+			<fb:FilterGroupItem label="{i18n>value}" groupName="Filter" name="Value" visibleInFilterBar="true">
 				<fb:control>
 					<Input value="{model>/Value}"/>
 				</fb:control>
@@ -24,8 +24,6 @@ reset="onReset"
 
 <!-- FILTER GROUP ITEM - ATTRIBUTES --> 
 <!-- 
-groupName="GNI"
-
 mandatory="true" 
 partOfCurrentVariant="true"
 -->

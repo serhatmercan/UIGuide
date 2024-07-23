@@ -63,9 +63,7 @@ sap.ui.define([
 				});
 			});
 
-			oSmartChart.attachDataReceived(() => {
-				this.getModel("model").setProperty("/ChartVisible", true);
-			});
+			oSmartChart.attachDataReceived(() => { this.getModel("model").setProperty("/ChartVisible", true) });
 		},
 
 		patternMatched() {

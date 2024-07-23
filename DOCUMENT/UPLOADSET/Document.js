@@ -2,11 +2,12 @@ sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageToast",
 	"sap/m/PDFViewer",
+	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/Item",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, MessageToast, PDFViewer, Item, Filter, FilterOperator, JSONModel) => {
+], (BaseController, MessageToast, PDFViewer, BusyIndicator, Item, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -38,7 +39,30 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onAIR(oEvent) { },
+		async onAIRDocument(oEvent) {
+			const oViewModel = this.getModel("model")
+			const sPath = oEvent.getParameter("item")?.getBindingContext("model")?.getPath();
+			const oDocument = oViewModel.getProperty(sPath);
+			const oModel = this.getModel();
+			const oDocumentKey = oModel.createKey("/DocumentSet", {
+				DocObjType: oDocument.DocObjType,
+				DocObjKey: oDocument.DocObjKey,
+				DocNo: oDocument.DocNo
+			});
+
+			BusyIndicator.show();
+
+			try {
+				await this.onDelete(oDocumentKey, oModel);
+
+				BusyIndicator.hide();
+				MessageToast.show(this.getText("successDeleteDocument")); // Doküman başarıyla silindi
+			} catch (oError) {
+				BusyIndicator.hide();
+			} finally {
+				sap.ui.getCore().getMessageManager().removeAllMessages();
+			}
+		},
 
 		onBUSDocument(oEvent) {
 			const oModel = this.getModel();
@@ -54,7 +78,7 @@ sap.ui.define([
 
 			oItem.addHeaderField(new Item({
 				key: "slug",
-				text: encodeURIComponent(oItem.getFileName())
+				text: "Key" + "&&" + encodeURIComponent(oItem.getFileName())
 			}));
 		},
 
@@ -103,6 +127,18 @@ sap.ui.define([
 			}
 
 			this.oDocument.open();
+		},
+
+		async onUCDocument(oEvent) {
+			const oDocument = oEvent.getParameter("item");
+
+			BusyIndicator.hide();
+
+			if (oDocument?.getUploadState() === "Complete") {
+				this.byId("DocumentUS").removeItem(oDocument);
+				await this.getDocuments();
+				MessageToast.show(this.getText("successCreateDocument")); // 
+			}
 		},
 
 		/* ================ */

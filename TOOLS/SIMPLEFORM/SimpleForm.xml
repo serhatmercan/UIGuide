@@ -1,4 +1,5 @@
-<mvc:View controllerName="com.serhatmercan.SimpleForm" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" xmlns:core="sap.ui.core">
+<mvc:View controllerName="com.serhatmercan.SimpleForm" xmlns="sap.m" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:layout="sap.ui.layout" 
+    xmlns:core="sap.ui.core">
     <f:SimpleForm>
         <f:content>
             <core:Title text="{i18n>title}" />

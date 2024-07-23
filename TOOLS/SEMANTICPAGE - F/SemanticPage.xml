@@ -18,6 +18,21 @@
 		<semantic:content>
 			<core:Fragment fragmentName="com.sm.application.fragments.view.object.List" type="XML" />
 		</semantic:content>
+		<semantic:closeAction>
+			<semantic:CloseAction 
+				visible="{model>/ActionButtonsInfo/MidColumn/Toolbar}" 
+				press="onCloseDetailPage"/>
+		</semantic:closeAction>
+		<semantic:exitFullScreenAction>
+			<semantic:ExitFullScreenAction
+				visible="{= ${model>/ActionButtonsInfo/MidColumn/FullScreen} &amp;&amp; ${model>/ActionButtonsInfo/MidColumn/Toolbar} }"
+				press="onExitFullScreenDetailPage"/>
+		</semantic:exitFullScreenAction>
+		<semantic:fullScreenAction>
+			<semantic:FullScreenAction 
+				visible="{= !${model>/ActionButtonsInfo/MidColumn/FullScreen} &amp;&amp; ${model>/ActionButtonsInfo/MidColumn/Toolbar} }"
+				press="onShowFullScreenDetailPage"/>
+		</semantic:fullScreenAction>
 		<semantic:positiveAction>
 			<semantic:PositiveAction press="onProcess('AP', $event)" />
 		</semantic:positiveAction>
@@ -31,7 +46,7 @@
 			<Button press="onCancel"/>
 		</semantic:footerCustomActions>
 		<semantic:messagesIndicator>
-			<semantic:MessagesIndicator press="onShowMessages"/>
+			<semantic:MessagesIndicator id="MessagePO" press="onShowMessages"/>
 		</semantic:messagesIndicator>
 	</semantic:SemanticPage>
 </mvc:View>

@@ -1,14 +1,8 @@
 <mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:smartTable="sap.ui.comp.smarttable"
 	xmlns:smartVariants="sap.ui.comp.smartvariants">
-<<<<<<< HEAD
 	<smartVariants:SmartVariantManagement id="SVM" entitySet="...Set" persistencyKey="...SVMKey"/>
 	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="...SFBKey"/>
 	<smartTable:SmartTable id="ST" entitySet="...Set" persistencyKey="...STKey" smartFilterId="SFB" beforeRebindTable="onBRT" />
-=======
-	<smartVariants:SmartVariantManagement id="SVM"/>
-	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" />
-	<smartTable:SmartTable id="ST" entitySet="...Set" smartFilterId="SFB" beforeRebindTable="onBRT" />
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 </mvc:View> 
 <!-- SMART FILTER BAR - ATTRIBUTES -->
 <!-- 
@@ -18,6 +12,7 @@ considerSelectionVariants="true"
 filterBarExpanded="true"
 showClearOnFB="true" 
 showFilterConfiguration="false"
+useDateRangeType="true"
 useToolbar="true"
 
 afterVariantLoad="onAVL"
@@ -31,7 +26,7 @@ search="onSearchSFB"
 <!-- SMART FILTER BAR - CONTROL CONFIGURATION -->
 <!-- 
 <smartFilterBar:controlConfiguration>
-	<smartFilterBar:ControlConfiguration key="RBG">
+	<smartFilterBar:ControlConfiguration key="RBG" visibleInAdvancedArea="true">
 		<smartFilterBar:customControl>
 			<RadioButtonGroup id="RBG" columns="3">
 				<RadioButton id="AllRB" text="{i18n>all}"/>
@@ -65,7 +60,6 @@ label="{i18n>SFB}"
 mandatory="mandatory" 
 		
 preventInitialDataFetchInValueHelpDialog="false"
-visibleInAdvancedArea="true" 
 -->
 <!-- SMART FILTER BAR - LAYOUT -->
 <!--

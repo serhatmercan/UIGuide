@@ -1,5 +1,7 @@
-<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ndc="sap.ndc" xmlns:tableRowMode="sap.ui.table.rowmodes" xmlns:ui="sap.ui.table" xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
-	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:smartVariants="sap.ui.comp.smartvariants" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.serhatmercan.controller.SmartTable" >
+<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:ndc="sap.ndc" xmlns:tableRowMode="sap.ui.table.rowmodes" xmlns:ui="sap.ui.table" 
+	xmlns:semantic="sap.m.semantic" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"  xmlns:smartTable="sap.ui.comp.smarttable" 
+	xmlns:smartVariants="sap.ui.comp.smartvariants" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+	controllerName="com.serhatmercan.controller.SmartTable" >
     <smartVariants:SmartVariantManagement id="...SVM" entitySet="...Set" persistencyKey="...SVMKey"/>
 	<smartFilterBar:SmartFilterBar id="...SFB" entitySet="...Set" persistencyKey="...SFBKey" smartVariant="...SVM"/>
 	<smartTable:SmartTable entitySet="...Set" persistencyKey="...STKey" smartFilterId="...SFB" smartVariant="...SVM"/>
@@ -82,7 +84,7 @@ initialized="onInitST"
 <ui:template>
 	<Button icon="sap-icon://display" press="onShowDetail"/>
 	<DatePicker value="{ path:'Date', type:'sap.ui.model.type.Date', formatOptions: { UTC:true } }"/>
-	<Input value="{Key}" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onVHR"/>
+	<Input value="{Key}" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" change="onChangeInput" valueHelpRequest="onVHR"/>
 	<Link text="{Key}" press="onPressKey"/>
 	<Select items="{model>/Keys}" selectedKey="{Key}" change="onChangeKey">
 		<core:Item key="{model>}" text="{model>}"/>

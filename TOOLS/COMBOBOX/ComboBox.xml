@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<ComboBox items="{/...Set}" selectedKey="{model>/Value}">
+	<ComboBox items="{/...Set}" selectedKey="{model>/Value}" showSecondaryValues="true">
 		<items>
 			<core:ListItem key="{ID}" text="{ID}" additionalText="{Description}" />
 		</items>
@@ -14,13 +14,12 @@ items="{ path:'/...Set', suspended: true, templateShareable: true }"
 items="{ path: '/...Set', templateShareable: true, filters: [{ path: 'ID', operator: 'NE', value1: '' }] }"
 selectedKey="{model>/Item}"
 value="{model>/Value}"
-valueState="Error"
+valueState="Error" valueState="None" valueState="{= ${model>Value} ? 'None' : 'Error' }" 
 
 enabled="false"
 filterSecondaryValues="true"
 required="true"
 showButton="true" 
-showSecondaryValues="true"
 showValueStateMessage="false" 
 
 change="onChangeCB"

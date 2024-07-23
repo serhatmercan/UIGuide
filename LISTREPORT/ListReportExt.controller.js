@@ -1,59 +1,33 @@
 sap.ui.define([
+	"sap/m/Button",
+	"sap/m/ButtonType",
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
 	"sap/ui/export/Spreadsheet",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], (MessageBox, MessageToast, Spreadsheet, Filter, FilterOperator) => {
+], (Button, ButtonType, MessageBox, MessageToast, Spreadsheet, Filter, FilterOperator) => {
 	"use strict";
 
 	return sap.ui.controller("com.serhatmercan.ext.controller.ListReportExt", {
 
-		adaptTransientMessageExtension() {
-			sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
-
-			this.extensionAPI.rebindTable();
-		},
-
-		getFilterBarData() {
-			const sID = this.byId("listReportFilter").getFilterData().ID;
-		},
-
-		getSelectedContext() {
-			const aSelectedData = this.extensionAPI.getSelectedContexts().map(oItem => oItem.getObject());
-			const oView = this.getView();
-			const oModel = oView.getModel();
-			const oResourceBundle = oView.getModel("@i18n").getResourceBundle();
-		},
-
-		getTableID() {
-			return this.getView().getContent()[0].getContent().getTable().getId();
-		},
-
-		modifyStartupExtension(oStartupObject) {
-			const oSelectionVariant = oStartupObject.selectionVariant;
-
-			if (oSelectionVariant) {
-				oSelectionVariant.getSelectOption("ID").forEach(oID => oSelectionVariant.addSelectOption("ID", "I", "EQ", oID.Low));
-			}
-		},
+		/* ================= */
+		/* Lifecycle Methods */
+		/* ================= */
 
 		onAfterRendering() {
 			// Component ID: com.serhatmercan.listreport
-			const oTable = this.getView().byId(
-				"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
-			const oTableModel = this.getView().byId(
-				"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable").getModel();
-			const oSmartFilter = this.getView().byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReportFilter");
+			const oView = this.getView();
+			const oTableM = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--responsiveTable");
+			const oTableMModel = oTableM.getModel();
+			const oTableUI = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
+			const oTableUIModel = oTableUI.getModel();
+			const oSmartFilter = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReportFilter");
 
-
-			oTableModel.attachRequestCompleted(() => {
+			oTableUIModel.attachRequestCompleted(() => {
 				setTimeout(() => {
-					const oTable = this.getView().byId(
-						"com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--GridTable");
-					const aColumns = oTable.getTable().getColumns();
-
-					aColumns.forEach((oColumn, iIndex) => {
+					const aColumns = oTableUI?.getTable()?.getColumns();
+					aColumns?.forEach((oColumn, iIndex) => {
 						oColumn.getParent().autoResizeColumn(iIndex);
 						oColumn.setProperty("width", "13rem");
 						oColumn.getLabel().setWrapping(true);
@@ -61,10 +35,21 @@ sap.ui.define([
 				});
 			});
 
-			oTable.getToolbar().addContent(
-				new sap.m.Button({
+			oTableMModel.attachRequestCompleted(() => {
+				setTimeout(() => {
+					oTableM?.getItems()?.forEach(oItem => {
+						oItem?.setType("Navigation");
+						oItem?.attachPress((oEvent) => {
+							const sID = oEvent?.getSource()?.getBindingContext()?.getObject("ID");
+						});
+					});
+				});
+			});
+
+			oTableUI.getToolbar().addContent(
+				new Button({
 					text: "{i18n>button}",
-					type: sap.m.ButtonType.Reject,
+					type: new ButtonType.Reject,
 					press: () => this.onShowButton()
 				})
 			);
@@ -141,6 +126,39 @@ sap.ui.define([
 			oSmartFilter.attachInitialise(() => { oSmartFilter.setFilterData(oDefaultFilter) });
 		},
 
+		onInit() {
+			// HeaderSet: Main Entity
+			// Items: Association Name
+			const oItemTable = sap.ui.getCore().byId(
+				"com.serhatmercan.listreport::sap.suite.ui.generic.template.ObjectPage.view.Details::HeaderSet--Items::com.sap.vocabularies.UI.v1.LineItem::responsiveTable"
+			);
+
+			if (oItemTable.getMode() !== "MultiSelect") {
+				oItemTable.setMode("MultiSelect");
+			}
+
+			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setIgnoredFields("Text,Value");
+
+			this.getView().byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReportFilter").attachInitialise(oEvent => {
+				const aFilterItems = oEvent.getSource()?.getAllFilterItems();
+				aFilterItems?.find(oSFB => oSFB.getName() === "ExNttEmployee")?.setVisibleInFilterBar(false);
+			});
+		},
+
+		onInitSmartFilterBarExtension() {
+			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setRequestAtLeastFields("Text,Value");
+			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--responsiveTable").setGrowingThreshold(250);
+		},
+
+		onRebindTable() {
+			// Component ID: com.serhatmercan.listreport
+			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").rebindTable(true);
+		},
+
+		/* ============== */
+		/* Event Handlers */
+		/* ============== */
+
 		onExportToExcel(oEvent) {
 			const oView = this.getView();
 			const oModel = oView.getModel();
@@ -182,34 +200,10 @@ sap.ui.define([
 			});
 		},
 
-		onInit() {
-			// HeaderSet: Main Entity
-			// Items: Association Name
-			const oItemTable = sap.ui.getCore().byId(
-				"com.serhatmercan.listreport::sap.suite.ui.generic.template.ObjectPage.view.Details::HeaderSet--Items::com.sap.vocabularies.UI.v1.LineItem::responsiveTable"
-			);
-
-			if (oItemTable.getMode() !== "MultiSelect") {
-				oItemTable.setMode("MultiSelect");
-			}
-
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setIgnoredFields("Text,Value");
-		},
-
-		onInitSmartFilterBarExtension() {
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setRequestAtLeastFields("Text,Value");
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--responsiveTable").setGrowingThreshold(250);
-		},
-
 		onPressButtonX(oEvent) {
 			const oContext = oEvent.getSource().getBindingContext().getObject();
 			const oModel = this.getView().getModel();
 			const aItems = oContext?.Items.__list?.map(sPath => oModel.getProperty("/" + sPath));
-		},
-
-		onRebindTable() {
-			// Component ID: com.serhatmercan.listreport
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").rebindTable(true);
 		},
 
 		onShowErrorMessages(oError) {
@@ -257,6 +251,39 @@ sap.ui.define([
 			}[sType] || {};
 
 			oSmartFilter.setFilterData(oFilter);
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		adaptTransientMessageExtension() {
+			sap.ui.getCore().getMessageManager().getMessageModel().getData().forEach(oMessage => oMessage.setPersistent(true));
+
+			this.extensionAPI.rebindTable();
+		},
+
+		getFilterBarData() {
+			const sID = this.byId("listReportFilter").getFilterData().ID;
+		},
+
+		getSelectedContext() {
+			const aSelectedData = this.extensionAPI.getSelectedContexts().map(oItem => oItem.getObject());
+			const oView = this.getView();
+			const oModel = oView.getModel();
+			const oResourceBundle = oView.getModel("@i18n").getResourceBundle();
+		},
+
+		getTableID() {
+			return this.getView().getContent()[0].getContent().getTable().getId();
+		},
+
+		modifyStartupExtension(oStartupObject) {
+			const oSelectionVariant = oStartupObject.selectionVariant;
+
+			if (oSelectionVariant) {
+				oSelectionVariant.getSelectOption("ID").forEach(oID => oSelectionVariant.addSelectOption("ID", "I", "EQ", oID.Low));
+			}
 		}
 
 	});

@@ -97,15 +97,25 @@ sap.ui.define([
 			this.byId("SFB")?.triggerSearch();
 		},
 
-		onSearchSFB() {
+		onSearchSFB(oEvent) {
 			const oComboBox = this.byId("ComboBox");
 			const oFilterData = this.byId("SFB").getFilterData();
+			const oFilterDataII = oEvent.getSource().getFilterData();
 			const oViewModel = this.getModel("model");
 			const aFilters = [];
 
 			if (oFilterData?.ID) {
 				oFilterData?.ID?.items?.forEach(oID => aFilters.push(new Filter("ID", FilterOperator.EQ, oID.key)));
-				oFilterData?.ID?.ranges?.forEach(oID => aFilters.push(new Filter("ID", FilterOperator.EQ, oID.value1)));
+				oFilterData?.ID?.ranges.forEach(oID => {
+					switch (oID.operation) {
+						case "BT":
+							aFilters.push(new Filter("ID", FilterOperator.BT, oID.value1, oID.value2));
+							break;
+						case "EQ":
+							aFilters.push(new Filter("ID", FilterOperator.EQ, oID.value1));
+							break;
+					}
+				});
 
 				if (oFilterData?.ID?.value) {
 					aFilters.push(new Filter("ID", FilterOperator.EQ, oFilterData.ID.value));

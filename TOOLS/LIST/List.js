@@ -2,9 +2,8 @@ sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/GroupHeaderListItem",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], (BaseController, GroupHeaderListItem, Filter, FilterOperator, JSONModel) => {
+	"sap/ui/model/FilterOperator"
+], (BaseController, GroupHeaderListItem, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -14,17 +13,17 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			this.setModel(
-				new JSONModel({
-					Count: 0,
-					Results: [],
-					Value: "",
-					Values: []
-				}), "model"
-			);
+			const oList = this.byId("List");
+			const oRouter = this.getRouter();
 
-			this.byId("List").attachEventOnce("updateFinished", () => { });
-			this.byId("List").removeSelections();
+			this.bInitialScreen = true;
+
+			this.oList = oList;
+			this.oList.attachEventOnce("updateFinished", () => { });
+			this.oList.removeSelections();
+
+			oRouter.getRoute("main").attachPatternMatched(this.patternMatched, this);
+			oRouter.attachBypassed(this.onBypassed, this);
 		},
 
 		onAfterRendering() {
@@ -42,6 +41,10 @@ sap.ui.define([
 			const oItem = oEvent.getSource().getParent().getParent();
 			const sPath = oItem.getBindingContextPath();
 			const oContext = this.getModel().getObject(sPath);
+		},
+
+		onBypassed: function () {
+			this.oList.removeSelections(true);
 		},
 
 		onDelete(oEvent) {
@@ -79,8 +82,19 @@ sap.ui.define([
 		},
 
 		onSelectionChange(oEvent) {
-			const oItem = oEvent.getParameter("listItem") || oEvent.getSource();
+			const oList = oEvent.getSource();
+			const oListMode = oList.getMode();
+			const oListItem = oEvent.getParameter("listItem");
+			const bListItemSelected = oEvent.getParameter("selected");
 			const sID = oItem.getBindingContext().getProperty("ID");
+
+			if (!(oListMode === "MultiSelect" && !bListItemSelected)) {
+				this.showDetail(oListItem || oList);
+			}
+		},
+
+		onUpdateFinished() {
+			this.updateListItemCount(oEvent.getParameter("total"));
 		},
 
 		/* ================ */
@@ -92,6 +106,28 @@ sap.ui.define([
 				title: oGroup.text,
 				upperCase: false
 			});
+		},
+
+		patternMatched() {
+			this.oList.removeSelections(true);
+		},
+
+		updateListItemCount(iTotalItems) {
+			if (this.oList?.getBinding("items")?.isLengthFinal()) {
+				const oViewModel = this.getModel("model");
+
+				oViewModel.setProperty("/Title", this.getText("title", iTotalItems)); // Data ({0})
+
+				if (this.bInitialScreen) {
+					const aData = this.oList.getItems();
+
+					aData[0]?.setSelected(true);
+					aData[0]?.firePress();
+
+					this.oList?.scrollToIndex(0);
+					this.bInitialScreen = false;
+				}
+			}
 		}
 
 	});

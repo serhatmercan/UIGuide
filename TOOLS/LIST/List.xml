@@ -14,24 +14,29 @@
                 <ToolbarSpacer />
             </Toolbar>
         </headerToolbar>
-        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" infoState="{= ${model>Value} ? 'Error' : 'None' }" 
-			title="{model>Id}" type="Active" press="onPress" />
+        <StandardListItem blocked="{= ${model>Value} ? false : true}" description="{model>Value}" highlight="{= ${model>Value} ? 'Error' : 'None' }" info="{model>Info}" 
+			infoState="{= ${model>Value} ? 'Error' : 'None' }" title="{model>Id}" type="Active" press="onPress" />
+		<items>
+        	<ObjectListItem title="{Key}" type="Navigation" press="onSelectionChange">
+                <ObjectAttribute text="{ID}" />
+            </ObjectListItem>
+        </items>
     </List>
 </mvc:View>
 <!-- LIST - ATTRIBUTES -->
 <!--
 id="List"
+class="sapFDynamicPageAlignContent"
 headerText="{i18n>list}"
 items="{ path: 'model>/Values', parameters: { operationMode: 'Client' } }"
 items="{ path: '/MainSHSet', suspended: true }"
-<<<<<<< HEAD
 items="{ path: '/MainSet', filters: [{ path: 'Authority', operator: 'EQ', value1: true }] }"
-=======
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
 items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
 growingThreshold="10"
-mode="Delete" mode="MultiSelect" mode="SingleSelectMaster"
+mode="Delete" mode="MultiSelect" mode="SingleSelectMaster" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+noDataText="{model>/NoDataText}" // No data are currently available
 showSeparators="All"
+width="auto"
 
 enableBusyIndicator="true"
 growing="true"
@@ -41,6 +46,7 @@ includeItemInSelection="true"
 delete="onDelete"
 itemPress="onItemPress"
 selectionChange="onSelectionChange"
+updateFinished="onUpdateFinished"
 
 <items>
 	<CustomListItem>
