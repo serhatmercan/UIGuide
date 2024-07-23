@@ -5,7 +5,7 @@
     <Input valueState="{= ( ${model>ValueI} === '' || +${model>ValueII} &lt;= 0 ) ? 'Error' : 'Success' }" />
     <Input visible="{= !${model>/MaterialSelected}}" />
     <Input visible="{= ( ${model>/Value} || ${model>/Value} === true ) ? false : true }" />
-    <Button icon="{= ${model>Value} === 'Y' ? 'sap-icon://alert' : (${model>Value} === 'G' ? 'sap-icon://sys-enter-2' : 'sap-icon://error') }"/>
+    <Button icon="{= ${model>Value} === 'Y' ? 'sap-icon://alert' : ${model>Value} === 'G' ? 'sap-icon://sys-enter-2' : 'sap-icon://error' }"/>
     <ObjectIdentifier text="{= +${model>ValueI} } - {= +${model>ValueII} }" />
     <ObjectIdentifier text="{= ${model>Statu} ? ${model>ValueI} : ${model>ValueII} }" title="{= ${model>Statu} === '' ? ${model>ValueI} : ${model>ValueII}}" />
     <Text text="{= ${model>Date} === '00000000' ? '' : ${model>DateValue} }" />
