@@ -1,35 +1,66 @@
-<mvc:View xmlns="sap.uxap"
+<mvc:View
+    xmlns="sap.uxap"
+    xmlns:core="sap.ui.core"
     xmlns:m="sap.m"
-    xmlns:mvc="sap.ui.core.mvc" controllerName="com.sm.application.controller.Object">
+    xmlns:mvc="sap.ui.core.mvc"
+    controllerName="com.sm.application.controller.Object"
+>
     <ObjectPageLayout showFooter="{model>/ObjectFooterVisible}">
         <headerTitle>
-            <core:Fragment fragmentName="com.sm.application.fragments.view.object.HeaderTitle" type="XML" />
+            <core:Fragment
+                fragmentName="com.sm.application.fragments.view.object.HeaderTitle"
+                type="XML"
+            />
         </headerTitle>
         <headerContent>
-            <core:Fragment fragmentName="com.sm.application.fragments.view.object.HeaderContent" type="XML" />
+            <core:Fragment
+                fragmentName="com.sm.application.fragments.view.object.HeaderContent"
+                type="XML"
+            />
         </headerContent>
         <sections>
-            <ObjectPageSection showTitle="true" titleUppercase="false">
+            <ObjectPageSection
+                showTitle="true"
+                titleUppercase="false"
+            >
                 <subSections>
-                    <ObjectPageSubSection title="{i18n>information}" titleUppercase="false">
+                    <ObjectPageSubSection
+                        title="{i18n>information}"
+                        titleUppercase="false"
+                    >
                         <blocks>
-                            <core:Fragment fragmentName="com.sm.application.fragments.view.object.Information" type="XML" />
+                            <core:Fragment
+                                fragmentName="com.sm.application.fragments.view.object.Information"
+                                type="XML"
+                            />
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
-            <ObjectPageSection showTitle="true" titleUppercase="false">
+            <ObjectPageSection
+                showTitle="true"
+                titleUppercase="false"
+            >
                 <subSections>
-                    <ObjectPageSubSection title="{i18n>items}" titleUppercase="false">
+                    <ObjectPageSubSection
+                        title="{i18n>items}"
+                        titleUppercase="false"
+                    >
                         <blocks>
-                            <core:Fragment fragmentName="com.sm.application.fragments.view.object.InformationItems" type="XML" />
+                            <core:Fragment
+                                fragmentName="com.sm.application.fragments.view.object.InformationItems"
+                                type="XML"
+                            />
                         </blocks>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
         </sections>
         <footer>
-            <core:Fragment fragmentName="com.sm.application.fragments.view.object.Footer" type="XML" />
+            <core:Fragment
+                fragmentName="com.sm.application.fragments.view.object.Footer"
+                type="XML"
+            />
         </footer>
     </ObjectPageLayout>
 </mvc:View>

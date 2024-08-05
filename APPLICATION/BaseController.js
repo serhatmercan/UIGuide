@@ -39,7 +39,11 @@ sap.ui.define([
 
 		onClearModel() {
 			const oViewModel = this.getModel("model");
-			oViewModel.setProperty("/", { "ItemFound": false });
+
+			oViewModel.setProperty("/", {
+				"ItemFound": false
+			});
+
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 
@@ -51,8 +55,8 @@ sap.ui.define([
 			}
 		},
 
-		onShowMessages({ getSource }) {
-			const oMessagesButton = getSource();
+		onShowMessages(oEvent) {
+			const oMessagesButton = oEvent.getSource();
 
 			if (!this._oMessagePopover) {
 				this._oMessagePopover = new MessagePopover({

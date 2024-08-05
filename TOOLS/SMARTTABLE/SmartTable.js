@@ -20,7 +20,27 @@ sap.ui.define([
 			});
 			this.setModel(oViewModel, "model");
 
-			const oTable = this.byId("ST").getTable();
+			const oSmartTable = this.byId("ST");
+			const oTable = oSmartTable.getTable();
+
+			oSmartTable.attachBrowserEvent("paste", (oEvent) => {
+				oEvent.preventDefault();
+
+				const sText = (oEvent.originalEvent || oEvent)?.clipboardData?.getData('text/plain'); // "1001\tA\r\n1002\tB\r\n1003\tC\r\n1004\tD\r\n1005\tE\r\n"
+
+				if (!sText) return;
+
+				const aRows = sText?.split("\r\n")?.filter(oRow => oRow); // ["1001\tA", "1002\tB", "1003\tC", "1004\tD", "1005\tE']
+
+				aRows.forEach(oRow => {
+					const aCells = oRow.split("\t"); // ["1001", "A"], ["1001", "B"], ["1001", "C"], ["1001", "D"], ["1001", "E"]
+
+					aCells.forEach(oCell => {
+						const [sID, sValue] = oCell;
+						console.log(`ID: ${sID}, Value: ${sValue}`); // "ID: 1001, Value: A"
+					});
+				});
+			});
 
 			// Grid Table		
 			oTable.attachRowSelectionChange(oEvent => {

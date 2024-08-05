@@ -1,11 +1,22 @@
 <mvc:View controllerName="serhatmercan.controller.ControllerName"
 	xmlns="sap.m"
-	xmlns:semantic="sap.f.semantic">
+	xmlns:semantic="sap.f.semantic"
+	xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" 
+	xmlns:smartTable="sap.ui.comp.smarttable" 
+	xmlns:smartVariants="sap.ui.comp.smartvariants">
 	<semantic:SemanticPage id="Page" busy="{model>/Busy}" title="{i18n>title}" showFooter="{=${message>/}.length > 0}">
 		<semantic:titleHeading>
 			<core:Fragment fragmentName="com.sm.application.fragments.view.object.TitleHeading" type="XML" />
 			<Title text="{i18n>title}" level="H2"/>
+			<smartVariants:SmartVariantManagement id="...SVM" entitySet="...Set" persistencyKey="...SVMKey"/>
 		</semantic:titleHeading>
+		<semantic:titleContent />
+		<semantic:titleCustomIconActions>
+            <Button text="{i18n>dashboard}" icon="sap-icon://bbyd-dashboard" press="onNavToDashboard"/>
+        </semantic:titleCustomIconActions>
+		<semantic:titleCustomTextActions>
+            <Button text="{i18n>menu}" icon="sap-icon://manager-insight" press="onNavToMenu"/>
+        </semantic:titleCustomTextActions>
 		<semantic:titleExpandedContent>
 			<ObjectStatus title="{i18n>status}" text="{i18n>text}"/>
 		</semantic:titleExpandedContent>
@@ -14,9 +25,11 @@
 		</semantic:titleMainAction>
 		<semantic:headerContent>
 			<core:Fragment fragmentName="com.sm.application.fragments.view.object.HeaderContent" type="XML" />
+			<smartFilterBar:SmartFilterBar id="...SFB" entitySet="...Set" persistencyKey="...SFBKey" smartVariant="...SVM"/>
 		</semantic:headerContent>
 		<semantic:content>
 			<core:Fragment fragmentName="com.sm.application.fragments.view.object.List" type="XML" />
+			<smartTable:SmartTable entitySet="...Set" persistencyKey="...STKey" smartFilterId="...SFB" smartVariant="...SVM"/>
 		</semantic:content>
 		<semantic:closeAction>
 			<semantic:CloseAction 
@@ -50,7 +63,16 @@
 		</semantic:messagesIndicator>
 	</semantic:SemanticPage>
 </mvc:View>
-<!-- SEMANTIC PAGE - LAYOUT -->
+<!-- Semantic Page - Attributes -->
+<!--
+titleAreaShrinkRatio="1:1.6:1.6"
+
+headerExpanded="true"
+headerPinnable="true" 
+toggleHeaderOnTitleClick="true" 
+preserveHeaderStateOnScroll="false" 
+-->
+<!-- Semantic Page - Layout -->
 <!--
 <core:Fragment fragmentName="serhatmercan.fragment.main.Title" type="XML"/>
 -->

@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <TableSelectDialog items="{model>/Items}" cancel="onCancelTSD" confirm="onConfirmTSD" search="onSearchTSD">
+		<columns>
+			<Column>
+				<Text text="{i18n>Key}"/>
+			</Column>
+			<Column>
+				<Text text="{i18n>Text}"/>
+			</Column>
+		</columns>
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<Text text="{model>Key}"/>
+				<Text text="{model>Text}"/>
+			</cells>
+		</ColumnListItem>
+	</TableSelectDialog>
+</core:FragmentDefinition>
+<!-- Table Select Dialog - Attributes -->
+<!-- 
+id="TSD" 
+contentWidth="30rem" 
+items="{/...Set}"
+title="{i18n>titleTSD}"
+
+multiSelect="false"
+rememberSelections="false"
+
+liveChange="onLiveChangeTSD"
+-->
+<!-- Table Select Dialog - Layout -->
+<!--
+	
+-->
+<!-- Table Select Dialog - Example -->
+<!--
+<TableSelectDialog items="{/...Set}" multiSelect="true" cancel="onCancelTSD" confirm="onConfirmTSD" search="onSearchTSD">
+	<ColumnListItem>
+		<cells>
+			<ObjectIdentifier title="{Value}" text="{ValueName} {ValueResult}"/>
+		</cells>
+	</ColumnListItem>
+	<columns>
+		<Column>
+			<header>
+				<Text text="Value"/>
+			</header>
+		</Column>
+	</columns>
+</TableSelectDialog>
+-->

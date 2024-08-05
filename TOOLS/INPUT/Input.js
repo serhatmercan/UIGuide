@@ -93,6 +93,8 @@ sap.ui.define([
 
 		onSubmit() { },
 
+		onSIS() { },
+
 		onVHR(oEvent) {
 			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
 			this.openVHDialog("com.serhatmercan.SmartSearchHelp");

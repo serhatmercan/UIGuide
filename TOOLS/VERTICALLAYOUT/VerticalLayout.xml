@@ -4,9 +4,17 @@
 		</l:content>		
 	</l:VerticalLayout>
 </core:FragmentDefinition>
-<!-- VERTICAL LAYOUT ATTRIBUTES -->
+<!-- Vertical Layout - Attributes -->
 <!--
 id="VL"
 class="sapUiContentPadding" class="sapUiTinyMargin"
 width="100%"
+-->
+<!-- Vertical Layout - Example (Dynamic) -->
+<!--
+<Page>
+	<l:VerticalLayout class="sapUiResponsiveMargin">
+		<l:VerticalLayout id="VL"/>
+	</l:VerticalLayout>
+</Page>
 -->

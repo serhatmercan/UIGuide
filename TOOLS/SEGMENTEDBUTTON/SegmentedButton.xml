@@ -8,6 +8,12 @@
 </core:FragmentDefinition>
 <!--
 SEGMENTED BUTTON - ATTRIBUTES
+
 id="SB"
+class="sbi"
 width="50rem"
+
+SEGMENTED BUTTON ITEM - ATTRIBUTES
+
+press="onPressSBI"
 -->

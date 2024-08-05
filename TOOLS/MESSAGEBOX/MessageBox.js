@@ -22,11 +22,20 @@ sap.ui.define([
 
 		onShowMB() {
 			const oMBAction = MessageBox.Action;
+			const oMBIcon = MessageBox.Icon;
+			const oMBIconQuestion = oMBIcon.QUESTION;
 
 			MessageBox.confirm(this.getText("Confirm"), {
 				onClose: (sAction) => {
 					if (sAction === oMBAction.OK) { }
 				}
+			});
+
+			MessageBox.show("", {
+				actions: [oMBAction.CLOSE],
+				icon: oMBIcon.ERROR,
+				styleClass: "sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer",
+				title: "Message"
 			});
 
 			MessageBox.warning(this.getText("Warning"), {

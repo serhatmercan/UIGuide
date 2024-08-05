@@ -6,7 +6,7 @@ sap.ui.define([
 
 	return BaseController.extend("xxx.controller.App", {
 
-		async onInit() {
+		onInit() {
 			const oComponent = this.getOwnerComponent();
 			const oMessageModel = sap.ui.getCore().getMessageManager()?.getMessageModel();
 
@@ -58,5 +58,7 @@ sap.ui.define([
 
 			oMessageModel.setData(aUniqueMessages);
 		}
+
 	});
+
 });

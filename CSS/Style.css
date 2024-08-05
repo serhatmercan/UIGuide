@@ -224,6 +224,10 @@ h2 {
     box-sizing: border-box;
 }
 
+.sbi {
+    font-size: 0.7rem;
+}
+
 .smarttable .critical>.sapMBtnTransparent>.sapMBtnIcon {
     color: #E78C07 !important;
 }
@@ -254,4 +258,16 @@ h2 {
 
 .smarttable .positive>.sapMBtnText {
     color: #2B7D2B !important;
+}
+
+tr[data-color="G"] {
+    background: #A0DAA9 !important;
+}
+
+tr[data-color="R"] {
+    background: #FC795F !important;
+}
+
+tr[data-color="O"] {
+    background: #Ffd116 !important;
 }

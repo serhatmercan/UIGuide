@@ -34,6 +34,9 @@
 	</Column>
 <columns>
 <ColumnListItem id="CLI" type="Active" vAlign="Middle" press="onPress">
+    <customData>
+	    <core:CustomData key="color" value="{model>Value}" writeToDom="true"/> // CSS => tr[data-color="G"]
+	</customData>    
     <cells>
 	    <ComboBox items="{model>Data}" showSecondaryValues="true" change="onChangeCB">
 			<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
@@ -65,6 +68,7 @@ growing="true" growingScrollToLoad="true" growingThreshold="10"
 showNoData="false"
 
 delete="onDelete"
+itemPress="onItemPress"
 select="onSelect"
 selectionChange="onSelectionChange"
 updateFinished="onUpdateFinished"

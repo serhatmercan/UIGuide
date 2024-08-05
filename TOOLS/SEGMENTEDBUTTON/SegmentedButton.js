@@ -23,6 +23,8 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
+		onPressSBI(oEvent) { },
+
 		onSelectionChange(oEvent) {
 			const sKey = oEvent.getParameter("item").getKey();
 			let sItemKey = "";

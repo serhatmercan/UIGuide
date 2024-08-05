@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <core:FragmentDefinition
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
@@ -9,21 +8,13 @@
         id="InformationSF"
         editable="{model>/Edit}"
     >
-=======
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartField="sap.ui.comp.smartfield" xmlns:smartForm="sap.ui.comp.smartform">
-    <smartForm:SmartForm id="InformationSF" editable="{model>/Edit}">
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
         <smartForm:Group label="">
             <smartForm:GroupElement>
                 <smartField:SmartField value="{Value}">
                     <smartField:configuration>
-<<<<<<< HEAD
                         <smartField:Configuration
                             displayBehaviour="descriptionAndId"
                         />
-=======
-                        <smartField:Configuration displayBehaviour="descriptionAndId" />
->>>>>>> 6c45d41f0619ce90d569236455271090dcca39a2
                     </smartField:configuration>
                 </smartField:SmartField>
             </smartForm:GroupElement>

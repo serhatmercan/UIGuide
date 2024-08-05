@@ -239,7 +239,7 @@ sap.ui.define([
 
 			oView.bindElement({
 				path: sPath,
-				parameters: { expand: oExpand },
+				parameters: { oExpand },
 				events: {
 					change: oEvent => {
 						const aItemPaths = oEvent.getSource().getBoundContext().getObject().to_Items.__list;

@@ -4,7 +4,7 @@
 <!-- BUTTON - ATTRIBUTES -->
 <!--
 id="Button" 
-class="sapUiSmallMarginTop sapUiSmallMarginBegin" class="sapUiTinyMarginEnd"
+class="sapUiSmallMarginTop sapUiSmallMarginBegin" class="sapUiTinyMarginEnd" class="sapMBtnInnerdesinedsec sapMBtnInnerdesined sapMBtnInnercu sapUiSmallMargin"
 icon="sap-icon://status-critical" icon="sap-icon://status-inactive" icon="sap-icon://status-negative" icon="sap-icon://status-positive"
 text="{ path: 'Count', type: 'sap.ui.model.odata.type.String', constraints: { isDigitSequence : true, maxLength : 10 } }"
 type="Accept" type="Reject" type="Transparent"

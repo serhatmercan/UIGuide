@@ -27,11 +27,27 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
+		onAVL() {
+			const oFilterData = this.byId("SFB")?.getFilterData();
+
+			if (oFilterData._CUSTOM) {
+				this.byId("CompleteOrder").setSelected(oFilterData._CUSTOM.OrderCompleted);
+			}
+		},
+
 		onBRT(oEvent) {
 			const oBindingParams = oEvent.getParameter("bindingParams");
 			const oFilter = new Filter("Value", FilterOperator.EQ, this.byId("CB").getSelected());
 
-			oBindingParams.filters.push(oFilter);
+			oBindingParams?.filters?.push(oFilter);
+		},
+
+		onBVF() {
+			this.byId("SFB").setFilterData({
+				_CUSTOM: {
+					OrderCompleted: false
+				}
+			});
 		},
 
 		onFilterChangeSFB(oEvent) {

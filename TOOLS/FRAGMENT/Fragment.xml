@@ -1,0 +1,14 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controller="com.serhatmercan.template.controller.Main">
+</core:FragmentDefinition>
+<!-- Fragment - Attributes -->
+<!-- 
+
+-->
+<!-- Fragment - Layout -->
+<!--
+	
+-->
+<!-- Fragment - Example -->
+<!--
+	
+-->

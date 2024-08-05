@@ -4,8 +4,9 @@
 	<smartFilterBar:SmartFilterBar id="SFB" entitySet="...Set" persistencyKey="...SFBKey"/>
 	<smartTable:SmartTable id="ST" entitySet="...Set" persistencyKey="...STKey" smartFilterId="SFB" beforeRebindTable="onBRT" />
 </mvc:View> 
-<!-- SMART FILTER BAR - ATTRIBUTES -->
-<!-- 
+<!-- Smart Filter Bar - Attributes -->
+<!--
+class="sapUiTinyMarginBegin" 
 smartVariant="SVM"
 
 considerSelectionVariants="true"
@@ -23,7 +24,7 @@ initialized="onInitSFB"
 search="onSearchSFB"
 -->
 
-<!-- SMART FILTER BAR - CONTROL CONFIGURATION -->
+<!-- Smart Filter Bar - Control Configuration -->
 <!-- 
 <smartFilterBar:controlConfiguration>
 	<smartFilterBar:ControlConfiguration key="RBG" visibleInAdvancedArea="true">
@@ -51,9 +52,10 @@ search="onSearchSFB"
 	</smartFilterBar:ControlConfiguration>
 </smartFilterBar:controlConfiguration>
 -->
-<!-- SMART FILTER BAR - CONTROL CONFIGURATION - ATTRIBUTES -->
+<!-- Smart Filter Bar - Control Configuration - Attributes -->
 <!--
 id="CC"
+displayBehaviour="descriptionAndId" displayBehaviour="idOnly"
 filterType="single"  
 index="1" 
 label="{i18n>SFB}"  
@@ -61,7 +63,7 @@ mandatory="mandatory"
 		
 preventInitialDataFetchInValueHelpDialog="false"
 -->
-<!-- SMART FILTER BAR - LAYOUT -->
+<!-- Smart Filter Bar - Layout -->
 <!--
 <smartFilterBar:SmartFilterBar id="SFB"  persistencyKey="SFB">
 	<smartFilterBar:layoutData>

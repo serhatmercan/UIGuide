@@ -161,6 +161,11 @@ sap.ui.define([
 			URLHelper.redirect(sUrl, true);
 		},
 
+		onItemPress(oEvent) {
+			const oSelectedItem = oEvent?.getSource()?.getSelectedItem();
+			const sValue = oSelectedItem?.getCells()[0]?.getText();
+		},
+
 		onPress(oEvent) {
 			const sID = oEvent.getSource()?.getBindingContext("model")?.getProperty("ID");
 			this.getRouter().navTo("View", { ID: sID });

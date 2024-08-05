@@ -7,13 +7,10 @@
 	<layoutData>
 		<ToolbarLayoutData shrinkable="false" maxWidth="100px"/>
 	</layoutData>
-	<suggestionItems>
-		<core:Item text="{Value}" />
-	</suggestionItems>
 </Input>
-
-INPUT - ATTRIBUTES 
-
+-->
+<!--INPUT - ATTRIBUTES --> 
+<!--
 id="Input"
 class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
 description={model>/Unit}"  
@@ -45,4 +42,13 @@ visible="true"
 change="onChangeInput"
 liveChange="onLiveChange"
 submit="onSubmit"
+-->
+<!-- INPUT - SUGGESTION ITEMS -->
+<!--
+<Input selectedKey="{model>/Value}" showSecondaryValues="true" showSuggestion="true" suggestionItemSelected="onSIS"
+	   suggestionItems="{ path: '/VHSet', filters: [{ path: 'Key', operator: 'EQ', value1: '1000' }], length: '9999' }">
+	<suggestionItems>
+		<core:Item text="{Value}" key="{Key}"/>
+	</suggestionItems>
+</Input>
 -->

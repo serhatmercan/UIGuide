@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.gantt.simple" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:axistime="sap.gantt.axistime"
+ <core:FragmentDefinition xmlns="sap.gantt.simple" xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:axistime="sap.gantt.axistime"
 	xmlns:config="sap.gantt.config" xmlns:mvc="sap.ui.core.mvc" xmlns:shapes="sap.gantt.simple.shapes" xmlns:table="sap.ui.table">
 	<GanttChartContainer>
 		<toolbar>
@@ -45,3 +45,27 @@
 		</GanttChartWithTable>
 	</GanttChartContainer>
 </core:FragmentDefinition>
+<!-- Gantt Chart Container - Attributes -->
+<!-- 
+
+-->
+<!-- Gantt Chart Container - Layout -->
+<!--
+	
+-->
+<!-- Gantt Chart Container - Example -->
+<!--
+	
+-->
+<!-- Container Toolbar - Attributes -->
+<!-- 
+id="GCToolbar"
+design="Auto"
+
+alignCustomContentToRight="true" 
+showBirdEyeButton="false" 
+showDisplayTypeButton="true"
+showLegendButton="true"
+
+zoomStopChange="onZoomStopChange"    
+-->

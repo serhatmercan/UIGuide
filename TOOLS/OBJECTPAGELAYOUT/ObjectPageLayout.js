@@ -47,7 +47,9 @@ sap.ui.define([
 			setTimeout(() => {
 				const oOPL = this.byId("OPL"); // preserveHeaderStateOnScroll="true"
 
-				oOPL.setSelectedSection(oOPL.getSections()[0].getId());
+				if (!oOPL) return;
+
+				oOPL.setSelectedSection(oOPL.getSections()[0]?.getId());
 				oOPL._handleExpandButtonPress();
 				oOPL._scrollTo(0);
 			}, 200);

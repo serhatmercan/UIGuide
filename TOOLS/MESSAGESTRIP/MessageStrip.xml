@@ -4,7 +4,7 @@
 <!--
 MESSAGE STRIP - ATTRIBUTES
 
-class="sapUiMediumMarginBottom" 
+class="sapUiMediumMarginBottom" class="sapUiMediumTinyTop sapUiMediumTinyBottom"
 type="Warning"
 
 enableFormattedText="true" 
