@@ -80,39 +80,99 @@ sap.ui.define([
 		/* ==== */
 
 		onCallFunction(sEntity, sMethod, oModel, oURLParameters) {
-			return createPromise(oModel.callFunction, sEntity, { method: sMethod, urlParameters: oURLParameters }, oModel);
+			return new Promise((fnResolve, fnReject) => {
+				const mParameters = {
+					method: sMethod,
+					urlParameters: oURLParameters,
+					success: fnResolve,
+					error: fnReject
+				};
+				oModel.callFunction(sEntity, mParameters);
+			});
 		},
 
 		onCreate(sSet, oData, oModel) {
-			return createPromise(oModel.create, sSet, oData, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.create(sSet, oData, mParameters);
+			});
 		},
 
 		onDelete(sSet, oModel) {
-			return createPromise(oModel.remove, sSet, undefined, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.remove(sSet, mParameters);
+			});
 		},
 
 		onRead(sSet, oModel) {
-			return createPromise(oModel.read, sSet, undefined, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
 		},
 
 		onReadAssociation(sSet, oExpand, oModel) {
-			return createPromise(oModel.read, sSet, { urlParameters: oExpand }, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					urlParameters: oExpand,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
 		},
 
 		onReadExpanded(sSet, aFilters, oExpand, oModel) {
-			return createPromise(oModel.read, sSet, { filters: aFilters, urlParameters: oExpand }, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					filters: aFilters,
+					urlParameters: oExpand,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
 		},
 
 		onReadQuery(sSet, aFilters, oModel) {
-			return createPromise(oModel.read, sSet, { filters: aFilters }, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					filters: aFilters,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
 		},
 
 		onSubmitChanges(oModel) {
-			return createPromise(oModel.submitChanges, undefined, undefined, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.submitChanges(mParameters);
+			});
 		},
 
 		onUpdate(sSet, oData, oModel) {
-			return createPromise(oModel.update, sSet, oData, oModel);
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.update(sSet, oData, mParameters);
+			});
 		}
 
 	});
