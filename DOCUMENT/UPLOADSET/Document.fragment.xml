@@ -29,7 +29,7 @@
         </endButton>
     </Dialog>
 </core:FragmentDefinition>
-<!-- UPLOAD COLLECTION - ATTRIBUTES -->
+<!-- UPLOAD SET - ATTRIBUTES -->
 <!--
 mode="Delete"
 uploadUrl="/sap/opu/odata/sap/ZSM_GOS_UI_SRV/DocumentSet"
@@ -40,10 +40,10 @@ uploadEnabled="{model>/DocumentEdit}"
 afterItemRemoved="onAIRDocument"
 uploadCompleted="onUCDocument"
 -->
-<!-- UPLOAD COLLECTION - TOOLBAR -->
+<!-- UPLOAD SET - TOOLBAR -->
 <!--
 -->
-<!-- UPLOAD COLLECTION ITEM - ATTRIBUTES -->
+<!-- UPLOAD SET ITEM - ATTRIBUTES -->
 <!--
 removePressed="onRemoveItem"
 
@@ -52,6 +52,6 @@ enabledRemove="{model>Editable}"
 visibleEdit="false"    
 visibleRemove="false"    
 -->
-<!-- UPLOAD COLLECTION ITEM -  LAYOUT -->
+<!-- UPLOAD SET ITEM -  LAYOUT -->
 <!--
 -->

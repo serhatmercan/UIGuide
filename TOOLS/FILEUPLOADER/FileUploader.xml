@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
-    <u:FileUploader id="FileUploader" uploadComplete="onUCFileUploader" uploadUrl="/sap/opu/odata/sap/ZSM_UI_SRV/FileUploaderSet"/>
+    <unified:FileUploader id="FileUploader" uploadComplete="onUCFileUploader" uploadUrl="/sap/opu/odata/sap/ZSM_UI_SRV/FileUploaderSet"/>
     <Button text="{i18n>upload}" press="onUpload"/>
 </core:FragmentDefinition>
 

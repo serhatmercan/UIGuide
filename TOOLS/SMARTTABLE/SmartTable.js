@@ -227,7 +227,8 @@ sap.ui.define([
 		getSelectedDataFromGridST() {
 			const oTable = this.byId("SmartTable")?.getTable();
 			const aIndices = oTable?.getSelectedIndices();
-			const aData = aIndices.map(iIndex => oTable?.getContextByIndex(iIndex)?.getObject());;
+			const aData = aIndices?.map(iIndex => oTable?.getContextByIndex(iIndex)?.getObject());
+			const oData = aData?.length ? aData[0] : {};
 
 			return aData;
 		},

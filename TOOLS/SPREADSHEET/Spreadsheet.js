@@ -45,6 +45,23 @@ sap.ui.define([
 			oSheet?.build()?.finally(() => oSheet.destroy());
 		},
 
+		onExportDraft() {
+			const aData = [{ ID: "ABC", Key: "123", Text: "Material" }];
+			const aColumns = [
+				{ label: this.getText("id"), property: "ID", type: "string" },
+				{ label: this.getText("key"), property: "Key", type: "string" },
+				{ label: this.getText("text"), property: "Text", type: "string" }
+			];
+			const oSettings = {
+				fileName: "Draft.xlsx",
+				dataSource: aData,
+				workbook: { columns: aColumns }
+			};
+			const oSheet = new Spreadsheet(oSettings);
+
+			oSheet?.build()?.finally(() => oSheet.destroy());
+		},
+
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */

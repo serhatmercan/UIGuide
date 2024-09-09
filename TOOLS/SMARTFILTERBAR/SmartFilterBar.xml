@@ -27,6 +27,7 @@ search="onSearchSFB"
 <!-- Smart Filter Bar - Control Configuration -->
 <!-- 
 <smartFilterBar:controlConfiguration>
+	<smartFilterBar:ControlConfiguration key="CreatedOn" conditionType="sap.ui.comp.config.condition.DateRangeType" visibleInAdvancedArea="true" /> // useDateRangeType="true"
 	<smartFilterBar:ControlConfiguration key="RBG" visibleInAdvancedArea="true">
 		<smartFilterBar:customControl>
 			<RadioButtonGroup id="RBG" columns="3">
