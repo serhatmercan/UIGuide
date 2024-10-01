@@ -6,12 +6,13 @@ sap.ui.define([
 	"sap/m/Input",
 	"sap/m/Label",
 	'sap/m/library',
+	"sap/m/Table",
 	"sap/m/Text",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Sorter"
-], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Text, Filter, FilterOperator, JSONModel, Sorter) => {
+], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Table, Text, Filter, FilterOperator, JSONModel, Sorter) => {
 	"use strict";
 
 	const { URLHelper } = MobileLibrary;
@@ -227,6 +228,34 @@ sap.ui.define([
 			});
 
 			oTable.bindItems(sPath, oCLI);
+		},
+
+		createFactory() {
+			return new ColumnListItem({
+				type: "Active",
+				cells: [
+					new Text({
+						text: "{model>ID}"
+					})
+				]
+			})
+		},
+
+		generateTable() {
+			const that = this;
+			const oTable = new Table("Table", {
+				columns: [
+					new Column({
+						header: new Text({
+							text: "Text"
+						})
+					})
+				],
+				items: {
+					path: "model>/Items",
+					factory: that.createFactory.bind(this)
+				}
+			});
 		},
 
 		getBindingContext() {

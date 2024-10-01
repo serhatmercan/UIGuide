@@ -19,6 +19,15 @@ sap.ui.define([
                 onBeforeHide: (oEvent) => { },
                 onBeforeShow: (oEvent) => { },
             }, this);
+
+            const oDetailView = sap.ui.xmlview({
+                viewName: "xxx.view.Detail",
+                type: sap.ui.core.mvc.ViewType.XML // Optional
+            });
+            const oDetailController = oDetailView.getController();
+
+            oDetailController.init(this);
+            this.oButtonConfiguration = oDetailController;
         },
 
         onAfterRendering() {

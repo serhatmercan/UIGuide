@@ -1,6 +1,7 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/GroupHeaderListItem",
+	"sap/m/StandardListItem",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
 ], (BaseController, GroupHeaderListItem, Filter, FilterOperator) => {
@@ -81,6 +82,10 @@ sap.ui.define([
 			const sValue = oEvent.getSource().getBindingContext().getProperty("Value");
 		},
 
+		onSelect(oEvent) {
+			const sTitle = oEvent.getSource().getSelectedItem().getTitle();
+		},
+
 		onSelectionChange(oEvent) {
 			const oList = oEvent.getSource();
 			const oListMode = oList.getMode();
@@ -106,6 +111,17 @@ sap.ui.define([
 				title: oGroup.text,
 				upperCase: false
 			});
+		},
+
+		generateListItems() {
+			const oList = this.byId("List");
+			const oListItem = new StandardListItem({
+				title: "Title",
+				titleTextDirection: "RTL"
+			});
+
+			oList.removeAllItems();
+			oList.addItem(oListItem);
 		},
 
 		patternMatched() {

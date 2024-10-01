@@ -106,8 +106,8 @@
 			},
 			"routes": [
 				{
-					"pattern": "",
 					"name": "Main",
+					"pattern": "",
 					"target": [
 						"Main"
 					]

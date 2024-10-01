@@ -1,8 +1,13 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/Button",
+	"sap/m/Image",
+	"sap/m/Popover",
+	"sap/m/PlacementType",
+	"sap/m/Toolbar",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, JSONModel, Fragment) => {
+], (BaseController, Button, Image, Popover, PlacementType, Toolbar, JSONModel, Fragment) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -36,6 +41,42 @@ sap.ui.define([
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
+
+		createPopover() {
+			if (!this.oPopover) {
+				const oPlacementType = new PlacementType;
+
+				this.oPopover = new Popover({
+					placement: oPlacementType.Bottom,
+					enableScrolling: false,
+					modal: true,
+					showHeader: false
+				});
+
+				this.oPopover.addStyleClass("sapUiContentPadding");
+
+				this.oPopover.setFooter(
+					new Toolbar.addContent(
+						new Button({
+							text: "Close",
+							press: () => this.oPopover.close()
+						})
+					)
+				);
+
+				this.oImage = new Image({
+					width: "5rem",
+					densityAware: false
+				});
+
+				this.oPopover.addContent(this.oImage);
+			}
+
+			if (!this.oPopover.isOpen()) {
+				this.oImage.setSrc("./..url");
+				this.oPopover.openBy(oEvent.getSource());
+			}
+		},
 
 		showPopover(oEvent, sDialogID, sName) {
 			const oSource = oEvent.getSource();

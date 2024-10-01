@@ -33,8 +33,9 @@ items="{ path: '/MainSHSet', suspended: true }"
 items="{ path: '/MainSet', filters: [{ path: 'Authority', operator: 'EQ', value1: true }] }"
 items="{ path: '/', sorter: { path: 'ID', descending: false, group: true }, groupHeaderFactory: 'createGroupHeader' }"
 growingThreshold="10"
-mode="Delete" mode="MultiSelect" mode="SingleSelectMaster" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
+mode="Delete" mode="MultiSelect" mode="SingleSelectLeft" mode="SingleSelectMaster" mode="{= ${device>/system/phone} ? 'None' : 'SingleSelectMaster'}"
 noDataText="{model>/NoDataText}" // No data are currently available
+select="onSelect"
 showSeparators="All"
 width="auto"
 

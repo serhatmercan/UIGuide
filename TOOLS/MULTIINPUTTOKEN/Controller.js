@@ -1,11 +1,12 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"com/serhatmercan/formatter",
+	"sap/m/MultiInput",
 	"sap/m/Token",
 	"sap/m/Tokenizer",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], (BaseController, formatter, Token, Tokenizer, Filter, FilterOperator) => {
+], (BaseController, formatter, MultiInput, Token, Tokenizer, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -134,6 +135,16 @@ sap.ui.define([
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
+
+		generateMultiInput() {
+			return new MultiInput("MI", {
+				value: "{model>/List}",
+				enabled: "{= ${model>/Editable} && ${model>/Visible} ? true : false }",
+				showValueHelp: true,
+				valueHelpOnly: true,
+				valueHelpRequest: (oEvent) => this.onVHR(oEvent).bind(this) // -> Value Help Dialog
+			});
+		},
 
 		getTokens() {
 			return this.byId("MI").getTokens().map(oToken => oToken.getKey());

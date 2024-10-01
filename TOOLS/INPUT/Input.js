@@ -1,9 +1,11 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/Input",
+	"sap/ui/core/CustomData",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, Filter, FilterOperator, JSONModel) => {
+], (BaseController, Input, CustomData, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -28,6 +30,8 @@ sap.ui.define([
 			oInput.attachBrowserEvent("mousewheel", oEvent => {
 				oEvent.preventDefault();
 			});
+
+			sap.ui.getCore().getMessageManager().registerObject(oInput, true);
 		},
 
 		/* ============== */
@@ -93,7 +97,10 @@ sap.ui.define([
 
 		onSubmit() { },
 
-		onSIS() { },
+		onSIS(oEvent) {
+			const oSelectedItem = oEvent.getParameters().selectedItem;
+			const sKey = oSelectedItem.getProperty("key");
+		},
 
 		onVHR(oEvent) {
 			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
@@ -109,6 +116,42 @@ sap.ui.define([
 				this.oVHDialog.destroy();
 				this.oVHDialog = null;
 			}
+		},
+
+		generateInput() {
+			return new Input({
+				fieldGroupIds: "{Fields}",
+				maxLength: {
+					parts: [{
+						path: "model>Type"
+					}, {
+						path: "model>Length"
+					}, {
+						path: "model>Value"
+					}],
+					formatter: this.formatter.calculateInput
+				}
+			}).applySettings({
+				value: {
+					path: "model>Value",
+					type: "sap.ui.model.type.String"
+				}
+			}).addAggregation("customData", new CustomData({
+				key: "Type",
+				value: {
+					path: "model>Type"
+				}
+			})).addAggregation("customData", new CustomData({
+				key: "Length",
+				value: {
+					path: "model>Length"
+				}
+			})).addAggregation("customData", new CustomData({
+				key: "Value",
+				value: {
+					path: "model>Value"
+				}
+			})).bind(this);
 		},
 
 		getSuggestionItems() {
