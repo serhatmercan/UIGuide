@@ -24,7 +24,11 @@ sap.ui.define([
 		/* ============== */
 
 		onOLI(oEvent) {
-			const sID = oEvent.getParameter("listItem").getBindingContext().getProperty("ID");
+			const oListItem = oEvent.getParameter("listItem");
+			const sID = oListItem?.getBindingContext()?.getProperty("ID");
+			const aAttributes = oListItem.getAttributes();
+			const sText = aAttributes[0]?.getText();
+			const sNumberUnit = oListItem.getNumberUnit();
 		},
 
 		/* ================ */

@@ -82,6 +82,10 @@ sap.ui.define([
 			const sValue = oEvent.getSource().getBindingContext().getProperty("Value");
 		},
 
+		onPressSLI(oEvent) {
+			const sCDValue = oEvent.getSource().data("CDKey");
+		},
+
 		onSelect(oEvent) {
 			const sTitle = oEvent.getSource().getSelectedItem().getTitle();
 		},

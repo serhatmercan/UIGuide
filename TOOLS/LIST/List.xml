@@ -114,7 +114,7 @@ counter="{model>Counter}"
 title="{ID} - {Value}" 
 type="Navigation"
 
-<StandardListItem>
+<StandardListItem press="onPressSLI">
 	<customData>
 		<core:CustomData key="CDKey" value="{model>Read}" writeToDom="true"/>
 	</customData>

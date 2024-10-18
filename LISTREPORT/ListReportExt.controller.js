@@ -27,6 +27,7 @@ sap.ui.define([
 			oTableUIModel.attachRequestCompleted(() => {
 				setTimeout(() => {
 					const aColumns = oTableUI?.getTable()?.getColumns();
+
 					aColumns?.forEach((oColumn, iIndex) => {
 						oColumn.getParent().autoResizeColumn(iIndex);
 						oColumn.setProperty("width", "13rem");
@@ -37,12 +38,8 @@ sap.ui.define([
 
 			oTableMModel.attachRequestCompleted(() => {
 				setTimeout(() => {
-					oTableM?.getItems()?.forEach(oItem => {
-						oItem?.setType("Navigation");
-						oItem?.attachPress((oEvent) => {
-							const sID = oEvent?.getSource()?.getBindingContext()?.getObject("ID");
-						});
-					});
+					const sStatu = oSmartFilter?.getFilterData()?.Statu;
+					oView.byId("Statu").setVisible(sStatu === "01" ? true : false);
 				});
 			});
 
@@ -146,8 +143,22 @@ sap.ui.define([
 		},
 
 		onInitSmartFilterBarExtension() {
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport").setRequestAtLeastFields("Text,Value");
-			this.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--responsiveTable").setGrowingThreshold(250);
+			const oView = this.getView();
+			const oListReport = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReport");
+			const oResponsiveTable = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--responsiveTable");
+			const oSmartFilter = oView.byId("com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport::MainSet--listReportFilter");
+			const oFilter = {
+				"Key": {
+					"items": [
+						{ "key": "01", "text": "Text" }
+					]
+				}
+			};
+
+			oListReport.setRequestAtLeastFields("Text,Value");
+			oResponsiveTable.setGrowingThreshold(250);
+			oSmartFilter.setFilterData(oFilter);
+			oSmartFilter.fireSearch();
 		},
 
 		onRebindTable() {

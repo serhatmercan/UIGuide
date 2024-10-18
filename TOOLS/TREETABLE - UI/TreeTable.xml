@@ -1,5 +1,5 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
-    <t:TreeTable rows="{ path:'model>/Items', parameters:{ arrayNames:['Data'] } }">
+    <t:TreeTable rows="{ path: 'model>/Items', parameters: { arrayNames:['Data'] } }">
         <t:columns>
             <t:Column label="{i18n>ID}">
                 <t:template>
@@ -18,12 +18,13 @@
 <!--
 id="TreeTable" 
 ariaLabelledBy="title"  
-selectionMode="MultiToggle" selectionMode="None"
+selectionMode="MultiToggle" selectionMode="None" selectionMode="Single"
 visibleRowCount="5" 
 visibleRowCountMode="Fixed"
 
 enableSelectAll="false" 
 
+rowSelectionChange="onRSC"
 toggleOpenState="onTOS"
 
 TREE TABLE - EXTENSION
@@ -37,6 +38,6 @@ TREE TABLE - EXTENSION
 -->
 <!-- TREE TABLE - COLUMN - ATTRIBUTES -->
 <!--
-<t:Column sortProperty="ID" width="14%">
+<t:Column defaultFilterOperator="EQ" filterProperty="Name" sortProperty="ID" width="14%" showFilterMenuEntry="true">
 </t:Column>
 -->

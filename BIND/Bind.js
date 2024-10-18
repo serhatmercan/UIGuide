@@ -125,11 +125,15 @@ sap.ui.define([
 			oView.bindElement({ path: sPath });
 		},
 
-		onShowDialog() {
+		async onShowDialog() {
 			const oModel = this.getModel();
 			const sPath = oModel.createEntry("/DialogSet").getPath();
 
-			this.oDialog = sap.ui.xmlfragment("Dialog", "com.serhatmercan.view.fragment.Dialog", this);
+			this.oDialog = await this.loadFragment({
+				id: "Dialog",
+				name: "com.serhatmercan.view.fragment.Dialog",
+				controller: this
+			});
 			this.getView().addDependent(this.oDialog);
 
 			this.oDialog.bindElement(sPath);

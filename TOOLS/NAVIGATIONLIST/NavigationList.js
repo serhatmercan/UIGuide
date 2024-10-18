@@ -26,6 +26,10 @@ sap.ui.define([
 			const oNavigationList = this.byId("NavigationList");
 
 			oNavigationList.setExpanded(!oNavigationList.getExpanded());
+		},
+
+		onItemSelect(oEvent) {
+			const oSelectedItem = oEvent.getParameter("item");
 		}
 
 	});

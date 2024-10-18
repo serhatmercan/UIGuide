@@ -162,6 +162,28 @@ sap.ui.define([
 			URLHelper.redirect(sUrl, true);
 		},
 
+		onDropTable(oEvent) {
+			const oDraggedItem = oEvent.getParameter("draggedControl");
+			const oDroppedItem = oEvent.getParameter("droppedControl");
+
+			if (oDroppedItem instanceof ColumnListItem) {
+				const oDroppedTable = oDroppedItem.getParent();
+				const iDraggedItemIndex = oDroppedTable.indexOfItem(oDraggedItem);
+				const iDroppedItemIndex = oDroppedTable.indexOfItem(oDroppedItem);
+				const oViewModel = this.getModel("model");
+				let aItems = [...oViewModel.getProperty("/Items")];
+
+				if (iDraggedItemIndex !== iDroppedItemIndex) {
+					const [oReplacedItem] = aItems.splice(iDraggedItemIndex, 1);
+
+					aItems.splice(iDroppedItemIndex, 0, oReplacedItem);
+					aItems = aItems.map((oItem, iIndex) => ({ ...oItem, ItemNo: iIndex.toString() }));
+
+					oViewModel.setProperty("/Items", aItems);
+				}
+			}
+		},
+
 		onItemPress(oEvent) {
 			const oSelectedItem = oEvent?.getSource()?.getSelectedItem();
 			const sValue = oSelectedItem?.getCells()[0]?.getText();
@@ -301,6 +323,13 @@ sap.ui.define([
 			if (oBindingContext) {
 				this.getModel().deleteCreatedEntry(oBindingContext);
 			}
+		},
+
+		removeItem() {
+			const oTable = this.byId("Table");
+			const aSelectedItems = oTable.getSelectedItems();
+
+			aSelectedItems.forEach(oSelectedItem => oTable.removeItem(oSelectedItem));
 		},
 
 		selectRow() {

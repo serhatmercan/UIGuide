@@ -82,6 +82,14 @@ sap.ui.define([
 			this.showDialog("Dialog", "com.serhatmercan.fragment.Dialog");
 		},
 
+		async onShowDialogII() {
+			this.oDocument = await this.loadFragment({
+				id: this.getView().getId(),
+				name: "com.sm.application.fragments.dialog.Document",
+				controller: this
+			});
+		},
+
 		onShowSFDialog(sType, oEvent) {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");

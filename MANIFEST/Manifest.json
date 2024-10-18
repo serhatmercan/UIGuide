@@ -49,6 +49,8 @@
 				"settings": {
 					"defaultBindingMode": "TwoWay",
 					"defaultCountMode": "Inline",
+					"defaultOperationMode": "Server",
+					"useBatch": true,
 					"_comment": "Count Modes: Inline / InlineRepeat / None / Request"
 				}
 			},

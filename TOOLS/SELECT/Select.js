@@ -1,10 +1,11 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
-	"sap/ui/core/item",
+	"sap/m/Select",
+	"sap/ui/core/Item",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, Item, Filter, FilterOperator, JSONModel) => {
+], (BaseController, Select, Item, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -74,6 +75,29 @@ sap.ui.define([
 			const oModel = this.getModel();
 			const oRowData = oModel?.getProperty(sRowPath);
 			const aData = this.getView()?.getBindingContext()?.getProperty("Items")?.map(sPath => oModel.getProperty("/" + sPath));
+		},
+
+		/* ================ */
+		/* Internal Methods */
+		/* ================ */
+
+		setSelect() {
+			const oSelect = new Select({
+				items: [
+					new Item({
+						text: "X",
+						key: "0"
+					}),
+					new Item({
+						text: "Y",
+						key: "1"
+					}),
+					new Item({
+						text: "Z",
+						key: "2"
+					})
+				],
+			});
 		}
 
 	});

@@ -1,7 +1,18 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
-	<ViewSettingsDialog confirm="onConfirm">
-		<sortItems>
-			<ViewSettingsItem text="Value" key="Value" selected="true"/>
-		</sortItems>
-	</ViewSettingsDialog>
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <ViewSettingsDialog confirm="onConfirm">
+        <sortItems>
+            <ViewSettingsItem
+                text="Value"
+                key="Value"
+                selected="true"
+            />
+            <ViewSettingsItem
+                text="ValueII"
+                key="ValueII"
+            />
+        </sortItems>
+    </ViewSettingsDialog>
 </core:FragmentDefinition>

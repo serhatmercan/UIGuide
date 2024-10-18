@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
+    <ResponsivePopover title="{i18n>explanations}" class="sapUiPopupWithPadding" placement="Bottom">
+		<unified:CalendarLegend id="CalendarLegend" standardItems="Today">
+			<unified:items>
+				<unified:CalendarLegendItem text="Office" type="Type01"/>
+				<unified:CalendarLegendItem text="Home-Office" type="Type02"/>
+				<unified:CalendarLegendItem text="Customer" type="Type03"/>
+				<unified:CalendarLegendItem text="Support" type="Type04"/>
+				<unified:CalendarLegendItem text="Permission" type="NonWorking"/>
+			</unified:items>
+		</unified:CalendarLegend>
+	</ResponsivePopover>
+</core:FragmentDefinition>
+<!-- Calendar Legend - Attributes -->
+<!-- 
+
+-->
+<!-- Calendar Legend - Layout -->
+<!--
+	
+-->
+<!-- Calendar Legend - Example -->
+<!--
+	
+-->

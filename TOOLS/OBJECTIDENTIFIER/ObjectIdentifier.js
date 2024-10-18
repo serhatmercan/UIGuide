@@ -11,27 +11,28 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			const oViewModel = new JSONModel({
-				Busy: false,
-				MenuStatu: false,
+			this.setModel(new JSONModel({
 				Items: [],
 				Value: ""
-			});
+			}), "model");
 
-			this.setModel(oViewModel, "model");
+			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched.bind(this));
 		},
 
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
 
-		onItemSelected(oEvent) { },
-
-		onShowMI(sType, oEvent) { }
+		onTP(oEvent) {
+			const oSelectedItem = oEvent.getSource().getSelectedItem();
+			const sTitle = oSelectedItem?.getAggregation("cells")[0]?.getTitle();
+		},
 
 		/* ================ */
 		/* Internal Methods */
 		/* ================ */
+
+		patternMatched() { }
 
 	});
 });

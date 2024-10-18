@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:cctable="com.sm.customcontrol">
+    <cctable:Table 
+        id="Table" 
+        items="{model>/Items}" 
+        updateFinished="onUFTable"
+		selectionChange="onSCTable">
+        <cctable:headerToolbar>
+			<OverflowToolbar>
+			    <content>
+                    <Title text="Title"/>
+					<ToolbarSpacer/>
+                    <Button text="Add" icon="sap-icon://add" press="onPressAddTableRow"/>
+                </content>
+			</OverflowToolbar>
+		</cctable:headerToolbar>
+        <cctable:columns>
+            <Column>
+				<header>
+				    <Text text="Text"/>
+				</header>
+			</Column>
+            <Column>
+				<header>
+				    <Text text="Text II"/>
+				</header>
+			</Column>
+            <Column>
+				<header>
+				    <Text text="Text III"/>
+				</header>
+			</Column>
+        </cctable:columns>
+        <cctable:items>
+            <Input value="{Value}" change="onChangeValue"/>
+        </cctable:items>
+    </cctable:Table>
+</core:FragmentDefinition>

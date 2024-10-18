@@ -11,3 +11,28 @@
 		</MenuButton>
 	</OverflowToolbar>
 </core:FragmentDefinition>
+<!-- Menu Button - Attributes -->
+<!--
+icon="sap-icon://pdf-attachment" 
+type="Emphasized"
+-->
+<!-- Menu Button - Layout -->
+<!--
+	
+-->
+<!-- Menu Button - Example -->
+<!--
+	
+-->
+<!-- Menu Button - Attributes -->
+<!--
+title="{i18n>title}"
+-->
+<!-- Menu - Attributes -->
+<!--
+itemSelected="onItemSelected"
+-->
+<!-- Menu Item - Attributes -->
+<!--
+key="All"
+-->

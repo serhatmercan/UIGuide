@@ -34,6 +34,15 @@ sap.ui.define([
 				oViewModel.setProperty("/Statu", aIndices?.length === 1);
 			});
 
+			oTable.getColumns().forEach(oColumn => {
+				const sColumnLabelText = oColumn.getLabel()?.getText();
+				switch (sColumnLabelText) {
+					case "Column I":
+						oColumn.$().css("background", "#507d2a");
+						break;
+				}
+			});
+
 			oTable.onRowsUpdated = () => {
 				oTable.getRows().forEach(oRow => {
 					const sPath = oRow.getBindingContext("model").getPath();
@@ -41,6 +50,32 @@ sap.ui.define([
 					if (oRow.getBindingContext("model") && oViewModel.getProperty(sPath + "/ID") === "X") {
 						$("#" + oRow.getId()).css("background-color", "red");
 					}
+				});
+
+				oTable.getRows().forEach((oRow, iIndex) => {
+					oRow.getCells().forEach(oCell => {
+						const oCellData = oCell.getBinding("title");
+						const sCellPath = oCellData.getPath();
+
+						if (sCellPath !== "Type" && iIndex === 0) {
+							$($(oCell.$().children()).children()).children().css("font-size", "2rem");
+						}
+
+						if (sCellPath === "Type") {
+							switch (oCellData.getValue()) {
+								case "General":
+									oCell.$().parent().parent().css("background", "#77dd77");
+									break;
+								case "A Project":
+									oCell.$().parent().parent().css("background", "#ADE191");
+									break;
+							}
+						}
+
+						if (sCellPath === "PaidCount") {
+							oCell.$().parent().parent().css("background", "#EAFFCD");
+						}
+					});
 				});
 			};
 

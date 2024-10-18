@@ -15,5 +15,9 @@
 		<Button icon="sap-icon://refresh" press="onRefresh"/>
 		<Button icon="sap-icon://settings" press="onSettings"/>
 	</semantic:customHeaderContent>
+	<semantic:customFooterContent>
+		<Button icon="sap-icon://add-document" press="onAdd"/>
+		<Button icon="sap-icon://cart-approval" press="onCreate"/>
+	</semantic:customFooterContent>
 </semantic:MasterPage>
 -->

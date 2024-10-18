@@ -27,7 +27,9 @@ sap.ui.define([
 			const sValue = oEvent.getParameter("newValue");
 		},
 
-		onSearch(oEvent) { }
+		onSearch(oEvent) {
+			const sValue = oEvent.getSource().getValue();
+		}
 
 	});
 });

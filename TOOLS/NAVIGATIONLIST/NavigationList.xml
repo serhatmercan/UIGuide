@@ -18,6 +18,8 @@
 id="NavigationList"     
 selectedKey="NLI"    
 width="320px"
+
+itemSelect="onItemSelect"
 -->
 <!-- NAVIGATION LIST - LAYOUT -->
 <!--
@@ -25,8 +27,10 @@ width="320px"
 -->
 <!-- NAVIGATION LIST ITEM - ATTRIBUTES -->
 <!--
-key="NLI"    
+key="NLI"
 icon="sap-icon://employee"
+items="{/MainSet}"
+tooltip="{i18n>tooltip}"
 
 select="onSelectNLI"
 -->

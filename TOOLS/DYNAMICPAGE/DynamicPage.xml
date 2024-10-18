@@ -27,6 +27,8 @@
 <!-- DYNAMIC PAGE - ATTRIBUTES -->
 <!-- 
 class="sapUiNoContentPadding"
+
+headerExpanded="true"
 toggleHeaderOnTitleClick="false" 
 showFooter="true"
 -->

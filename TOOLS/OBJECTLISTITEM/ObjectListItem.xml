@@ -1,11 +1,17 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<ObjectListItem title="{Title}" type="Active" />
-</core:FragmentDefinition> <!-- -->
+</core:FragmentDefinition>
 <!-- OBJECT LIST ITEM - ATTRIBUTES -->
 <!--
+icon="{ path: 'model>Key', formatter: '.formatter.setOLI' }"
 intro="{Intro}"	
-number="{Number}" 	
+number="{Number}"
+number="{ path: 'model>Number', formatter: '.formatter.setFormatNumber' }"
+number="{ parts: [{path:'model>Number'},{path:'model>Unit'}], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: false } }" 
+numberUnit="{model>Unit}"	 
 type="Inactive"
+
+iconDensityAware="false"
 	
 press="onOLI"
 -->
@@ -19,7 +25,8 @@ press="onOLI"
 	    <ObjectStatus text="{Value}"/>
 	</secondStatus>
 	<attributes>
-	    <ObjectAttribute text="{Text}"/>
+	    <ObjectAttribute text="{TextI}"/>
+		<ObjectAttribute text="{TextII}"/>
 	</attributes>
 	<customData>
   		<core:CustomData key="OLI" writeToDom="true" value="X" />

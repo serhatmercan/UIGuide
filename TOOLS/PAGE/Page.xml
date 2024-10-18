@@ -22,6 +22,7 @@ navButtonPress="onNavBack"
 <customHeader>
 	<Bar>
 	    <contentLeft>
+            <Title text="Title"/>
 		</contentLeft>
 		<contentMiddle>
 		</contentMiddle>

@@ -6,6 +6,7 @@
 <!-- SELECT DIALOG - ATTRIBUTE -->
 <!--
 id="SD"
+class="sapUiPopupWithPadding"
 confirmButtonText="{i18n>confirm}"
 contentHeight="auto" 
 items="{/...Set}"

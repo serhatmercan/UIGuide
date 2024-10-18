@@ -1,0 +1,28 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar" xmlns:vhd="sap.ui.comp.valuehelpdialog">
+    <vhd:ValueHelpDialog title="{i18n>product}" key="ProductCode" afterClose="onACVHD" cancel="onCancel" ok="onOK">
+		<vhd:filterBar>
+			<fb:FilterBar advancedMode="true" search="onSearchFB">
+				<fb:filterGroupItems>
+					<fb:FilterGroupItem groupName="GN" name="ProductCode" label="{i18n>productCode}" visibleInFilterBar="true">
+						<fb:control>
+							<Input name="ProductCode" />
+						</fb:control>
+					</fb:FilterGroupItem>
+				</fb:filterGroupItems>
+			</fb:FilterBar>
+		</vhd:filterBar>
+	</vhd:ValueHelpDialog>
+</core:FragmentDefinition>
+<!-- Value Help Dialog - Attributes -->
+<!-- 
+descriptionKey="ProductName"
+supportRanges="true"
+-->
+<!-- Value Help Dialog - Layout -->
+<!--
+	
+-->
+<!-- Value Help Dialog - Example -->
+<!--
+	
+-->

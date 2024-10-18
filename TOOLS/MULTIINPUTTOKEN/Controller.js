@@ -126,8 +126,12 @@ sap.ui.define([
 			oViewModel.setProperty("/List", updatedList);
 		},
 
-		onVHR() {
-			this.oDialog = sap.ui.xmlfragment("com.serhatmercan.Fragment", this);
+		async onVHR() {
+			this.oDialog = await this.loadFragment({
+				id: this.getView().getId(),
+				name: "com.serhatmercan.Fragment",
+				controller: this
+			});
 			this.getView().addDependent(this.oDialog);
 			this.oDialog.open();
 		},

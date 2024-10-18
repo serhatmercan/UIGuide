@@ -56,12 +56,16 @@ sap.ui.define([
 			oEvent.getSource()?.getBinding("items")?.filter(aFilters);
 		},
 
-		onShowSD() {
+		async onShowSD() {
 			const aFilters = [
 				new Filter("Value", FilterOperator.Contains, "X")
 			];
 
-			this.oSD = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragment.SelectDialog", this);
+			this.oSD = await this.loadFragment({
+				id: this.getView().getId(),
+				name: "com.serhatmercan.fragment.SelectDialog",
+				controller: this
+			});
 			this.oSD.setModel(this.getModel("i18n"), "i18n");
 			this.oSD.setModel(this.getModel());
 

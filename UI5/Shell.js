@@ -1,3 +1,6 @@
+// Clear Local Storage: App.controller.js / onInit()
+sap.ushell.Container.attachLogoutEvent(() => { localStorage.clear() });
+
 // Country Code From API
 try {
     const oLocation = await $.getJSON('https://geolocation-db.com/json/');

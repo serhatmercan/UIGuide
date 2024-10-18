@@ -155,6 +155,19 @@ sap.ui.define([
 			});
 		},
 
+		onReadQueryAsyncSorters(sSet, aFilters, bAsync, aSorters, oModel) {
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					async: bAsync,
+					filters: aFilters,
+					sorters: aSorters,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
+		},
+
 		onSubmitChanges(oModel) {
 			return new Promise((fnSuccess, fnReject) => {
 				const mParameters = {

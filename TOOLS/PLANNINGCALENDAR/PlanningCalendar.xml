@@ -1,0 +1,68 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:unified="sap.ui.unified">
+     <PlanningCalendar
+        id="PlanningCalendar"
+        rows="{model>/People}"
+        appointmentsVisualization="Filled"
+        startDate="{model>/StartDate}"
+        showEmptyIntervalHeaders="false"
+        showWeekNumbers="true">
+        <toolbarContent>
+            <Title
+                text="Planning Calendar"
+                titleStyle="H4"
+            />
+        </toolbarContent>
+        <rows>
+            <PlanningCalendarRow
+                icon="{model>Picture}"
+                title="{model>Name}"
+                text="{model>Role}"
+                appointments="{ path:'model>Appointments', templateShareable: false }"
+            >
+                <appointments>
+                    <unified:CalendarAppointment
+                        startDate="{model>Start}"
+                        endDate="{model>End}"
+                        icon="{model>Pic}"
+                        title="{model>Title}"
+                        text="{model>Info}"
+                        type="{model>Type}"
+                        tentative="{model>Tentative}"
+                    />
+                </appointments>
+            </PlanningCalendarRow>
+        </rows>
+    </PlanningCalendar>
+</core:FragmentDefinition>
+<!-- Planning Calendar - Attributes -->
+<!-- 
+appointmentsReducedHeight="true" 
+showWeekNumbers="true" 
+stickyHeader="true"
+
+appointmentSelect="onAppointmentSelect"
+startDateChange="onStartDateChange" 
+viewChange="onViewChange"
+-->
+<!-- Planning Calendar - Layout -->
+<!--
+	
+-->
+<!-- Planning Calendar - Example -->
+<!--
+	
+-->
+<!-- Calendar Appointment - Attributes -->
+<!--
+description="{model>Description}"
+tooltip="{model>Tooltip}"
+-->
+<!-- Planning Calendar Row - Attributes -->
+<!--
+enableAppointmentsDragAndDrop="true"
+
+appointmentCreate="onAppointmentCreate"
+appointmentDragEnter="onAppointmentDragEnter"
+appointmentDrop="onAppointmentDrop"
+appointmentResize="onAppointmentResize"
+-->

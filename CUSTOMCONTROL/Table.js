@@ -1,9 +1,12 @@
 sap.ui.define([
+    "../model/formatter",
     "sap/m/Table",
     "sap/m/TableRenderer"
-], (Table, TableRenderer) => {
+], (formatter, Table, TableRenderer) => {
 
     return Table.extend("com.sm.utils.Table", {
+
+        formatter: formatter,
 
         /* ================= */
         /* Lifecycle Methods */
@@ -20,6 +23,40 @@ sap.ui.define([
                     this.handleFocusFirstCell();
                 }
             }, this);
+        },
+
+        onAfterRendering() {
+            Table.prototype.onAfterRendering.apply(this, arguments);
+
+            this.attachBrowserEvent("paste", (oEvent) => {
+                oEvent.preventDefault();
+                const sText = (oEvent.originalEvent || oEvent).clipboardData.getData("text/plain");
+                this.insertRows(sText, this);
+            });
+
+            this.getAggregation("items").forEach((oRow) => {
+                oRow.getCells().forEach((oCell) => {
+                    oCell.attachBrowserEvent("paste", (oEvent) => {
+                        oEvent.stopPropagation();
+                        oEvent.preventDefault();
+
+                        const sText = (oEvent.originalEvent || oEvent).clipboardData.getData("text/plain");
+                        const oDOMCell = jQuery.sap.domById(oEvent.currentTarget?.id);
+                        const oInsertCell = jQuery("#" + oDOMCell.id).control()[0];
+                        const sItemPath = that.getBindingPath("items");
+
+                        if (!oInsertCell.getBindingContext()) {
+                            oInsertCell.setValue(sText);
+                        } else {
+                            const sPathRow = oInsertCell.getBindingContext().getPath();
+                            const iStartRowIndex = sPathRow.split(sItemPath + "/")[1];
+                            const sStartProperty = oInsertCell.getBindingPath('value');
+
+                            this.insertRows(sText, this, iStartRowIndex, sStartProperty);
+                        }
+                    });
+                });
+            });
         },
 
         renderer(oRenderManager, oControl) {
@@ -70,6 +107,61 @@ sap.ui.define([
                     this.bFocusFirstCell = false;
                 }, 500);
             }
+        },
+
+        insertRows(sText, oTable, iStartRowIndex = 0, sStartProperty) {
+            const aRows = sText.split(/\n/).filter(Boolean);
+            const aCells = oTable.getBindingInfo("items").template.getCells();
+            const sItemsPath = oTable.getBindingPath("items");
+            const aItemsArray = oTable.getModel("model").getProperty(sItemsPath);
+            const oViewModel = this.getModel("model");
+            let iStartPropertyIndex = 0;
+
+            const aTemplateItems = aCells.map((oCell, iIndex) => {
+                const sElementName = oCell.getMetadata().getElementName();
+                let sPath = "";
+
+                switch (sElementName) {
+                    case "sap.m.ComboBox":
+                        sPath = oCell.getBindingPath("selectedKey");
+                        break;
+                    case "sap.m.DatePicker":
+                    case "sap.m.Input":
+                        sPath = oCell.getBindingPath("value");
+                        break;
+                    case "sap.m.HBox":
+                        sPath = oCell.getAggregation("items")[0].getBindingPath("selectedKey");
+                        break;
+                }
+
+                if (sPath === sStartProperty) {
+                    iStartPropertyIndex = iIndex;
+                }
+
+                return sPath;
+            });
+
+            aRows.forEach((oRowElement) => {
+                const aCells = oRowElement.split(/\t/);
+                let oOriginalObject = oViewModel.getProperty(`${sItemsPath}/${iStartRowIndex++}`) || {};
+
+                if (!aItemsArray[iStartRowIndex - 1]) {
+                    aTemplateItems.forEach(sPath => oOriginalObject[sPath] = undefined);
+                    aItemsArray.push(oOriginalObject);
+                }
+
+                aTemplateItems.slice(iStartPropertyIndex).forEach((sName, iIndex) => {
+                    const sValue = aCells[iIndex] || "";
+
+                    if (!oOriginalObject[sName]) {
+                        oOriginalObject[sName] = (sName === "Begda" || sName === "Endda")
+                            ? sValue
+                            : sValue.replace(/[^A-Za-z0-9+şŞıIüÜçÇöÖiİ ]+/gi, "");
+                    }
+                });
+            });
+
+            oViewModel.refresh();
         },
 
         tabBack() {

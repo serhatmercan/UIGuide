@@ -42,6 +42,10 @@ sap.ui.define([
 			oTreeTable?.clearSelection();
 		},
 
+		onRSC(oEvent) {
+			const sPath = oEvent.getParameters("rowContext").getRowContext().getPath();
+		},
+
 		onTOS(oEvent) {
 			const oTreeTable = oEvent.getSource();
 			const iRowCount = oTreeTable?.getVisibleRowCount();

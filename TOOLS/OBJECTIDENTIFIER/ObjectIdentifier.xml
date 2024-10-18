@@ -1,3 +1,18 @@
-<ObjectIdentifier title="{i18n>title}" text="{i18n>text}"/>
-<ObjectIdentifier title="{ path: 'Menge', type: 'sap.ui.model.type.Float', formatOptions: { decimals:2, parseAsString: true } }"
-	text="{Meins}"/>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<ObjectIdentifier title="{i18n>title}" text="{i18n>text}"/>
+</core:FragmentDefinition>
+<!-- Object Identifier - Attributes -->
+<!-- 
+text="{Meins}"
+title="{ path: 'Menge', type: 'sap.ui.model.type.Float', formatOptions: { decimals:2, parseAsString: true } }"
+
+titlePress="onTP"
+-->
+<!-- Object Identifier - Layout -->
+<!--
+	
+-->
+<!-- Object Identifier - Example -->
+<!--
+	
+-->

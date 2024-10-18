@@ -6,8 +6,9 @@ sap.ui.define([
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/FilterType",
+	"sap/ui/model/Sorter",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, MessageBox, MessageToast, Message, Filter, FilterOperator, FilterType, JSONModel) => {
+], (BaseController, MessageBox, MessageToast, Message, Filter, FilterOperator, FilterType, Sorter, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -134,7 +135,7 @@ sap.ui.define([
 							);
 						});
 					} catch (oError) {
-						const sMessage = new DOMParser()?.parseFromString(oError.responseText, 'text/xml')?.querySelector('message')?.textContent;
+						const sMessage = new DOMParser()?.parseFromString(oError.responseText, "text/xml")?.querySelector("message")?.textContent;
 					} finally {
 						this.onFireToShowMessages();
 					}
@@ -235,7 +236,7 @@ sap.ui.define([
 			});
 
 			try {
-				await this.onReadQuery("/...Set", aFilters, this.getModel());
+				const oData = await this.onReadQuery("/...Set", aFilters, this.getModel());
 				// oData.results[0];
 			} catch (oError) {
 				// Handle Error
@@ -244,7 +245,27 @@ sap.ui.define([
 			}
 
 			try {
-				await this.onReadQuery("/...Set/$count", [], this.getModel());
+				const oData = await this.onReadQuery("/...Set/$count", [], this.getModel());
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onReadQueryAsyncSorters() {
+			const oViewModel = this.getModel("model");
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+			const aSorters = [
+				new Sorter("Key", false)
+			];
+			const bAsync = true;
+
+			try {
+				const oData = await this.onReadQueryAsyncSorters("/...Set", aFilters, bAsync, aSorters, this.getModel())
+				// oData.results[0];
 			} catch (oError) {
 				// Handle Error
 			} finally {

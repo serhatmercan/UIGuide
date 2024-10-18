@@ -37,11 +37,15 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onShowIFrame() {
+		async onShowIFrame() {
 			const oModel = this.getModel();
 
 			if (!this.oPDFViewer) {
-				this.oPDFViewer = sap.ui.xmlfragment("Dialog", "com.serhatmercan.Dialog.Html", this);
+				this.oPDFViewer = await this.loadFragment({
+					id: this.getView().getId(),
+					name: "com.serhatmercan.Dialog.Html",
+					controller: this
+				});
 				this.oPDFViewer.setModel(this.getModel("i18n"), "i18n");
 				this.oPDFViewer.setModel(oModel);
 			}

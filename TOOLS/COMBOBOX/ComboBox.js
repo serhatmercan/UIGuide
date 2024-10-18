@@ -1,9 +1,11 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
+	"sap/m/ComboBox",
+	"sap/ui/core/ListItem",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-], (BaseController, JSONModel, Filter, FilterOperator) => {
+], (BaseController, ComboBox, ListItem, JSONModel, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -104,6 +106,44 @@ sap.ui.define([
 					new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(sPath + "/ID"))
 				]);
 			}, 500);
+		},
+
+		setBindItems() {
+			const oComboBox = this.byId("ComboBox");
+
+			oComboBox.unbindItems();
+			oComboBox.bindItems({
+				path: "model>/",
+				template: new ListItem({
+					key: "{model>Key}",
+					text: "{model>Key}",
+					additionalText: "{model>Text}"
+				})
+			});
+		},
+
+		setComboBox() {
+			const oComboBox = new ComboBox({
+				items: [
+					new ListItem({
+						key: "0001",
+						text: "Text I",
+						additionalText: "0001"
+					}),
+					new ListItem({
+						key: "0002",
+						text: "Text II",
+						additionalText: "0002"
+					})
+				],
+				showSecondaryValues: true,
+				change: (oEvent) => {
+					const sKey = oEvent.getSource().getSelectedKey();
+				},
+				selectionChange: (oEvent) => {
+					const sKey = oEvent.getSource().getSelectedKey();
+				}
+			});
 		}
 
 	});

@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:semantic="sap.m.semantic">
+    <semantic:DetailPage
+        id="Detail"
+        title="{i18n>title}"
+        titleLevel="H4"
+    >
+        <semantic:content>
+        </semantic:content>
+    </semantic:DetailPage>
+</core:FragmentDefinition>
+<!-- Semantic - Detail Page - Attributes -->
+<!-- 
+
+-->
+<!-- Semantic - Detail Page - Layout -->
+<!--
+	
+-->
+<!-- Semantic - Detail Page - Example -->
+<!--
+	
+-->

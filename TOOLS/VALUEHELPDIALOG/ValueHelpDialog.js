@@ -2,11 +2,13 @@ sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/ColumnListItem",
 	"sap/m/Label",
+	"sap/m/Text",
 	"sap/ui/comp/valuehelpdialog/ValueHelpDialog",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], (BaseController, ColumnListItem, Label, ValueHelpDialog, Filter, FilterOperator, JSONModel) => {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/table/Column"
+], (BaseController, ColumnListItem, Label, Text, ValueHelpDialog, Filter, FilterOperator, JSONModel, UIColumn) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -28,7 +30,15 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
-		onShowVHD() {
+		onCancel() {
+			if (this.oVHD) {
+				this.oVHD.close();
+				this.oVHD.destroy();
+				this.oVHD = null;
+			}
+		},
+
+		async onShowVHD() {
 			this.oVHD = new ValueHelpDialog({
 				title: "VHD",
 				key: "Key",
@@ -48,6 +58,68 @@ sap.ui.define([
 				}
 			});
 
+			await this.loadFragment({
+				name: "com.serhatmercan.fragments.dialog.VHD"
+			}).then((oDialogSuggestions) => {
+				this.oVHD = oDialogSuggestions;
+
+				oDialogSuggestions.getTableAsync().then((oTable) => {
+					if (oTable.bindRows) {
+						oTable.bindAggregation("rows", {
+							path: "/...SHSet",
+							events: {
+								dataReceived: () => { oDialogSuggestions.update() }
+							}
+						});
+
+						let oUIColumn = new UIColumn({
+							label: new Label({
+								text: this.getText("Key")
+							}),
+							template: new Text({
+								text: "{Key}",
+								wrapping: false
+							})
+						});
+
+						oUIColumn.data({
+							fieldName: "Key"
+						});
+
+						oTable.addColumn(oUIColumn);
+
+						oDialogSuggestions.update();
+					}
+
+					oDialogSuggestions.open();
+				});
+			});
+		},
+
+		onOK(oEvent) {
+			const aTokens = oEvent.getParameter("tokens");
+		},
+
+		onSearchFB() {
+			const aSearchValues = oEvent.getParameter("selectionSet");
+			const aFilters = [];
+
+			aSearchValues.forEach(oSearchValue => {
+				const sName = oSearchValue.getProperty("name");
+				const sValue = oSearchValue.getProperty("value");
+
+				if (sValue !== "") aFilters.push(new Filter(sName, FilterOperator.EQ, sValue));
+			});
+
+			if (!aFilters.length) return;
+
+			this.oVHD.getTableAsync().then((oTable) => {
+				const oBinding = oTable.getBinding("items") || oTable.getBinding("rows");
+
+				if (oBinding) oBinding.filter(aFilters);
+
+				this.oVHD.update();
+			});
 		},
 
 		/* ================ */

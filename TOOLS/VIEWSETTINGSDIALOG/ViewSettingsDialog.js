@@ -28,8 +28,9 @@ sap.ui.define([
 
 		onConfirm(oEvent) {
 			const { sortItem: oSortItem, sortDescending: bSortDescending } = oEvent.getParameters();
+			const sKey = oSortItem?.getKey();
 			const aSorters = [
-				new Sorter(oSortItem?.getKey(), bSortDescending)
+				new Sorter(sKey, bSortDescending)
 			];
 			const aItems = this.byId("Table")?.getBinding("items");
 

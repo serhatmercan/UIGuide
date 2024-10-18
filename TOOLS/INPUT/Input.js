@@ -161,9 +161,13 @@ sap.ui.define([
 			const { Key: sKey, Text: sText } = sItem;
 		},
 
-		openVHDialog(sFragmentName) {
+		async openVHDialog(sFragmentName) {
 			if (!this.oVHDialog) {
-				this.oVHDialog = sap.ui.xmlfragment(this.getView().getId(), sFragmentName, this);
+				this.oVHDialog = await this.loadFragment({
+					id: this.getView().getId(),
+					name: sFragmentName,
+					controller: this
+				});
 				this.getView().addDependent(this.oVHDialog);
 			}
 			this.oVHDialog.open();

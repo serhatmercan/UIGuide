@@ -5,9 +5,13 @@
 
 <!-- FILE UPLOADER - ATTRIBUTES -->
 <!-- 
-style="Emphasized"    
-useMultipart="false"
+style="Emphasized"
 width="40%"
+
+multiple="false"
+sendXHR="true"
+uploadOnChange="false"
+useMultipart="false"
 -->
 <!-- FILE UPLOADER - LAYOUT -->
 <!--

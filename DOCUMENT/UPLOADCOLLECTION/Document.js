@@ -192,10 +192,14 @@ sap.ui.define([
 			window.open(sDocumentPath, "_blank");
 		},
 
-		onShowDocument() {
+		async onShowDocument() {
 			if (!this.oDocument) {
-				this.oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.Document", this);
-				this.getFiles();
+				this.oDocument = await this.loadFragment({
+					id: this.getView().getId(),
+					name: "com.serhatmercan.Document",
+					controller: this
+				});
+				await this.getFiles();
 			}
 
 			this.oDocument.attachBeforeOpen(() => {

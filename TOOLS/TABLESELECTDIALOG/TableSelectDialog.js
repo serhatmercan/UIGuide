@@ -66,9 +66,13 @@ sap.ui.define([
 			sap.ui.getCore().byId(sTSDID)?.getBinding("items")?.filter(aFilters, "Application");
 		},
 
-		onShowTSD() {
+		async onShowTSD() {
 			if (!this.oTSDDialog) {
-				this.oTSDDialog = sap.ui.xmlfragment(this.getView().getId(), "com.serhatmercan.fragments.TSD", this);
+				this.oTSDDialog = await this.loadFragment({
+					id: this.getView().getId(),
+					name: "com.serhatmercan.fragments.TSD",
+					controller: this
+				});
 				this.getView().addDependent(this.oTSDDialog);
 			}
 

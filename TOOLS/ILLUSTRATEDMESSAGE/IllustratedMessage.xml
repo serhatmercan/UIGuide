@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <IllustratedMessage title="Title" description="Description" illustrationType="sapIllus-BalloonSky">
+        <additionalContent>
+            <Button icon="sap-icon://menu2" text="Menu" press="onPress"/>
+        </additionalContent>
+    </IllustratedMessage>
+</core:FragmentDefinition>
+<!-- Illustrated Message - Attributes -->
+<!-- 
+
+-->
+<!-- Illustrated Message - Layout -->
+<!--
+	
+-->
+<!-- Illustrated Message - Example -->
+<!--
+	
+-->

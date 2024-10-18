@@ -119,9 +119,13 @@ sap.ui.define([
 			}
 		},
 
-		onShowDocument() {
+		async onShowDocument() {
 			if (!this.oDocument) {
-				this.oDocument = sap.ui.xmlfragment(this.getView().getId(), "com.sm.application.fragments.dialog.Document", this);
+				this.oDocument = await this.loadFragment({
+					id: this.getView().getId(),
+					name: "com.sm.application.fragments.dialog.Document",
+					controller: this
+				});
 				this.oDocument.setModel(this.getModel("i18n"), "i18n");
 				this.oDocument.setModel(this.getModel("model"), "model");
 			}
@@ -196,10 +200,13 @@ sap.ui.define([
 			const sServiceURL = oModel.sServiceUrl;
 			const sPath = oModel.createKey("/...Set", { ID: sID });
 			const sDocumentPath = `${sServiceURL}${sPath}/$value`;
+			const sLocalDocumentPath = sap.ui.require.toUrl("com/serhatmercan/assets/Document.pdf");
 
-			oPDFViewer.attachEventOnce("sourceValidationFailed", oEvent => { oEvent.preventDefault(); });
+			oPDFViewer.attachEventOnce("sourceValidationFailed", oEvent => { oEvent.preventDefault() });
+			oPDFViewer._objectsRegister?.getPopupDownloadButtonControl()?.setText(this.getText("download"));
 			oPDFViewer.setShowDownloadButton(false);
 			oPDFViewer.setSource(sDocumentPath);
+			oPDFViewer.setSource(sLocalDocumentPath);
 			oPDFViewer.setTitle(this.getText("preview"));
 			oPDFViewer.open();
 		},

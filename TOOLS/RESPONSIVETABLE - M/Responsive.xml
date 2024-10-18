@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:dnd="sap.ui.core.dnd">
     <Table items="{model>/Items}">
         <columns>
             <Column>
@@ -13,7 +13,7 @@
             </ColumnListItem>
         </items>
     </Table>
-</core:FragmentDefinition> <!-- -->
+</core:FragmentDefinition> 
 <!-- TABLE - LAYOUT -->
 <!-- 
 <headerToolbar>
@@ -33,17 +33,22 @@
 		<Text text="{/#Main/Value/@sap:label}"/>
 	</Column>
 <columns>
-<ColumnListItem id="CLI" type="Active" vAlign="Middle" press="onPress">
-    <customData>
-	    <core:CustomData key="color" value="{model>Value}" writeToDom="true"/> // CSS => tr[data-color="G"]
-	</customData>    
-    <cells>
-	    <ComboBox items="{model>Data}" showSecondaryValues="true" change="onChangeCB">
-			<core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
-		</ComboBox>
-    <Button icon="sap-icon://decline" tooltip="{i18n>delete}" type="Transparent" press="onDeleteRow"/>
-    </cells>
-</ColumnListItem>
+<dragDropConfig>
+    <dnd:DragDropInfo sourceAggregation="items" targetAggregation="items" dropPosition="Between" drop="onDropTable" enabled="false"/>
+</dragDropConfig>
+<items>
+    <ColumnListItem id="CLI" type="Active" vAlign="Middle" press="onPress">
+        <customData>
+            <core:CustomData key="color" value="{model>Value}" writeToDom="true"/> // CSS => tr[data-color="G"]
+        </customData>    
+        <cells>
+            <ComboBox items="{model>Data}" showSecondaryValues="true" change="onChangeCB">
+                <core:ListItem key="{model>ID}" text="{model>ID}" additionalText="{model>Text}"/>
+            </ComboBox>
+        <Button icon="sap-icon://decline" tooltip="{i18n>delete}" type="Transparent" press="onDeleteRow"/>
+        </cells>
+    </ColumnListItem>
+<items>
 
 TABLE - ATTRIBUTES
 
@@ -63,9 +68,11 @@ popinLayout="GridLarge"
 sticky="ColumnHeaders"
 width="auto"
 
+autoPopinMode="true"
 enableBusyIndicator="true"
 fixedLayout="true"
-growing="true" growingScrollToLoad="true" growingThreshold="10"
+growing="true" growingDirection="Downwards" growingScrollToLoad="true" growingThreshold="10" growingTriggerText="{i18n>showMore}"
+rememberSelections="true"
 showNoData="false"
 
 delete="onDelete"

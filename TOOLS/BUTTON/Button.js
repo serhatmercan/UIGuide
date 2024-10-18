@@ -30,6 +30,20 @@ sap.ui.define([
 				text: "Add Button",
 				press: (oEvent) => { }
 			}).addStyleClass("sapUiSmallMarginBegin");
+		},
+
+		generateButtonCD() {
+			return new Button({
+				text: "Button",
+				customData: [{
+					Type: "sap.ui.core.CustomData",
+					key: "Key",
+					value: "Value"
+				}],
+				press: (oEvent) => {
+					const { key: sKey, value: sValue } = oEvent.getSource()?.getCustomData()[0];
+				}
+			}).addStyleClass("sapUiSmallMarginBegin");
 		}
 
 
