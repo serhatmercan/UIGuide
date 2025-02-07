@@ -37,6 +37,7 @@ uploadUrl="/sap/opu/odata/sap/ZSM_GOS_UI_SRV/DocumentSet"
 uploadButtonInvisible="true"    
 uploadEnabled="{model>/DocumentEdit}"    
 
+afterItemAdded="onAIADocument"
 afterItemRemoved="onAIRDocument"
 uploadCompleted="onUCDocument"
 -->

@@ -42,7 +42,7 @@ search="onSearchSFB"
 			<CheckBox id="CB" selected="true"/>
 		</smartFilterBar:customControl>
 	</smartFilterBar:ControlConfiguration>
-	<smartFilterBar:ControlConfiguration key="CBB" groupId="_BASIC" index="10" label="{i18n>statu}">
+	<smartFilterBar:ControlConfiguration key="CBB" groupId="GroupX" index="10" label="{i18n>statu}">
 		<smartFilterBar:customControl>
 			<ComboBox id="ComboBox" change="onChangeCB">
 				<core:Item key="1" text="{i18n>free}"/>

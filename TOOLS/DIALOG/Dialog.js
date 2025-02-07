@@ -78,16 +78,34 @@ sap.ui.define([
 			this.showDialog("ConfirmDialog", "com.serhatmercan.fragment.ConfirmDialog");
 		},
 
-		onShowDialog() {
-			this.showDialog("Dialog", "com.serhatmercan.fragment.Dialog");
+		async onShowDialog() {
+			if (!this.oDialog) {
+				await this.createDialog("DialogName").then(oDialog => {
+					this.oDialog = oDialog;
+					this.oDialog.open();
+				});
+			} else {
+				this.oDialog.open();
+			}
 		},
 
 		async onShowDialogII() {
-			this.oDocument = await this.loadFragment({
-				id: this.getView().getId(),
-				name: "com.sm.application.fragments.dialog.Document",
-				controller: this
-			});
+			if (!this.oDialog) {
+				await this.loadFragment({
+					name: "com.sm.application.fragments.dialog.Dialog",
+					controller: this
+				}).then(oDialog => {
+					this.getView().addDependent(oDialog);
+					this.oDialog = oDialog;
+					this.oDialog.open();
+				});
+			} else {
+				this.oDialog.open();
+			}
+		},
+
+		onShowDialogIII() {
+			this.showDialog("Dialog", "com.serhatmercan.fragment.Dialog");
 		},
 
 		onShowSFDialog(sType, oEvent) {
@@ -191,7 +209,19 @@ sap.ui.define([
 			oTextAreaDialog.open();
 		},
 
-		createDialog(sDialogID, sFragmentName) {
+		createDialog(sFragmentName) {
+			return new Promise((fnResolve) => {
+				Fragment.load({
+					name: `xxx.fragments.dialog.${sFragmentName}`,
+					controller: this
+				}).then(oFragment => {
+					this.getView().addDependent(oFragment);
+					fnResolve(oFragment);
+				});
+			});
+		},
+
+		createDialogII(sDialogID, sFragmentName) {
 			return new Promise((fnResolve) => {
 				const oView = this.getView();
 				const oDialog = this.byId(sDialogID);
@@ -221,7 +251,7 @@ sap.ui.define([
 		},
 
 		showDialog(sDialogID, sFragmentName) {
-			this.createDialog(sDialogID, sFragmentName).then(oDialog => oDialog.open());
+			this.createDialogII(sDialogID, sFragmentName).then(oDialog => oDialog.open());
 		}
 
 	});

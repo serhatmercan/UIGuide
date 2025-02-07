@@ -69,7 +69,6 @@ sap.ui.define([
 		async onShowTSD() {
 			if (!this.oTSDDialog) {
 				this.oTSDDialog = await this.loadFragment({
-					id: this.getView().getId(),
 					name: "com.serhatmercan.fragments.TSD",
 					controller: this
 				});

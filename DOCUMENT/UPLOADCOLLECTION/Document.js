@@ -195,7 +195,6 @@ sap.ui.define([
 		async onShowDocument() {
 			if (!this.oDocument) {
 				this.oDocument = await this.loadFragment({
-					id: this.getView().getId(),
 					name: "com.serhatmercan.Document",
 					controller: this
 				});

@@ -117,10 +117,36 @@ sap.ui.define([
 					high: oFormattedToday
 				}
 			};
+			const oFilterItems = {
+				items: [{
+					"key": "01",
+					"text": "Text 01"
+				}]
+			};
+			const oFilterRanges = {
+				ranges: [{
+					"exclude": false,
+					"operation": "EQ",
+					"keyField": "IncType",
+					"value1": "01",
+					"value2": null
+				},
+				{
+					"exclude": false,
+					"operation": "EQ",
+					"keyField": "IncType",
+					"value1": "02",
+					"value2": null
+				}]
+			};
 			const sAppIdentifier = "com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
 			const oSmartFilter = this.byId(sAppIdentifier + "::MainSet--listReportFilter");
 
-			oSmartFilter.attachInitialise(() => { oSmartFilter.setFilterData(oDefaultFilter) });
+			oSmartFilter.attachInitialise(() => {
+				oSmartFilter.setFilterData(oDefaultFilter); // Optional - I
+				oSmartFilter.setFilterData(oFilterItems);	// Optional - II
+				oSmartFilter.setFilterData(oFilterRanges);	// Optional - III
+			});
 		},
 
 		onInit() {

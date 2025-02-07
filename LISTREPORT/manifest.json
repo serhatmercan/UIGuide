@@ -106,6 +106,10 @@
 										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Item",
 										"entitySet": "ItemSet",
 										"key": "Value"
+									},
+									"3": {
+										"annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#InvoiceType",
+										"key": "IncType"
 									}
 								}
 							}

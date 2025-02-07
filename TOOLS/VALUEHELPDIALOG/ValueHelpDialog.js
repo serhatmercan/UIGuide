@@ -68,7 +68,8 @@ sap.ui.define([
 						oTable.bindAggregation("rows", {
 							path: "/...SHSet",
 							events: {
-								dataReceived: () => { oDialogSuggestions.update() }
+								dataReceived: () => oDialogSuggestions.update(),
+								liveChange: () => this.onSearchFB()
 							}
 						});
 

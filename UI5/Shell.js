@@ -1,3 +1,12 @@
+// Application Language
+// "sap/ui/core/Core" => Core
+// Get: sap-language || sap-ui-language
+const sLanguage = new URLSearchParams(window.location.search).get("sap-language"); // => "TR" | "EN"
+const sLanguageII = jQuery.sap.getUriParameters().get("sap-language");
+
+// Set
+Core.getConfiguration().setLanguage("TR"); // => "EN"
+
 // Clear Local Storage: App.controller.js / onInit()
 sap.ushell.Container.attachLogoutEvent(() => { localStorage.clear() });
 
@@ -18,6 +27,9 @@ const oDeviceSystem = sap.ui.Device.system;
 const bDesktop = oDeviceSystem.desktop;    // => true | false
 const bPhone = oDeviceSystem.phone;        // => true | false
 const bTablet = oDeviceSystem.tablet;      // => true | false
+
+// Manifest Information
+const oModelInformation = this.getManifestEntry("/sap.ui5/models"); // "" , i18n Models Informations
 
 // Service Information
 const oUserInfoService = sap.ushell.Container.getService("UserInfo");

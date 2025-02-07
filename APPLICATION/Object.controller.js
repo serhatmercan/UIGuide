@@ -82,7 +82,6 @@ sap.ui.define([
             let sBindingPath = "";
 
             this.oInformationItemDialog = await this.loadFragment({
-                id: this.getView().getId(),
                 name: "com.sm.application.fragments.dialog.InformationItem",
                 controller: this
             });

@@ -62,7 +62,6 @@ sap.ui.define([
 			];
 
 			this.oSD = await this.loadFragment({
-				id: this.getView().getId(),
 				name: "com.serhatmercan.fragment.SelectDialog",
 				controller: this
 			});

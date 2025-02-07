@@ -128,7 +128,6 @@ sap.ui.define([
 
 		async onVHR() {
 			this.oDialog = await this.loadFragment({
-				id: this.getView().getId(),
 				name: "com.serhatmercan.Fragment",
 				controller: this
 			});

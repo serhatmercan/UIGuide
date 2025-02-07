@@ -6,7 +6,7 @@ OBJECT STATUS - ATTRIBUTES
 
 class="sapMObjectStatusLarge" "sapUiSmallMargin"
 icon="{ path: 'model>Value', formatter: '.formatter.getValueIcon' }"
-state="Information" state="{ path: 'model>Value', formatter: '.formatter.getValueState' }"
+state="Information" state="{ path: 'model>Value', formatter: '.formatter.getValueState' }" 
 text="{model>Value}" text="{path: 'Wrbtr', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }} {Waers}"                         
 
 inverted="true" 

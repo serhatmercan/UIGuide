@@ -105,7 +105,6 @@ sap.ui.define([
 				oAttachmentComponent.setAttributes(aAttributes);
 
 				this.oDocumentDialog = await this.loadFragment({
-					id: this.getView().getId(),
 					name: "com.serhatmercan.Document",
 					controller: this
 				});

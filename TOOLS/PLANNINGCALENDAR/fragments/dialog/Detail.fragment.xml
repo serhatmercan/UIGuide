@@ -1,0 +1,40 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+>
+    <ResponsivePopover
+        id="DetailPopover"
+        title="{model>Title}"
+        class="sapUiContentPadding"
+        placement="Auto"
+    >
+        <f:SimpleForm
+            editable="false"
+            layout="ResponsiveGridLayout"
+            singleContainerFullSize="false"
+        >
+            <f:content>
+                <Label text="Additional Information" />
+                <Text text="{model>Info}" />
+                <Label text="From" />
+                <Text text="{ path:'model>Start', formatter: '.formatDate' }" />
+                <Label text="To" />
+                <Text text="{ path:'model>End', formatter: '.formatDate' }" />
+            </f:content>
+        </f:SimpleForm>
+        <beginButton>
+            <Button
+                text="Edit"
+                type="Emphasized"
+                press="onShowEditAppointment"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Delete"
+                press="onDeleteAppointment"
+            />
+        </endButton>
+    </ResponsivePopover>
+</core:FragmentDefinition>

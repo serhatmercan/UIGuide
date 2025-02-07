@@ -16,7 +16,8 @@ sap.ui.define([
 			MessageToast.show(this.getText("Message", [iValueI, iValueII])); // i18n > Message {0} {1}
 
 			MessageToast.show(this.getText("Message"), {
-				duration: 5000, // Show Message Duration ... MSEC
+				at: "center top",				// Message Position of View
+				duration: 5000, 				// Show Message Duration ... MSEC
 				closeOnBrowserNavigation: false // Show Message Despite Page Change 
 			});
 

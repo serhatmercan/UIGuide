@@ -42,7 +42,6 @@ sap.ui.define([
 
 			if (!this.oPDFViewer) {
 				this.oPDFViewer = await this.loadFragment({
-					id: this.getView().getId(),
 					name: "com.serhatmercan.Dialog.Html",
 					controller: this
 				});

@@ -4,7 +4,8 @@
         <f:content>
             <core:Title text="{i18n>title}" />
             <Label text="{i18n>label}" required="true" />
-            <Input value="{model>/Value}" editable="false" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowVHValue">
+            <Input value="{model>/Value}" editable="false" showSuggestion="false" showValueHelp="true" valueHelpOnly="true" 
+                valueState="{= ${validation>/Value} : 'None' : 'Error' }" valueHelpRequest="onShowVHValue">
                 <layoutData>
                     <layout:GridData span="L12 M12 S12" indent="L1 M1 S1" />
                 </layoutData>

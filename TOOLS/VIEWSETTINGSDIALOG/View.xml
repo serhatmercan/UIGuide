@@ -1,1 +1,14 @@
-<Button text="{i18n>sort}" icon="sap-icon://sort" press="onShowSort"/>
+<List id="List" items="{ path: 'model>/Items', groupHeaderFactory: '.formatter.formatGroupHeader' }">
+    <headerToolbar>
+        <Title text="Title"/>
+        <ToolbarSpacer />
+        <Button text="{i18n>filter}" icon="sap-icon://filter" press="onShowFilter"/>
+        <Button text="{i18n>group}" icon="sap-icon://group-2" press="onShowGroup"/>
+        <Button text="{i18n>sort}" icon="sap-icon://sort" press="onShowSort"/>
+    </headerToolbar>
+    <infoToolbar>
+        <Toolbar visible="{model/>InfoToolbarVisible}"/>
+            <Text text="{model/>InfoToolbarText}"/>
+        </Toolbar>
+    </infoToolbar>
+</List>

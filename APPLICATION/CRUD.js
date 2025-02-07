@@ -150,6 +150,17 @@ sap.ui.define([
 			});
 		},
 
+		async onCreateDialog() {
+			if (!this.oDialog) {
+				await this.createDialog("DialogName").then(oDialog => {
+					this.oDialog = oDialog;
+					this.oDialog.open();
+				});
+			} else {
+				this.oDialog.open();
+			}
+		},
+
 		async onDelete() {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
@@ -266,6 +277,35 @@ sap.ui.define([
 			try {
 				const oData = await this.onReadQueryAsyncSorters("/...Set", aFilters, bAsync, aSorters, this.getModel())
 				// oData.results[0];
+			} catch (oError) {
+				// Handle Error
+			} finally {
+				this.onFireToShowMessages();
+			}
+		},
+
+		async onReadQueryParameters() {
+			const aFilters = [
+				new Filter("ID", FilterOperator.EQ, "X")
+			];
+			const aResults = [];
+			const iBatchSize = 5000;
+			let bFetchMore = true;
+			let iSkip = 10;
+
+			try {
+				while (bFetchMore) {
+					const oURLParameters = {
+						"$skip": iSkip,
+						"$top": iBatchSize
+					};
+					const oData = await this.onReadQueryParameters("/...Set", aFilters, this.getModel(), oURLParameters);
+					const aBatchResults = oData?.results?.map(oResult => ({ ...oResult })) || [];
+
+					aResults.push(...aBatchResults);
+					iSkip += iBatchSize;
+					bFetchMore = aBatchResults?.length >= iBatchSize;
+				}
 			} catch (oError) {
 				// Handle Error
 			} finally {

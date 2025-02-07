@@ -164,7 +164,6 @@ sap.ui.define([
 		async openVHDialog(sFragmentName) {
 			if (!this.oVHDialog) {
 				this.oVHDialog = await this.loadFragment({
-					id: this.getView().getId(),
 					name: sFragmentName,
 					controller: this
 				});

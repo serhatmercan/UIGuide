@@ -80,16 +80,14 @@ sap.ui.define([
 
 		showPopover(oEvent, sDialogID, sName) {
 			const oSource = oEvent.getSource();
-			const oView = this.getView();
 			let oDialog = this.byId(sDialogID);
 
 			if (!oDialog) {
 				Fragment.load({
-					id: oView.getId(),
 					name: `com.serhatmercan.fragment.dialog.${sName}`,
 					controller: this
 				}).then((oPopover) => {
-					oView.addDependent(oPopover);
+					this.getView().addDependent(oPopover);
 					oPopover.openBy(oSource);
 				});
 			} else {

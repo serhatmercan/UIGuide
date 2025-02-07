@@ -1,13 +1,15 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageToast",
+	"sap/m/ObjectStatus",
 	"sap/m/PDFViewer",
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/Item",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"sap/ui/model/json/JSONModel"
-], (BaseController, MessageToast, PDFViewer, BusyIndicator, Item, Filter, FilterOperator, JSONModel) => {
+	"sap/ui/model/json/JSONModel",
+	"sap/ui/model/type/Date"
+], (BaseController, MessageToast, ObjectStatus, PDFViewer, BusyIndicator, Item, Filter, FilterOperator, JSONModel, DateFormat) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -38,6 +40,35 @@ sap.ui.define([
 		/* ============== */
 		/* Event Handlers */
 		/* ============== */
+
+		onAIADocument(oEvent) {
+			const oAddedItem = oEvent.getParameter("item");
+			const oViewModel = this.getModel("model");
+			const oDocumentInfo = oViewModel.getProperty("/DocumentInfo");
+
+			if (!oDocumentInfo) return;
+
+			oAddedItem?.insertStatus(
+				new ObjectStatus({
+					"title": this.getText("date"),
+					"text": new DateFormat({
+						pattern: "dd.MM.yyyy",
+						UTC: true
+					}).formatValue(oDocumentInfo.Date, "string"),
+					"state": "Information",
+					"active": false
+				})
+			);
+
+			oAddedItem?.insertStatus(
+				new ObjectStatus({
+					"title": this.getText("documentNo"),
+					"text": oDocumentInfo.DocumentNo,
+					"state": "Information",
+					"active": false
+				})
+			);
+		},
 
 		async onAIRDocument(oEvent) {
 			const oViewModel = this.getModel("model")
@@ -122,7 +153,6 @@ sap.ui.define([
 		async onShowDocument() {
 			if (!this.oDocument) {
 				this.oDocument = await this.loadFragment({
-					id: this.getView().getId(),
 					name: "com.sm.application.fragments.dialog.Document",
 					controller: this
 				});

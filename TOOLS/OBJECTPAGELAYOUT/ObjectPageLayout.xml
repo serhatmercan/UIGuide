@@ -23,7 +23,7 @@ class="sapUiSizeCompact"
 height="100%" 
 
 alwaysShowContentHeader="true"
-enableLazyLoading="false"
+enableLazyLoading="true" w/ ObjectPageLazyLoader
 flexEnabled="true"
 isChildPage="false"
 preserveHeaderStateOnScroll="true" preserveHeaderStateOnScroll="{= ${model>/Mode} !== 'C' }"
@@ -77,6 +77,17 @@ useIconTabBar="true"
 			<ObjectPageSubSection>
 				<blocks>
 					<core:Fragment fragmentName="com.sm.fragments.view.main.OPSS" type="XML" />
+				</blocks>
+			</ObjectPageSubSection>
+		</subSections>
+	</ObjectPageSection>
+	<ObjectPageSection>
+		<subSections>
+			<ObjectPageSubSection>
+				<blocks>
+					<ObjectPageLazyLoader id="OPLLoader" stashed="true">
+						<core:Fragment fragmentName="com.sm.fragments.view.main.Table" type="XML" />
+					</ObjectPageLazyLoader>
 				</blocks>
 			</ObjectPageSubSection>
 		</subSections>

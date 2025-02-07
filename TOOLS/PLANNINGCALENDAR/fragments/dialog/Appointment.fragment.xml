@@ -1,0 +1,62 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog afterClose="onACAppointmentDialog">
+        <content>
+            <f:SimpleForm>
+                <f:content>
+                    <core:Title text="{i18n>appointment}" />
+                    <Label text="Select Person" />
+                    <Select
+                        id="AppointmentName"
+                        selectedKey="{model>/Appointment/Name}"
+                        forceSelection="false"
+                        width="100%"
+                        items="{model>/People}"
+                    >
+                        <core:Item
+                            key="{model>Name}"
+                            text="{model>Name}"
+                        />
+                    </Select>
+                    <Label text="Title" />
+                    <Input value="{model>/Appointment/Title}" />
+                    <Label text="Start Date" />
+                    <DateTimePicker
+                        id="StartDate"
+                        value="{model>/Appointment/StartDate}"
+                        displayFormat="short"
+                        required="true"
+                        change="onChangeDates"
+                    />
+                    <Label text="End Date" />
+                    <DateTimePicker
+                        id="EndDate"
+                        value="{model>/Appointment/EndDate}"
+                        displayFormat="short"
+                        required="true"
+                        change="onChangeDates"
+                    />
+                    <Label text="More Information" />
+                    <Input value="{model>/Appointment/Info}" />
+                </f:content>
+            </f:SimpleForm>
+        </content>
+        <beginButton>
+            <Button
+                text="Save"
+                type="Emphasized"
+                press="onSaveAppointment"
+            />
+        </beginButton>
+        <endButton>
+            <Button
+                text="Cancel"
+                press="onACAppointmentDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

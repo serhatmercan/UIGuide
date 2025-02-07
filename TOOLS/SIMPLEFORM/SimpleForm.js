@@ -15,8 +15,12 @@ sap.ui.define([
 			const oViewModel = new JSONModel({
 				Value: ""
 			});
+			const oValidationModel = new JSONModel({
+				Value: true
+			});
 
 			this.setModel(oViewModel, "model");
+			this.setModel(oValidationModel, "validation");
 
 			this.getRequiredElements();
 
@@ -24,6 +28,8 @@ sap.ui.define([
 				MessageToast.show(this.getText("infoObligatoryFields"));
 				return;
 			}
+
+			if (!this.validate()) return;
 		},
 
 		/* ============== */
@@ -63,6 +69,15 @@ sap.ui.define([
 				default:
 					return oElement.getValue();
 			}
+		},
+
+		validate() {
+			const oData = this.getModel("model").getData();
+			const oValidationModel = this.getModel("validation");
+
+			oValidationModel.setProperty("/Value", !!oData.Value);
+
+			return !Object.values(oValidationModel.getData()).includes(false);
 		},
 
 		validateElement(oElement) {

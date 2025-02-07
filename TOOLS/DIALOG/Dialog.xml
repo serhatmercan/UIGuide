@@ -10,6 +10,7 @@ busyIndicatorDelay="0"
 class="sapUiContentPadding" 	
 contentHeight="auto"
 contentWidth="100rem"
+icon="sap-icon://message-warning"
 title="{i18n>title}"
 
 busy="false"

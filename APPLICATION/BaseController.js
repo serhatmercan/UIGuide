@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
+	"sap/ui/core/Fragment",
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/UIComponent"
-], (MessagePopover, MessagePopoverItem, Controller, UIComponent) => {
+	"sap/ui/core/UIComponent",
+	"sap/ui/core/routing/History"
+], (MessagePopover, MessagePopoverItem, Fragment, Controller, UIComponent, History) => {
 	"use strict";
 
 	const createPromise = (oModelMethod, sSet, oData, oModel) => new Promise((fnResolve, fnReject) => {
@@ -15,6 +17,18 @@ sap.ui.define([
 	});
 
 	return Controller.extend("xxx.controller.BaseController", {
+
+		createDialog(sFragmentName) {
+			return new Promise((fnResolve) => {
+				Fragment.load({
+					name: `xxx.fragments.dialog.${sFragmentName}`,
+					controller: this
+				}).then(oFragment => {
+					this.getView().addDependent(oFragment);
+					fnResolve(oFragment);
+				});
+			});
+		},
 
 		getModel(sName) {
 			return this.getView().getModel(sName);
@@ -52,6 +66,16 @@ sap.ui.define([
 
 			if (oMessageModel.getData().length) {
 				setTimeout(() => this.byId("MessagePO").firePress(), 100);
+			}
+		},
+
+		onNavBack() {
+			const sPreviousHash = History.getInstance().getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				history.go(-1);
+			} else {
+				this.getRouter().navTo("Main", {}, true);
 			}
 		},
 
@@ -161,6 +185,18 @@ sap.ui.define([
 					async: bAsync,
 					filters: aFilters,
 					sorters: aSorters,
+					success: fnSuccess,
+					error: fnReject
+				};
+				oModel.read(sSet, mParameters);
+			});
+		},
+
+		onReadQueryParameters(sSet, aFilters, oModel, oURLParameters) {
+			return new Promise((fnSuccess, fnReject) => {
+				const mParameters = {
+					filters: aFilters,
+					urlParameters: oURLParameters,
 					success: fnSuccess,
 					error: fnReject
 				};

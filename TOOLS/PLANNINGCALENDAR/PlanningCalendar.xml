@@ -4,12 +4,19 @@
         rows="{model>/People}"
         appointmentsVisualization="Filled"
         startDate="{model>/StartDate}"
+        appointmentSelect="onAppointmentSelect"
         showEmptyIntervalHeaders="false"
-        showWeekNumbers="true">
+        showWeekNumbers="true"
+    >
         <toolbarContent>
             <Title
                 text="Planning Calendar"
                 titleStyle="H4"
+            />
+            <Button
+                icon="sap-icon://add"
+                press="onShowCreateAppointment"
+                tooltip="{i18n>add}"
             />
         </toolbarContent>
         <rows>
@@ -18,6 +25,13 @@
                 title="{model>Name}"
                 text="{model>Role}"
                 appointments="{ path:'model>Appointments', templateShareable: false }"
+                enableAppointmentsCreate="true"
+                enableAppointmentsDragAndDrop="true"
+                enableAppointmentsResize="true"
+                appointmentCreate="onAppointmentCreate"
+                appointmentDragEnter="onAppointmentDragEnter"
+                appointmentDrop="onAppointmentDrop"
+                appointmentResize="onAppointmentResize"
             >
                 <appointments>
                     <unified:CalendarAppointment

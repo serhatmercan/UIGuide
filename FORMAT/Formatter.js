@@ -478,6 +478,20 @@ sap.ui.define([
 			);
 
 			return oEmailRegex.test(sValue);
+		},
+
+
+		/*
+		=> validateMail2("example@example.com")
+		<= true
+
+		=> validateMail2("invalid-email") 		
+		<= false
+		*/
+		validateMail2(sValue) {
+			const oEmailRegex = new RegExp("^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$", "i");
+
+			return oEmailRegex.test(sValue);
 		}
 
 	};

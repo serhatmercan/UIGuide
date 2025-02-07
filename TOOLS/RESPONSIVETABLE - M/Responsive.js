@@ -5,14 +5,18 @@ sap.ui.define([
 	"sap/m/ColumnListItem",
 	"sap/m/Input",
 	"sap/m/Label",
-	'sap/m/library',
+	"sap/m/library",
+	"sap/m/ObjectIdentifier",
+	"sap/m/ObjectNumber",
+	"sap/m/ObjectStatus",
 	"sap/m/Table",
 	"sap/m/Text",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Sorter"
-], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, Table, Text, Filter, FilterOperator, JSONModel, Sorter) => {
+], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, ObjectIdentifier, ObjectNumber, ObjectStatus, Table, Text, Filter, FilterOperator,
+	JSONModel, Sorter) => {
 	"use strict";
 
 	const { URLHelper } = MobileLibrary;
@@ -250,6 +254,40 @@ sap.ui.define([
 			});
 
 			oTable.bindItems(sPath, oCLI);
+		},
+
+		bindAggregation() {
+			this.byId("Table")
+				.bindAggregation("items", {
+					path: "/Products",
+					sorter: new Sorter("ProductName", false),
+					parameters: {
+						expand: "Category,Supplier"
+					},
+					template: new ColumnListItem({
+						type: "Navigation",
+						press: this.onPress.bind(this),
+						cells: [
+							new ObjectIdentifier({ title: "{ProductName}" }),
+							new Text({ text: "{Category/CategoryName}" }),
+							new ObjectStatus({
+								text: "{= ${Discontinued} ? ${i18n>discontinued} : ${i18n>inProduction}}",
+								state: "{= ${Discontinued} ? 'Error' : 'Success'}"
+							}),
+							new ObjectNumber({
+								number: "{UnitsInStock}",
+								state: { path: 'UnitsInStock', formatter: this.formatter.formatStockStatus }
+							}),
+							new ObjectNumber({
+								number: {
+									parts: ['UnitPrice', 'Currency'],
+									type: 'sap.ui.model.type.Currency'
+								},
+								unit: "USD"
+							})
+						]
+					})
+				});
 		},
 
 		createFactory() {
