@@ -123,13 +123,8 @@ sap.ui.define([
 			if (oFilterData?.ID) {
 				oFilterData?.ID?.items?.forEach(oID => aFilters.push(new Filter("ID", FilterOperator.EQ, oID.key)));
 				oFilterData?.ID?.ranges.forEach(oID => {
-					switch (oID.operation) {
-						case "BT":
-							aFilters.push(new Filter("ID", FilterOperator.BT, oID.value1, oID.value2));
-							break;
-						case "EQ":
-							aFilters.push(new Filter("ID", FilterOperator.EQ, oID.value1));
-							break;
+					if (!!FilterOperator[oID.operation]) {
+						aFilters.push(new Filter("Monat", FilterOperator[oID.operation], oID.value1, oID.value2));
 					}
 				});
 
