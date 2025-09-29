@@ -13,7 +13,7 @@
 <!--
 id="Input"
 class="sapUiTinyMarginBegin sapUiTinyMarginEnd"
-description={model>/Unit}"  
+description="{model>/Unit}"  
 maxLength="10"
 name="Input"
 placeholder="{i18n>input}" 

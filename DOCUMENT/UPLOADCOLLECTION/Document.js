@@ -192,6 +192,28 @@ sap.ui.define([
 			window.open(sDocumentPath, "_blank");
 		},
 
+		onShowDocumentWithHeader() {
+			const oModel = this.getModel();
+			const sServiceURL = oModel.sServiceUrl;
+			const sPath = oModel.createKey("/...Set", {
+				Doknr: "123"
+			});
+			const sURL = `${sServiceURL}${sPath}/$value`;
+
+			fetch(sURL, {
+				method: "GET",
+				headers: {
+					"dest": "ECC"
+				}
+			})
+				.then(oResponse => oResponse.blob())
+				.then(oBlob => {
+					const sURLx = URL.createObjectURL(oBlob);
+					window.open(sURLx, "_blank");
+				})
+				.catch(oError => console.error("Error:", oError));
+		},
+
 		async onShowDocument() {
 			if (!this.oDocument) {
 				this.oDocument = await this.loadFragment({

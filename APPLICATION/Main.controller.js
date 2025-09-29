@@ -2,10 +2,12 @@ sap.ui.define([
 	"./BaseController",
 	"../model/formatter",
 	"sap/m/MessageBox"
-], (BaseController, Formatter, MessageBox) => {
+], (BaseController, formatter, MessageBox) => {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.Main", {
+
+		formatter,
 
 		/* ================= */
 		/* Lifecycle Methods */

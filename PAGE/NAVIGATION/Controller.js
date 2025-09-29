@@ -1,6 +1,7 @@
 sap.ui.define([
-	"com/serhatmercan/controller/BaseController"
-], (BaseController) => {
+	"com/serhatmercan/controller/BaseController",
+	"sap/m/library"
+], (BaseController, library) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -56,6 +57,13 @@ sap.ui.define([
 
 			oURLHelper.redirect(`${sBaseUrl}${oHrefForExternal}`, true);
 			oURLHelper.redirect(`#ZSM_APP-manage&/Candidate/TR33273/A8`, true);
+		},
+
+		onTrigger() {
+			const oURLHelper = library.URLHelper;
+
+			oURLHelper.triggerEmail("abc@gmail.com");
+			oURLHelper.triggerTel("1234567890");
 		},
 
 		/* ================ */

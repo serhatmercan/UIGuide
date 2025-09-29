@@ -70,7 +70,7 @@ sap.ui.define([
 		},
 
 		check() {
-			if (this.byId("SmartField")?.check()?.length) {
+			if (this.byId("SmartForm")?.check()?.length) {
 				return;
 			}
 		},

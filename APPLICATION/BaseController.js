@@ -21,6 +21,7 @@ sap.ui.define([
 		createDialog(sFragmentName) {
 			return new Promise((fnResolve) => {
 				Fragment.load({
+					id: this.getView().getId(),
 					name: `xxx.fragments.dialog.${sFragmentName}`,
 					controller: this
 				}).then(oFragment => {

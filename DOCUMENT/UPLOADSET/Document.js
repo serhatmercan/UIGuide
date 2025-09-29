@@ -117,6 +117,11 @@ sap.ui.define([
 			this.oDocument.close();
 		},
 
+		onFNEDocument() {
+			MessageToast.show(this.getText("errorMaximumFileNameLength")); // Dosya adı 50 karakterden uzun olamaz !
+			return;
+		},
+
 		onPrintout() {
 			const aContexts = this.byId("Table").getTable().getSelectedContexts();
 

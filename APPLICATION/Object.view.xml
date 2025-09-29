@@ -3,18 +3,18 @@
     xmlns:core="sap.ui.core"
     xmlns:m="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    controllerName="com.sm.application.controller.Object"
+    controllerName="xxx.controller.Object"
 >
     <ObjectPageLayout showFooter="{model>/ObjectFooterVisible}">
         <headerTitle>
             <core:Fragment
-                fragmentName="com.sm.application.fragments.view.object.HeaderTitle"
+                fragmentName="xxx.fragments.view.object.HeaderTitle"
                 type="XML"
             />
         </headerTitle>
         <headerContent>
             <core:Fragment
-                fragmentName="com.sm.application.fragments.view.object.HeaderContent"
+                fragmentName="xxx.fragments.view.object.HeaderContent"
                 type="XML"
             />
         </headerContent>
@@ -30,7 +30,7 @@
                     >
                         <blocks>
                             <core:Fragment
-                                fragmentName="com.sm.application.fragments.view.object.Information"
+                                fragmentName="xxx.fragments.view.object.Information"
                                 type="XML"
                             />
                         </blocks>
@@ -48,7 +48,7 @@
                     >
                         <blocks>
                             <core:Fragment
-                                fragmentName="com.sm.application.fragments.view.object.InformationItems"
+                                fragmentName="xxx.fragments.view.object.InformationItems"
                                 type="XML"
                             />
                         </blocks>
@@ -58,7 +58,7 @@
         </sections>
         <footer>
             <core:Fragment
-                fragmentName="com.sm.application.fragments.view.object.Footer"
+                fragmentName="xxx.fragments.view.object.Footer"
                 type="XML"
             />
         </footer>
