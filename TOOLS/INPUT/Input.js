@@ -25,7 +25,10 @@ sap.ui.define([
 
 			const oInput = this.byId("Input");
 
-			oInput.focus();
+			setTimeout(() => {
+				oInput.focus();
+			}, 100);
+
 			oInput.setValue("");
 			oInput.attachBrowserEvent("mousewheel", oEvent => {
 				oEvent.preventDefault();
@@ -116,6 +119,15 @@ sap.ui.define([
 				this.oVHDialog.destroy();
 				this.oVHDialog = null;
 			}
+		},
+
+		filterSuggestionItems(sValue) {
+			const aFilters = [
+				new Filter("Key", FilterOperator.EQ, sValue)
+			];
+			const oInput = this.byId("Input");
+
+			oInput?.getBinding("suggestionItems")?.filter(aFilters);
 		},
 
 		generateInput() {

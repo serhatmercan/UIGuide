@@ -43,12 +43,19 @@ change="onChangeInput"
 liveChange="onLiveChange"
 submit="onSubmit"
 -->
-<!-- INPUT - SUGGESTION ITEMS -->
+<!-- INPUT - SUGGESTION ITEMS - I -->
 <!--
-<Input selectedKey="{model>/Value}" showSecondaryValues="true" showSuggestion="true" suggestionItemSelected="onSIS"
-	   suggestionItems="{ path: '/VHSet', filters: [{ path: 'Key', operator: 'EQ', value1: '1000' }], length: '9999' }">
+<Input selectedKey="{model>/Value}" showSecondaryValues="true" showSuggestion="true" suggestionItemSelected="onSIS" suggestionItems="{ path: '/VHSet', filters: [{ path: 'Key', operator: 'EQ', value1: '1000' }], length: '9999' }">
 	<suggestionItems>
 		<core:Item text="{Value}" key="{Key}"/>
+	</suggestionItems>
+</Input>
+-->
+<!-- INPUT - SUGGESTION ITEMS - II -->
+<!-- 
+<Input id="Input" suggestionItems="{/...VHSet}" showSuggestion="true" suggestionItemSelected="onChangeSI">
+	<suggestionItems>
+    	<core:ListItem key="{Key}" text="{Key}" additionalText="{Text}"/>
 	</suggestionItems>
 </Input>
 -->
