@@ -26,7 +26,7 @@ sap.ui.define([
 			const fnRequestReceived = () => {
 				const oMessageManager = sap.ui.getCore().getMessageManager();
 				const oMessageModel = oMessageManager?.getMessageModel();
-				const aMessages = oMessageModel?.getData();
+				const aMessages = oMessageModel?.getData() || [];
 
 				aMessages.forEach(oMessage => oMessage.setPersistent(true));
 

@@ -1,11 +1,12 @@
 sap.ui.define([
+	"sap/m/MessageToast",
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
 	"sap/ui/core/Fragment",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/ui/core/routing/History"
-], (MessagePopover, MessagePopoverItem, Fragment, Controller, UIComponent, History) => {
+], (MessageToast, MessagePopover, MessagePopoverItem, Fragment, Controller, UIComponent, History) => {
 	"use strict";
 
 	const createPromise = (oModelMethod, sSet, oData, oModel) => new Promise((fnResolve, fnReject) => {
@@ -16,19 +17,43 @@ sap.ui.define([
 		oModelMethod.call(oModel, sSet, oData, mParameters);
 	});
 
+	const mCollectionConfig = {
+		Items: []
+	};
+
 	return Controller.extend("xxx.controller.BaseController", {
 
+		addModelCollectionItem(sCollectionName, oItem) {
+			const oViewModel = this.getModel("model");
+			const aItems = [...(oViewModel.getProperty(`/${sCollectionName}`) || []), oItem];
+
+			this.setModelCollection(sCollectionName, aItems);
+		},
+
 		createDialog(sFragmentName) {
-			return new Promise((fnResolve) => {
-				Fragment.load({
-					id: this.getView().getId(),
-					name: `xxx.fragments.dialog.${sFragmentName}`,
-					controller: this
-				}).then(oFragment => {
-					this.getView().addDependent(oFragment);
-					fnResolve(oFragment);
-				});
+			return Fragment.load({
+				id: this.getView().getId(),
+				name: `xxx.fragments.dialog.${sFragmentName}`,
+				controller: this
+			}).then(oFragment => {
+				this.getView().addDependent(oFragment);
+				return oFragment;
 			});
+		},
+
+		getCollectionIndexFromEvent(oEvent) {
+			const oListItem = oEvent.getParameter("listItem");
+			const sPath = oListItem?.getBindingContext("model")?.getPath() || oListItem?.getBindingContextPath("model");
+			const iIndex = Number(sPath?.split("/").pop());
+
+			return Number.isInteger(iIndex) ? iIndex : -1;
+		},
+
+		getErrorMessage(oError) {
+			return new DOMParser()
+				.parseFromString(oError?.responseText || "", "text/xml")
+				?.querySelector("message")
+				?.textContent || "";
 		},
 
 		getModel(sName) {
@@ -44,8 +69,36 @@ sap.ui.define([
 			return oResourceBundle.getText(sText, iNumber || undefined);
 		},
 
+		removeModelCollectionItem(sCollectionName, oEvent, sMessageKey) {
+			const iIndex = this.getCollectionIndexFromEvent(oEvent);
+			const oViewModel = this.getModel("model");
+			const aItems = [...(oViewModel.getProperty(`/${sCollectionName}`) || [])];
+
+			if (iIndex < 0 || iIndex >= aItems.length) {
+				MessageToast.show(this.getText(sMessageKey));
+				return;
+			}
+
+			aItems.splice(iIndex, 1);
+
+			this.setModelCollection(sCollectionName, aItems);
+		},
+
+
 		setModel(oModel, sName) {
 			return this.getView().setModel(oModel, sName);
+		},
+
+		setModelCollection(sCollectionName, aItems) {
+			const oCollectionConfig = mCollectionConfig[sCollectionName];
+			const oViewModel = this.getModel("model");
+			const aSafeItems = Array.isArray(aItems) ? aItems : [];
+
+			if (!oCollectionConfig) {
+				return;
+			}
+
+			oViewModel.setProperty(`/${sCollectionName}`, aSafeItems);
 		},
 
 		/* ============== */

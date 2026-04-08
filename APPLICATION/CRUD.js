@@ -135,7 +135,7 @@ sap.ui.define([
 							);
 						});
 					} catch (oError) {
-						const sMessage = new DOMParser()?.parseFromString(oError.responseText, "text/xml")?.querySelector("message")?.textContent;
+						MessageToast.show(this.getErrorMessage(oError) || this.getText("errorOccured"));
 					} finally {
 						this.onFireToShowMessages();
 					}

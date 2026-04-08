@@ -107,6 +107,8 @@ sap.ui.define([
 
 		onVHR(oEvent) {
 			this.sPath = oEvent.getSource().getBindingContext("model").getPath();
+			this.sProperty = oEvent.getSource().getBinding("value").getPath();
+
 			this.openVHDialog("com.serhatmercan.SmartSearchHelp");
 		},
 
