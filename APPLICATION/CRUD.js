@@ -3,12 +3,13 @@ sap.ui.define([
 	"sap/m/MessageBox",
 	"sap/m/MessageToast",
 	"sap/ui/core/message/Message",
+	"sap/ui/core/Messaging",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/FilterType",
 	"sap/ui/model/Sorter",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, MessageBox, MessageToast, Message, Filter, FilterOperator, FilterType, Sorter, JSONModel) => {
+], (BaseController, MessageBox, MessageToast, Message, Messaging, Filter, FilterOperator, FilterType, Sorter, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -116,7 +117,7 @@ sap.ui.define([
 				if (sAction === oMBAction.OK) {
 					try {
 						const oResponse = await this.onCreate("/...Set", oData, this.getModel());
-						const aMessages = sap.ui.getCore().getMessageManager().getMessageModel().getData();
+						const aMessages = Messaging.getMessageModel().getData();
 
 						aMessages.forEach(oMessage => oMessage.setPersistent(true));
 
@@ -126,7 +127,7 @@ sap.ui.define([
 						}
 
 						oResponse.results.forEach(oResult => {
-							sap.ui.getCore().getMessageManager().addMessages(
+							Messaging.addMessages(
 								new Message({
 									message: oResult.Message,
 									type: oResult.Type,

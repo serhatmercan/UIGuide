@@ -27,6 +27,32 @@ sap.ui.define([
 		/* Event Handlers */
 		/* ============== */
 
+		onChangeDate(oEvent) {
+			const oSource = oEvent.getSource();
+			const sValue = oSource.getValue();
+
+			if (!sValue) {
+				return;
+			}
+
+			const oDateFormat = sap.ui.core.format.DateFormat.getDateInstance();
+			const oParsedDate = oDateFormat.parse(sValue);
+
+			if (!oParsedDate || isNaN(oParsedDate.getTime())) {
+				return;
+			}
+
+			const oToday = new Date();
+
+			oToday.setHours(0, 0, 0, 0);
+			oParsedDate.setHours(0, 0, 0, 0);
+
+			if (oParsedDate > oToday) {
+				MessageToast.show(this.getText("errorDate"));
+				oSource.getInnerControls()?.[0]?.setDateValue(new Date());
+			}
+		},
+
 		onChangeID: async function (oEvent) {
 			const sID = oEvent.getParameter("value");
 			const sPath = this.getView().getBindingContext().getPath();

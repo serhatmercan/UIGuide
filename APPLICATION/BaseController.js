@@ -3,10 +3,11 @@ sap.ui.define([
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
 	"sap/ui/core/Fragment",
+	"sap/ui/core/Messaging",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/ui/core/routing/History"
-], (MessageToast, MessagePopover, MessagePopoverItem, Fragment, Controller, UIComponent, History) => {
+], (MessageToast, MessagePopover, MessagePopoverItem, Fragment, Messaging, Controller, UIComponent, History) => {
 	"use strict";
 
 	const createPromise = (oModelMethod, sSet, oData, oModel) => new Promise((fnResolve, fnReject) => {
@@ -112,7 +113,7 @@ sap.ui.define([
 				"ItemFound": false
 			});
 
-			sap.ui.getCore().getMessageManager().removeAllMessages();
+			Messaging.removeAllMessages();
 		},
 
 		onFireToShowMessages() {

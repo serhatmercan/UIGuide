@@ -1,14 +1,15 @@
 sap.ui.define([
 	"./BaseController",
-	"sap/ui/core/BusyIndicator"
-], (BaseController, BusyIndicator) => {
+	"sap/ui/core/BusyIndicator",
+	"sap/ui/core/Messaging"
+], (BaseController, BusyIndicator, Messaging) => {
 	"use strict";
 
 	return BaseController.extend("xxx.controller.App", {
 
 		onInit() {
 			const oComponent = this.getOwnerComponent();
-			const oMessageModel = sap.ui.getCore().getMessageManager()?.getMessageModel();
+			const oMessageModel = Messaging.getMessageModel();
 
 			oComponent.setModel(oMessageModel, "message");
 
@@ -21,11 +22,10 @@ sap.ui.define([
 			const oModel = this.getOwnerComponent().getModel();
 			const fnRequestSent = () => {
 				BusyIndicator.show();
-				sap.ui.getCore().getMessageManager()?.removeAllMessages();
+				Messaging.removeAllMessages();
 			};
 			const fnRequestReceived = () => {
-				const oMessageManager = sap.ui.getCore().getMessageManager();
-				const oMessageModel = oMessageManager?.getMessageModel();
+				const oMessageModel = Messaging.getMessageModel();
 				const aMessages = oMessageModel?.getData() || [];
 
 				aMessages.forEach(oMessage => oMessage.setPersistent(true));
@@ -47,8 +47,7 @@ sap.ui.define([
 		},
 
 		removeDuplicateMessages() {
-			const oMessageManager = sap.ui.getCore().getMessageManager();
-			const oMessageModel = oMessageManager?.getMessageModel();
+			const oMessageModel = Messaging.getMessageModel();
 			const aModelMessages = oMessageModel?.getData();
 
 			if (!aModelMessages) return;
