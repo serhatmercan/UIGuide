@@ -5,8 +5,9 @@ sap.ui.define([
 	"sap/m/Token",
 	"sap/m/Tokenizer",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], (BaseController, formatter, MultiInput, Token, Tokenizer, Filter, FilterOperator) => {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/model/json/JSONModel"
+], (BaseController, formatter, MultiInput, Token, Tokenizer, Filter, FilterOperator, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -145,7 +146,7 @@ sap.ui.define([
 				enabled: "{= ${model>/Editable} && ${model>/Visible} ? true : false }",
 				showValueHelp: true,
 				valueHelpOnly: true,
-				valueHelpRequest: (oEvent) => this.onVHR(oEvent).bind(this) // -> Value Help Dialog
+				valueHelpRequest: () => this.onVHR() // -> Value Help Dialog
 			});
 		},
 

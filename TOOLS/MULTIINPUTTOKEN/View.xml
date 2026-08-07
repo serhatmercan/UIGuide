@@ -1,4 +1,4 @@
-<mvc:View xmlns="sap.m" xmln:mvc="sap.mvc">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
 	<MultiInput tokens="{model>/List}">
 		<tokens>
 			<Token key="{model>ID}" text="{model>Value}"/>

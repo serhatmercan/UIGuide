@@ -13,7 +13,7 @@ sap.ui.define([
 
 			MessageToast.show(this.getText("Message", 1907)); // i18n > Message {0}
 
-			MessageToast.show(this.getText("Message", [iValueI, iValueII])); // i18n > Message {0} {1}
+			MessageToast.show(this.getText("Message", [1, 2])); // i18n > Message {0} {1}
 
 			MessageToast.show(this.getText("Message"), {
 				at: "center top",				// Message Position of View

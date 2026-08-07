@@ -6,7 +6,7 @@ sap.ui.define([
 	"sap/m/MessagePopoverItem",
 	"sap/ui/core/message/Message",
 	"sap/ui/core/message/MessageType"
-], (BaseController, MessageToast, Message, MessagePopoverItem, MessageType, MessagePopover) => {
+], (BaseController, MessageToast, MessagePopover, MessagePopoverItem, Message, MessageType) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
