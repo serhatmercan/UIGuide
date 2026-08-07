@@ -10,7 +10,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			this.ODataModel = this.getOwnerComponent().getModel("ss");
+			this.ODataModel = this.getOwnerComponent().getModel("");
 		},
 
 		/* ============== */

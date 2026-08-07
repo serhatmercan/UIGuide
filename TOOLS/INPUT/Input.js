@@ -165,7 +165,7 @@ sap.ui.define([
 				value: {
 					path: "model>Value"
 				}
-			})).bind(this);
+			}));
 		},
 
 		getSuggestionItems() {

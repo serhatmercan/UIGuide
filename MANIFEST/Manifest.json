@@ -13,7 +13,7 @@
 				}
 			},
 			"util": {
-				"uri": "/sap/opu/odata/ittr/PMM_UTIL_SRV/",
+				"uri": "/sap/opu/odata/sap/Z_EXAMPLE_UTIL_SRV/",
 				"type": "OData"
 			}
 		}

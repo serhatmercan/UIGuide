@@ -17,9 +17,9 @@ sap.ui.define([
 				Value: ""
 			}), "model");
 
-			new sap.Text({
+			new Text({
 				text: "Text"
-			}).addStyleClass(".redText");
+			}).addStyleClass("redText");
 
 			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched.bind(this));
 		},

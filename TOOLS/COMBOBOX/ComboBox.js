@@ -21,9 +21,11 @@ sap.ui.define([
 			});
 			this.setModel(oViewModel, "model");
 
-			this.byId("ComboBox").fireSelectionChange({
-				selectedItem: sID
-			});
+			// Reference: manually firing selectionChange requires a real sap.ui.core.Item instance,
+			// not a bare key/id string - adapt to your bound item before reusing this technique.
+			// this.byId("ComboBox").fireSelectionChange({
+			// 	selectedItem: oComboBox.getSelectedItem()
+			// });
 
 			this.byId("ComboBox").setFilterFunction((sTerm, oItem) => {
 				return oItem.getKey().match(new RegExp(sTerm, "i")) || oItem.getText().match(new RegExp(sTerm, "i"));
