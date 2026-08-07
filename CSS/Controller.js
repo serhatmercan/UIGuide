@@ -8,20 +8,26 @@ sap.ui.define([
         onInit() {
             const oTable = this.byId("Table").getTable();
 
-            // Change Cell Style
-            const oSelectedItem = oTable.getSelectedItem();
-            if (oSelectedItem) {
-                oSelectedItem.getCells()[0].$().addClass("cell_color_green");
+            // Change Cell Style (sap.m.Table / ResponsiveTable API)
+            if (typeof oTable.getSelectedItem === "function") {
+                const oSelectedItem = oTable.getSelectedItem();
+                if (oSelectedItem) {
+                    oSelectedItem.getCells()[0].$().addClass("cell_color_green");
+                }
             }
 
-            // Change Selected Row Style
-            const aSelectedItems = oTable.getSelectedItems();
-            if (aSelectedItems.length > 0) {
-                aSelectedItems.forEach(oItem => oItem.addStyleClass("row_color_red"));
+            // Change Selected Row Style (sap.m.Table / ResponsiveTable API)
+            if (typeof oTable.getSelectedItems === "function") {
+                const aSelectedItems = oTable.getSelectedItems();
+                if (aSelectedItems.length > 0) {
+                    aSelectedItems.forEach(oItem => oItem.addStyleClass("row_color_red"));
+                }
             }
 
-            // Change All Rows Style
-            oTable.getRows().forEach(oItem => oItem.addStyleClass("row_color_red"));
+            // Change All Rows Style (sap.ui.table.Table / GridTable API)
+            if (typeof oTable.getRows === "function") {
+                oTable.getRows().forEach(oItem => oItem.addStyleClass("row_color_red"));
+            }
         },
 
         removeStyle(oEvent) {

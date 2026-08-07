@@ -120,9 +120,9 @@ sap.ui.define([
 		},
 
 		convertDataToJSON() {
-			const sJSONData = `{"Family":[ {"FirstName":"Serhat","LastName":"Mercan"},
-										   {"FirstName":"Elif","LastName":"Mercan"},
-					                       {"FirstName":"Selim","LastName":"Mercan"}]}`;
+			const sJSONData = `{"Family":[ {"FirstName":"John","LastName":"Doe"},
+										   {"FirstName":"Jane","LastName":"Doe"},
+					                       {"FirstName":"Alex","LastName":"Doe"}]}`;
 
 			return JSON.parse(sJSONData).Family;
 		},

@@ -13,14 +13,17 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			// Clear Metadata
-			jQuery.extend(true, {}, oData);
-			jQuery.extend(true, [], aData);
+			// Clear Metadata — deep clone techniques (reference only, replace oData/aData with actual bound data)
+			// jQuery.extend(true, {}, oData);
+			// jQuery.extend(true, [], aData);
 
-			// Clear Metadata (ES6)
-			JSON.parse(JSON.stringify(oData.Items));
+			// Clear Metadata (ES6 alternative)
+			// JSON.parse(JSON.stringify(oData.Items));
 		},
 
+		// Legacy Pattern: sap.ui.getCore().getMessageManager() and manual DOMParser error-extraction
+		// (see onCreateExample's catch block below) predate BaseController.getErrorMessage() and the
+		// sap/ui/core/Messaging module used in APPLICATION/CRUD.js — kept here as the historical equivalent.
 		onGetSetMessages() {
 			const oViewModel = this.getModel("model");
 
@@ -58,7 +61,7 @@ sap.ui.define([
 			}
 		},
 
-		async onCallFunction() {
+		async onCallFunctionExample() {
 			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
@@ -75,26 +78,19 @@ sap.ui.define([
 			}
 		},
 
-		async onCreate(oEvent) {
+		// NOTE: payload shape below (flat header + nested "Items") is illustrative only —
+		// adapt it to your target OData entity / deep-entity structure before reuse.
+		async onCreateExample(oEvent) {
 			const oMBAction = MessageBox.Action;
 			const oModel = this.getModel();
-			const oViewModel = this.getModel("model");
-			const aData = oViewModel.getProperty("/Data");
-			let oData = {
+
+			// Active example: resolve an expanded "Items" nav-property list-binding (array of
+			// binding paths) into plain entity objects to build a deep-insert payload.
+			const aItemPaths = this.getView().getBindingContext().getProperty("Items");
+			const oData = {
 				ID: "X",
-				Items: []
+				Items: aItemPaths.map(sPath => oModel.getProperty("/" + sPath))
 			};
-
-			const aPaths = this.getView().getBindingContext().getProperty("Items");
-
-			aData.forEach((Data) => {
-				oData.Items.push(Data);
-			});
-
-			oData.Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
-
-			// Match Binding Data
-			oData = JSON.parse(JSON.stringify(aData.Items));
 
 			// Clear Metadata
 			delete oData.__metadata;
@@ -110,6 +106,28 @@ sap.ui.define([
 					oData[sFieldName] = oData[sFieldName].toString();
 				}
 			});
+
+			/*
+			Alternative (do not combine with the active example above): build "Items" by copying
+			rows out of a plain JSON model array bound at "/model>/Data" instead of resolving
+			OData binding paths.
+
+			const oViewModel = this.getModel("model");
+			const aData = oViewModel.getProperty("/Data");
+			const oData = { ID: "X", Items: [] };
+			aData.forEach(oRow => oData.Items.push(oRow));
+			*/
+
+			/*
+			Alternative (do not combine with the active example above): deep-clone an already
+			OData-shaped entity whose "Items" nav property is already expanded, instead of
+			manually assembling one from binding paths.
+
+			const oBoundEntity = this.getView().getBindingContext().getObject();
+			const oData = JSON.parse(JSON.stringify(oBoundEntity));
+			delete oData.__metadata;
+			oData.Items.forEach(oItem => delete oItem.__metadata);
+			*/
 
 			const onConfirm = async (sAction) => {
 				if (sAction === oMBAction.OK) {
@@ -149,7 +167,7 @@ sap.ui.define([
 			});
 		},
 
-		async onDelete() {
+		async onDeleteExample() {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const oKey = oModel.createKey("/...Set", {
@@ -165,7 +183,7 @@ sap.ui.define([
 			}
 		},
 
-		async onRead() {
+		async onReadExample() {
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
@@ -180,7 +198,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadAssociation() {
+		async onReadAssociationExample() {
 			const oModel = this.getModel();
 			const sPath = oModel.createKey("/...Set", {
 				ID: sID
@@ -200,7 +218,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadExpanded() {
+		async onReadExpandedExample() {
 			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -221,7 +239,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadQuery() {
+		async onReadQueryExample() {
 			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -282,7 +300,7 @@ sap.ui.define([
 			}
 		},
 
-		async onSubmitChanges() {
+		async onSubmitChangesExample() {
 			const oModel = this.getModel();
 			const oMBAction = MessageBox.Action;
 
@@ -307,7 +325,7 @@ sap.ui.define([
 			}
 		},
 
-		async onUpdate() {
+		async onUpdateExample() {
 			const oData = {};
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {

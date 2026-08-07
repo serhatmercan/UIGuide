@@ -79,26 +79,19 @@ sap.ui.define([
 			}
 		},
 
+		// NOTE: payload shape below (flat header + nested "Items") is illustrative only —
+		// adapt it to your target OData entity / deep-entity structure before reuse.
 		async onCreateExample(oEvent) {
 			const oMBAction = MessageBox.Action;
 			const oModel = this.getModel();
-			const oViewModel = this.getModel("model");
-			const aData = oViewModel.getProperty("/Data");
-			let oData = {
+
+			// Active example: resolve an expanded "Items" nav-property list-binding (array of
+			// binding paths) into plain entity objects to build a deep-insert payload.
+			const aItemPaths = this.getView().getBindingContext().getProperty("Items");
+			const oData = {
 				ID: "X",
-				Items: []
+				Items: aItemPaths.map(sPath => oModel.getProperty("/" + sPath))
 			};
-
-			const aPaths = this.getView().getBindingContext().getProperty("Items");
-
-			aData.forEach((Data) => {
-				oData.Items.push(Data);
-			});
-
-			oData.Items = aPaths.map(sPath => oModel.getProperty("/" + sPath));
-
-			// Match Binding Data
-			oData = JSON.parse(JSON.stringify(aData.Items));
 
 			// Clear Metadata
 			delete oData.__metadata;
@@ -114,6 +107,28 @@ sap.ui.define([
 					oData[sFieldName] = oData[sFieldName].toString();
 				}
 			});
+
+			/*
+			Alternative (do not combine with the active example above): build "Items" by copying
+			rows out of a plain JSON model array bound at "/model>/Data" instead of resolving
+			OData binding paths.
+
+			const oViewModel = this.getModel("model");
+			const aData = oViewModel.getProperty("/Data");
+			const oData = { ID: "X", Items: [] };
+			aData.forEach(oRow => oData.Items.push(oRow));
+			*/
+
+			/*
+			Alternative (do not combine with the active example above): deep-clone an already
+			OData-shaped entity whose "Items" nav property is already expanded, instead of
+			manually assembling one from binding paths.
+
+			const oBoundEntity = this.getView().getBindingContext().getObject();
+			const oData = JSON.parse(JSON.stringify(oBoundEntity));
+			delete oData.__metadata;
+			oData.Items.forEach(oItem => delete oItem.__metadata);
+			*/
 
 			const onConfirm = async (sAction) => {
 				if (sAction === oMBAction.OK) {
