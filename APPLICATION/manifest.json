@@ -141,7 +141,7 @@
 			}
 		},
 		"rootView": {
-			"viewName": "com.ronesans.sd.donationgift.view.App",
+			"viewName": "xxx.view.App",
 			"type": "XML",
 			"async": true,
 			"id": "App"

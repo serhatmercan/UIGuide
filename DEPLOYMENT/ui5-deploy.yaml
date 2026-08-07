@@ -14,13 +14,13 @@ builder:
       afterTask: generateCachebusterInfo
       configuration:
         target:
-          destination: Tofas
-          url: http://serhatmercan:8000
+          destination: EXAMPLE_DESTINATION
+          url: https://example.com:44300
         credentials:
           username: env:UI5_USERNAME
           password: env:UI5_PASSWORD
         app:
-          name: ZSM_UI5_APP
+          name: Z_EXAMPLE_APP
           description: ""
-          package: ZFIO_SM_UI5
-          transport: TEDK909980
+          package: Z_EXAMPLE_UI5
+          transport: DEVK900001

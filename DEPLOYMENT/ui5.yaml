@@ -10,9 +10,9 @@ server:
         ignoreCertError: false
         backend:
           - path: /sap
-            url: http://serhatmercan:8000
+            url: https://example.com:44300
             client: "100"
-            destination: SM
+            destination: EXAMPLE_DESTINATION
         ui5:
           path:
             - /resources
