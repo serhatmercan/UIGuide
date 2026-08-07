@@ -15,14 +15,16 @@ sap.ui.define([
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
-			// Clear Metadata
-			jQuery.extend(true, {}, oData);
-			jQuery.extend(true, [], aData);
+			// Clear Metadata — deep clone techniques (reference only, replace oData/aData with actual bound data)
+			// jQuery.extend(true, {}, oData);
+			// jQuery.extend(true, [], aData);
 
-			// Clear Metadata (ES6)
-			JSON.parse(JSON.stringify(oData.Items));
+			// Clear Metadata (ES6 alternative)
+			// JSON.parse(JSON.stringify(oData.Items));
 		},
 
+		// Legacy Pattern: sap.ui.getCore().getMessageManager() — this file already imports the modern
+		// sap/ui/core/Messaging module (see onCreateExample below) which is the recommended equivalent.
 		onGetSetMessages() {
 			const oViewModel = this.getModel("model");
 
@@ -60,7 +62,7 @@ sap.ui.define([
 			}
 		},
 
-		async onCallFunction() {
+		async onCallFunctionExample() {
 			const oViewModel = this.getModel("model");
 			const sMethod = "GET";
 			const oURLParameters = {
@@ -77,7 +79,7 @@ sap.ui.define([
 			}
 		},
 
-		async onCreate(oEvent) {
+		async onCreateExample(oEvent) {
 			const oMBAction = MessageBox.Action;
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
@@ -162,7 +164,7 @@ sap.ui.define([
 			}
 		},
 
-		async onDelete() {
+		async onDeleteExample() {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const oKey = oModel.createKey("/...Set", {
@@ -178,7 +180,7 @@ sap.ui.define([
 			}
 		},
 
-		async onRead() {
+		async onReadExample() {
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {
 				ID: "X"
@@ -193,7 +195,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadAssociation() {
+		async onReadAssociationExample() {
 			const oModel = this.getModel();
 			const sPath = oModel.createKey("/...Set", {
 				ID: sID
@@ -213,7 +215,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadExpanded() {
+		async onReadExpandedExample() {
 			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -234,7 +236,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadQuery() {
+		async onReadQueryExample() {
 			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -265,7 +267,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadQueryAsyncSorters() {
+		async onReadQueryAsyncSortersExample() {
 			const oViewModel = this.getModel("model");
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
@@ -285,7 +287,7 @@ sap.ui.define([
 			}
 		},
 
-		async onReadQueryParameters() {
+		async onReadQueryParametersExample() {
 			const aFilters = [
 				new Filter("ID", FilterOperator.EQ, "X")
 			];
@@ -344,7 +346,7 @@ sap.ui.define([
 			}
 		},
 
-		async onSubmitChanges() {
+		async onSubmitChangesExample() {
 			const oModel = this.getModel();
 			const oMBAction = MessageBox.Action;
 
@@ -369,7 +371,7 @@ sap.ui.define([
 			}
 		},
 
-		async onUpdate() {
+		async onUpdateExample() {
 			const oData = {};
 			const oModel = this.getModel();
 			const oKey = oModel.createKey("/...Set", {

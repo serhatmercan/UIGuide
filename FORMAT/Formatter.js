@@ -73,9 +73,9 @@ sap.ui.define([
 			const iPassedYears = Math.abs(dDifferenceDate.getFullYear()) - 1970;
 			const iTotalDays = (iPassedYears * 365) + (iPassedMonths * 30.417) + iPassedDays;
 			const sDifference = [
-				iPassedYears > 0 ? `${iPassedYears} ${aYearsText[passedYears === 1 ? 0 : 1]}` : "",
-				iPassedMonths > 0 ? `${iPassedMonths} ${aMonthsText[passedMonths === 1 ? 0 : 1]}` : "",
-				iPassedDays > 0 ? `${iPassedDays} ${aDaysText[passedDays === 1 ? 0 : 1]}` : ""
+				iPassedYears > 0 ? `${iPassedYears} ${aYearsText[iPassedYears === 1 ? 0 : 1]}` : "",
+				iPassedMonths > 0 ? `${iPassedMonths} ${aMonthsText[iPassedMonths === 1 ? 0 : 1]}` : "",
+				iPassedDays > 0 ? `${iPassedDays} ${aDaysText[iPassedDays === 1 ? 0 : 1]}` : ""
 			].join(" ").trim();
 
 			return {

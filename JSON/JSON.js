@@ -20,7 +20,7 @@ sap.ui.define([
 			});
 			this.setModel(oViewModel, "model");
 
-			oModel.attachPropertyChange(this.attachPropertyChange.bind(this));
+			oViewModel.attachPropertyChange(this.attachPropertyChange.bind(this));
 
 			this.getRouter().getRoute("JSON").attachPatternMatched(this.patternMatched, this);
 		},

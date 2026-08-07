@@ -52,6 +52,8 @@
 				"sap.ui.layout": {},
 				"sap.ui.comp": {},
 				"sap.ui.core": {},
+				"sap.f": {},
+				"sap.uxap": {},
 				"sap.m": {}
 			}
 		},

@@ -20,6 +20,7 @@ sap.ui.define([
                 onBeforeShow: (oEvent) => { },
             }, this);
 
+            // Legacy Pattern: sap.ui.xmlview(...) factory is deprecated — prefer async sap.ui.core.mvc.XMLView.create({ viewName, id }) instead
             const oDetailView = sap.ui.xmlview({
                 viewName: "xxx.view.Detail",
                 type: sap.ui.core.mvc.ViewType.XML // Optional
@@ -43,6 +44,7 @@ sap.ui.define([
             const oFormattedToday = oDateFormat.format(oToday);
             const oFormattedTwoWeeksAgo = oDateFormat.format(new Date(oToday.getFullYear(), oToday.getMonth(), oToday.getDate() - 14));
             const oDefaultFilter = { Erdat: { low: oFormattedTwoWeeksAgo, high: oFormattedToday } };
+            // Version-sensitive example: generated Fiori Elements control IDs may differ between SAPUI5 releases
             const sAppIdentifier = "com.serhatmercan.listreport::sap.suite.ui.generic.template.ListReport.view.ListReport";
             const oSmartFilter = this.byId(`${sAppIdentifier}::MainSet--listReportFilter`);
 

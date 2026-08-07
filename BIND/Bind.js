@@ -245,20 +245,24 @@ sap.ui.define([
 				path: sPath,
 				parameters: { oExpand },
 				events: {
-					change: oEvent => {
-						const aItemPaths = oEvent.getSource().getBoundContext().getObject().to_Items.__list;
-						const aItems = aItemPaths.map(oItemPath => {
-							const oItem = oModel.getProperty(`/${oItemPath}`);
-							delete oItem.__metadata;
-							return oItem;
-						});
-					},
+					// Alternative: inline handler reading the expanded nav-property list directly (kept for reference,
+					// superseded by the this.change bound handler below — duplicate keys are not valid, only one can be active)
+					// change: oEvent => {
+					// 	const aItemPaths = oEvent.getSource().getBoundContext().getObject().to_Items.__list;
+					// 	const aItems = aItemPaths.map(oItemPath => {
+					// 		const oItem = oModel.getProperty(`/${oItemPath}`);
+					// 		delete oItem.__metadata;
+					// 		return oItem;
+					// 	});
+					// },
 					change: this.change.bind(this),
-					dataReceived: this.dataReceived.bind(this),
+					// Alternative: delegate to a named controller method instead of the inline handler below
+					// dataReceived: this.dataReceived.bind(this),
 					dataReceived: () => {
 						sap.ui.core.BusyIndicator.hide();
 					},
-					dataRequested: this.dataRequested.bind(this),
+					// Alternative: delegate to a named controller method (not implemented in this reference file)
+					// dataRequested: this.dataRequested.bind(this),
 					dataRequested: () => {
 						sap.ui.core.BusyIndicator.show();
 					}
