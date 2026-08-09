@@ -58,6 +58,7 @@ sap.ui.define([
 				return;
 			}
 
+			// Incomplete: pending-changes branch intentionally left empty in this reference.
 			if (oModel.hasPendingChanges()) { }
 		},
 
@@ -94,6 +95,8 @@ sap.ui.define([
 			});
 		},
 
+		// Legacy Pattern: sap.ui.core.Fragment.byId(...) static lookup — prefer keeping a reference to the
+		// loaded fragment (as onShowDialog below does with this.oDialog) instead of a global static lookup.
 		onConfirmDialog() {
 			const oSmartForm = sap.ui.core.Fragment.byId("Dialog", "SmartForm");
 
@@ -175,6 +178,8 @@ sap.ui.define([
 				oModel.refresh(true, true);
 			}
 
+			// Legacy Pattern: sap.ui.getCore().getMessageManager() — the modern equivalent is the
+			// sap/ui/core/Messaging module's removeAllMessages(), used in BaseController.js/App.controller.js.
 			sap.ui.getCore().getMessageManager().removeAllMessages();
 		},
 

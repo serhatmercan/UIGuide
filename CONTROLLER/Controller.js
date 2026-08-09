@@ -1,6 +1,8 @@
 sap.ui.define([
     "./BaseController",
-], (BaseController) => {
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator"
+], (BaseController, Filter, FilterOperator) => {
     "use strict";
 
     return BaseController.extend("xxx.controller.Controller", {
@@ -74,7 +76,7 @@ sap.ui.define([
 
                 oComboBox.fireChange();
                 oComboBox.getInnerControls()[0].getBinding("items").filter([
-                    new sap.ui.model.Filter("ID", sap.ui.model.FilterOperator.EQ, this.getModel().getProperty(`${this.getView().getBindingContext().getPath()}/ID`))
+                    new Filter("ID", FilterOperator.EQ, this.getModel().getProperty(`${this.getView().getBindingContext().getPath()}/ID`))
                 ]);
             }, 500);
         },

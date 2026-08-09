@@ -8,8 +8,9 @@ sap.ui.define([
 	return {
 
 		/*
+		Structure-only stub — demonstrates the file's doc-comment convention, not a real formatter.
 		=> template("xyz")
-		<= 
+		<=
 		*/
 		template(sValue) {
 			return true;
