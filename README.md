@@ -49,6 +49,25 @@ A handful of `TOOLS/` folder names carry a deliberate `" - <suffix>"` marker dis
 
 APPLICATION declares minUI5Version 1.65.6 while neo-app.json pins 1.71.47; verify against your own target release. This mismatch predates this curation pass and hasn't been reconciled, and neither number should be read as authoritative or used to justify a deprecation claim anywhere else in the repo.
 
+## Review status
+
+This repo has not had a uniform pass — different areas have gotten different levels of scrutiny. Verifiable via `git log --name-only` against each commit named below.
+
+**Line-by-line reviewed and fixed** (real bugs found and corrected, not just read):
+- `APPLICATION/` — `cb2847b`, `89bfc89`, `68916bd`
+- `BIND/`, `CONTROLLER/` — `0d9fc63`
+- `FORMAT/` — `86840ff`, `0d9fc63`, `b6ad572`
+- `CSS/`, `MANIFEST/`, `PAGE/` (both `ASSOCIATION/` and `NAVIGATION/`), `PROMISE/` — `c4fae9d`
+- 15 of the 123 `TOOLS/` folders — `BUTTON`, `DIALOG`, `GRIDTABLE - UI`, `INPUT`, `MESSAGEPOPOVER`, `MULTIINPUTTOKEN`, `RESPONSIVETABLE - M`, `TREETABLE - GW`, `TREETABLE - UI`, `CSSGRID`, `LISTSELECTOR`, `SEMANTICPAGE - F`, `SMARTFILTERBAR`, `SMARTMULTIINPUT`, `SPLITTER` — `4864ade`, `b6ad572`
+
+**Classified only** (control/library/file-type noted, skimmed for anything glaring, but no systematic line-by-line check):
+- The remaining 108 `TOOLS/` folders — see [`TOOLS/README.md`](TOOLS/README.md) for the per-folder breakdown.
+
+**Untouched — no read, no review**:
+- `ANALYTICALLISTPAGE/`, `ANNOTATION/`, `CUSTOMCONTROL/`, `DEPLOYMENT/`, `DOCUMENT/`, `EXTENSION/`, `JSON/`, `LISTREPORT/`, `OVERVIEWPAGE/`, `TEMPLATE/`, `UI5/`
+
+Don't read "not flagged" as "verified clean" for anything in the second or third bucket.
+
 ## License
 
 MIT — see [`LICENSE`](LICENSE). This covers the example code and notes in this repository only. SAPUI5, Fiori, and related APIs, controls, and trademarks referenced throughout remain the property of SAP SE; this repo does not grant any rights to them.
