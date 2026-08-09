@@ -1,3 +1,5 @@
+<!-- Structural reference only: the fragments below (xxx.fragments.main.*) are not included in
+     this repository and this view will not render as-is. Kept to show SemanticPage composition. -->
 <mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="xxx.controller.Main">
 	<semantic:SemanticPage showFooter="{model>/ItemFound}">
 		<semantic:titleHeading>

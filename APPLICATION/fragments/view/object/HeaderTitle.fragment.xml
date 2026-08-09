@@ -1,3 +1,4 @@
+<!-- onShowDetail and onPrintForm are not implemented in this reference copy. -->
 <core:FragmentDefinition
     xmlns="sap.uxap"
     xmlns:core="sap.ui.core"

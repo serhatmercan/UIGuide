@@ -64,6 +64,7 @@ sap.ui.define([
             });
         },
 
+        // Incomplete: persistence call (onCreate/onUpdate/onSubmitChanges) intentionally not wired in this reference.
         onProcess(sType, oEvent) {
             const oData = this.getModel().getProperty(this.getView().getBindingContext().getPath());
 
