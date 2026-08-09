@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:table="sap.ui.table">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table">
 	<t:TreeTable id="TreeTable" rows="{ path : '/TreeTableSet', parameters: { countMode: 'Inline' } }" selectionBehavior="RowOnly" selectionMode="Single">
 		<t:columns>
 			<t:Column label="{i18n>Node}">

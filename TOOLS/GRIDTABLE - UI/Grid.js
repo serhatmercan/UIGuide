@@ -96,7 +96,7 @@ sap.ui.define([
 		onDrop(oEvent) {
 			const oDragSession = oEvent.getParameter("dragSession");
 			const oDroppedRow = oEvent.getParameter("droppedControl");
-			const iDraggedIndex = oDragSession.getDragControl("getDragControl").getIndex();
+			const iDraggedIndex = oDragSession.getDragControl().getIndex();
 			const iDroppedRowIndex = oDroppedRow.getIndex();
 		},
 
@@ -134,6 +134,7 @@ sap.ui.define([
 			}
 		},
 
+		// formatter is not imported/defined in this reference file — import your own formatter module before reusing this factory.
 		factory(sId, oContext, oParams) {
 			const oBindingValue = {
 				parts: [

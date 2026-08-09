@@ -46,6 +46,8 @@ sap.ui.define([
 			oEvent.reject();
 		},
 
+		// Legacy Pattern: Fragment.byId(...) static lookup — prefer keeping a reference to the
+		// loaded fragment (as onShowDialog/onShowDialogII do with this.oDialog) instead.
 		onFilterDialogTable() {
 			this.createDialog("Dialog", "com.serhatmercan.fragment.Dialog").then(oDialog => {
 				const aFilters = [

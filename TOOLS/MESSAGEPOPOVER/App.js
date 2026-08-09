@@ -4,6 +4,8 @@ sap.ui.define([
 ], (BaseController, BusyIndicator) => {
 	"use strict";
 
+	// Legacy Pattern: this file uses sap.ui.getCore().getMessageManager() throughout — see
+	// APPLICATION/App.controller.js for the modern equivalent using the sap/ui/core/Messaging module.
 	return BaseController.extend("xxx.controller.App", {
 
 		async onInit() {

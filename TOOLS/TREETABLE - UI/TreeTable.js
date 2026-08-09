@@ -31,11 +31,11 @@ sap.ui.define([
 
 		onAddDataToTreeTable() {
 			const oTreeTable = this.byId("TreeTable");
-			const aRows = oTreeTable?.getBinding("rows");
-			const aIndices = aRows?.getSelectedIndices();
+			const oBinding = oTreeTable?.getBinding("rows");
+			const aIndices = oTreeTable?.getSelectedIndices();
 
-			aRows.forEach(iIndex => {
-				const oNode = aRows.getNodeByIndex(iIndex);
+			aIndices?.forEach(iIndex => {
+				const oNode = oBinding?.getNodeByIndex(iIndex);
 			});
 
 			oTreeTable?.collapseAll();
@@ -43,7 +43,7 @@ sap.ui.define([
 		},
 
 		onRSC(oEvent) {
-			const sPath = oEvent.getParameters("rowContext").getRowContext().getPath();
+			const sPath = oEvent.getParameter("rowContext").getPath();
 		},
 
 		onTOS(oEvent) {

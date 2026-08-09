@@ -34,6 +34,8 @@ sap.ui.define([
 				oEvent.preventDefault();
 			});
 
+			// Legacy Pattern: sap.ui.getCore().getMessageManager() — see the sap/ui/core/Messaging
+			// module used in BaseController.js/App.controller.js for the modern equivalent.
 			sap.ui.getCore().getMessageManager().registerObject(oInput, true);
 		},
 

@@ -11,15 +11,17 @@ sap.ui.define([
 	"sap/m/ObjectStatus",
 	"sap/m/Table",
 	"sap/m/Text",
+	"sap/ui/core/library",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Sorter"
-], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, ObjectIdentifier, ObjectNumber, ObjectStatus, Table, Text, Filter, FilterOperator,
+], (BaseController, CheckBox, Column, ColumnListItem, Input, Label, MobileLibrary, ObjectIdentifier, ObjectNumber, ObjectStatus, Table, Text, CoreLibrary, Filter, FilterOperator,
 	JSONModel, Sorter) => {
 	"use strict";
 
 	const { URLHelper } = MobileLibrary;
+	const { ValueState } = CoreLibrary;
 
 	return BaseController.extend("com.serhatmercan.Controller", {
 
@@ -37,7 +39,7 @@ sap.ui.define([
 
 			this.byId("Table").attachSelectionChange((oEvent) => {
 				const aPaths = oEvent.getSource().getSelectedContextPaths();
-				oModel.setProperty("/Statu", !!aPaths.length);
+				oViewModel.setProperty("/Statu", !!aPaths.length);
 			});
 
 			this.byId("Table").attachUpdateFinished((oEvent) => {
@@ -108,11 +110,9 @@ sap.ui.define([
 		},
 
 		onCheckCellValue() {
-			const oValueState = sap.ui.core.ValueState;
-
 			this.byId("Table").getRows()?.forEach(oRow => {
 				oRow.getCells().forEach(oCell => {
-					oCell.setValueState(oCell.getValue() === "" ? oValueState.Error : oValueState.None);
+					oCell.setValueState(oCell.getValue() === "" ? ValueState.Error : ValueState.None);
 				});
 			});
 		},

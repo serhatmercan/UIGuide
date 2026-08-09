@@ -85,7 +85,7 @@ sap.ui.define([
 			const sValue = oEvent.getParameter("value");
 			const aFilters = [new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())];
 
-			sap.ui.getCore().byId(oEvent.getSource().getId()).getBinding("items").filter(aFilters, "Application");
+			oEvent.getSource().getBinding("items").filter(aFilters, "Application");
 		},
 
 		onSearchSD(oEvent) {
@@ -99,7 +99,7 @@ sap.ui.define([
 			const sValue = oEvent.getParameter("value");
 			const aFilters = [new Filter("Value", FilterOperator.Contains, sValue.toUpperCase())];
 
-			sap.ui.getCore().byId(oEvent.getSource().getId()).getBinding("items").filter(aFilters, "Application");
+			oEvent.getSource().getBinding("items").filter(aFilters, "Application");
 		},
 
 		onTC(oEvent) {
@@ -120,7 +120,7 @@ sap.ui.define([
 		onTU(oEvent) {
 			const oSource = oEvent.getSource();
 			const iDeletedTokenRow = oSource.getParent().getIndex();
-			const aRemovedTokens = oEvent.getParameters("removedTokens").removedTokens;
+			const aRemovedTokens = oEvent.getParameter("removedTokens");
 			const oViewModel = this.getModel("model");
 			const updatedList = oViewModel.getProperty("/List").filter(oToken => oToken.ID !== aRemovedTokens[0].getKey());
 

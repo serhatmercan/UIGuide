@@ -21,7 +21,7 @@ stretchOnPhone="true"
 verticalScrolling="false"
 
 beforeOpen="onBODialog"
-escapeHandler=".onEHDialog"
+escapeHandler="onEHDialog"
 -->
 <!-- DIALOG - LAYOUT -->
 <!--

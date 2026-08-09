@@ -9,6 +9,8 @@ sap.ui.define([
 ], (BaseController, MessageToast, MessagePopover, MessagePopoverItem, Message, MessageType) => {
 	"use strict";
 
+	// Legacy Pattern: this file uses sap.ui.getCore().getMessageManager() throughout — see
+	// APPLICATION/BaseController.js's onShowMessages for the modern Messaging-module equivalent.
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		/* ================= */
