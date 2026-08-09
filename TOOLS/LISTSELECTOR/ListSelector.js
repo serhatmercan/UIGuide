@@ -9,6 +9,9 @@ sap.ui.define([
 		/* Lifecycle Methods */
 		/* ================= */
 
+		// Reference snippet only, not runnable as-is: oElementBinding (below) and sBindingPath
+		// (further down) are placeholders for values that come from elsewhere (e.g. an event
+		// parameter or the view's element binding), not values defined in this onInit body.
 		onInit() {
 			const sPath = oElementBinding.getPath();
 			const oListSelector = this.getOwnerComponent().oListSelector;

@@ -1,4 +1,4 @@
-<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:smartMultiInput="sap.ui.comp.smartmultiinput">
     <smartMultiInput:SmartMultiInput value="{Items/Values}" tokenUpdate="onTokenUpdate" />
 </core:FragmentDefinition>
 <!-- SMART MULTI INPUT - ATTRIBUTES -->

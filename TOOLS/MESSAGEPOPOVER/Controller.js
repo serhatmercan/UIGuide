@@ -72,6 +72,8 @@ sap.ui.define([
 		/* Internal Methods */
 		/* ================ */
 
+		// Pairs with a dialog fragment created/loaded elsewhere (e.g. via createDialog in the
+		// DIALOG reference); this.oDialog is not set up in this file.
 		addDialog() {
 			this.oDialog.setModel(this.getModel("message"), "message");
 		},

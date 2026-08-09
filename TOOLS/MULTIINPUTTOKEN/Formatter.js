@@ -3,7 +3,8 @@ sap.ui.define([], function () {
 
 	return {
 
-		validField: function (sValue) {			
+		// Despite the name, this also matches many symbol characters (+, *, =, etc.), not just letters.
+		validField: function (sValue) {
 			return sValue.match(/[a-zA-Z&^(\+|-|\*|\/|=|>|<|>=|<=|&|\||%|!|\^|\(|\))$&\.-]/) ? true : false;
 		},
 

@@ -20,7 +20,7 @@ afterVariantLoad="onAVL"
 beforeVariantFetch="onBVF"
 beforeVariantSave="onBVS" 
 filterChange="onFilterChangeSFB"
-initialized="onInitSFB"
+initialise="onInitSFB" // British spelling is the actual SmartFilterBar API event name, not a typo
 search="onSearchSFB"
 -->
 

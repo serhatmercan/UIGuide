@@ -1,4 +1,4 @@
-<!-- xmlns:l="sap.ui.layout" -->
+<!-- xmlns:l="sap.ui.layout" xmlns:ui="sap.ui.table" -->
 <l:Splitter>
 	<l:layoutData>
 		<l:SplitterLayoutData size="24rem"/>

@@ -1,3 +1,4 @@
+<!-- Side-by-side reference of both dialog shapes (TableSelectDialog vs SelectDialog); a FragmentDefinition can only have one root, so this is never loaded as-is. -->
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<TableSelectDialog items="{/...Set}" multiSelect="true" cancel="onCancelTSD" confirm="onConfirmTSD" search="onSearchTSD">
 		<ColumnListItem>

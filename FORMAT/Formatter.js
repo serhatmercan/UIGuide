@@ -403,6 +403,7 @@ sap.ui.define([
 		<= '00123'
 		*/
 		padLeftAlphaNum(xValue, iDigit) {
+			// bAlpha is misnamed: this regex also matches many symbol characters (+, *, =, etc.), not just letters.
 			const bAlpha = /[a-zA-Z&^(\+|-|\*|\/|=|>|<|>=|<=|&|\||%|!|\^|\(|\))$&\.-]/.test(xValue);
 
 			return bAlpha ? xValue.toUpperCase() : xValue.padStart(iDigit, "0");
@@ -418,6 +419,7 @@ sap.ui.define([
 		removeLeading(sValue) {
 			if (!sValue) return;
 
+			// Same broader-than-alpha character class as padLeftAlphaNum above.
 			const bAlpha = /[a-zA-Z&^(\+|-|\*|\/|=|>|<|>=|<=|&|\||%|!|\^|\(|\))$&\.-]/.test(sValue);
 
 			return bAlpha ? sValue : parseInt(sValue, 10);
