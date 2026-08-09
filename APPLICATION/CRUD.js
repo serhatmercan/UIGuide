@@ -12,6 +12,8 @@ sap.ui.define([
 ], (BaseController, MessageBox, MessageToast, Message, Messaging, Filter, FilterOperator, FilterType, Sorter, JSONModel) => {
 	"use strict";
 
+	// Portable snippet — intentionally uses the author's personal com.serhatmercan
+	// namespace rather than this app's "xxx" namespace; not wired into manifest.json routing.
 	return BaseController.extend("com.serhatmercan.Controller", {
 
 		onInit() {
