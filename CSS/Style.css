@@ -63,10 +63,10 @@ h2 {
     position: fixed !important;
 }
 
-.div[class*="sapUiRespGrid"]:after {
+div[class*="sapUiRespGrid"]:after {
     clear: both;
     content: " ";
-    display: table-caption;
+    display: table;
     font-size: 0;
     height: 0.8rem;
 }

@@ -215,7 +215,7 @@ sap.ui.define([
 		async onReadAssociationExample() {
 			const oModel = this.getModel();
 			const sPath = oModel.createKey("/...Set", {
-				ID: sID
+				ID: "X"
 			});
 			const oExpand = {
 				"$expand": "Items,Values"

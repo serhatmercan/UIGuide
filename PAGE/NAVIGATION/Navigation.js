@@ -48,18 +48,18 @@ MessageBox.error(this.getText("checkAuthorization"), {
 return;
 
 // Go To Launchpad - 2
-var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+const oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
-this.oCrossAppNavigator.toExternal({
+oCrossAppNavigator.toExternal({
 	target: {
 		semanticObject: "#"
 	}
 });
 
 // Go To Launchpad - 3
-var oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
+const oCrossAppNavigatorII = sap.ushell.Container.getService("CrossApplicationNavigation");
 
-this.oCrossAppNavigator.toExternal({
+oCrossAppNavigatorII.toExternal({
 	target: {
 		shellHash: "#Shell-home"
 	}

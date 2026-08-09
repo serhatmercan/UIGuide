@@ -52,7 +52,7 @@ sap.ui.define([
 				},
 				params: {}
 			});
-			const oURLHelper = sap.m.URLHelper;
+			const oURLHelper = library.URLHelper;
 			const sBaseUrl = window.location.href.split("#")[0];
 
 			oURLHelper.redirect(`${sBaseUrl}${oHrefForExternal}`, true);

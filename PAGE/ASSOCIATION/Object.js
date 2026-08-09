@@ -10,7 +10,7 @@ sap.ui.define([
 		/* ================= */
 
 		onInit() {
-			this.getRouter().getRoute("main").attachPatternMatched(this.patternMatched, this);
+			this.getRouter().getRoute("Object").attachPatternMatched(this.patternMatched, this);
 		},
 
 		/* ================ */
