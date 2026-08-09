@@ -289,7 +289,7 @@ sap.ui.define([
 		},
 
 		generateLocalDateTime() {
-			sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance().format(new Date(), sap.ui.getCore().getConfiguration().getTimezone());
+			return sap.ui.core.format.DateFormat.getDateTimeWithTimezoneInstance().format(new Date(), sap.ui.getCore().getConfiguration().getTimezone());
 		},
 
 		/*
