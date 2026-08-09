@@ -2,8 +2,9 @@ sap.ui.define([
     "./BaseController",
     "xxx/formatter",
     "sap/m/MessageBox",
-    "sap/m/MessageToast"
-], (BaseController, formatter, MessageBox, MessageToast) => {
+    "sap/m/MessageToast",
+    "sap/ui/core/Messaging"
+], (BaseController, formatter, MessageBox, MessageToast, Messaging) => {
     "use strict";
 
     return BaseController.extend("xxx.controller.Object", {
@@ -40,6 +41,7 @@ sap.ui.define([
             }
 
             aInformationItems.push(oInformationItem);
+            oViewModel.setProperty("/InformationItems", aInformationItems);
         },
 
         onDeleteInformationItem(oEvent) {
@@ -154,7 +156,7 @@ sap.ui.define([
                 oModel.refresh(true, true);
             }
 
-            sap.ui.getCore().getMessageManager().removeAllMessages();
+            Messaging.removeAllMessages();
         },
 
         setViewData(sPath, oData, oViewModel) {
