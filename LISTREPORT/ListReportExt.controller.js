@@ -46,7 +46,7 @@ sap.ui.define([
 			oTableUI.getToolbar().addContent(
 				new Button({
 					text: "{i18n>button}",
-					type: new ButtonType.Reject,
+					type: ButtonType.Reject,
 					press: () => this.onShowButton()
 				})
 			);
@@ -211,7 +211,9 @@ sap.ui.define([
 				workbook: { columns: aColumns }
 			};
 
-			new Spreadsheet(oSettings).build().finally(() => oSheet.destroy());
+			const oSheet = new Spreadsheet(oSettings);
+
+			return oSheet.build().finally(() => oSheet.destroy());
 		},
 
 		onGoToDetail() { },

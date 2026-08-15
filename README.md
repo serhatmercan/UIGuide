@@ -87,6 +87,16 @@ namespace being uniform — each folder is self-contained — so substitute your
 
 `docs/SAPUI5-Development-Rules.md` states the rules for **new and modified** code. It is explicitly not retroactive: existing examples that predate a rule (e.g. `sap.ui.getCore()` lookups, classical `extend()` syntax) are kept as historical reference and labeled with a comment pointing at the modern equivalent elsewhere in the repo, rather than being rewritten to match current style. If you're looking for "the current recommended way," follow the comment pointers or the non-legacy-labeled examples.
 
+### SAP BTP Neo routing examples
+
+`APPLICATION/` and `EXTENSION/CV_ATTACHMENT_SRV/` contain `neo-app.json` files from SAP BTP
+Neo-era application development. They are intentionally preserved as historical references for
+destination routing, SAPUI5 resource configuration, and S/4HANA reuse-library integration.
+
+For new application architectures, evaluate the routing and deployment model appropriate to the
+target SAP BTP runtime instead of treating these files as current project templates. Destination
+names in these files are placeholders.
+
 ## Compatibility
 
 APPLICATION declares minUI5Version 1.65.6 while neo-app.json pins 1.71.47; verify against your own target release. This mismatch predates this curation pass and hasn't been reconciled, and neither number should be read as authoritative or used to justify a deprecation claim anywhere else in the repo.

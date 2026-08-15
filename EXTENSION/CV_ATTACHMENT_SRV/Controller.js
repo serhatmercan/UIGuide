@@ -1,8 +1,9 @@
 sap.ui.define([
 	"com/serhatmercan/controller/BaseController",
 	"sap/m/MessageBox",
+	"sap/m/MessageToast",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, MessageBox, JSONModel) => {
+], (BaseController, MessageBox, MessageToast, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {

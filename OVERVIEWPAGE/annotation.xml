@@ -100,48 +100,48 @@
 						<PropertyValue Property="Title" String="{@i18n&gt;title}" />
 					</Record>
 				</Annotation>
-				<Annotations Target="Metadata.Production">
-					<Annotation Term="UI.Chart" Qualifier="Production">
-						<Record Type="UI.ChartDefinitionType">
-							<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column" />
-							<PropertyValue Property="Measures">
-								<Collection>
-									<PropertyPath>ValueI</PropertyPath>
-									<PropertyPath>ValueII</PropertyPath>
-								</Collection>
-							</PropertyValue>
-							<PropertyValue Property="MeasureAttributes">
-								<Collection>
-									<Record Type="UI.ChartMeasureAttributeType">
-										<PropertyValue Property="Measure" PropertyPath="ValueI" />
-										<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
-									</Record>
-									<Record Type="UI.ChartMeasureAttributeType">
-										<PropertyValue Property="Measure" PropertyPath="ValueII" />
-										<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis2" />
-									</Record>
-								</Collection>
-							</PropertyValue>
-							<PropertyValue Property="Dimensions">
-								<Collection>
-									<PropertyPath>Text</PropertyPath>
-								</Collection>
-							</PropertyValue>
-							<PropertyValue Property="DimensionAttributes">
-								<Collection>
-									<Record Type="UI.ChartDimensionAttributeType">
-										<PropertyValue Property="Dimension" PropertyPath="Text" />
-										<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
-									</Record>
-								</Collection>
-							</PropertyValue>
-							<PropertyValue Property="Title" String="{@i18n&gt;value}" />
-						</Record>
-					</Annotation>
-				</Annotations>
-				<Annotations Target="Metadata.Production/Werks">
-					<Annotation Term="Common.Label" String="{@i18n&gt;pp}" />
-				</Annotations>
+			</Annotations>
+			<Annotations Target="Metadata.Production">
+				<Annotation Term="UI.Chart" Qualifier="Production">
+					<Record Type="UI.ChartDefinitionType">
+						<PropertyValue Property="ChartType" EnumMember="UI.ChartType/Column" />
+						<PropertyValue Property="Measures">
+							<Collection>
+								<PropertyPath>ValueI</PropertyPath>
+								<PropertyPath>ValueII</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="MeasureAttributes">
+							<Collection>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="ValueI" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis1" />
+								</Record>
+								<Record Type="UI.ChartMeasureAttributeType">
+									<PropertyValue Property="Measure" PropertyPath="ValueII" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartMeasureRoleType/Axis2" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Dimensions">
+							<Collection>
+								<PropertyPath>Text</PropertyPath>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="DimensionAttributes">
+							<Collection>
+								<Record Type="UI.ChartDimensionAttributeType">
+									<PropertyValue Property="Dimension" PropertyPath="Text" />
+									<PropertyValue Property="Role" EnumMember="UI.ChartDimensionRoleType/Category" />
+								</Record>
+							</Collection>
+						</PropertyValue>
+						<PropertyValue Property="Title" String="{@i18n&gt;value}" />
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations Target="Metadata.Production/Werks">
+				<Annotation Term="Common.Label" String="{@i18n&gt;pp}" />
 			</Annotations>
 		</Schema>
 	</edmx:DataServices>
