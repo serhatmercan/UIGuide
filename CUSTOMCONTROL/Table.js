@@ -43,7 +43,7 @@ sap.ui.define([
                         const sText = (oEvent.originalEvent || oEvent).clipboardData.getData("text/plain");
                         const oDOMCell = jQuery.sap.domById(oEvent.currentTarget?.id);
                         const oInsertCell = jQuery("#" + oDOMCell.id).control()[0];
-                        const sItemPath = that.getBindingPath("items");
+                        const sItemPath = this.getBindingPath("items");
 
                         if (!oInsertCell.getBindingContext()) {
                             oInsertCell.setValue(sText);
