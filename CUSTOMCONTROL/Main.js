@@ -6,7 +6,7 @@ sap.ui.define([
     "sap/m/Input",
     "sap/m/Text",
     "sap/ui/model/json/JSONModel"
-], (BaseController, Column, ColumnListItem, Input, Text, Table, JSONModel) => {
+], (BaseController, Table, Column, ColumnListItem, Input, Text, JSONModel) => {
     "use strict";
 
     return BaseController.extend("com.serhatmercan.Controller", {
@@ -33,7 +33,7 @@ sap.ui.define([
         /* ================ */
 
         createTable() {
-            var oTable = new Table();
+            const oTable = new Table();
 
             oTable.setModel(this.getModel("model"));
             oTable.addColumn(new Column({
@@ -62,8 +62,11 @@ sap.ui.define([
                     value: {
                         path: "Value"
                     },
+                    // onChangeValue is not implemented in this snippet: it is the handler
+                    // Table.xml binds via change="onChangeValue" and must be supplied by the
+                    // controller hosting this table.
                     submit: () => {
-                        that.onChangeValue();
+                        this.onChangeValue();
                         oTable.tabForward();
                     }
                 });

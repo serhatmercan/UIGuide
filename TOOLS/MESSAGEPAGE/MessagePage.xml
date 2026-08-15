@@ -1,4 +1,4 @@
-<mvc:View controllerName="sun.mm.createset.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+<mvc:View controllerName="com.serhatmercan.controller.Main" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<MessagePage description="{i18n>description}" icon="sap-icon://multiple-radar-chart" text="{i18n>text}"/>
 </mvc:View> 
 <!-- MESSAGE PAGE - ATTRIBUTES -->

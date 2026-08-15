@@ -1,4 +1,38 @@
-# UIGuide
+# UIGuide — SAPUI5 Control & Pattern Reference
+
+> A code-first SAPUI5 cookbook: **123 control folders**, Fiori Elements pages, OData/SAP Gateway
+> examples and reusable formatter/binding patterns, collected across several years of enterprise
+> SAP project work — written to be copied from, not read through.
+
+**Start here → [`TOOLS/` control index (123 controls)](TOOLS/README.md)**
+
+## Highlights
+
+- **[`TOOLS/`](TOOLS/README.md)** — 123 control folders, each classified by control, library, file types and cookbook-vs-app in a single index table.
+- **Fiori Elements** — Analytical List Page (`ANALYTICALLISTPAGE/`), List Report + Object Page extensions (`LISTREPORT/`), Overview Page (`OVERVIEWPAGE/`), and a controller extension (`EXTENSION/`), with their annotation XML.
+- **OData / SAP Gateway** — `TOOLS/TREETABLE - GW/` carries the full stack: the UI5 TreeTable, the ABAP DPC/MPC extension source, and screenshots of the Gateway service definition.
+- **Reusable patterns** — `FORMAT/Formatter.js` (formatter library), `BIND/` (data-binding cookbook), `PROMISE/` (async patterns), `CUSTOMCONTROL/` (extending `sap.m.Table`).
+- **Legacy *and* modern UI5 side by side** — deliberately preserved rather than modernized away (see [Legacy vs. modern patterns](#legacy-vs-modern-patterns)).
+- **[`docs/SAPUI5-Development-Rules.md`](docs/SAPUI5-Development-Rules.md)** — the coding standard this repository applies to new and modified code.
+
+## How to use this repository
+
+This is a reference, not a runnable project — there is no root `package.json` and no build. Find the
+control or pattern in the [`TOOLS/` index](TOOLS/README.md) or the [Structure](#structure) table
+below, open the folder, and copy the snippet into your own application.
+
+Two things to know before copying:
+
+- **Shared `BaseController`.** Most controller snippets `sap.ui.define` a dependency on
+  `com/serhatmercan/controller/BaseController`. That module lives in this repo at
+  [`APPLICATION/BaseController.js`](APPLICATION/BaseController.js) — copy it alongside the snippet,
+  or repoint the dependency at your own base controller. Snippets that call `getRouter()`,
+  `getModel()`, `setModel()` or similar without defining them are relying on it.
+- **Namespaces vary on purpose.** Examples were written across several years and carry different
+  namespace conventions (`com.serhatmercan.*`, `com.sm.*`, and the placeholder `xxx.*`). They are
+  left as-is rather than mass-renamed; substitute your own namespace when copying.
+
+## What this is
 
 A personal, code-first SAPUI5 reference built up over several years of real project work. It is a **cookbook**, not a tutorial: most folders are small, self-contained examples of one control or one pattern, with the "live" example next to a large block of commented-out alternatives (other attributes, other event handlers, other layouts) for quick copy-paste lookup. A smaller number of folders are runnable mini-apps demonstrating a full flow (navigation, a Fiori Elements extension, a Gateway-backed control, etc).
 
@@ -40,6 +74,14 @@ A handful of `TOOLS/` folder names carry a deliberate `" - <suffix>"` marker dis
 - `" - GW"` — SAP Gateway/OData-backed (e.g. `TREETABLE - GW`)
 
 `MICROCHART-` (no surrounding spaces) is a separate, unrelated prefix distinguishing chart-type variants, e.g. `MICROCHART-BULLET` vs. `MICROCHART-COLUMN`.
+
+### Namespace conventions
+
+Examples use more than one namespace convention — `com.serhatmercan.*` (the most common),
+`com.sm.*`, and the placeholder `xxx.*`. This is historical: the examples were written across
+several years and different project conventions, and they are kept as written rather than
+mass-renamed, for the same reason legacy APIs are kept (see below). Nothing depends on the
+namespace being uniform — each folder is self-contained — so substitute your own when copying.
 
 ## Legacy vs. modern patterns
 

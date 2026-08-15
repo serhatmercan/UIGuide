@@ -2,6 +2,14 @@
 
 Reference/cookbook fragments and mini-apps for individual SAPUI5 controls, one folder per control (or control family). Most folders are **cookbooks**: a single XML snippet showing the control plus a large commented block of alternative attributes/handlers/layouts that is never loaded as-is — it's copy-paste reference material. A smaller set are **apps**: multi-file mini-applications (controller + view + manifest/fragments) that actually run.
 
+**Before copying a controller snippet:** most `.js` files here declare a dependency on
+`com/serhatmercan/controller/BaseController`. That module is not duplicated per folder — it lives
+once at [`APPLICATION/BaseController.js`](../APPLICATION/BaseController.js). Copy it along with the
+snippet, or repoint the dependency at your own base controller; helpers such as `getRouter()`,
+`getModel()` and `setModel()` come from it. Namespaces also differ between folders
+(`com.serhatmercan.*`, `com.sm.*`, `xxx.*`) because the examples span several years — see the
+[root README](../README.md#how-to-use-this-repository).
+
 Legend — **Type**: C = cookbook (reference snippet), A = app (runnable mini-app). **Files**: file types present (x=xml, j=js, i=i18n, m=manifest/model json, other=images/abap/xsd/etc).
 
 | Folder | Control(s) | Library | Files | Type | Notes |

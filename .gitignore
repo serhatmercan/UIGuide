@@ -1,4 +1,18 @@
+# Secrets / local environment
 .env
+.env.*
+!.env.example
+
+# Dependencies & build output
 node_modules/
 dist/
+
+# Logs
+*.log
+
+# OS / editor noise
 .DS_Store
+Thumbs.db
+
+# Local tool settings
+.claude/settings.local.json
