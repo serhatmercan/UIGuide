@@ -103,30 +103,42 @@ APPLICATION declares minUI5Version 1.65.6 while neo-app.json pins 1.71.47; verif
 
 ## Review status
 
-This repo has not had a uniform pass — different areas have gotten different levels of scrutiny. Verifiable via `git log --name-only` against each commit named below.
+This repo has not had a uniform pass — different areas have gotten different levels of scrutiny, and the buckets below say which. Historical work is verifiable via `git log --name-only` against each commit named.
 
-**Line-by-line reviewed and fixed** (real bugs found and corrected, not just read):
+**Line-by-line reviewed and fixed** — read in full, with deterministic defects found and corrected (module loading, broken bindings, malformed markup, wrong OData key names):
+
 - `APPLICATION/` — `cb2847b`, `89bfc89`, `68916bd`
 - `BIND/`, `CONTROLLER/` — `0d9fc63`
 - `FORMAT/` — `86840ff`, `0d9fc63`, `b6ad572`
 - `CSS/`, `MANIFEST/`, `PAGE/` (both `ASSOCIATION/` and `NAVIGATION/`), `PROMISE/` — `c4fae9d`
-- 15 of the 123 `TOOLS/` folders — `BUTTON`, `DIALOG`, `GRIDTABLE - UI`, `INPUT`, `MESSAGEPOPOVER`, `MULTIINPUTTOKEN`, `RESPONSIVETABLE - M`, `TREETABLE - GW`, `TREETABLE - UI`, `CSSGRID`, `LISTSELECTOR`, `SEMANTICPAGE - F`, `SMARTFILTERBAR`, `SMARTMULTIINPUT`, `SPLITTER` — `4864ade`, `b6ad572`
+- `JSON/`, `UI5/Path.js`, `OVERVIEWPAGE/annotation.xml`
+- 21 of the 123 `TOOLS/` folders — `BUTTON`, `CSSGRID`, `DIALOG`, `GRIDLIST`, `GRIDTABLE - UI`, `INPUT`, `LIST`, `LISTSELECTOR`, `MESSAGEPOPOVER`, `MULTIINPUTTOKEN`, `POPOVER`, `RESPONSIVETABLE - M`, `RICHTEXTEDITOR`, `SEMANTICPAGE - F`, `SEMANTICPAGE - M`, `SMARTFILTERBAR`, `SMARTMULTIINPUT`, `SPLITTER`, `TREETABLE - GW`, `TREETABLE - UI`, `VIEWSETTINGSDIALOG` — the earlier fifteen under `4864ade`, `b6ad572`
 
-**Classified only** (control/library/file-type noted, skimmed for anything glaring, but no systematic line-by-line check):
-- The remaining 108 `TOOLS/` folders — see [`TOOLS/README.md`](TOOLS/README.md) for the per-folder breakdown.
+**Line-by-line reviewed, no defects found**:
 
-**Untouched — no read, no review**:
-- `ANALYTICALLISTPAGE/`, `ANNOTATION/`, `CUSTOMCONTROL/`, `DEPLOYMENT/`, `DOCUMENT/`, `EXTENSION/`, `JSON/`, `LISTREPORT/`, `OVERVIEWPAGE/`, `TEMPLATE/`, `UI5/`
+- `DEPLOYMENT/` — configuration read and confirmed free of credentials and system identifiers (`.env` is untracked by design and deliberately not read)
+- `TEMPLATE/` — `View.xml` confirmed an intentional fragment scaffold rather than a mis-rooted view
+- `UI5/Message.js`, `UI5/ExpressionBinding.xml`
 
-Don't read "not flagged" as "verified clean" for anything in the second or third bucket.
+**Reviewed with intentionally deferred semantic/documentation findings** — usable as reference, but what remains needs author or domain intent rather than a mechanical fix:
 
-### Next steps
+- `ANNOTATION/` — reviewed and deterministic defects fixed; two annotations still need a business decision (contradictory `UI.Hidden` values, and which field `UI.HeaderInfo` `Title` should carry)
+- `DOCUMENT/UPLOADCOLLECTION/` — reviewed and deterministic defects fixed; `_getSingleData` has no definition anywhere in this repo and its provenance is unresolved
+- `DOCUMENT/UPLOADSET/` — reviewed; a foreign fragment namespace, mixed control-lookup styles and a duplicated `setSource` are recorded as observations
+- `LISTREPORT/` — `annotation.xml` and `manifest.json` reviewed and fixed (ObjectPage controller-extension registration, `Measures` alias declaration); `Measures.Unit` vs `Measures.ISOCurrency` remains an open semantic choice. The remaining files in the folder are not line-by-line reviewed.
+- `TOOLS/TABCONTAINER` — active markup is valid; a trailing documentation comment contains a token XML cannot represent inside a comment
+- `TOOLS/PROCESSFLOW` — the decorative logo assets are not shipped; the example renders without them
 
-Picking this up cold in a future session, in priority order:
+The last two were inspected for those specific findings, not read line by line. The `minUI5Version` / `neo-app.json` mismatch under [Compatibility](#compatibility) is also unresolved by design.
 
-1. **11 untouched top-level folders** (no read at all yet): `ANALYTICALLISTPAGE/`, `ANNOTATION/`, `CUSTOMCONTROL/`, `DEPLOYMENT/`, `DOCUMENT/`, `EXTENSION/`, `JSON/`, `LISTREPORT/`, `OVERVIEWPAGE/`, `TEMPLATE/`, `UI5/`.
-2. **108 classified-only `TOOLS/` folders** — skimmed for classification (see [`TOOLS/README.md`](TOOLS/README.md)) but not line-by-line reviewed:
-   `ACTIONSHEET`, `AVATAR`, `BARCODESCANNER`, `BLOCKLAYOUT`, `BOOKMARK`, `BREADCRUMBS`, `BUSYINDICATOR`, `CALENDARLEGEND`, `CARD`, `CAROUSEL`, `CHARTCONTAINER`, `CHECKBOX`, `COMBOBOX`, `CURRENCY`, `DATE`, `DATEPICKER`, `DYNAMICPAGE`, `DYNAMICSIDECONTENT`, `FEEDINPUT`, `FILEUPLOADER`, `FILTERBAR`, `FLEXBOX`, `FLEXIBLECOLUMNLAYOUT`, `FORM`, `FORMATTEDTEXT`, `FRAGMENT`, `GANTTCHART`, `GENERICTAG`, `GENERICTILE`, `GRID`, `GRIDCONTAINER`, `GRIDLIST`, `HBOX`, `HORIZONTALLAYOUT`, `HTML`, `ICON`, `ICONTABBAR`, `ILLUSTRATEDMESSAGE`, `IMAGE`, `INFOLABEL`, `LABEL`, `LINK`, `LIST`, `MENUBUTTON`, `MESSAGEBOX`, `MESSAGEPAGE`, `MESSAGESTRIP`, `MESSAGETOAST`, `MICROCHART-BULLET`, `MICROCHART-COLUMN`, `MULTICOMBOBOX`, `NAVIGATIONLIST`, `NETWORKGRAPH`, `NOTIFICATIONLIST`, `OBJECTHEADER`, `OBJECTIDENTIFIER`, `OBJECTLISTITEM`, `OBJECTNUMBER`, `OBJECTPAGELAYOUT`, `OBJECTSTATUS`, `OVERFLOWTOOLBAR`, `PAGE`, `PANEL`, `PLANNINGCALENDAR`, `POPOVER`, `PROCESSFLOW`, `PROGRESSINDICATOR`, `RADIOBUTTON`, `RATINGINDICATOR`, `RICHTEXTEDITOR`, `SCROLLCONTAINER`, `SEARCHFIELD`, `SEGMENTEDBUTTON`, `SELECT`, `SELECTDIALOG`, `SEMANTICDETAILPAGE`, `SEMANTICMASTERPAGE`, `SEMANTICPAGE - M`, `SEMANTICPAGEMD`, `SIMPLEFORM`, `SINGLEPLANNINGCALENDAR`, `SLIDER`, `SLIDETILE`, `SMARTCHART`, `SMARTFIELD`, `SMARTFORM`, `SMARTTABLE`, `SPLITAPP`, `SPREADSHEET`, `STEPINPUT`, `SWITCH`, `TABCONTAINER`, `TABLESELECTDIALOG`, `TEMPLATE`, `TEXT`, `TEXTAREA`, `TILECONTAINER`, `TILECONTENT`, `TIME`, `TIMEPICKER`, `TITLE`, `TOGGLEBUTTON`, `TOOLBAR`, `VALUEHELPDIALOG`, `VBOX`, `VERTICALLAYOUT`, `VIEWSETTINGSDIALOG`, `WIZARD`.
+**Classified/scanned only — not line-by-line reviewed**:
+
+- The remaining 102 `TOOLS/` folders — catalogued by control, library and file type in [`TOOLS/README.md`](TOOLS/README.md)
+- `ANALYTICALLISTPAGE/`, `CUSTOMCONTROL/`, `EXTENSION/`
+
+These were scanned repository-wide for high-value risks — secrets, customer or system identifiers, malformed markup, AMD dependency/parameter alignment, merge-conflict markers and broken local references — but were not read line by line. Don't read "not flagged" as "verified clean" for anything in this bucket.
+
+Across every bucket, legacy APIs and commented-out alternatives were left in place deliberately: this is a multi-generation SAPUI5 reference, and the older form is frequently the point of the example. Deterministic defects were corrected; legacy patterns were not modernized.
 
 ## License
 

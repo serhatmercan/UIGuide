@@ -95,14 +95,14 @@ sap.ui.define([
 			const oListMode = oList.getMode();
 			const oListItem = oEvent.getParameter("listItem");
 			const bListItemSelected = oEvent.getParameter("selected");
-			const sID = oItem.getBindingContext().getProperty("ID");
+			const sID = oListItem.getBindingContext().getProperty("ID");
 
 			if (!(oListMode === "MultiSelect" && !bListItemSelected)) {
 				this.showDetail(oListItem || oList);
 			}
 		},
 
-		onUpdateFinished() {
+		onUpdateFinished(oEvent) {
 			this.updateListItemCount(oEvent.getParameter("total"));
 		},
 
