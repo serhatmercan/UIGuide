@@ -4,6 +4,8 @@
 		<semantic:customFooterContent></semantic:customFooterContent>
 	</semantic:FullscreenPage>
 </mvc:View>
+<!-- DETAIL PAGE -->
+<!--
 <semantic:DetailPage id="DetailPage" title="{i18n>detailPage}" showNavButton="true" navButtonPress="onNavBack">
 	<semantic:customHeaderContent></semantic:customHeaderContent>
 	<semantic:content></semantic:content>
@@ -12,6 +14,7 @@
 	</semantic:messagesIndicator>
 	<semantic:customFooterContent></semantic:customFooterContent>
 </semantic:DetailPage>
+-->
 <!-- DETAIL PAGE - ATTRIBUTES -->
 <!--
 busy="{model>/Busy}"

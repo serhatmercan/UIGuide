@@ -15,7 +15,7 @@ sap.ui.define([], () => {
 			const oModel = this.getModel();
 			const { ID: sID, DocumentID: sDocumentID } = oContext;
 
-			return `${oModel.sServiceUrl}${oModel.createKey("/DocumentSet", { sID, sDocumentID })}/$value`;
+			return `${oModel.sServiceUrl}${oModel.createKey("/DocumentSet", { ID: sID, DocumentID: sDocumentID })}/$value`;
 		}
 
 	};

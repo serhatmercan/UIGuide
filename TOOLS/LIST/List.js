@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/m/StandardListItem",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], (BaseController, GroupHeaderListItem, Filter, FilterOperator) => {
+], (BaseController, GroupHeaderListItem, StandardListItem, Filter, FilterOperator) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {

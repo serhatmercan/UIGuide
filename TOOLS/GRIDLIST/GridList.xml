@@ -9,7 +9,7 @@
 				<HBox height="100%" class="sapUiSmallMargin" alignItems="Center">
 					<core:Icon class="sapUiTinyMargin" color="Default" size="1.625rem" src="sap-icon://measurement-document"/>
 					<VBox>
-						<Title text="{i18n>text}"class="sapUiSmallMarginBegin" wrapping="true"/>
+						<Title text="{i18n>text}" class="sapUiSmallMarginBegin" wrapping="true"/>
 					</VBox>
 				</HBox>
 			</VBox>

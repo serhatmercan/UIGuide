@@ -69,27 +69,27 @@
                                 </Collection>
                             </PropertyValue>
                         </Record>
-                        <Annotation Term="UI.FieldGroup" Qualifier="Material">
-                            <Record Type="UI.FieldGroupType">
-                                <PropertyValue Property="Data">
-                                    <Collection>
-                                        <Record Type="UI.DataField">
-                                            <PropertyValue Property="Value" Path="Matnr" />
-                                        </Record>
-                                        <Record Type="UI.DataField">
-                                            <PropertyValue Property="Value" Path="Maktx" />
-                                        </Record>
-                                    </Collection>
-                                </PropertyValue>
-                            </Record>
-                        </Annotation>
-                        <Annotation Term="UI.HeaderFacets">
+                    </Collection>
+                </Annotation>
+                <Annotation Term="UI.FieldGroup" Qualifier="Material">
+                    <Record Type="UI.FieldGroupType">
+                        <PropertyValue Property="Data">
                             <Collection>
-                                <Record Type="UI.ReferenceFacet">
-                                    <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header" />
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Matnr" />
+                                </Record>
+                                <Record Type="UI.DataField">
+                                    <PropertyValue Property="Value" Path="Maktx" />
                                 </Record>
                             </Collection>
-                        </Annotation>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+                <Annotation Term="UI.HeaderFacets">
+                    <Collection>
+                        <Record Type="UI.ReferenceFacet">
+                            <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#header" />
+                        </Record>
                     </Collection>
                 </Annotation>
                 <Annotation Term="UI.HeaderInfo">
@@ -119,6 +119,11 @@
                                 </Record>
                             </Collection>
                         </PropertyValue>
+                        <PropertyValue Property="RequestAtLeast">
+                            <Collection>
+                                <PropertyPath>Field</PropertyPath>
+                            </Collection>
+                        </PropertyValue>
                     </Record>
                 </Annotation>
                 <Annotation Term="UI.SelectionFields">
@@ -130,7 +135,7 @@
                     <Collection>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Value" Path="Field" />
-                            <PropertyValue Property="Label" String="{i18n&gt;field}" />
+                            <PropertyValue Property="Label" String="{@i18n&gt;field}" />
                         </Record>
                         <Record Type="UI.DataField">
                             <PropertyValue Property="Criticality" Path="LineCriticality" />
@@ -151,15 +156,6 @@
                     <Annotation Term="UI.Criticality" Path="LineCriticality" />
                 </Annotation>
                 <Annotation Term="UI.MultiLineText" />
-                <Annotation Term="UI.PresentationVariant">
-                    <Record Type="UI.PresentationVariantType">
-                        <PropertyValue Property="RequestAtLeast">
-                            <Collection>
-                                <PropertyPath>Field</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
             </Annotations>
             <Annotations Target="Metadata.List/Field">
                 <Annotation Term="Common.SemanticObject" String="SemanticObjectName" />
@@ -175,7 +171,6 @@
                 <Annotation Term="Common.ValueListWithFixedValues" Bool="true" />
                 <Annotation Term="Common.FilterDefaultValue" String="ABC" />
                 <Annotation Term="Common.Label" String="{@i18n&gt;field}" />
-                <Annotation Term="Common.Label" String="{@i18n>field}" />
                 <Annotation Term="Common.ValueList">
                     <Record Type="Common.ValueListType">
                         <PropertyValue Property="CollectionPath" String="FieldVHSet" />

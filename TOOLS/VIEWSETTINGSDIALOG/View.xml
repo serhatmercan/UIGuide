@@ -7,8 +7,8 @@
         <Button text="{i18n>sort}" icon="sap-icon://sort" press="onShowSort"/>
     </headerToolbar>
     <infoToolbar>
-        <Toolbar visible="{model/>InfoToolbarVisible}"/>
-            <Text text="{model/>InfoToolbarText}"/>
+        <Toolbar visible="{model>/InfoToolbarVisible}">
+            <Text text="{model>/InfoToolbarText}"/>
         </Toolbar>
     </infoToolbar>
 </List>

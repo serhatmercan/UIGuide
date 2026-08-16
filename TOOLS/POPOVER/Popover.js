@@ -7,7 +7,7 @@ sap.ui.define([
 	"sap/m/Toolbar",
 	"sap/ui/core/Fragment",
 	"sap/ui/model/json/JSONModel"
-], (BaseController, Button, Image, Popover, PlacementType, Toolbar, JSONModel, Fragment) => {
+], (BaseController, Button, Image, Popover, PlacementType, Toolbar, Fragment, JSONModel) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {

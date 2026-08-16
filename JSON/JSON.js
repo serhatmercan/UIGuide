@@ -45,10 +45,10 @@ sap.ui.define([
 			const oViewModel = this.getModel("model");
 			const aItems = [...oViewModel.getProperty("/Items")];
 			const iIndex = this.byId("Table").getSelectedIndices()[0];
+			const oSelectedData = aItems[iIndex];
 			let iID = 1;
 
-			if (aItems.length !== 0) {
-				const oSelectedData = aItems[iIndex];
+			if (oSelectedData) {
 				iID = +oSelectedData.ID + 1;
 
 				aItems.forEach(oItem => {

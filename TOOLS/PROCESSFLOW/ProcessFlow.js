@@ -13,6 +13,7 @@ sap.ui.define([
 		onInit() {
 			this.getRouter().getRoute("Main").attachPatternMatched(this.patternMatched, this);
 
+			// Photo paths reference logo assets that are not shipped with this example; the flow renders without them.
 			const oViewModel = new JSONModel({
 				Experience: {
 					Positions: [

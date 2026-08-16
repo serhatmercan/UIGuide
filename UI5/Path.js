@@ -10,4 +10,4 @@ const sPathFromModel = oEvent.getSource().getParent().getBindingContext("model")
 // From View
 const oView = this.getView();
 const sBindingPathFromView = oView.getBindingContext().getPath();
-const sData = oView.getModel().getProperty(sPath + "/Data");
+const sData = oView.getModel().getProperty(sBindingPathFromView + "/Data");

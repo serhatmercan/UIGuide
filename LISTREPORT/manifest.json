@@ -25,20 +25,6 @@
 								}
 							}
 						}
-					}
-				},
-				"sap.ui.viewExtensions": {
-					"sap.suite.ui.generic.template.ListReport.view.ListReport": {
-						"GridTableColumnsExtension|MainSet": {
-							"type": "XML",
-							"className": "sap.ui.core.Fragment",
-							"fragmentName": "com.serhatmercan.ext.view.ListReport"
-						},
-						"SmartFilterBarControlConfigurationExtension|ConfirmationSet": {
-							"className": "sap.ui.core.Fragment",
-							"fragmentName": "com.serhatmercan.ext.fragment.CustomFilter",
-							"type": "XML"
-						}
 					},
 					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
 						"controllerName": "com.serhatmercan.ext.controller.ObjectPageExt",
@@ -56,7 +42,23 @@
 									}
 								}
 							}
+						}
+					}
+				},
+				"sap.ui.viewExtensions": {
+					"sap.suite.ui.generic.template.ListReport.view.ListReport": {
+						"GridTableColumnsExtension|MainSet": {
+							"type": "XML",
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.view.ListReport"
 						},
+						"SmartFilterBarControlConfigurationExtension|ConfirmationSet": {
+							"className": "sap.ui.core.Fragment",
+							"fragmentName": "com.serhatmercan.ext.fragment.CustomFilter",
+							"type": "XML"
+						}
+					},
+					"sap.suite.ui.generic.template.ObjectPage.view.Details": {
 						"GridTableColumnsExtension|DetailSet|Items::com.sap.vocabularies.UI.v1.LineItem": {
 							"className": "sap.ui.core.Fragment",
 							"fragmentName": "com.serhatmercan.ext.view.DetailExt",

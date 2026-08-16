@@ -9,7 +9,7 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/m/UploadCollectionParameter",
 	"sap/m/PDFViewer"
-], (BaseController, Filter, FilterOperator, JSONModel, MessageToast, Button, Dialog, UploadCollectionParameter, PDFViewer) => {
+], (BaseController, HTML, Filter, FilterOperator, JSONModel, Button, Dialog, MessageToast, UploadCollectionParameter, PDFViewer) => {
 	"use strict";
 
 	return BaseController.extend("com.serhatmercan.Controller", {
@@ -20,6 +20,7 @@ sap.ui.define([
 
 		onInit() {
 			this.setModel(new JSONModel({
+				DeletedDocuments: [],
 				DocumentUrl: "",
 				Documents: [],
 				Value: ""
@@ -48,7 +49,7 @@ sap.ui.define([
 		},
 
 		onBUSDocument(oEvent) {
-			const { addHeaderParameter: oAddHeaderParameter, fileName: sFileName } = oEvent.getParameter();
+			const { addHeaderParameter: oAddHeaderParameter, fileName: sFileName } = oEvent.getParameters();
 
 			oAddHeaderParameter(new UploadCollectionParameter({
 				name: "slug",
@@ -89,10 +90,10 @@ sap.ui.define([
 			const oDocumentUC = sap.ui.core.Fragment.byId(this.getView().getId(), "DocumentUC");
 			const aOriginDocuments = oDocumentUC.getBinding("items").getCurrentContexts();
 			const aNewDocuments = oDocumentUC.getItems();
-			const aOriginDocumentIDs = aOriginDocuments.map(({ getObject }) => ({ DocumentID: getObject("DocumentID") }));
-			const aNewDocumentIDs = aNewDocuments.map(({ getBindingContext, getDocumentId }) => ({
-				DocumentID: getBindingContext().getProperty("DocumentID"),
-				DocumentId: getDocumentId()
+			const aOriginDocumentIDs = aOriginDocuments.map(oOriginDocument => ({ DocumentID: oOriginDocument.getObject("DocumentID") }));
+			const aNewDocumentIDs = aNewDocuments.map(oNewDocument => ({
+				DocumentID: oNewDocument.getBindingContext().getProperty("DocumentID"),
+				DocumentId: oNewDocument.getDocumentId()
 			}));
 			const aDeletedDocumentIDs = aOriginDocumentIDs.filter(({ DocumentID }) =>
 				!aNewDocumentIDs.some(oNewDoc => oNewDoc.DocumentID === DocumentID)
@@ -119,7 +120,7 @@ sap.ui.define([
 			const sServiceURL = oModel.sServiceUrl;
 			const sBindingPath = oEvent.getSource().getBindingContext().getPath();
 			const sDocumentID = oModel.getProperty(`${sBindingPath}/DocumentID`);
-			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { sDocumentID })}/$value`;
+			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { DocumentID: sDocumentID })}/$value`;
 
 			window.open(sDocumentPath, "_blank");
 		},
@@ -155,7 +156,7 @@ sap.ui.define([
 			const sBindingPath = oEvent.getSource().getBindingContext().getPath();
 			const sFileName = oModel.getProperty(`${sBindingPath}/Filename`);
 			const sDocumentID = oModel.getProperty(`${sBindingPath}/DocumentID`);
-			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { sDocumentID })}/$value`;
+			const sDocumentPath = `${sServiceURL}${oModel.createKey("/DocumentSet", { DocumentID: sDocumentID })}/$value`;
 			const sLoadEvent = "sap.ui.getCore().getEventBus().publish('com.sm.serhatmercan', 'PDFLoaded')";
 			const sSource = `<iframe name='PDF' src='${jQuery.sap.encodeHTML(sDocumentPath)}' onLoad='${jQuery.sap.encodeHTML(sLoadEvent)}' height='100%' width='100%'/>`;
 
@@ -177,7 +178,7 @@ sap.ui.define([
 			this.oFrame.open();
 		},
 
-		onShowDocument(oEvent) {
+		onShowDocumentInNewTab(oEvent) {
 			const oModel = this.getModel();
 			const oViewModel = this.getModel("model");
 			const sBindingPath = oEvent.getSource().getBindingContext("model").getPath();
@@ -289,7 +290,7 @@ sap.ui.define([
 
 			this._getSingleData(oKey, oModel)
 				.then((oData) => {
-					this.getModel("viewModel").setProperty("/Documents", oData.DocNumber !== "" ? [oData] : []);
+					this.getModel("model").setProperty("/Documents", oData.DocNumber !== "" ? [oData] : []);
 				})
 				.catch(() => { })
 				.finally(() => { });

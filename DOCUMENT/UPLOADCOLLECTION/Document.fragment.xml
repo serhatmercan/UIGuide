@@ -18,7 +18,7 @@
 <!-- DOCUMENT - CONTENT -->
 <!--
 <List items="{model>/Documents}">
-	<StandardListItem description="{model>Filename}" info="{model>MimeType}" title="{model>Doknr}" type="Active" press="onShowDocument"/>
+	<StandardListItem description="{model>Filename}" info="{model>MimeType}" title="{model>Doknr}" type="Active" press="onShowDocumentInNewTab"/>
 </List>
 
 <UploadCollection items="{model>/Documents}" beforeUploadStarts="onBUSDocument" change="onUCDocument" fileDeleted="onFDSingleDocument" uploadComplete="onUpdCmpDocument">
