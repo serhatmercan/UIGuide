@@ -61,7 +61,7 @@ This repo spans multiple SAPUI5 generations on purpose. Legacy APIs (`sap.ui.get
 | `PAGE/` | OData association (`ASSOCIATION/`) and routing (`NAVIGATION/`) mini-apps. |
 | `PROMISE/` | `Promise`/async patterns reference. |
 | `TEMPLATE/` | Minimal controller+view scaffold used as a starting point for new examples. |
-| `UI5/` | Misc. core UI5 references: expression binding, `sap.m.MessageBox`-adjacent `Message.js`, `Path.js`, `Shell.js`. |
+| `UI5/` | Misc. core UI5 references: expression binding, `sap.m.MessageBox`-adjacent `Message.js`, `Path.js`, `Shell.js`, plus `BindingDiagnostics.js`, a DevTools console snippet that inventories OData list bindings. |
 | `docs/` | [`SAPUI5-Development-Rules.md`](docs/SAPUI5-Development-Rules.md) — the coding-standard rules this repo's *new* code follows (not retroactive — see below). |
 
 ### TOOLS folder-naming suffixes
@@ -130,6 +130,10 @@ This repo has not had a uniform pass — different areas have gotten different l
 - `TOOLS/PROCESSFLOW` — the decorative logo assets are not shipped; the example renders without them
 
 The last two were inspected for those specific findings, not read line by line. The `minUI5Version` / `neo-app.json` mismatch under [Compatibility](#compatibility) is also unresolved by design.
+
+**Added under the current rules, not run against a live system**:
+
+- `UI5/BindingDiagnostics.js` — written to `docs/SAPUI5-Development-Rules.md` and read in full, but never executed in a running UI5 application
 
 **Classified/scanned only — not line-by-line reviewed**:
 
