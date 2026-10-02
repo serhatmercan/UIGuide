@@ -144,6 +144,26 @@ These were scanned repository-wide for high-value risks — secrets, customer or
 
 Across every bucket, legacy APIs and commented-out alternatives were left in place deliberately: this is a multi-generation SAPUI5 reference, and the older form is frequently the point of the example. Deterministic defects were corrected; legacy patterns were not modernized.
 
+## Related guides
+
+| Guide | Focus |
+|---|---|
+| [ABAPGuide](https://github.com/serhatmercan/ABAPGuide) | ABAP language and techniques, classic to modern |
+| [CDSGuide](https://github.com/serhatmercan/CDSGuide) | ABAP CDS, structured route through both generations |
+| [CDS-Cookbook](https://github.com/serhatmercan/CDS-Cookbook) | CDS and AMDP pattern library |
+| [GWGuide](https://github.com/serhatmercan/GWGuide) | SAP Gateway: SEGW and OData V2 |
+| **UIGuide** (this repository) | SAPUI5 and Fiori control and pattern reference |
+| [JSGuide](https://github.com/serhatmercan/JSGuide) | Plain JavaScript and browser APIs |
+| [PYGuide](https://github.com/serhatmercan/PYGuide) | Python reference with verified outputs |
+
+## Author
+
+**Serhat Mercan** — SAP BTP & AI Technical Lead | Generative AI for SAP | ABAP & SAP Fiori/UI5
+
+- LinkedIn: [serhat-mercan](https://www.linkedin.com/in/serhat-mercan/)
+- E-mail: serhatmercan94@gmail.com
+- GitHub: [serhatmercan](https://github.com/serhatmercan)
+
 ## License
 
 MIT — see [`LICENSE`](LICENSE). This covers the example code and notes in this repository only. SAPUI5, Fiori, and related APIs, controls, and trademarks referenced throughout remain the property of SAP SE; this repo does not grant any rights to them.
